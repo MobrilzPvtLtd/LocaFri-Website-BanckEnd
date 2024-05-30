@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home3/ultimm7k/locafri.ultimatetrueweb.com
+    - /bin/cp -R . $DEPLOYPATH
