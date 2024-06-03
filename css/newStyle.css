@@ -1,0 +1,18 @@
+.contact_form_inner{
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    align-items: center;
+}
+.ankit_01 {
+    width: 40vw;
+}
+.contact_form_inner_right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 8vw !important;
+    margin-bottom: 20px;
+    padding: 0;
+    height: 7vw;
+}

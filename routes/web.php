@@ -6,6 +6,8 @@ use App\Livewire\Privacy;
 use App\Livewire\Terms;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Frontend\CarController;
+
 /*
 *
 * Auth Routes
@@ -24,6 +26,11 @@ require __DIR__.'/auth.php';
 
 // home route
 Route::get('home', [FrontendController::class, 'index'])->name('home');
+
+
+Route::view('/cars', 'frontend.cars');
+Route::view('/keybox', 'frontend.keybox');
+Route::view('/contact', 'frontend.contact');
 
 // Language Switch
 Route::get('language/{language}', [LanguageController::class, 'switch'])->name('language.switch');
