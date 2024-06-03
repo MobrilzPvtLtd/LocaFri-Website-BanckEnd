@@ -18315,3 +18315,13 @@ h2.k_text001 {
    width:100%;
    -webkit-border-radius: 5px 5px 5px 5px;
 }
+
+select.language-switcher {
+    background-color: #f36a21;
+    color: #fff;
+    padding: 10px;
+}
+option {
+    background-color: #f36a21;
+    color: #fff;
+}
