@@ -1,7 +1,7 @@
 @extends('frontend.layouts.loca')
 
 @section('title')
-{{ app_name() }} - Cars
+{{ app_name() }} - Keybox
 @endsection
 
 @section('content')
