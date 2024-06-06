@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Vehicle;
 
 class FrontendController extends Controller
 {
@@ -35,4 +37,11 @@ class FrontendController extends Controller
     {
         return view('frontend.terms');
     }
+
+    public function cars(){
+        // $vehicles = Vehicle::all();
+        $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
+        return view('frontend.cars',compact('vehicles'));
+    }
 }
+

@@ -30,7 +30,7 @@ $notifications_latest = optional($notifications)->take(5);
                 @endif
             </a>
         </li>
-        
+
         @can('view_posts')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.posts.index') }}">
@@ -38,6 +38,47 @@ $notifications_latest = optional($notifications)->take(5);
                 </a>
             </li>
         @endcan
+        @can('view_logs')
+            <li class="nav-group" aria-expanded="true">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('Vehicle Management')
+                </a>
+                <ul class="nav-group-items compact" style="height: auto;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/vehicle">
+                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> Vehicle
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/alert">
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Alert
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endcan
+         @can('view_logs')
+            <li class="nav-group" aria-expanded="true">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="fa-solid fa-hotel"></i></i>&nbsp;@lang('Reservation Management')
+                </a>
+                <ul class="nav-group-items compact" style="height: auto;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/reservation">
+                            <span class="nav-icon"><span class="fa-sharp fa-solid fa-hotel"></span></span>  Reservations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/contract">
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Contracts
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endcan
+
         @can('view_categories')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.categories.index') }}">

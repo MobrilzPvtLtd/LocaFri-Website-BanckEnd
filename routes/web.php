@@ -7,6 +7,9 @@ use App\Livewire\Terms;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Frontend\CarController;
+use App\Http\Controllers\Backend\VehicleController;
+use App\Http\Controllers\Backend\AlertController;
+
 
 /*
 *
@@ -23,12 +26,21 @@ require __DIR__.'/auth.php';
 *
 * --------------------------------------------------------------------
 */
+        // Backend routes
+
+// vehicle
+Route::resource('admin/vehicle', VehicleController::class);
+// alert
+Route::resource('admin/alert', AlertController::class);
+
+
+
 
 // home route
 Route::get('home', [FrontendController::class, 'index'])->name('home');
+// cars
+Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
 
-
-Route::view('/cars', 'frontend.cars');
 Route::view('/keybox', 'frontend.keybox');
 Route::view('/contact', 'frontend.contact');
 
