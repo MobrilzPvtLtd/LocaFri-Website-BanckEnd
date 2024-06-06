@@ -15,7 +15,9 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        return view('frontend.index');
+        $vehicles = Vehicle::where('featured', true)->get();
+        // $vehicles = Vehicle::all();
+        return view('frontend.index',compact('vehicles'));
     }
 
     /**

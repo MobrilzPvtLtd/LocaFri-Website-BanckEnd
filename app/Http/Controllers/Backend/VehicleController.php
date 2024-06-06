@@ -45,10 +45,11 @@ class VehicleController extends Controller
                 $imagePaths[] = 'uploads/' . $filename;
             }
         }
-        $vehicleData = $request->except('image');
+        $vehicleData = $request->except('image', 'featured');
         $vehicleData['image'] = serialize($imagePaths);
+        $vehicleData['featured'] = $request->has('featured');
         Vehicle::create($vehicleData);
-        // Vehicle::create($request->post());
+
         return redirect()->route('vehicle.index')->with('success', 'vehicle has been created successfully.');
     }
     public function show()
@@ -81,8 +82,22 @@ class VehicleController extends Controller
         ]);
 
         $vehicle = Vehicle::findOrFail($id);
-        $imagePaths = unserialize($vehicle->image);
+        $imagePaths = [];
 
+        // Attempt to unserialize existing images
+        try {
+            $imagePaths = unserialize($vehicle->image);
+        } catch (\Exception $e) {
+            // Handle the error (log it if necessary)
+            $imagePaths = [];
+        }
+
+        // Ensure $imagePaths is an array
+        if (!is_array($imagePaths)) {
+            $imagePaths = [];
+        }
+
+        // Handle new image uploads
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
                 $extension = $file->getClientOriginalExtension();
@@ -92,13 +107,21 @@ class VehicleController extends Controller
             }
         }
 
-        $vehicleData = $request->except('image');
+        $vehicleData = $request->except('image', 'featured');
         $vehicleData['image'] = serialize($imagePaths);
+        $vehicleData['featured'] = $request->has('featured');
 
-        $vehicle->update($vehicleData);
+        try {
+            $vehicle->update($vehicleData);
+        } catch (\Exception $e) {
+            // Handle the error (log it if necessary)
+            return redirect()->back()->with('error', 'There was an error updating the vehicle: ' . $e->getMessage());
+        }
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been updated successfully.');
     }
+
+
 
     public function destroy(Vehicle $vehicle)
     {

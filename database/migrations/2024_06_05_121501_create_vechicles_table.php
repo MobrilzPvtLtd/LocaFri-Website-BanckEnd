@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('trans');
             $table->string('exterior');
             $table->string('interior');
+            $table->boolean('featured');
             $table->timestamps();
         });
     }

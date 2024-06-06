@@ -78,6 +78,10 @@
                                     <input type="text" class="form-control" name="interior" value="{{ $vehicle->interior }}"
                                         placeholder="">
                                 </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="featured">Featured</label>
+                                    <input type="checkbox" name="featured" value="1" {{ $vehicle->featured ? 'checked' : '' }}>
+                                </div>
 
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
