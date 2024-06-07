@@ -40,6 +40,8 @@ Route::resource('admin/alert', AlertController::class);
 Route::get('home', [FrontendController::class, 'index'])->name('home');
 // cars
 Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
+// cardetails
+Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->name('carsdetails');
 
 Route::view('/keybox', 'frontend.keybox');
 Route::view('/contact', 'frontend.contact');

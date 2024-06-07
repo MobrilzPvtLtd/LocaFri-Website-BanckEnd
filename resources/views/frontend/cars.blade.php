@@ -231,350 +231,350 @@
                                                 </div>
                                                 <div class="d-price">
                                                     Prix <span>35.-/1 jour</span>
-                                                    <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                    <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">Rent Now</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/2-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>79</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">7</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel.</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel</span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/2-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>79</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">7</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel.</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel</span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/3-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>55</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/3-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>55</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/4-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>89</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/4-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>89</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/5-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>87</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/5-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>87</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/6-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>37</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>35.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/6-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>37</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>35.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/7-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>39</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>40.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/7-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>39</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>40.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/12-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>23</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">9</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel.</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>89.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/12-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>23</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">9</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel.</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>89.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/8-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>63</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>35.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/8-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>63</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>35.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/9-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>45</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/9-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>45</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/10-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>61</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/10-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>61</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique</span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/11-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>61</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique </span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>45.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/11-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>61</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Essence </span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Automatique </span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>45.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/car_14-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>61</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">3</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel</span>
-                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>80.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/car_14-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>61</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">3</span>
+                                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">Diesel</span>
+                                                            <span class="d-atr"><img src="images/icons/3.svg" alt="">5</span>
+                                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">Manuel </span>
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>80.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
-                                {{-- <div class="col-xl-4 col-lg-6">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img src="images/cars/car_8-removebg-preview.png" class="img-fluid" alt="">
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Car name</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>69</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">3</span>
-                                            <!-- <span class="d-atr"><img src="images/icons/2.svg" alt="">2</span>
-                                                    <span class="d-atr"><img src="images/icons/3.svg" alt="">4</span>
-                                                    <span class="d-atr"><img src="images/icons/4.svg" alt="">Exotic Car</span> -->
-                                        </div>
-                                        <div class="d-price">
-                                            Prix <span>30.-/1 jour</span>
-                                            <a class="btn-main" href="car-single.html">Rent Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                                                {{-- <div class="col-xl-4 col-lg-6">
+                                            <div class="de-item mb30">
+                                                <div class="d-img">
+                                                    <img src="images/cars/car_8-removebg-preview.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>Car name</h4>
+                                                        <div class="d-item_like">
+                                                            <i class="fa fa-heart"></i><span>69</span>
+                                                        </div>
+                                                        <div class="d-atr-group">
+                                                            <span class="d-atr"><img src="images/icons/1.svg" alt="">3</span>
+                                                            <!-- <span class="d-atr"><img src="images/icons/2.svg" alt="">2</span>
+                                                                    <span class="d-atr"><img src="images/icons/3.svg" alt="">4</span>
+                                                                    <span class="d-atr"><img src="images/icons/4.svg" alt="">Exotic Car</span> -->
+                                                        </div>
+                                                        <div class="d-price">
+                                                            Prix <span>30.-/1 jour</span>
+                                                            <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
                             @endforeach
 

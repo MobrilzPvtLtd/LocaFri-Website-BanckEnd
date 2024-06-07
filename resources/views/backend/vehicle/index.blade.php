@@ -17,6 +17,7 @@
                                     <th scope="col">Company</th>
                                     <th scope="col">Model</th>
                                     <th scope="col">Type</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Kilometers</th>
                                     <th scope="col">Body</th>
@@ -38,6 +39,7 @@
                                         <td>{{ $vehicle->name }}</td>
                                         <td>{{ $vehicle->model }}</td>
                                         <td>{{ $vehicle->type }}</td>
+                                        <td>{{ $vehicle->desc}}</td>
                                         <td>
                                             @php
                                                 $images = unserialize($vehicle->image);
@@ -59,6 +61,9 @@
                                         <td>{{ $vehicle->trans }}</td>
                                         <td>{{ $vehicle->exterior }}</td>
                                         <td>{{ $vehicle->interior }}</td>
+                                        <td>{{ $vehicle->slug}}</td>
+
+
                                         <td>
                                             <form action="{{ route('vehicle.destroy', $vehicle->id) }}" method="Post">
                                                 <a class="btn btn-primary"

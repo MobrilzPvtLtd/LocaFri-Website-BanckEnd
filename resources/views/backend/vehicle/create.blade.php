@@ -27,6 +27,11 @@
                                     <input type="text" class="form-control" name="type" value="" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
+                                    <label for="desc">Description</label>
+                                    <textarea class="form-control" name="desc" placeholder=""></textarea>
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
                                     <input type="file" class="form-control" name="image[]" value="" placeholder=""
                                         multiple>

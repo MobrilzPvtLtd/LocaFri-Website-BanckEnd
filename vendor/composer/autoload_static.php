@@ -112,6 +112,7 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Clock\\' => 24,
             'Spatie\\TemporaryDirectory\\' => 26,
+            'Spatie\\Sluggable\\' => 17,
             'Spatie\\SignalAwareCommand\\' => 26,
             'Spatie\\Permission\\' => 18,
             'Spatie\\MediaLibrary\\' => 20,
@@ -386,6 +387,10 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'Spatie\\TemporaryDirectory\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
+        ),
+        'Spatie\\Sluggable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-sluggable/src',
         ),
         'Spatie\\SignalAwareCommand\\' => 
         array (
@@ -716,6 +721,7 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\SocialLoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/SocialLoginController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
+        'App\\Http\\Controllers\\Backend\\AlertController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/AlertController.php',
         'App\\Http\\Controllers\\Backend\\BackendBaseController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/BackendBaseController.php',
         'App\\Http\\Controllers\\Backend\\BackendController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/BackendController.php',
         'App\\Http\\Controllers\\Backend\\BackupController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/BackupController.php',
@@ -723,6 +729,7 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'App\\Http\\Controllers\\Backend\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/RolesController.php',
         'App\\Http\\Controllers\\Backend\\SettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/SettingController.php',
         'App\\Http\\Controllers\\Backend\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/UserController.php',
+        'App\\Http\\Controllers\\Backend\\VehicleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/VehicleController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Frontend\\FrontendController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/FrontendController.php',
         'App\\Http\\Controllers\\Frontend\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/UserController.php',
@@ -745,6 +752,7 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'App\\Livewire\\RecentPosts' => __DIR__ . '/../..' . '/app/Livewire/RecentPosts.php',
         'App\\Livewire\\Terms' => __DIR__ . '/../..' . '/app/Livewire/Terms.php',
         'App\\Livewire\\UsersIndex' => __DIR__ . '/../..' . '/app/Livewire/UsersIndex.php',
+        'App\\Models\\Alert' => __DIR__ . '/../..' . '/app/Models/Alert.php',
         'App\\Models\\BaseModel' => __DIR__ . '/../..' . '/app/Models/BaseModel.php',
         'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
@@ -754,6 +762,7 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'App\\Models\\Traits\\HasHashedMediaTrait' => __DIR__ . '/../..' . '/app/Models/Traits/HasHashedMediaTrait.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserProvider' => __DIR__ . '/../..' . '/app/Models/UserProvider.php',
+        'App\\Models\\Vehicle' => __DIR__ . '/../..' . '/app/Models/Vehicle.php',
         'App\\Notifications\\NewRegistrationNotification' => __DIR__ . '/../..' . '/app/Notifications/NewRegistrationNotification.php',
         'App\\Notifications\\NewRegistrationNotificationForSocial' => __DIR__ . '/../..' . '/app/Notifications/NewRegistrationNotificationForSocial.php',
         'App\\Notifications\\UserAccountCreated' => __DIR__ . '/../..' . '/app/Notifications/UserAccountCreated.php',
@@ -6911,6 +6920,10 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'Spatie\\SignalAwareCommand\\SignalAwareCommand' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/SignalAwareCommand.php',
         'Spatie\\SignalAwareCommand\\SignalAwareCommandServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/SignalAwareCommandServiceProvider.php',
         'Spatie\\SignalAwareCommand\\Signals' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/Signals.php',
+        'Spatie\\Sluggable\\Exceptions\\InvalidOption' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/Exceptions/InvalidOption.php',
+        'Spatie\\Sluggable\\HasSlug' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/HasSlug.php',
+        'Spatie\\Sluggable\\HasTranslatableSlug' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/HasTranslatableSlug.php',
+        'Spatie\\Sluggable\\SlugOptions' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/SlugOptions.php',
         'Spatie\\TemporaryDirectory\\Exceptions\\InvalidDirectoryName' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/InvalidDirectoryName.php',
         'Spatie\\TemporaryDirectory\\Exceptions\\PathAlreadyExists' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/PathAlreadyExists.php',
         'Spatie\\TemporaryDirectory\\TemporaryDirectory' => __DIR__ . '/..' . '/spatie/temporary-directory/src/TemporaryDirectory.php',

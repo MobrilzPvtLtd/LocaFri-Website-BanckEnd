@@ -19,14 +19,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap" />
-    <link href="css/mdb.min.css" rel="stylesheet" type="text/css" id="mdb" />
-    <link href="css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link href="css/coloring.css" rel="stylesheet" type="text/css" />
-    <link href="css/newStyle.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" id="bootstrap" />
+    <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet" type="text/css" id="mdb" />
+    <link href="{{ asset('css/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/coloring.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/newStyle.css') }}" rel="stylesheet" type="text/css" />
     <!-- color scheme -->
-    <link id="colors" href="css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
+    <link id="colors" href="{{ asset('css/colors/scheme-01.css') }}" rel="stylesheet" type="text/css" />
 
     <x-google-analytics />
 </head>
@@ -45,8 +45,9 @@
 
     @include('frontend.includes.footer')
 
-    <script src="js/plugins.js"></script>
-    <script src="js/designesia.js"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/designesia.js') }}"></script>
+
     <script
         src="https://maps.googleapis.com/maps/api/js?key=insert_your_api_key_here&libraries=places&callback=initPlaces"
         async="" defer=""></script>

@@ -391,7 +391,7 @@
                                             </div>
                                             <div class="d-price">
                                                 Prix <span>35.- / 1 jour</span>
-                                                <a class="btn-main" href="car-single.html">Rent Now</a>
+                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">Rent Now</a>
                                             </div>
                                         </div>
                                     </div>

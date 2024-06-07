@@ -45,5 +45,11 @@ class FrontendController extends Controller
         $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
         return view('frontend.cars',compact('vehicles'));
     }
+    public function cardetails($slug){
+        $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
+        // dd($vehicles);
+        return view('frontend.pages.carsdetails',compact('vehicles'));
+    }
+
 }
 

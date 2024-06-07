@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('model');
             $table->string('type');
+            $table->string('desc');
             $table->string('mitter');
             $table->string('image');
             $table->string('body');
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('exterior');
             $table->string('interior');
             $table->boolean('featured');
+            $table->string('slug');
             $table->timestamps();
         });
     }

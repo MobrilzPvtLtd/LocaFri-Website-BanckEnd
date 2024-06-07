@@ -25,6 +25,7 @@ class VehicleController extends Controller
             'name' => 'required',
             'model' => 'required',
             'type' => 'required',
+            'desc' => 'required',
             'mitter' => 'required',
             'body' => 'required',
             'seat' => 'required',
@@ -69,6 +70,7 @@ class VehicleController extends Controller
             'name' => 'required',
             'model' => 'required',
             'type' => 'required',
+            'desc' => 'required',
             'mitter' => 'required',
             'body' => 'required',
             'seat' => 'required',
@@ -88,7 +90,6 @@ class VehicleController extends Controller
         try {
             $imagePaths = unserialize($vehicle->image);
         } catch (\Exception $e) {
-            // Handle the error (log it if necessary)
             $imagePaths = [];
         }
 

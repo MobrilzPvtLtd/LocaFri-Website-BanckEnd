@@ -31,6 +31,10 @@
                                         placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
+                                    <label for="desc">Description</label>
+                                    <textarea class="form-control" name="desc" placeholder="">{{ $vehicle->desc}}</textarea>
+                                </div>
+                                <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
                                     <input type="file" class="form-control" name="image[]" value="{{ $vehicle->image }}"
                                         placeholder="" multiple>
