@@ -17,9 +17,21 @@ class FrontendController extends Controller
     {
         $vehicles = Vehicle::where('featured', true)->get();
         // $vehicles = Vehicle::all();
-        return view('frontend.index',compact('vehicles'));
+        return view('frontend.index', compact('vehicles'));
     }
 
+    public function cars()
+    {
+        // $vehicles = Vehicle::all();
+        $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
+        return view('frontend.cars', compact('vehicles'));
+    }
+    public function cardetails($slug)
+    {
+        $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
+        // dd($vehicles);
+        return view('frontend.pages.carsdetails', compact('vehicles'));
+    }
     /**
      * Privacy Policy Page.
      *
@@ -39,17 +51,8 @@ class FrontendController extends Controller
     {
         return view('frontend.terms');
     }
-
-    public function cars(){
-        // $vehicles = Vehicle::all();
-        $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
-        return view('frontend.cars',compact('vehicles'));
+    public function login()
+    {
+        return view('frontend.pages.login');
     }
-    public function cardetails($slug){
-        $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
-        // dd($vehicles);
-        return view('frontend.pages.carsdetails',compact('vehicles'));
-    }
-
 }
-
