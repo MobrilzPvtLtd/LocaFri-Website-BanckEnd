@@ -26,7 +26,7 @@
         @stack('after-styles')
 
         <x-google-analytics />
-    </head>
+    </head>.sidebar-brand-full
 
     <body>
 

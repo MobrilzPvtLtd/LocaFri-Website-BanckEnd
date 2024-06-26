@@ -44,6 +44,8 @@ Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
 Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->name('carsdetails');
 // login
 Route::get('/login', [FrontendController::class, 'login'])->name('login');
+// Register
+Route::get('/register', [FrontendController::class, 'register'])->name('register');
 
 Route::view('/keybox', 'frontend.keybox');
 Route::view('/contact', 'frontend.contact');

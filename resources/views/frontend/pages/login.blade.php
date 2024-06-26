@@ -4,6 +4,24 @@
     {{ app_name() }} - Cars
 @endsection
 @section('content')
+<style>
+    .form-border input[type=email]{
+        padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border: solid 2px #eeeeee;
+    background: rgba(0, 0, 0, .025);
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    height: auto;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    color: #333;
+}
+    
+</style>
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
         <section id="section-hero" aria-label="section" class="jarallax">
@@ -14,22 +32,29 @@
                         <div class="col-lg-4 offset-lg-4">
                             <div class="padding40 rounded-3 shadow-soft" data-bgcolor="#ffffff">
                                 <h4>Login</h4>
+                                <?php if ($errors->has('email')): ?>
+                                <span class="error"><?php echo $errors->first('email'); ?></span>
+                                <?php endif; ?>
+                                <?php if ($errors->has('password')): ?>
+                                <span class="error"><?php echo $errors->first('password'); ?></span>
+                                <?php endif; ?>
                                 <div class="spacer-10"></div>
-                                <form id="form_register" class="form-border" method="post" action="email.php">
+                                <form id="form_register" class="form-border" method="post" action="{{ route('login') }}">
+                                    @csrf
                                     <div class="field-set">
-                                        <input type="text" name="name" id="name" class="form-control"
-                                            placeholder="Your Name" />
+                                        <input type="email" name="email" id="name" class="form-control"
+                                            placeholder="Email" />
                                     </div>
                                     <div class="field-set">
-                                        <input type="text" name="name" id="name" class="form-control"
-                                            placeholder="Your Name" />
+                                        <input type="password" name="password" id="name" class="form-control"
+                                            placeholder="password " />
                                     </div>
                                     <div id="submit">
                                         <input type="submit" id="send_message" value="Sign In"
                                             class="btn-main btn-fullwidth rounded-3" />
                                     </div>
                                 </form>
-                                <div class="text-center"><a class="res001" href="register.html">don't have an account?</a>
+                                <div class="text-center"><a class="res001" href="{{ route('register') }}">don't have an account?</a>
                                 </div>
                                 <div class="title-line">Or&nbsp;</div>
                                 <div class="row g-2">

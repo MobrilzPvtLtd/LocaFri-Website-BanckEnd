@@ -39,15 +39,6 @@
                                     <p>No images available</p>
                                 @endif
                             </div>
-                            {{-- <div class="item">
-                                    <img src="images/car-single/WhatsApp Image 2024-04-26 at 10.50.38 (1).jpeg" alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="images/car-single/WhatsApp_Image_2024-04-26_at_10.50.39-removebg-preview.png" alt="">
-                                </div> --}}
-                            <!-- <div class="item">
-                                            <img src="images/car-single/4.jpg" alt="">
-                                        </div> -->
                         </div>
                     </div>
 

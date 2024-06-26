@@ -45,10 +45,10 @@
         <!-- /Sidebar -->
 
         <div class="wrapper d-flex flex-column min-vh-100">
-          
+
           {{-- header --}}
           @include('backend.includes.header')
-          
+
           <div class="body flex-grow-1">
                 <div class="container-lg">
 
@@ -63,7 +63,7 @@
                     <!-- / Main content block -->
 
                 </div>
-            </div>            
+            </div>
 
             {{-- Footer block --}}
             <x-backend.includes.footer />

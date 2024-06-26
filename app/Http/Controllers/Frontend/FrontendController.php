@@ -55,4 +55,8 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.login');
     }
+    public function register()
+    {
+        return view('frontend.pages.register');
+    }
 }
