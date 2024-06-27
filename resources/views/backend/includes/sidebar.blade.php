@@ -22,6 +22,25 @@ $notifications_latest = optional($notifications)->take(5);
                 <i class="nav-icon fa-solid fa-cubes"></i>&nbsp;@lang('Dashboard')
             </a>
         </li>
+        @can('enquirys')
+            <li class="nav-group" aria-expanded="true">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')
+                </a>
+                <ul class="nav-group-items compact" style="height: auto;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Contact enquiry
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Daily Log
+                        </a>
+                    </li> --}}
+                </ul>
+            </li>
+        @endcan
         <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.notifications.index') }}">
                 <i class="nav-icon fa-regular fa-bell"></i>&nbsp;@lang('Notifications')
@@ -31,7 +50,7 @@ $notifications_latest = optional($notifications)->take(5);
             </a>
         </li>
 
-        @can('view_posts')
+     @can('view_posts')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.posts.index') }}">
                     <i class="nav-icon fa-regular fa-file-lines"></i>&nbsp;@lang('Posts')
@@ -45,28 +64,34 @@ $notifications_latest = optional($notifications)->take(5);
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/vehicle">
-                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> Vehicle
+                        <a class="nav-link" href="{{ route('vehicle.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> Vehicles
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('alert.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Alert
+                            Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/alert">
-                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Alert
-                            Settings
+                        <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> Update Vehicle Status
                         </a>
                     </li>
                 </ul>
             </li>
         @endcan
-         @can('view_logs')
+        @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
                     <i class="fa-solid fa-hotel"></i></i>&nbsp;@lang('Reservation Management')
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/reservation">
-                            <span class="nav-icon"><span class="fa-sharp fa-solid fa-hotel"></span></span>  Reservations
+                        <a class="nav-link" href="{{ route('reservation.index') }}">
+                            <span class="nav-icon"><span class="fa-sharp fa-solid fa-hotel"></span></span> Reservations
                         </a>
                     </li>
                     <li class="nav-item">

@@ -577,7 +577,7 @@
                             <span class="pnb-text"> Call Us Now </span>
                             <span class="pnb-num"> +41 79 387 60 20</span>
                         </div>
-                        <a href="#" class="btn-main">Contact Us</a>
+                        <a href="/contact" class="btn-main">Contact Us</a>
                     </div>
                 </div>
             </div>

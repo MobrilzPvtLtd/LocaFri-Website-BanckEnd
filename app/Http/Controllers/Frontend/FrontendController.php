@@ -59,4 +59,9 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.register');
     }
+    public function contact()
+    {
+
+        return view('frontend.contact');
+    }
 }

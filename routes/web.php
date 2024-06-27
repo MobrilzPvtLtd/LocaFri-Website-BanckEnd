@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CarController;
 use App\Http\Controllers\Backend\VehicleController;
 use App\Http\Controllers\Backend\AlertController;
-
+use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Backend\ContactsController;
+use App\Http\Controllers\Backend\VehiclestatusController;
+use App\Http\Controllers\Backend\ReservationController;
 
 /*
 *
@@ -26,16 +29,27 @@ require __DIR__.'/auth.php';
 *
 * --------------------------------------------------------------------
 */
-        // Backend routes
+        // Backend routes//
 
 // vehicle
 Route::resource('admin/vehicle', VehicleController::class);
+// vehiclestatus
+Route::resource('admin/vehiclestatus', VehiclestatusController::class);
 // alert
 Route::resource('admin/alert', AlertController::class);
+// contact
+Route::resource('admin/contact', ContactsController::class);
+
+// Reservation
+Route::resource('admin/reservation', ReservationController::class);
 
 
 
 
+//frontend routes
+
+// contact
+Route::post('contact', [ContactController::class, 'submit'])->name('contact.submit');
 // home route
 Route::get('home', [FrontendController::class, 'index'])->name('home');
 // cars
@@ -46,9 +60,10 @@ Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->nam
 Route::get('/login', [FrontendController::class, 'login'])->name('login');
 // Register
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
+Route::get('contact', [FrontendController::class, 'contact'])->name('contact');
 
 Route::view('/keybox', 'frontend.keybox');
-Route::view('/contact', 'frontend.contact');
+
 
 // Language Switch
 Route::get('language/{language}', [LanguageController::class, 'switch'])->name('language.switch');
