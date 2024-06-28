@@ -4,28 +4,43 @@
     <div class="card">
         <div class="card-body">
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('vehiclestatus.index') }}" enctype="multipart/form-data">
+                <a class="btn btn-primary" href="{{ route('reservation.index') }}" enctype="multipart/form-data">
                     Back</a>
             </div>
             <div class="row mt-4">
                 <div class="col">
                     <div class="container mt-5">
-                        <form method="post" action="{{ route('vehiclestatus.update', $vehiclestatus->id) }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('reservation.update', $reservation->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Kilometers</label>
-                                    <input type="number" class="form-control" name="kilometer" value="{{ $vehiclestatus->kilometer }}" placeholder="">
+                                    <label for="city">Customer Name</label>
+                                    <input type="text" class="form-control" name="name"  value="{{ $reservation->name }}" placeholder="">
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Vehicle Details</label>
+                                    <input type="text" class="form-control" name="details"  value="{{ $reservation->details }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Fuel Level</label>
-                                    <input type="Number" class="form-control" name="fule" value="{{ $vehiclestatus->fule }}" placeholder="">
+                                    <label for="city">Rental Dates Start</label>
+                                    {{-- <label for="city">{{ $reservation->start }}</label> --}}
+                                    <input type="Date"class="form-control" name="start" value="{{ $reservation->start }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Damage Records</label>
-                                    <textarea type="text" class="form-control" name="damage" value="" placeholder="">{{ $vehiclestatus->damage }}</textarea>
+                                    <label for="city">Rental Dates End</label>
+                                    <input type="Date"class="form-control" name="end" value="{{ $reservation->end }}" placeholder="">
+
                                 </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="method">Contact Method</label>
+                                    <select class="form-control" name="method">
+                                        <option value="{{ $reservation->method }}">{{ $reservation->method }}</option>
+                                        <option value="phone">Phone</option>
+                                    </select>
+                                </div>
+
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

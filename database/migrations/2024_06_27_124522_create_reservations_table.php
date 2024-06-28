@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('details');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->string('method');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -16,13 +16,32 @@
                                     <th scope="col">Reservation ID</th>
                                     <th scope="col">Customer Name </th>
                                     <th scope="col"> Vehicle Details </th>
-                                    <th scope="col"> Rental Dates </th>
+                                    <th scope="col"> Rental Date start </th>
+                                    <th scope="col"> Rental Date End </th>
                                     <th scope="col"> Contact Method</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($reservations as $reservation)
+                                <tr>
+                                    <td>{{ $reservation->id }}</td>
+                                    <td>{{ $reservation->name }}</td>
+                                    <td>{{ $reservation->details }}</td>
+                                    <td>{{ $reservation->start }}</td>
+                                    <td>{{ $reservation->end }}</td>
+                                    <td>{{ $reservation->method }}</td>
+                                    <td>
+                                        <form action="{{ route('reservation.destroy', $reservation->id) }}" method="Post">
+                                            <a class="btn btn-primary"
+                                                href="{{ route('reservation.edit', $reservation->id) }}">Edit</a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

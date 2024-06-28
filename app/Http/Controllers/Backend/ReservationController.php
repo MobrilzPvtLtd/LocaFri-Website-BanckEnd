@@ -10,8 +10,8 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        // $reservations = Reservation::all();
-        return view('backend.reservation.index');
+        $reservations = Reservation::all();
+        return view('backend.reservation.index',compact('reservations'));
     }
     public function create()
     {
@@ -21,14 +21,16 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kilometer' => 'required',
-            'fule' => 'required',
-            'damage' => 'required',
+            'name' => 'required',
+            'details' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'method' => 'required',
         ]);
 
-        Vehiclestatus::create($request->post());
+        Reservation::create($request->post());
 
-        return redirect()->route('vehiclestatus.index')->with('success', 'vehiclestatus has been created successfully.');
+        return redirect()->route('reservation.index')->with('success', 'reservation has been created successfully.');
     }
     public function show()
     {
@@ -36,28 +38,30 @@ class ReservationController extends Controller
 
     public function edit($id)
     {
-        $vehiclestatus = Vehiclestatus::findOrFail($id);
-        return view('backend.vehiclestatus.edit', compact('vehiclestatus'));
+        $reservation = Reservation::findOrFail($id);
+        return view('backend.reservation.edit', compact('reservation'));
     }
 
 
     public function update(Request $request, $id)
     {
         $request->validate([
-           'kilometer' => 'required',
-            'fule' => 'required',
-            'damage' => 'required',
+            'name' => 'required',
+            'details' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'method' => 'required',
         ]);
 
-        $vehiclestatus = Vehiclestatus::findOrFail($id);
-        $vehiclestatus->update($request->all());
+        $reservations = Reservation::findOrFail($id);
+        $reservations->update($request->all());
 
-        return redirect()->route('vehiclestatus.index')->with('success', 'vehiclestatus has been updated successfully.');
+        return redirect()->route('reservation.index')->with('success', 'reservations has been updated successfully.');
     }
 
-    public function destroy(Vehiclestatus $vehiclestatus)
+    public function destroy(Reservation $reservation)
     {
-        $vehiclestatus->delete();
-        return redirect()->route('vehiclestatus.index');
+        $reservation->delete();
+        return redirect()->route('reservation.index');
     }
 }
