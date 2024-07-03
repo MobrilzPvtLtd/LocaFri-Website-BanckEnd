@@ -23,9 +23,16 @@
                                     <input type="text" class="form-control" name="model" value="" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Type</label>
-                                    <input type="text" class="form-control" name="type" value="" placeholder="">
+                                    <label for="type">Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="" disabled selected>Select Type</option>
+                                        <option value="Car">Car</option>
+                                        <option value="Van">Van</option>
+                                        <option value="Minibus">Minibus</option>
+                                        <option value="Prestige">Prestige</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="desc">Description</label>
                                     <textarea class="form-control" name="desc" placeholder=""></textarea>
@@ -44,13 +51,33 @@
                                     <input type="number" class="form-control" name="mitter" value="" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Body</label>
-                                    <input type="text" class="form-control" name="body" value="" placeholder="">
+                                    <label for="body">Body</label>
+                                    <select class="form-control" name="body">
+                                        <option value="" disabled selected>Select Body Type</option>
+                                        <option value="Convertible">Convertible</option>
+                                        <option value="Coupe">Coupe</option>
+                                        <option value="Exotic Cars">Exotic Cars</option>
+                                        <option value="Hatchback">Hatchback</option>
+                                        <option value="Minivan">Minivan</option>
+                                        <option value="Pickup Truck">Pickup Truck</option>
+                                        <option value="Sedan">Sedan</option>
+                                        <option value="Sports car">Sports car</option>
+                                        <option value="Station wagon">Station wagon</option>
+                                        <option value="SUV">SUV</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Seat</label>
-                                    <input type="text" class="form-control" name="seat" value="" placeholder="">
+                                    <label for="seat">Seat</label>
+                                    <select class="form-control" name="seat">
+                                        <option value="" disabled selected>Select Number of Seats</option>
+                                        <option value="2 seats">2 seats</option>
+                                        <option value="4 seats">4 seats</option>
+                                        <option value="6 seats">6 seats</option>
+                                        <option value="6+ seats">6+ seats</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Door</label>
                                     <input type="text" class="form-control" name="door" value="" placeholder="">

@@ -26,14 +26,14 @@ class BookingController extends Controller
         $booking->collectionTime = session()->get('collectionTime');
         $booking->save();
 
-        if (Auth::check()) {
-            $userEmail = Auth::user()->email;
-        } else {
-            return redirect()->back()->with('error', 'User is not authenticated.');
-        }
+        // if (Auth::check()) {
+        //     $userEmail = Auth::user()->email;
+        // } else {
+        //     return redirect()->back()->with('error', 'User is not authenticated.');
+        // }
 
         // Send the email
-        Mail::to($userEmail)->send(new EnquiryMail($booking));
+        // Mail::to($userEmail)->send(new EnquiryMail($booking));
         return redirect()->back()->with('success', 'Booking Successfully');
     }
 }

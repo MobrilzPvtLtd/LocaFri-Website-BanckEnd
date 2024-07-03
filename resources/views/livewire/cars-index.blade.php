@@ -1,16 +1,9 @@
-@extends('frontend.layouts.loca')
 
-@section('title')
-    {{ app_name() }} - Cars
-@endsection
-
-@section('content')
-<livewire:cars-index />
-    {{-- <div class="no-bottom no-top zebra" id="content">
-        <div id="top"></div> --}}
+    <div class="no-bottom no-top zebra" id="content">
+        <div id="top"></div>
 
         <!-- section begin -->
-        {{-- <section id="subheader" class="jarallax text-light">
+        <section id="subheader" class="jarallax text-light">
             <img src="images/background/2.jpg" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
                 <div class="container">
@@ -22,18 +15,18 @@
                     </div>
                 </div>
             </div>
-        </section> --}}
+        </section>
         <!-- section close -->
 
-        {{-- <section id="section-cars"> --}}
-            {{-- <div class="container">
+        <section id="section-cars">
+            <div class="container">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="item_filter_group">
                             <h4>Vehicle Type</h4>
                             <div class="de_form">
                                 <div class="de_checkbox">
-                                    <input id="vehicle_type_1" name="vehicle_type_1" type="checkbox" value="vehicle_type_1">
+                                    <input id="vehicle_type_1" name="type" type="checkbox" value="type">
                                     <label for="vehicle_type_1">Car</label>
                                 </div>
 
@@ -53,8 +46,8 @@
                                 </div>
 
                             </div>
-                        </div> --}}
-{{--
+                        </div>
+
                         <div class="item_filter_group">
                             <h4>Car Body Type</h4>
                             <div class="de_form">
@@ -145,7 +138,7 @@
                                 </div>
 
                             </div>
-                        </div> --}}
+                        </div>
 
                         <!-- <div class="item_filter_group">
                                                 <h4>Car Engine Capacity (cc)</h4>
@@ -173,7 +166,7 @@
                                                 </div>
                                             </div> -->
 
-                        {{-- <div class="item_filter_group">
+                        <div class="item_filter_group">
                             <h4>Price ($)</h4>
                             <div class="price-input">
                                 <div class="field">
@@ -195,10 +188,10 @@
                                     step="1">
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
-                    {{-- <div class="col-lg-9"> --}}
-                        {{-- <div class="row">
+                    <div class="col-lg-9">
+                        <div class="row">
                             @foreach ($vehicles as $vehicle)
                                 <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
@@ -247,7 +240,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
                                                 {{-- <div class="col-xl-4 col-lg-6">
                                             <div class="de-item mb30">
@@ -587,15 +580,11 @@
                                             </div>
                                         </div> --}}
 
-                            {{-- @endforeach --}}
-{{--
+                            @endforeach
+
                         </div>
-
-                            {{ $vehicles->links('pagination::custom-pagination') }}
-
-                    </div>
                 </div>
             </div>
         </section>
-    </div> --}}
-@endsection
+    </div>
+

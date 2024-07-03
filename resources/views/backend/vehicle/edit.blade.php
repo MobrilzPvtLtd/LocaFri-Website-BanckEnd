@@ -26,17 +26,27 @@
                                         placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Type</label>
-                                    <input type="text" class="form-control" name="type" value="{{ $vehicle->type }}"
-                                        placeholder="">
+                                    <label for="type">Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="" disabled {{ $vehicle->type ? '' : 'selected' }}>Select Type
+                                        </option>
+                                        <option value="Car" {{ $vehicle->type == 'Car' ? 'selected' : '' }}>Car</option>
+                                        <option value="Van" {{ $vehicle->type == 'Van' ? 'selected' : '' }}>Van</option>
+                                        <option value="Minibus" {{ $vehicle->type == 'Minibus' ? 'selected' : '' }}>Minibus
+                                        </option>
+                                        <option value="Prestige" {{ $vehicle->type == 'Prestige' ? 'selected' : '' }}>
+                                            Prestige</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="desc">Description</label>
                                     <textarea class="form-control" name="desc" placeholder="">{{ $vehicle->desc }}</textarea>
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Location</label>
-                                    <input type="text" class="form-control" name="location" value="{{ $vehicle->location }}" placeholder="">
+                                    <input type="text" class="form-control" name="location"
+                                        value="{{ $vehicle->location }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
@@ -45,19 +55,52 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Kilometers</label>
-                                    <input type="number" class="form-control" name="mitter" value="{{ $vehicle->mitter }}"
-                                        placeholder="">
+                                    <input type="number" class="form-control" name="mitter"
+                                        value="{{ $vehicle->mitter }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Body</label>
-                                    <input type="text" class="form-control" name="body" value="{{ $vehicle->body }}"
-                                        placeholder="">
+                                    <label for="body">Body</label>
+                                    <select class="form-control" name="body">
+                                        <option value="" disabled {{ $vehicle->body ? '' : 'selected' }}>Select Body
+                                            Type</option>
+                                        <option value="Convertible"
+                                            {{ $vehicle->body == 'Convertible' ? 'selected' : '' }}>Convertible</option>
+                                        <option value="Coupe" {{ $vehicle->body == 'Coupe' ? 'selected' : '' }}>Coupe
+                                        </option>
+                                        <option value="Exotic Cars"
+                                            {{ $vehicle->body == 'Exotic Cars' ? 'selected' : '' }}>Exotic Cars</option>
+                                        <option value="Hatchback" {{ $vehicle->body == 'Hatchback' ? 'selected' : '' }}>
+                                            Hatchback</option>
+                                        <option value="Minivan" {{ $vehicle->body == 'Minivan' ? 'selected' : '' }}>Minivan
+                                        </option>
+                                        <option value="Pickup Truck"
+                                            {{ $vehicle->body == 'Pickup Truck' ? 'selected' : '' }}>Pickup Truck</option>
+                                        <option value="Sedan" {{ $vehicle->body == 'Sedan' ? 'selected' : '' }}>Sedan
+                                        </option>
+                                        <option value="Sports car" {{ $vehicle->body == 'Sports car' ? 'selected' : '' }}>
+                                            Sports car</option>
+                                        <option value="Station wagon"
+                                            {{ $vehicle->body == 'Station wagon' ? 'selected' : '' }}>Station wagon
+                                        </option>
+                                        <option value="SUV" {{ $vehicle->body == 'SUV' ? 'selected' : '' }}>SUV</option>
+                                    </select>
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Seat</label>
-                                    <input type="text" class="form-control" name="seat" value="{{ $vehicle->seat }}"
-                                        placeholder="">
+                                    <label for="seat">Seat</label>
+                                    <select class="form-control" name="seat">
+                                        <option value="" disabled {{ $vehicle->seat ? '' : 'selected' }}>Select
+                                            Number of Seats</option>
+                                        <option value="2 seats" {{ $vehicle->seat == '2 seats' ? 'selected' : '' }}>2 seats
+                                        </option>
+                                        <option value="4 seats" {{ $vehicle->seat == '4 seats' ? 'selected' : '' }}>4 seats
+                                        </option>
+                                        <option value="6 seats" {{ $vehicle->seat == '6 seats' ? 'selected' : '' }}>6 seats
+                                        </option>
+                                        <option value="6+ seats" {{ $vehicle->seat == '6+ seats' ? 'selected' : '' }}>6+
+                                            seats</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Door</label>
                                     <input type="text" class="form-control" name="door" value="{{ $vehicle->door }}"
@@ -70,13 +113,13 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Fuel Type</label>
-                                    <input type="text" class="form-control" name="fuel" value="{{ $vehicle->fuel }}"
-                                        placeholder="">
+                                    <input type="text" class="form-control" name="fuel"
+                                        value="{{ $vehicle->fuel }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Authorized</label>
-                                    <input type="text" class="form-control" name="auth" value="{{ $vehicle->auth }}"
-                                        placeholder="">
+                                    <input type="text" class="form-control" name="auth"
+                                        value="{{ $vehicle->auth }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Transmission</label>
@@ -115,9 +158,6 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="interior"> Features</label><br>
-                                    {{-- @php
-                                        dd($data_feature == 'Multimedia Player');
-                                    @endphp --}}
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
                                             value="bluetooth" id="interior_bluetooth"

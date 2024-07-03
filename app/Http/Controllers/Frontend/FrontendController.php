@@ -22,14 +22,6 @@ class FrontendController extends Controller
 
     public function cars()
     {
-        // $pickUpLocation = session()->get('pickUpLocation');
-        // $dropOffLocation = session()->get('dropOffLocation');
-        // $pickUpDate = session()->get('pickUpDate');
-        // $pickUpTime = session()->get('pickUpTime');
-        // $collectionDate = session()->get('collectionDate');
-        // $collectionTime = session()->get('collectionTime');
-
-        // dd($pickUpLocation,$dropOffLocation,$pickUpDate,$pickUpTime,$collectionDate,$collectionTime);
 
         $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
         return view('frontend.cars', compact('vehicles'));
