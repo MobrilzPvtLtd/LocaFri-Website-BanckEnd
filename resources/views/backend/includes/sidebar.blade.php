@@ -33,11 +33,11 @@ $notifications_latest = optional($notifications)->take(5);
                             <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Contact enquiry
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Daily Log
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('enquiry.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Booking enquiry
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
         @endcan
@@ -77,7 +77,7 @@ $notifications_latest = optional($notifications)->take(5);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> Update Vehicle Status
+                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span>Vehicle Status
                         </a>
                     </li>
                 </ul>
@@ -95,7 +95,7 @@ $notifications_latest = optional($notifications)->take(5);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/contract">
+                        <a class="nav-link" href="{{ route('customercontact.index') }}">
                             <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Contracts
 
                         </a>

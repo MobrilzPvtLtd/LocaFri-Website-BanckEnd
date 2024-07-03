@@ -18,6 +18,7 @@
                                     <th scope="col">Model</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">Description</th>
+                                    <th scope="col">Location</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Kilometers</th>
                                     <th scope="col">Body</th>
@@ -29,6 +30,7 @@
                                     <th scope="col">Transmission</th>
                                     <th scope="col">Exterior Color</th>
                                     <th scope="col">Interior Color</th>
+                                    <th scope="col">features</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -39,7 +41,8 @@
                                         <td>{{ $vehicle->name }}</td>
                                         <td>{{ $vehicle->model }}</td>
                                         <td>{{ $vehicle->type }}</td>
-                                        <td>{{ $vehicle->desc}}</td>
+                                        <td>{{ $vehicle->desc }}</td>
+                                        <td>{{ $vehicle->location }}</td>
                                         <td>
                                             @php
                                                 $images = unserialize($vehicle->image);
@@ -61,9 +64,20 @@
                                         <td>{{ $vehicle->trans }}</td>
                                         <td>{{ $vehicle->exterior }}</td>
                                         <td>{{ $vehicle->interior }}</td>
-                                        <td>{{ $vehicle->slug}}</td>
-
-
+                                        <td>
+                                            @php
+                                                $featuresArray = json_decode($vehicle->features);
+                                            @endphp
+                                            @if (!empty($featuresArray))
+                                                <ul>
+                                                    @foreach ($featuresArray as $feature)
+                                                            <li>{{ $feature }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <p>No features available</p>
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="{{ route('vehicle.destroy', $vehicle->id) }}" method="Post">
                                                 <a class="btn btn-primary"

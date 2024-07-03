@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('type');
             $table->string('desc');
+            $table->string('location');
             $table->string('mitter');
             $table->string('image');
             $table->string('body');
@@ -29,7 +30,11 @@ return new class extends Migration
             $table->string('exterior');
             $table->string('interior');
             $table->boolean('featured');
+            $table->string('features');
             $table->string('slug');
+            $table->boolean('Dprice');
+            $table->string('wprice');
+            $table->string('mprice');
             $table->timestamps();
         });
     }

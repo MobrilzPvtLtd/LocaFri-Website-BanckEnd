@@ -231,7 +231,17 @@
                                                 </div>
                                                 <div class="d-price">
                                                     Prix <span>35.-/1 jour</span>
-                                                    <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">Rent Now</a>
+                                                    <form action="{{ route('carsdetails-post') }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="slug" value="{{ $vehicle->slug }}">
+                                                        <input type="hidden" name="pickUpLocation" value="{{ session()->get('pickUpLocation') }}">
+                                                        <input type="hidden" name="dropOffLocation" value="{{ session()->get('dropOffLocation') }}">
+                                                        <input type="hidden" name="pickUpDate" value="{{ session()->get('pickUpDate') }}">
+                                                        <input type="hidden" name="pickUpTime" value="{{ session()->get('pickUpTime') }}">
+                                                        <input type="hidden" name="collectionDate" value="{{ session()->get('collectionDate') }}">
+                                                        <input type="hidden" name="collectionTime" value="{{ session()->get('collectionTime') }}">
+                                                        <button type="submit" class="btn-main" href="{{ route('carsdetails-post') }}" >Rent Now</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

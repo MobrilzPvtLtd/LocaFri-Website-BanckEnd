@@ -26,19 +26,19 @@
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
 
 
-                            <form name="contactForm" id='contact_form' method="post">
-
-
+                            <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form'  method="post">
+                                @csrf
                                 <div class="spacer-20"></div>
-
                                 <div class="row">
                                     <div class="col-lg-6 mb20">
                                         <h5>Pick Up Location</h5>
                                         <div class="date-time-field">
-                                            <select name="Pick Up Time" id="pick_up">
+                                            <select name="pickUpLocation" id="pick_up">
                                                 <option selected disabled value="Select pick_up">select your pickup location
                                                 </option>
-                                                <option value="Romont_Gare">Romont Gare</option>
+                                                @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
+                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -51,10 +51,12 @@
                                     <div class="col-lg-6 mb20">
                                         <h5>Drop Off Location</h5>
                                         <div class="date-time-field">
-                                            <select name="Drop Off Location" id="Drop_Off">
+                                            <select name="dropOffLocation" id="Drop_Off">
                                                 <option selected disabled value="Select drop_off">select your drop Off
                                                     location</option>
-                                                <option value="Romont_Gare">Romont Gare</option>
+                                                    @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
+                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -67,8 +69,8 @@
                                     <div class="col-lg-6 mb20">
                                         <h5>Pick Up Date & Time</h5>
                                         <div class="date-time-field">
-                                            <input type="text" id="date-picker" name="Pick Up Date" value="">
-                                            <select name="Pick Up Time" id="pickup-time">
+                                            <input type="text" id="date-picker" name="pickUpDate" value="">
+                                            <select name="pickUpTime" id="pickup-time">
                                                 <option selected disabled value="Select time">Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
@@ -125,9 +127,8 @@
                                     <div class="col-lg-6 mb20">
                                         <h5>Return Date & Time</h5>
                                         <div class="date-time-field">
-                                            <input type="text" id="date-picker-2" name="Collection Date"
-                                                value="">
-                                            <select name="Collection Time" id="collection-time">
+                                            <input type="text" id="date-picker-2" name="collectionDate" value="">
+                                            <select name="collectionTime" id="collection-time">
                                                 <option selected disabled value="Select time">Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
@@ -260,27 +261,27 @@
                     <div class="col-lg-6 offset-lg-3 text-center">
                         <h2>Our Features</h2>
                         <!-- <p>
-                              Dolor esse sint officia est voluptate et qui deserunt et est
-                              eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
-                            </p> -->
+                                  Dolor esse sint officia est voluptate et qui deserunt et est
+                                  eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
+                                </p> -->
                         <div class="spacer-20"></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-3">
                         <div class="box-icon s2 p-small mb20 wow fadeInRight" data-wow-delay=".5s">
                             <!-- <i class="fa bg-color fa-trophy"></i>
-                              <div class="d-inner">
-                                <h4>First class services</h4>
-                                Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                duis consequat nostrud id
-                              </div> -->
+                                  <div class="d-inner">
+                                    <h4>First class services</h4>
+                                    Est dolore ut laboris eu enim eu veniam nostrud esse laborum
+                                    duis consequat nostrud id
+                                  </div> -->
                         </div>
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
                                 <h4>24/7 road assistance</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                duis consequat nostrud id -->
+                                    duis consequat nostrud id -->
                             </div>
                         </div>
                     </div>
@@ -292,18 +293,18 @@
                     <div class="col-lg-3">
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
                             <!-- <i class="fa bg-color fa-tag"></i>
-                              <div class="d-inner">
-                                <h4>Quality at Minimum Expense</h4>
-                                Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                duis consequat nostrud id
-                              </div> -->
+                                  <div class="d-inner">
+                                    <h4>Quality at Minimum Expense</h4>
+                                    Est dolore ut laboris eu enim eu veniam nostrud esse laborum
+                                    duis consequat nostrud id
+                                  </div> -->
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
                                 <h4>Free Pick-Up & Drop-Off</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                duis consequat nostrud id -->
+                                    duis consequat nostrud id -->
                             </div>
                         </div>
                     </div>
@@ -326,25 +327,25 @@
                         <i class="fa fa-trophy de-icon mb20"></i>
                         <h4>First Class Services</h4>
                         <!-- <p>
-                              Aliquip consequat excepteur non dolor irure ad irure labore ex
-                              eiusmod est duis culpa ex ut minim ut ea.
-                            </p> -->
+                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                  eiusmod est duis culpa ex ut minim ut ea.
+                                </p> -->
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-road de-icon mb20"></i>
                         <h4>24/7 road assistance</h4>
                         <!-- <p>
-                              Aliquip consequat excepteur non dolor irure ad irure labore ex
-                              eiusmod est duis culpa ex ut minim ut ea.
-                            </p> -->
+                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                  eiusmod est duis culpa ex ut minim ut ea.
+                                </p> -->
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-map-pin de-icon mb20"></i>
                         <h4>Free Pick-Up & Drop-Off</h4>
                         <!-- <p>
-                              Aliquip consequat excepteur non dolor irure ad irure labore ex
-                              eiusmod est duis culpa ex ut minim ut ea.
-                            </p> -->
+                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                  eiusmod est duis culpa ex ut minim ut ea.
+                                </p> -->
                     </div>
                 </div>
             </div>
@@ -391,7 +392,8 @@
                                             </div>
                                             <div class="d-price">
                                                 Prix <span>35.- / 1 jour</span>
-                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">Rent Now</a>
+                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">Rent
+                                                    Now</a>
                                             </div>
                                         </div>
                                     </div>

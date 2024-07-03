@@ -36,6 +36,10 @@ class VehicleController extends Controller
             'trans' => 'required',
             'exterior' => 'required',
             'interior' => 'required',
+            'features' => 'required',
+            'Dprice' => 'required',
+            'wprice' => 'required',
+            'mprice' => 'required',
         ]);
         $imagePaths = [];
         if ($request->hasFile('image')) {
@@ -46,8 +50,14 @@ class VehicleController extends Controller
                 $imagePaths[] = 'uploads/' . $filename;
             }
         }
-        $vehicleData = $request->except('image', 'featured');
+        $vehicleData = $request->except('image', 'featured','features');
         $vehicleData['image'] = serialize($imagePaths);
+        // $vehicleData['features'] = serialize($request->input('features'));
+
+        if (!empty($request->features)) {
+            $vehicleData['features'] = json_encode($request->features);
+        }
+
         $vehicleData['featured'] = $request->has('featured');
         Vehicle::create($vehicleData);
 
@@ -60,7 +70,12 @@ class VehicleController extends Controller
     public function edit($id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        return view('backend.vehicle.edit', compact('vehicle'));
+        $featuresArray = json_decode($vehicle->features, true);
+        // foreach($features as $feature){
+        //     $data_feature = $feature;
+        //     // dd($data_feature);
+        // }
+        return view('backend.vehicle.edit', compact('vehicle','featuresArray'));
     }
 
 
@@ -81,6 +96,12 @@ class VehicleController extends Controller
             'trans' => 'required',
             'exterior' => 'required',
             'interior' => 'required',
+            'features' => 'required',
+            'Dprice' => 'required',
+            'wprice' => 'required',
+            'mprice' => 'required',
+            'location' => 'required',
+
         ]);
 
         $vehicle = Vehicle::findOrFail($id);
@@ -108,10 +129,13 @@ class VehicleController extends Controller
             }
         }
 
-        $vehicleData = $request->except('image', 'featured');
+        $vehicleData = $request->except('image', 'featured','features');
         $vehicleData['image'] = serialize($imagePaths);
         $vehicleData['featured'] = $request->has('featured');
-
+        // $vehicleData['features'] = $request->has('features');
+        if (!empty($request->features)) {
+            $vehicleData['features'] = json_encode($request->features);
+        }
         try {
             $vehicle->update($vehicleData);
         } catch (\Exception $e) {

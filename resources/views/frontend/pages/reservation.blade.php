@@ -9,12 +9,12 @@
 
         <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
-            <img src="{{ asset('images/background/2.jpg') }}" class="jarallax-img" alt="">
+            <img src="images/background/2.jpg" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Vehicle Fleet</h1>
+                            <h1>Car Reservation</h1>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -26,68 +26,71 @@
         <section id="section-car-details">
             <div class="container">
                 <div class="row g-5">
-
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-                                @php
-                                    $images = unserialize($vehicles->image);
-                                @endphp
-                                @if (!empty($images) && is_array($images) && count($images) > 0)
-                                    <img src="{{ asset('public/' . $images[0]) }}" alt="Image" class="img-fluid w-100">
-                                @else
-                                    <p>No images available</p>
-                                @endif
+                                <img src="images/car-single/car_1-removebg-preview.png" alt="">
                             </div>
+                            <div class="item">
+                                <img src="images/car-single/WhatsApp Image 2024-04-26 at 10.50.38 (1).jpeg" alt="">
+                            </div>
+                            <div class="item">
+                                <img src="images/car-single/WhatsApp_Image_2024-04-26_at_10.50.39-removebg-preview.png"
+                                    alt="">
+                            </div>
+                            <!-- <div class="item">
+                                        <img src="images/car-single/4.jpg" alt="">
+                                    </div> -->
                         </div>
                     </div>
 
                     <div class="col-lg-3">
-                        <h3>{{ $vehicles->name }}</h3>
-                        <p>The ({{ $vehicles->name }}){{ $vehicles->desc }}</p>
+                        <h3>Car name</h3>
+                        <p>The (car name) is the high-performance version of the 2 Series 2-door coupé. The first generation
+                            of the M2 is the F87 coupé and is powered by turbocharged.</p>
 
                         <div class="spacer-10"></div>
 
                         <h4>Specifications</h4>
                         <div class="de-spec">
                             <div class="d-row">
-                                <span class="d-title">Body </span>
-                                <spam class="d-value">{{ $vehicles->body }}</spam>
+                                <span class="d-title">Body</span>
+                                <spam class="d-value">Hatchback</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Seat</span>
-                                <spam class="d-value">{{ $vehicles->seat }} seats</spam>
+                                <spam class="d-value">4 seats</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Door</span>
-                                <spam class="d-value">{{ $vehicles->door }} doors</spam>
+                                <spam class="d-value">5 doors</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Luggage</span>
-                                <spam class="d-value">{{ $vehicles->luggage }}</spam>
+                                <spam class="d-value">150</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Fuel Type</span>
-                                <spam class="d-value">{{ $vehicles->fuel }}</spam>
+                                <spam class="d-value">Essence</spam>
                             </div>
                             <div class="d-row de-flex">
                                 <span class="d-title">Authorized kilometers</span>
-                                <span class="d-value">{{ $vehicles->mitter }} kms / 1 month<br>
-                                    {{-- 1000kms / 1 week<br>
-                                    3000kms / 1 month --}}
+                                <span class="d-value">200kms / 1 day<br>
+                                    1000kms / 1 week<br>
+                                    3000kms / 1 month
                                 </span>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Transmission</span>
-                                <spam class="d-value">{{ $vehicles->trans }}</spam>
+                                <spam class="d-value">Automatic</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Exterior Color</span>
-                                <spam class="d-value">{{ $vehicles->exterior }}</spam>
+                                <spam class="d-value">Blue Metalic</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Interior Color</span>
-                                <spam class="d-value">{{ $vehicles->interior }}</spam>
+                                <spam class="d-value">Black</spam>
                             </div>
                         </div>
 
@@ -95,37 +98,24 @@
 
                         <h4>Features</h4>
                         <ul class="ul-style-2">
-
-                            @php
-                                $featuresArray = json_decode($vehicles->features);
-                            @endphp
-                            @if (!empty($featuresArray))
-                                <ul>
-                                    @foreach ($featuresArray as $feature)
-                                        <li>{{ $feature }}</li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <p>No features available</p>
-                            @endif
-
+                            <li>Bluetooth</li>
+                            <li>Multimedia Player</li>
+                            <li>Central Lock</li>
+                            <li>Sunroof</li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3">
-                        <form name="contactForm" id='contact_form' method="post" action="{{route('booking')}}">
-                            @csrf
-                            <input type="hidden" name="name" value="{{ $vehicles->name}}">
-                            <div class="de-price text-center">
-                                Prix
-                                <h4> <input type="hidden" name="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}.- / 1 jour<br>
-                                    <input type="hidden" name="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}.- / 1 semaine<br>
-                                    <input type="hidden" name="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }}.- / 1 mois
-                                </h4>
-                            </div>
-                            <div class="spacer-30"></div>
-                            <div class="de-box mb25">
-                                {{-- <form name="contactForm" id='contact_form' method="post"> --}}
+                        <div class="de-price text-center">
+                            Prix
+                            <h4>40.- / 1 jour<br>
+                                250.- / 1 semaine<br>
+                                550.- / 1 mois
+                            </h4>
+                        </div>
+                        <div class="spacer-30"></div>
+                        <div class="de-box mb25">
+                            <form name="contactForm" id='contact_form' method="post">
                                 <h4>Booking this car</h4>
 
                                 <div class="spacer-20"></div>
@@ -134,11 +124,10 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Pick Up Location</h5>
                                         <div class="date-time-field">
-                                            <select name="pickUpLocation" id="pick_up">
-                                                <option selected disabled value="Select pick_up">
-                                                    {{ session()->get('pickUpLocation') }}</option>
-                                                <option value="{{ session()->get('pickUpLocation') }}">
-                                                    {{ session()->get('pickUpLocation') }}</option>
+                                            <select name="Pick Up Time" id="pick_up">
+                                                <option selected disabled value="Select pick_up">select your pickup location
+                                                </option>
+                                                <option value="Romont_Gare">Romont Gare</option>
                                             </select>
                                         </div>
 
@@ -151,11 +140,10 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Drop Off Location</h5>
                                         <div class="date-time-field">
-                                            <select name="dropOffLocation" id="Drop_Off">
-                                                <option selected disabled value="Select drop_off">
-                                                    {{ session()->get('dropOffLocation') }}</option>
-                                                <option value="{{ session()->get('dropOffLocation') }}">
-                                                    {{ session()->get('dropOffLocation') }}</option>
+                                            <select name="Drop Off Location" id="Drop_Off">
+                                                <option selected disabled value="Select drop_off">select your drop Off
+                                                    location</option>
+                                                <option value="Romont_Gare">Romont Gare</option>
                                             </select>
                                         </div>
 
@@ -168,11 +156,9 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Pick Up Date & Time</h5>
                                         <div class="date-time-field">
-                                            <input type="text" id="date-picker" name="pickUpDate"
-                                                value="{{ session()->get('pickUpDate') }}">
-                                            <select name="pickUpTime" id="pickup-time">
-                                                <option selected disabled value="{{ session()->get('pickUpTime') }}">
-                                                    {{ session()->get('pickUpTime') }}</option>
+                                            <input type="text" id="date-picker" name="Pick Up Date" value="">
+                                            <select name="Pick Up Time" id="pickup-time">
+                                                <option selected disabled value="Select time">Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
                                                 <option value="01:00">01:00</option>
@@ -228,12 +214,10 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Return Date & Time</h5>
                                         <div class="date-time-field">
-
-                                            <input type="text" id="date-picker-2" name="collectionDate"
-                                                value="{{ session()->get('collectionDate') }}">
-                                            <select name="collectionTime" id="collection-time">
-                                                <option selected disabled value="{{ session()->get('collectionTime') }}">
-                                                    {{ session()->get('collectionTime') }}</option>
+                                            <input type="text" id="date-picker-2" name="Collection Date"
+                                                value="">
+                                            <select name="Collection Time" id="collection-time">
+                                                <option selected disabled value="Select time">Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
                                                 <option value="01:00">01:00</option>
@@ -291,29 +275,27 @@
 
                                 <div class="clearfix"></div>
 
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                    <div class="de-box">
-                        <h4>Share</h4>
-                        <div class="de-color-icons">
-                            <span><i class="fa fa-twitter fa-lg"></i></span>
-                            <span><i class="fa fa-facebook fa-lg"></i></span>
-                            <span><i class="fa fa-reddit fa-lg"></i></span>
-                            <span><i class="fa fa-linkedin fa-lg"></i></span>
-                            <span><i class="fa fa-pinterest fa-lg"></i></span>
-                            <span><i class="fa fa-stumbleupon fa-lg"></i></span>
-                            <span><i class="fa fa-delicious fa-lg"></i></span>
-                            <span><i class="fa fa-envelope fa-lg"></i></span>
+                        <div class="de-box">
+                            <h4>Share</h4>
+                            <div class="de-color-icons">
+                                <span><i class="fa fa-twitter fa-lg"></i></span>
+                                <span><i class="fa fa-facebook fa-lg"></i></span>
+                                <span><i class="fa fa-reddit fa-lg"></i></span>
+                                <span><i class="fa fa-linkedin fa-lg"></i></span>
+                                <span><i class="fa fa-pinterest fa-lg"></i></span>
+                                <span><i class="fa fa-stumbleupon fa-lg"></i></span>
+                                <span><i class="fa fa-delicious fa-lg"></i></span>
+                                <span><i class="fa fa-envelope fa-lg"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-    </div>
-    </section>
+        </section>
 
 
     </div>
-    <!-- content close -->
 @endsection

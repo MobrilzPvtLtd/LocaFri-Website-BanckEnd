@@ -16,17 +16,56 @@ class FrontendController extends Controller
     public function index()
     {
         $vehicles = Vehicle::where('featured', true)->get();
-        // $vehicles = Vehicle::all();
+
         return view('frontend.index', compact('vehicles'));
     }
 
     public function cars()
     {
-        // $vehicles = Vehicle::all();
+        // $pickUpLocation = session()->get('pickUpLocation');
+        // $dropOffLocation = session()->get('dropOffLocation');
+        // $pickUpDate = session()->get('pickUpDate');
+        // $pickUpTime = session()->get('pickUpTime');
+        // $collectionDate = session()->get('collectionDate');
+        // $collectionTime = session()->get('collectionTime');
+
+        // dd($pickUpLocation,$dropOffLocation,$pickUpDate,$pickUpTime,$collectionDate,$collectionTime);
+
         $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
         return view('frontend.cars', compact('vehicles'));
     }
-    public function cardetails($slug)
+
+    public function carsPost(Request $req){
+        session()->put('pickUpLocation', $req->pickUpLocation);
+        session()->put('dropOffLocation', $req->dropOffLocation);
+        session()->put('pickUpDate', $req->pickUpDate);
+        session()->put('pickUpTime', $req->pickUpTime);
+        session()->put('collectionDate', $req->collectionDate);
+        session()->put('collectionTime', $req->collectionTime);
+
+        return redirect()->route('cars');
+    }
+
+    public function carsdetailsPost(Request $req ){
+        session()->put('pickUpLocation', $req->pickUpLocation);
+        session()->put('dropOffLocation', $req->dropOffLocation);
+        session()->put('pickUpDate', $req->pickUpDate);
+        session()->put('pickUpTime', $req->pickUpTime);
+        session()->put('collectionDate', $req->collectionDate);
+        session()->put('collectionTime', $req->collectionTime);
+        $slug = $req->slug;
+
+        // $pickUpLocation = session()->get('pickUpLocation');
+        // $dropOffLocation = session()->get('dropOffLocation');
+        // $pickUpDate = session()->get('pickUpDate');
+        // $pickUpTime = session()->get('pickUpTime');
+        // $collectionDate = session()->get('collectionDate');
+        // $collectionTime = session()->get('collectionTime');
+
+        // dd($pickUpLocation,$dropOffLocation,$pickUpDate,$pickUpTime,$collectionDate,$collectionTime,$slug);
+        return redirect()->route('carsdetails',$slug);
+    }
+    public function cardetails($slug, Request $req)
     {
         $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
         // dd($vehicles);
@@ -63,5 +102,9 @@ class FrontendController extends Controller
     {
 
         return view('frontend.contact');
+    }
+    public function reservation()
+    {
+        return view('frontend.pages.reservation');
     }
 }

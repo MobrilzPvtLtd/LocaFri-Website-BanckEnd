@@ -13,6 +13,9 @@ use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Backend\ContactsController;
 use App\Http\Controllers\Backend\VehiclestatusController;
 use App\Http\Controllers\Backend\ReservationController;
+use App\Http\Controllers\Backend\CustomercontactController;
+use App\Http\Controllers\Backend\EnquiryController;
+use App\Http\Controllers\Frontend\BookingController;
 
 /*
 *
@@ -39,14 +42,24 @@ Route::resource('admin/vehiclestatus', VehiclestatusController::class);
 Route::resource('admin/alert', AlertController::class);
 // contact
 Route::resource('admin/contact', ContactsController::class);
+// contact
+Route::resource('admin/enquiry', EnquiryController::class);
 
 // Reservation
 Route::resource('admin/reservation', ReservationController::class);
 
+// Customercontact
+Route::resource('admin/customercontact', CustomercontactController::class);
 
 
 
 //frontend routes
+
+
+Route::get('reservation', [FrontendController::class, 'reservation'])->name('reservation');
+
+// contact
+Route::post('booking', [BookingController::class, 'booking'])->name('booking');
 
 // contact
 Route::post('contact', [ContactController::class, 'submit'])->name('contact.submit');
@@ -54,7 +67,10 @@ Route::post('contact', [ContactController::class, 'submit'])->name('contact.subm
 Route::get('home', [FrontendController::class, 'index'])->name('home');
 // cars
 Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
+Route::post('/cars-post', [FrontendController::class, 'carsPost'])->name('cars-post');
+
 // cardetails
+Route::post('/carsdetails-post', [FrontendController::class, 'carsdetailsPost'])->name('carsdetails-post');
 Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->name('carsdetails');
 // login
 Route::get('/login', [FrontendController::class, 'login'])->name('login');

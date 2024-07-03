@@ -30,7 +30,10 @@
                                     <label for="desc">Description</label>
                                     <textarea class="form-control" name="desc" placeholder=""></textarea>
                                 </div>
-
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Location</label>
+                                    <input type="text" class="form-control" name="location" value="" placeholder="">
+                                </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
                                     <input type="file" class="form-control" name="image[]" value="" placeholder=""
@@ -79,10 +82,45 @@
                                         placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
+                                    <label for="city">Day Price</label>
+                                    <input type="text" class="form-control" name="Dprice" value=""
+                                        placeholder="">
+                                </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Week Price</label>
+                                    <input type="text" class="form-control" name="wprice" value=""
+                                        placeholder="">
+                                </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Month Price</label>
+                                    <input type="text" class="form-control" name="mprice" value=""
+                                        placeholder="">
+                                </div>
+                                <div class="form-group mb-2 col-4">
                                     <label for="featured">Featured</label>
                                     <input type="checkbox" name="featured"  value="1" >
 
                                 </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="interior"> Features</label><br>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]" value="Bluetooth" id="interior_black">
+                                        <label class="form-check-label" for="interior_black">Bluetooth</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]" value="Multimedia Player" id="interior_gray">
+                                        <label class="form-check-label" for="interior_gray">Multimedia Player</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]" value="Central Lock" id="interior_beige">
+                                        <label class="form-check-label" for="interior_beige">Central Lock</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]" value="Sunroof" id="interior_red">
+                                        <label class="form-check-label" for="interior_red">Sunroof</label>
+                                    </div>
+                                </div>
+
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
