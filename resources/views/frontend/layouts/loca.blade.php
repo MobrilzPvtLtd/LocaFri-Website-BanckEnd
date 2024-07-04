@@ -51,7 +51,9 @@
     <script
         src="https://maps.googleapis.com/maps/api/js?key=insert_your_api_key_here&libraries=places&callback=initPlaces"
         async="" defer=""></script>
+
         </div>
+
 </body>
 
 </html>

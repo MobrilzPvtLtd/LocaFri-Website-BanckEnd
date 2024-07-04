@@ -3,7 +3,7 @@
         'name' => 'nasirkhan/laravel-starter',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '46a058e31342c830368c8795fae39c87a1c561c8',
+        'reference' => '25587dd38aad81cf3c8f02e6f942c2ccd8f2af30',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -478,6 +478,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'laravel/sanctum' => array(
+            'pretty_version' => 'v4.0.2',
+            'version' => '4.0.2.0',
+            'reference' => '9cfc0ce80cabad5334efff73ec856339e8ec1ac1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/sanctum',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'laravel/serializable-closure' => array(
             'pretty_version' => 'v1.3.3',
             'version' => '1.3.3.0',
@@ -622,7 +631,7 @@
         'nasirkhan/laravel-starter' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '46a058e31342c830368c8795fae39c87a1c561c8',
+            'reference' => '25587dd38aad81cf3c8f02e6f942c2ccd8f2af30',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

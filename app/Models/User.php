@@ -12,9 +12,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
+    use HasApiTokens;
     use HasFactory;
     use HasHashedMediaTrait;
     use HasRoles;

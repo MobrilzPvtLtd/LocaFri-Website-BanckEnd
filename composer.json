@@ -19,6 +19,7 @@
         "hashids/hashids": "^5.0",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",

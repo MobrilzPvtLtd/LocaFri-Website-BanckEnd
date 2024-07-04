@@ -50,13 +50,13 @@ $notifications_latest = optional($notifications)->take(5);
             </a>
         </li>
 
-     @can('view_posts')
+     {{-- @can('view_posts')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.posts.index') }}">
                     <i class="nav-icon fa-regular fa-file-lines"></i>&nbsp;@lang('Posts')
                 </a>
             </li>
-        @endcan
+        @endcan --}}
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
@@ -103,21 +103,21 @@ $notifications_latest = optional($notifications)->take(5);
                 </ul>
             </li>
         @endcan
-
+{{--
         @can('view_categories')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.categories.index') }}">
                     <i class="nav-icon fa-solid fa-diagram-project"></i>&nbsp;@lang('Categories')
                 </a>
             </li>
-        @endcan
-        @can('view_tags')
+        @endcan --}}
+        {{-- @can('view_tags')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.tags.index') }}">
                     <i class="nav-icon fa-solid fa-tags"></i>&nbsp;@lang('Tags')
                 </a>
             </li>
-        @endcan
+        @endcan --}}
 
         @can('edit_settings')
             <li class="nav-item">
@@ -127,13 +127,13 @@ $notifications_latest = optional($notifications)->take(5);
             </li>
         @endcan
 
-        @can('view_backups')
+        {{-- @can('view_backups')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.backups.index') }}">
                     <i class="nav-icon fa-solid fa-box-archive"></i>&nbsp;@lang('Backups')
                 </a>
             </li>
-        @endcan
+        @endcan --}}
 
         @can('view_users')
             <li class="nav-item">
@@ -150,7 +150,7 @@ $notifications_latest = optional($notifications)->take(5);
                 </a>
             </li>
         @endcan
-
+{{--
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
@@ -169,7 +169,7 @@ $notifications_latest = optional($notifications)->take(5);
                     </li>
                 </ul>
             </li>
-        @endcan
+        @endcan --}}
 
     </ul>
     <div class="sidebar-footer border-top d-none d-md-flex">

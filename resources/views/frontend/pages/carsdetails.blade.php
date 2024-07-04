@@ -3,6 +3,7 @@
 @section('title')
     {{ app_name() }} - Cars
 @endsection
+
 @section('content')
     <div class="no-bottom no-top zebra" id="content">
         <div id="top"></div>
@@ -285,7 +286,22 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-12 mb20">
+                                        <h5>Select Days</h5>
+                                        <div class="date-time-field">
+                                            <select name="pickUpLocation" id="pick_up" onchange="showOptions()">
+                                                <option selected disabled value="">Pick up Days</option>
+                                                <option value="day">Day</option>
+                                                <option value="week">Week</option>
+                                                <option value="month">Month</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
 
                                 <input type='submit' id='send_message' value='Book Now' class="btn-main btn-fullwidth">
 
@@ -316,4 +332,5 @@
 
     </div>
     <!-- content close -->
+
 @endsection
