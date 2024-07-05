@@ -3,7 +3,7 @@
         'name' => 'nasirkhan/laravel-starter',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '25587dd38aad81cf3c8f02e6f942c2ccd8f2af30',
+        'reference' => 'c81640df9cb535b881da9c1dc0cb3e36f8a7fb69',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -631,7 +631,7 @@
         'nasirkhan/laravel-starter' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '25587dd38aad81cf3c8f02e6f942c2ccd8f2af30',
+            'reference' => 'c81640df9cb535b881da9c1dc0cb3e36f8a7fb69',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

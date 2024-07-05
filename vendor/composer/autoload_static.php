@@ -716,6 +716,7 @@ class ComposerStaticInite1d2dbb33849fd1987bed8c554e0db60
         'App\\Events\\Backend\\UserUpdated' => __DIR__ . '/../..' . '/app/Events/Backend/UserUpdated.php',
         'App\\Events\\Frontend\\UserRegistered' => __DIR__ . '/../..' . '/app/Events/Frontend/UserRegistered.php',
         'App\\Events\\Frontend\\UserUpdated' => __DIR__ . '/../..' . '/app/Events/Frontend/UserUpdated.php',
+        'App\\Http\\Controllers\\Api\\ApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ApiController.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
         'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',

@@ -14,6 +14,7 @@ return array(
     'App\\Events\\Backend\\UserUpdated' => $baseDir . '/app/Events/Backend/UserUpdated.php',
     'App\\Events\\Frontend\\UserRegistered' => $baseDir . '/app/Events/Frontend/UserRegistered.php',
     'App\\Events\\Frontend\\UserUpdated' => $baseDir . '/app/Events/Frontend/UserUpdated.php',
+    'App\\Http\\Controllers\\Api\\ApiController' => $baseDir . '/app/Http/Controllers/Api/ApiController.php',
     'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => $baseDir . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
     'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => $baseDir . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
