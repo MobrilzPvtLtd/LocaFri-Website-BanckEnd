@@ -10,4 +10,9 @@ use App\Http\Controllers\Api\ApiController;
 
 Route::post('login', [ App\Http\Controllers\API\ApiController::class, 'login']);
 Route::get('avalibalcars', [ App\Http\Controllers\API\ApiController::class, 'avalibalcars']);
+Route::get('cardetails/{id}', [ App\Http\Controllers\API\ApiController::class, 'cardetails']);
+Route::get('cars', [ App\Http\Controllers\API\ApiController::class, 'cars']);
+
+
+
 

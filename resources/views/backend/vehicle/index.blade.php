@@ -31,6 +31,7 @@
                                     <th scope="col">Exterior Color</th>
                                     <th scope="col">Interior Color</th>
                                     <th scope="col">features</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -76,6 +77,13 @@
                                                 </ul>
                                             @else
                                                 <p>No features available</p>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($vehicle->status == 1)
+                                                Active
+                                            @else
+                                                Inactive
                                             @endif
                                         </td>
                                         <td>

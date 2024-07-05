@@ -124,6 +124,14 @@
                                         placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="" disabled selected>Select Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-2 col-4">
                                     <label for="featured">Featured</label>
                                     <input type="checkbox" name="featured"  value="1" >
 
@@ -147,6 +155,8 @@
                                         <label class="form-check-label" for="interior_red">Sunroof</label>
                                     </div>
                                 </div>
+
+
 
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>

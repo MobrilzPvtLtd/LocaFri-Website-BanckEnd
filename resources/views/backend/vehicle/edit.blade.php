@@ -152,6 +152,15 @@
                                         value="{{ $vehicle->mprice }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="" disabled selected>Select Status</option>
+                                        <option value="1" {{ $vehicle->status == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ $vehicle->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
                                     <label for="featured">Featured</label>
                                     <input type="checkbox" name="featured" value="1"
                                         {{ $vehicle->featured ? 'checked' : '' }}>

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\SendOtpMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Models\Vehicle;
 
 
 class ApiController extends Controller
@@ -38,6 +39,36 @@ class ApiController extends Controller
 
     public function avalibalcars()
     {
-    
+        $activeCars = Vehicle::where('status', 1)->get();
+
+        return response()->json([
+            'status' => 'Available Cars',
+            'data' => $activeCars
+        ]);
+    }
+
+    public function cardetails($id)
+    {
+        $car = Vehicle::find($id);
+        if (!$car) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Car not found'
+            ], 404);
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $car
+        ]);
+    }
+
+    public function cars()
+    {
+        $cars = Vehicle::all();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $cars
+        ]);
     }
 }
