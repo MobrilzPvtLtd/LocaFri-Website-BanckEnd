@@ -37,6 +37,39 @@ class ApiController extends Controller
         ]);
     }
 
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        $invaliOtp = User::where('email', $request->email)->where('otp', $request->otp)->first();
+        $expireOtp = User::where('otp', $request->otp)->where('verified', 1)->first();
+
+        if (!$invaliOtp) {
+            return response()->json(['message' => 'Invalid OTP or email.'], 401);
+        }
+
+        if ($expireOtp) {
+            return response()->json(['message' => 'OTP is exoired.'], 401);
+        }
+
+        Auth::login($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $user->otp = null;
+        $user->verified = 1;
+        $user->save();
+        
+        return response()->json([
+            'message' => 'Logged in successfully',
+            'user' => $user,
+            'token' => $token
+        ]);
+    }
+
     public function avalibalcars()
     {
         $activeCars = Vehicle::where('status', 1)->get();
