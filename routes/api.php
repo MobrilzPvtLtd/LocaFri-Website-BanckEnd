@@ -8,10 +8,10 @@ use App\Http\Controllers\Api\ApiController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::post('login', [ App\Http\Controllers\API\ApiController::class, 'login']);
-Route::get('avalibalcars', [ App\Http\Controllers\API\ApiController::class, 'avalibalcars']);
-Route::get('cardetails/{id}', [ App\Http\Controllers\API\ApiController::class, 'cardetails']);
-Route::get('cars', [ App\Http\Controllers\API\ApiController::class, 'cars']);
+Route::post('login', [ApiController::class, 'login']);
+Route::get('avalibalcars', [ApiController::class, 'avalibalcars']);
+Route::get('cardetails/{id}', [ApiController::class, 'cardetails']);
+Route::get('cars', [ApiController::class, 'cars']);
 
 
 
