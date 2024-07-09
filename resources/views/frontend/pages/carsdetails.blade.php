@@ -351,6 +351,12 @@
                                 <input type='submit' id='send_message' value='Book Now' class="btn-main btn-fullwidth">
 
                                 <div class="clearfix"></div>
+                                <div class="de-price text-center mt-2">
+                                    Total Price
+                                    <h4> <input type="hidden" name="Dprice"
+                                            value="{{ $vehicles->Dprice }}">10000<br>
+                                    </h4>
+                                </div>
 
                         </form>
                     </div>
