@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ApiController;
 // })->middleware('auth:sanctum');
 
 Route::post('login', [ApiController::class, 'login']);
+Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 Route::post('verify-otp', [ApiController::class, 'verifyOtp']);
 Route::get('avalibalcars', [ApiController::class, 'avalibalcars']);
 Route::get('cardetails/{id}', [ApiController::class, 'cardetails']);

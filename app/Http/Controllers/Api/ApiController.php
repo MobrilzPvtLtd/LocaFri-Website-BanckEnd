@@ -39,6 +39,30 @@ class ApiController extends Controller
             'message' => 'Your account register successfully. Please check your email for 6 digit OTP',
         ]);
     }
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
+        }
+
+        $otp = mt_rand(100000, 999999);
+        $user->otp = $otp;
+        $user->otp = Carbon::now();
+        $user->save();
+
+        Mail::to($user->email)->send(new SendOtpMail($otp));
+
+        return response()->json([
+            'message' => 'A new OTP has been sent to your email.',
+        ]);
+    }
+
 
     public function verifyOtp(Request $request)
     {
@@ -48,23 +72,38 @@ class ApiController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        $invaliOtp = User::where('email', $request->email)->where('otp', $request->otp)->first();
-        $expireOtp = User::where('otp', $request->otp)->where('verified', 1)->first();
 
-        if (!$invaliOtp) {
-            return response()->json(['message' => 'Invalid OTP or email.'], 401);
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
         }
 
-        if ($expireOtp) {
-            return response()->json(['message' => 'OTP is exoired.'], 401);
+        if ($user->otp !== $request->otp) {
+            return response()->json(['message' => 'Invalid OTP.'], 401);
         }
 
-        Auth::login($user);
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $otpExpiryTime = Carbon::parse($user->otp_generated_at)->addSeconds(30);
+        if (Carbon::now()->greaterThan($otpExpiryTime)) {
 
+            $otp = mt_rand(100000, 999999);
+            $user->otp = $otp;
+            $user->otp_generated_at = Carbon::now();
+            $user->save();
+
+
+            Mail::to($user->email)->send(new SendOtpMail($otp));
+
+            return response()->json([
+                'message' => 'OTP has expired. New OTP has been sent to your email.',
+            ]);
+        }
+
+        // Verify user
         $user->otp = null;
         $user->verified = 1;
         $user->save();
+
+        Auth::login($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Logged in successfully',
@@ -73,26 +112,35 @@ class ApiController extends Controller
         ]);
     }
 
-    // public function avalibalcars()
-    // {
-    //     $activeCars = Vehicle::where('status', 1)->get();
 
-    //     return response()->json([
-    //         'status' => 'Available Cars',
-    //         'data' => $activeCars
-    //     ]);
-    // }
-    public function avalibalcars(request $request )
+
+    public function avalibalcars(Request $request)
     {
-        $currentTime = Carbon::now()->format('H:i');
+        $request->validate([
+            'available' => 'required|date_format:Y-m-d H:i:s',
+        ]);
 
-        $activeCars = Vehicle::where('status', 1)->where('available', $request->available)->get();
+        $availableDateTime = Carbon::parse($request->available)->toDateTimeString();
 
+        $activeCars = Vehicle::where('status', 1)
+            ->where('available', $availableDateTime)
+            ->get();
+
+        if ($activeCars->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No cars found for the given datetime',
+                'datetime' => $availableDateTime
+            ]);
+        }
+
+        // Return the response
         return response()->json([
             'status' => 'Available Cars',
             'data' => $activeCars
         ]);
     }
+
 
 
     public function cardetails($id)
