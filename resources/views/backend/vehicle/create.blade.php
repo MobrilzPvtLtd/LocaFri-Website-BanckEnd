@@ -124,6 +124,11 @@
                                         placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
+                                    <label for="city">Available Time</label>
+                                    <input type="time" class="form-control" name="available" value=""
+                                        placeholder="">
+                                </div>
+                                <div class="form-group mb-2 col-4">
                                     <label for="status">Status</label>
                                     <select class="form-control" name="status" id="status">
                                         <option value="" disabled selected>Select Status</option>

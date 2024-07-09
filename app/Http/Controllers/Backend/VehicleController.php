@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 
 class VehicleController extends Controller
 {
@@ -40,7 +41,9 @@ class VehicleController extends Controller
             'Dprice' => 'required',
             'wprice' => 'required',
             'mprice' => 'required',
+            'available' => 'required|date_format:H:i', // Validate the available time
         ]);
+
         $imagePaths = [];
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
@@ -50,9 +53,13 @@ class VehicleController extends Controller
                 $imagePaths[] = 'uploads/' . $filename;
             }
         }
-        $vehicleData = $request->except('image', 'featured','features');
+
+        $currentDate = Carbon::now()->toDateString();
+        $availableDatetime = Carbon::createFromFormat('H:i', $currentDate . ' ' . $request->input('available'));
+
+        $vehicleData = $request->except('image', 'featured', 'features', 'available');
         $vehicleData['image'] = serialize($imagePaths);
-        // $vehicleData['features'] = serialize($request->input('features'));
+        $vehicleData['available'] = $availableDatetime;
 
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);
@@ -61,7 +68,7 @@ class VehicleController extends Controller
         $vehicleData['featured'] = $request->has('featured');
         Vehicle::create($vehicleData);
 
-        return redirect()->route('vehicle.index')->with('success', 'vehicle has been created successfully.');
+        return redirect()->route('vehicle.index')->with('success', 'Vehicle has been created successfully.');
     }
     public function show()
     {
@@ -102,6 +109,7 @@ class VehicleController extends Controller
             'mprice' => 'required',
             'location' => 'required',
 
+
         ]);
 
         $vehicle = Vehicle::findOrFail($id);
@@ -132,7 +140,6 @@ class VehicleController extends Controller
         $vehicleData = $request->except('image', 'featured','features');
         $vehicleData['image'] = serialize($imagePaths);
         $vehicleData['featured'] = $request->has('featured');
-        // $vehicleData['features'] = $request->has('features');
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);
         }

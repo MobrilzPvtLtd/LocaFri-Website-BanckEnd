@@ -35,6 +35,7 @@ return new class extends Migration
             $table->boolean('Dprice');
             $table->string('wprice');
             $table->string('mprice');
+            $table->string('available');
             $table->string('status');
             $table->timestamps();
         });

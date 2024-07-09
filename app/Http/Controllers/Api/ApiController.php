@@ -11,6 +11,9 @@ use App\Mail\SendOtpMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Models\Vehicle;
+use Carbon\Carbon;
+
+
 
 
 class ApiController extends Controller
@@ -62,7 +65,7 @@ class ApiController extends Controller
         $user->otp = null;
         $user->verified = 1;
         $user->save();
-        
+
         return response()->json([
             'message' => 'Logged in successfully',
             'user' => $user,
@@ -70,15 +73,27 @@ class ApiController extends Controller
         ]);
     }
 
-    public function avalibalcars()
+    // public function avalibalcars()
+    // {
+    //     $activeCars = Vehicle::where('status', 1)->get();
+
+    //     return response()->json([
+    //         'status' => 'Available Cars',
+    //         'data' => $activeCars
+    //     ]);
+    // }
+    public function avalibalcars(request $request )
     {
-        $activeCars = Vehicle::where('status', 1)->get();
+        $currentTime = Carbon::now()->format('H:i');
+
+        $activeCars = Vehicle::where('status', 1)->where('available', $request->available)->get();
 
         return response()->json([
             'status' => 'Available Cars',
             'data' => $activeCars
         ]);
     }
+
 
     public function cardetails($id)
     {
