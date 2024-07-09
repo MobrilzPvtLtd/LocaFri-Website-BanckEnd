@@ -52,6 +52,45 @@
         src="https://maps.googleapis.com/maps/api/js?key=insert_your_api_key_here&libraries=places&callback=initPlaces"
         async="" defer="">
     </script>
+    <script>
+        const value2 = document.querySelector("#counter001")
+        const minus = document.querySelector("#minus")
+        const plus = document.querySelector("#plus")
+        plus.addEventListener("click" , ((e)=>{
+            e.preventDefault()
+            value2.value= parseInt(value2.value) + 1;
+        }))
+        minus.addEventListener("click" , ((e)=>{
+            e.preventDefault()
+            value2.value= parseInt(value2.value) - 1;
+
+        }))
+        const value3 = document.querySelector("#counter002")
+        const minus1 = document.querySelector("#minus1")
+        const plus1 = document.querySelector("#plus1")
+        plus1.addEventListener("click" , ((e)=>{
+            e.preventDefault()
+            value3.value= parseInt(value3.value) + 1;
+        }))
+        minus1.addEventListener("click" , ((e)=>{
+            e.preventDefault()
+            value3.value= parseInt(value3.value) - 1;
+
+        }))
+        const value4 = document.querySelector("#counter003")
+        const minus2 = document.querySelector("#minus2")
+        const plus2 = document.querySelector("#plus2")
+        plus2.addEventListener("click" , ((e)=>{
+            e.preventDefault()
+            value4.value= parseInt(value4.value) + 1;
+        }))
+        minus2.addEventListener("click" , ((e)=>{
+            e.preventDefault()
+            value4.value= parseInt(value4.value) - 1;
+
+        }))
+
+    </script>
 </div>
 
 </body>

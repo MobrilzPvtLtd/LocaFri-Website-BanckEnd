@@ -4145,8 +4145,17 @@ border: solid 2px rgba(255,255,255,.2);
     font-size: 18px;
 }
 
-.de-filter-group{
+input#counter001 {
+    width: 5rem;
 }
+input#counter002 {
+    width: 5rem;
+}
+input#counter003 {
+    width: 5rem;
+}
+
+
 
 /* heading */
 
@@ -5749,7 +5758,6 @@ i.font60 {
 
 .ul-style-4 li {
     margin: 2px 0 2px 0;
-    display: ;
     font-weight: 500;
 }
 
@@ -5831,28 +5839,24 @@ i.font60 {
     width: 49%;
 }
 
-.pricing-3-col {}
+
 
 .pricing-3-col .pricing-box {
     width: 32.33%;
 }
 
-.pricing-4-col {}
 
 .pricing-4-col .pricing-box {
     width: 24%;
 }
 
-.pricing-5-col {}
+
 
 .pricing-5-col .pricing-box {
     width: 19%;
 }
 
-.pricing-2-col,
-.pricing-3-col,
-.pricing-4-col,
-.pricing-5-col {}
+
 
 .pricing-box {
     float: left;
@@ -5893,7 +5897,7 @@ i.font60 {
     padding: 15px 0 15px 0;
 }
 
-.pricing-box li.title-row h4 {}
+
 
 .pricing-box li.price-row {
     padding: 15px 0 15px 0;
@@ -5917,7 +5921,7 @@ i.font60 {
     background: #ddd;
 }
 
-.pricing.pricing-box {}
+
 
 .pricing.pricing-box ul {
     margin: 0;
@@ -6291,8 +6295,8 @@ header.smaller{
 }
 
 .pricing-s2.text-light .top .price,
-.pricing-s2.text-white .top .price, {
-    color: #ffffff;
+.pricing-s2.text-white .top .price {
+    color: #fff;
 }
 
 .pricing-s2 .top .price .currency {
@@ -11134,8 +11138,6 @@ a.img-icon-zoom {
     width: 100%;
 }
 
-margin:5px;
-}
 
 /* clear fix */
 .grid:after {
@@ -11377,8 +11379,6 @@ margin:5px;
     border-color: #555;
 }
 
-.widget_tags li a:hover border-color: #eceff3;
-}
 
 footer .widget {
     border: none;
@@ -13343,10 +13343,8 @@ section.no-padding {
     padding-bottom: 6px;
     border-radius:0 5px 5px 0;
     -moz-border-radius:0 5px 5px 0;
-    -webkit-border-radius:0 5px 5px 0;\
-    padding: 12px 5px;
-    border:solid 1px #bbbbbb;
-    /* border-left: none; */
+    -webkit-border-radius:0 5px 5px 0;
+
 }
 
 .d-carousel{
@@ -16723,7 +16721,6 @@ a.btn-slider:hover {
     margin: 0 6px;
     display: inline-block;
     zoom: 1;
-    *display: inline;
 }
 
 .testi-slider .flex-control-paging li a {
@@ -18324,4 +18321,12 @@ select.language-switcher {
 option {
     background-color: #f36a21;
     color: #fff;
+}
+
+
+@media screen and (min-width: 1024px) and (max-width: 1300px) {
+    .de-item .d-price span {
+        font-size: 19px;
+    }
+
 }

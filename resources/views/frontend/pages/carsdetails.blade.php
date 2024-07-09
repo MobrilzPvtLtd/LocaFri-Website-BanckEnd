@@ -114,14 +114,17 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <form name="contactForm" id='contact_form' method="post" action="{{route('booking')}}">
+                        <form name="contactForm" id='contact_form' method="post" action="{{ route('booking') }}">
                             @csrf
-                            <input type="hidden" name="name" value="{{ $vehicles->name}}">
+                            <input type="hidden" name="name" value="{{ $vehicles->name }}">
                             <div class="de-price text-center">
                                 Prix
-                                <h4> <input type="hidden" name="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}.- / 1 jour<br>
-                                    <input type="hidden" name="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}.- / 1 semaine<br>
-                                    <input type="hidden" name="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }}.- / 1 mois
+                                <h4> <input type="hidden" name="Dprice"
+                                        value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}.- / 1 jour<br>
+                                    <input type="hidden" name="wprice"
+                                        value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}.- / 1 semaine<br>
+                                    <input type="hidden" name="mprice"
+                                        value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }}.- / 1 mois
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>
@@ -297,6 +300,48 @@
                                                 <option value="month">Month</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <label>Days</label><br>
+                                            <div class="d-flex gap-4"><button id="minus">-</button>
+                                                <input id="counter001" name="adult_count" value="1"
+                                                    class="form-control quantity-padding"><button id="plus">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <label>Week</label><br>
+                                            <div class="d-flex gap-4"><button id="minus1">-</button>
+                                                <input id="counter002" name="adult_count" value="1"
+                                                    class="form-control quantity-padding"><button id="plus1">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 search-col-padding d-flex">
+                                            <label>Month</label><br>
+                                            <div class="d-flex gap-4"><button id="minus2">-</button>
+                                                <input id="counter003" name="adult_count" value="1"
+                                                    class="form-control quantity-padding"><button id="plus2">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-switch d-flex gap-4">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Additional driver<br>(20.-/ per month)
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch d-flex gap-4">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child booster seat<br>(20.-/month)</label>
+                                        </div>
+                                        <div class="form-check form-switch d-flex gap-4">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child seat<br>(30.-/month)</label>
+                                        </div>
+                                        <div class="form-check form-switch d-flex gap-4">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Exit permit<br>(149.-/month)</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                            <label for="floatingTextarea2">Leave a comment here</label>
+                                          </div>
                                     </div>
 
                                 </div>
