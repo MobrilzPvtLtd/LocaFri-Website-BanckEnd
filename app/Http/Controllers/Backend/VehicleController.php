@@ -55,7 +55,7 @@ class VehicleController extends Controller
         }
 
         $currentDate = Carbon::now()->toDateString();
-        $availableDatetime = Carbon::createFromFormat('H:i', $currentDate . ' ' . $request->input('available'));
+        $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'));
 
         $vehicleData = $request->except('image', 'featured', 'features', 'available');
         $vehicleData['image'] = serialize($imagePaths);
@@ -70,6 +70,7 @@ class VehicleController extends Controller
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been created successfully.');
     }
+
     public function show()
     {
     }
@@ -84,7 +85,6 @@ class VehicleController extends Controller
         // }
         return view('backend.vehicle.edit', compact('vehicle','featuresArray'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -107,27 +107,12 @@ class VehicleController extends Controller
             'Dprice' => 'required',
             'wprice' => 'required',
             'mprice' => 'required',
-            'location' => 'required',
-
-
+            'available' => 'required|date_format:H:i',
         ]);
 
         $vehicle = Vehicle::findOrFail($id);
-        $imagePaths = [];
 
-        // Attempt to unserialize existing images
-        try {
-            $imagePaths = unserialize($vehicle->image);
-        } catch (\Exception $e) {
-            $imagePaths = [];
-        }
-
-        // Ensure $imagePaths is an array
-        if (!is_array($imagePaths)) {
-            $imagePaths = [];
-        }
-
-        // Handle new image uploads
+        $imagePaths = unserialize($vehicle->image);
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
                 $extension = $file->getClientOriginalExtension();
@@ -136,22 +121,23 @@ class VehicleController extends Controller
                 $imagePaths[] = 'uploads/' . $filename;
             }
         }
+        $currentDate = Carbon::now()->toDateString();
+        $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
 
-        $vehicleData = $request->except('image', 'featured','features');
+        $vehicleData = $request->except('image', 'featured', 'features', 'available');
         $vehicleData['image'] = serialize($imagePaths);
-        $vehicleData['featured'] = $request->has('featured');
+        $vehicleData['available'] = $availableDatetime;
+
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);
         }
-        try {
-            $vehicle->update($vehicleData);
-        } catch (\Exception $e) {
-            // Handle the error (log it if necessary)
-            return redirect()->back()->with('error', 'There was an error updating the vehicle: ' . $e->getMessage());
-        }
+
+        $vehicleData['featured'] = $request->has('featured');
+        $vehicle->update($vehicleData);
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been updated successfully.');
     }
+
 
 
 

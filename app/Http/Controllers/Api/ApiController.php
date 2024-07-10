@@ -13,9 +13,6 @@ use Illuminate\Support\Str;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 
-
-
-
 class ApiController extends Controller
 {
     public function login(Request $request)
@@ -97,7 +94,6 @@ class ApiController extends Controller
             ]);
         }
 
-        // Verify user
         $user->otp = null;
         $user->verified = 1;
         $user->save();
@@ -111,8 +107,6 @@ class ApiController extends Controller
             'token' => $token
         ]);
     }
-
-
 
     public function avalibalcars(Request $request)
     {
@@ -134,14 +128,11 @@ class ApiController extends Controller
             ]);
         }
 
-        // Return the response
         return response()->json([
             'status' => 'Available Cars',
             'data' => $activeCars
         ]);
     }
-
-
 
     public function cardetails($id)
     {
