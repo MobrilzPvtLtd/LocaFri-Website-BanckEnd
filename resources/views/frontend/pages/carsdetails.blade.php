@@ -300,48 +300,65 @@
                                                 <option value="month">Month</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 search-col-padding">
+
+                                        <div id="dayBox" class="col-md-3 col-sm-3 search-col-padding"
+                                            style="display:none;">
                                             <label>Days</label><br>
-                                            <div class="d-flex gap-4"><button id="minus">-</button>
+                                            <div class="d-flex gap-4">
+                                                <button id="minus">-</button>
                                                 <input id="counter001" name="adult_count" value="1"
-                                                    class="form-control quantity-padding"><button id="plus">+</button>
+                                                    class="form-control quantity-padding">
+                                                <button id="plus">+</button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 search-col-padding">
+
+                                        <div id="weekBox" class="col-md-3 col-sm-3 search-col-padding"
+                                            style="display:none;">
                                             <label>Week</label><br>
-                                            <div class="d-flex gap-4"><button id="minus1">-</button>
+                                            <div class="d-flex gap-4">
+                                                <button id="minus1">-</button>
                                                 <input id="counter002" name="adult_count" value="1"
-                                                    class="form-control quantity-padding"><button id="plus1">+</button>
+                                                    class="form-control quantity-padding">
+                                                <button id="plus1">+</button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 search-col-padding d-flex">
+
+                                        <div id="monthBox" class="col-md-3 col-sm-3 search-col-padding d-flex"
+                                            style="display:none;">
                                             <label>Month</label><br>
-                                            <div class="d-flex gap-4"><button id="minus2">-</button>
+                                            <div class="d-flex gap-4">
+                                                <button id="minus2">-</button>
                                                 <input id="counter003" name="adult_count" value="1"
-                                                    class="form-control quantity-padding"><button id="plus2">+</button>
+                                                    class="form-control quantity-padding">
+                                                <button id="plus2">+</button>
                                             </div>
                                         </div>
+
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Additional driver<br>(20.-/ per month)
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Additional
+                                                driver<br>(20.-/ per month)
                                             </label>
                                         </div>
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child booster seat<br>(20.-/month)</label>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child booster
+                                                seat<br>(20.-/month)</label>
                                         </div>
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child seat<br>(30.-/month)</label>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child
+                                                seat<br>(30.-/month)</label>
                                         </div>
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Exit permit<br>(149.-/month)</label>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Exit
+                                                permit<br>(149.-/month)</label>
                                         </div>
                                         <div class="form-floating">
                                             <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                                             <label for="floatingTextarea2">Leave a comment here</label>
-                                          </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -353,8 +370,7 @@
                                 <div class="clearfix"></div>
                                 <div class="de-price text-center mt-2">
                                     Total Price
-                                    <h4> <input type="hidden" name="Dprice"
-                                            value="{{ $vehicles->Dprice }}">10000<br>
+                                    <h4> <input type="hidden" name="Dprice" value="{{ $vehicles->Dprice }}">10000<br>
                                     </h4>
                                 </div>
 
@@ -383,5 +399,62 @@
 
     </div>
     <!-- content close -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#pick_up').change(function() {
+                var selectedValue = $(this).val();
+                $('#dayBox').hide();
+                $('#weekBox').hide();
+                $('#monthBox').hide();
+
+                if (selectedValue === 'day') {
+                    $('#dayBox').show();
+                } else if (selectedValue === 'week') {
+                    $('#dayBox').show();
+                    $('#weekBox').show();
+                } else if (selectedValue === 'month') {
+                    $('#dayBox').show();
+                    $('#weekBox').show();
+                    $('#monthBox').show();
+                }
+            });
+
+            // Counter functionality
+            function updateCounter(counterId, increment) {
+                var $input = $('#' + counterId);
+                var currentValue = parseInt($input.val());
+                if (!isNaN(currentValue)) {
+                    var newValue = currentValue + increment;
+                    $input.val(Math.max(newValue, 1));
+                }
+            }
+
+            $('#plus').click(function() {
+                updateCounter('counter001', 1);
+            });
+
+            $('#minus').click(function() {
+                updateCounter('counter001', -1);
+            });
+
+            $('#plus1').click(function() {
+                updateCounter('counter002', 1);
+            });
+
+            $('#minus1').click(function() {
+                updateCounter('counter002', -1);
+            });
+
+            $('#plus2').click(function() {
+                updateCounter('counter003', 1);
+            });
+
+            $('#minus2').click(function() {
+                updateCounter('counter003', -1);
+            });
+        });
+    </script>
+
 
 @endsection
