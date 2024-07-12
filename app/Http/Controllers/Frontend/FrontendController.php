@@ -60,8 +60,9 @@ class FrontendController extends Controller
     public function cardetails($slug, Request $req)
     {
         $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
-        // dd($vehicles);
-        return view('frontend.pages.carsdetails', compact('vehicles'));
+        $totalPrice = $vehicles->Dprice + $vehicles->wprice + $vehicles->mprice;
+        // dd($totalPrice);
+        return view('frontend.pages.carsdetails', compact('vehicles','totalPrice'));
     }
     /**
      * Privacy Policy Page.

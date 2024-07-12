@@ -119,12 +119,10 @@
                             <input type="hidden" name="name" value="{{ $vehicles->name }}">
                             <div class="de-price text-center">
                                 Prix
-                                <h4> <input type="hidden" name="Dprice"
-                                        value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}.- / 1 jour<br>
-                                    <input type="hidden" name="wprice"
-                                        value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}.- / 1 semaine<br>
-                                    <input type="hidden" name="mprice"
-                                        value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }}.- / 1 mois
+                                <h4>
+                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}.- / 1 jour<br>
+                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}.- / 1 semaine<br>
+                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }}.- / 1 mois
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>
@@ -293,47 +291,37 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Select Days</h5>
                                         <div class="date-time-field">
-                                            <select name="pickUpLocation" id="pick_up" onchange="showOptions()">
+                                            <select name="pickUpLocation" id="pick_up" class="targetDate">
                                                 <option selected disabled value="">Pick up Days</option>
                                                 <option value="day">Day</option>
                                                 <option value="week">Week</option>
                                                 <option value="month">Month</option>
                                             </select>
                                         </div>
-
-                                        <div id="dayBox" class="col-md-3 col-sm-3 search-col-padding"
-                                            style="display:none;">
+                                        <div class="col-md-3 col-sm-3 search-col-padding day section">
                                             <label>Days</label><br>
-                                            <div class="d-flex gap-4">
-                                                <button id="minus">-</button>
+                                            <div class="d-flex gap-4"><button id="minus">-</button>
                                                 <input id="counter001" name="adult_count" value="1"
                                                     class="form-control quantity-padding">
-                                                <button id="plus">+</button>
+                                                    <button id="plus">+</button>
                                             </div>
                                         </div>
-
-                                        <div id="weekBox" class="col-md-3 col-sm-3 search-col-padding"
-                                            style="display:none;">
+                                        <div class="col-md-3 col-sm-3 search-col-padding week section">
                                             <label>Week</label><br>
-                                            <div class="d-flex gap-4">
-                                                <button id="minus1">-</button>
+                                            <div class="d-flex gap-4"><button id="minus1">-</button>
                                                 <input id="counter002" name="adult_count" value="1"
-                                                    class="form-control quantity-padding">
-                                                <button id="plus1">+</button>
+                                                    class="form-control quantity-padding"><button
+                                                    id="plus1">+</button>
                                             </div>
                                         </div>
-
-                                        <div id="monthBox" class="col-md-3 col-sm-3 search-col-padding d-flex"
-                                            style="display:none;">
+                                        <div class="col-md-3 col-sm-3 search-col-padding month section">
                                             <label>Month</label><br>
-                                            <div class="d-flex gap-4">
-                                                <button id="minus2">-</button>
+                                            <div class="d-flex gap-4"><button id="minus2">-</button>
                                                 <input id="counter003" name="adult_count" value="1"
-                                                    class="form-control quantity-padding">
-                                                <button id="plus2">+</button>
+                                                    class="form-control quantity-padding"><button
+                                                    id="plus2">+</button>
                                             </div>
                                         </div>
-
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                                             <label class="form-check-label" for="flexSwitchCheckDefault">Additional
@@ -342,8 +330,7 @@
                                         </div>
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child booster
-                                                seat<br>(20.-/month)</label>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child booster seat<br>(20.-/month)</label>
                                         </div>
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
@@ -360,17 +347,17 @@
                                             <label for="floatingTextarea2">Leave a comment here</label>
                                         </div>
                                     </div>
-
                                 </div>
-
-
 
                                 <input type='submit' id='send_message' value='Book Now' class="btn-main btn-fullwidth">
 
                                 <div class="clearfix"></div>
                                 <div class="de-price text-center mt-2">
                                     Total Price
-                                    <h4> <input type="hidden" name="Dprice" value="{{ $vehicles->Dprice }}">10000<br>
+                                    <h4>
+                                        <input type="text" name="totalPrice" id="totalPrice" value="{{ $totalPrice }}">
+                                        <h5 id="totalPriceDisplay">{{ $totalPrice }}</h5>
+                                        <br>
                                     </h4>
                                 </div>
 
@@ -399,62 +386,93 @@
 
     </div>
     <!-- content close -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@endsection
+@section('script')
     <script>
         $(document).ready(function() {
-            $('#pick_up').change(function() {
-                var selectedValue = $(this).val();
-                $('#dayBox').hide();
-                $('#weekBox').hide();
-                $('#monthBox').hide();
+            $('.section').hide();
+            var totalVal = parseFloat($("#totalPrice").val()) || 0;
+            var dayVal = parseFloat($("#Dprice").val()) || 0;
+            var weekVal = parseFloat($("#wprice").val()) || 0;
+            var monthVal = parseFloat($("#mprice").val()) || 0;
 
-                if (selectedValue === 'day') {
-                    $('#dayBox').show();
-                } else if (selectedValue === 'week') {
-                    $('#dayBox').show();
-                    $('#weekBox').show();
-                } else if (selectedValue === 'month') {
-                    $('#dayBox').show();
-                    $('#weekBox').show();
-                    $('#monthBox').show();
+            $(".targetDate").change(function() {
+                var value = $(this).val();
+                var totalPrice = totalVal;
+
+                $(".section").hide();
+
+                if (value == 'day') {
+                    $(".day").show();
+                    totalPrice += dayVal;
+                } else if (value == 'week') {
+                    $(".day").show();
+                    $(".week").show();
+                    totalPrice += dayVal + weekVal;
+                } else if (value == 'month') {
+                    $(".day").show();
+                    $(".week").show();
+                    $(".month").show();
+                    totalPrice += dayVal + weekVal + monthVal;
                 }
+                console.log(totalPrice);
+
+                $("#totalPrice").val(totalPrice);
+                $("#totalPriceDisplay").text(totalPrice);
             });
 
-            // Counter functionality
-            function updateCounter(counterId, increment) {
-                var $input = $('#' + counterId);
-                var currentValue = parseInt($input.val());
-                if (!isNaN(currentValue)) {
-                    var newValue = currentValue + increment;
-                    $input.val(Math.max(newValue, 1));
-                }
+            function updateTotalPrice() {
+                var dayCount = parseFloat($("#counter001").val()) || 0;
+                var weekCount = parseFloat($("#counter002").val()) || 0;
+                var monthCount = parseFloat($("#counter003").val()) || 0;
+
+                var totalPrice = (dayCount * dayVal) + (weekCount * weekVal) + (monthCount * monthVal);
+                $("#totalPrice").val(totalPrice);
+                $("#totalPriceDisplay").text(totalPrice);
             }
 
-            $('#plus').click(function() {
-                updateCounter('counter001', 1);
+            $("#plus").click(function(){
+                var counter001Val = parseFloat($("#counter001").val()) || 0;
+                $("#counter001").val(counter001Val + 1);
+                updateTotalPrice();
             });
 
-            $('#minus').click(function() {
-                updateCounter('counter001', -1);
+            $("#plus1").click(function(){
+                var counter002Val = parseFloat($("#counter002").val()) || 0;
+                $("#counter002").val(counter002Val + 1);
+                updateTotalPrice();
             });
 
-            $('#plus1').click(function() {
-                updateCounter('counter002', 1);
+            $("#plus2").click(function(){
+                var counter003Val = parseFloat($("#counter003").val()) || 0;
+                $("#counter003").val(counter003Val + 1);
+                updateTotalPrice();
             });
 
-            $('#minus1').click(function() {
-                updateCounter('counter002', -1);
+            $("#minus").click(function(){
+                var counter001Val = parseFloat($("#counter001").val()) || 0;
+                if (counter001Val > 0) {
+                    $("#counter001").val(counter001Val - 1);
+                }
+                updateTotalPrice();
             });
 
-            $('#plus2').click(function() {
-                updateCounter('counter003', 1);
+            $("#minus1").click(function(){
+                var counter002Val = parseFloat($("#counter002").val()) || 0;
+                if (counter002Val > 0) {
+                    $("#counter002").val(counter002Val - 1);
+                }
+                updateTotalPrice();
             });
 
-            $('#minus2').click(function() {
-                updateCounter('counter003', -1);
+            $("#minus2").click(function(){
+                var counter003Val = parseFloat($("#counter003").val()) || 0;
+                if (counter003Val > 0) {
+                    $("#counter003").val(counter003Val - 1);
+                }
+                updateTotalPrice();
             });
         });
     </script>
-
-
 @endsection
