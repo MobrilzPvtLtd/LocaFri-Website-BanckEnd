@@ -14,15 +14,24 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('Dprice')->nullable();
-            $table->string('wprice')->nullable();
-            $table->string('mprice')->nullable();
-            $table->string('pickUpLocation')->nullable();
+            $table->decimal('Dprice',10,2)->nullable();
+            $table->decimal('wprice',10,2)->nullable();
+            $table->decimal('mprice',10,2)->nullable();
+            $table->decimal('total_price',10,2)->nullable();
+            $table->decimal('day_count',10,2)->nullable();
+            $table->decimal('week_count',10,2)->nullable();
+            $table->decimal('month_count',10,2)->nullable();
+            $table->decimal('additional_driver',10,2)->nullable();
+            $table->decimal('booster_seat',10,2)->nullable();
+            $table->decimal('child_seat',10,2)->nullable();
+            $table->decimal('exit_permit',10,2)->nullable();
+            $table->decimal('pickUpLocation')->nullable();
             $table->string('dropOffLocation')->nullable();
             $table->string('pickUpDate')->nullable();
             $table->string('pickUpTime')->nullable();
-            $table->string('collectionDate')->nullable();
             $table->string('collectionTime')->nullable();
+            $table->string('collectionDate')->nullable();
+            $table->string('targetDate')->nullable();
             $table->timestamps();
         });
     }

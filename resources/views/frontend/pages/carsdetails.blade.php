@@ -136,7 +136,7 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Pick Up Location</h5>
                                         <div class="date-time-field">
-                                            
+
                                             <select name="pickUpLocation" id="pick_up">
                                                 @if(session()->has('pickUpLocation'))
                                                     <option selected value="{{ session()->get('pickUpLocation') }}">
@@ -145,7 +145,7 @@
                                                 @else
                                                     <option selected disabled value="">Select pick up</option>
                                                 @endif
-                                    
+
                                                 @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
                                                 @endforeach
@@ -169,7 +169,7 @@
                                                 @else
                                                     <option selected disabled value="">Select drop off</option>
                                                 @endif
-                                    
+
                                                 @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
                                                 @endforeach
@@ -308,7 +308,7 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Select Days</h5>
                                         <div class="date-time-field">
-                                            <select name="pickUpLocation" id="pick_up" class="targetDate">
+                                            <select name="targetDate" id="pick_up" class="targetDate">
                                                 <option selected disabled value="">Pick up Days</option>
                                                 <option value="day">Day</option>
                                                 <option value="week">Week</option>
@@ -319,53 +319,53 @@
                                             <label>Days</label><br>
                                             <div class="d-flex gap-4">
                                                 <button id="minus">-</button>
-                                                <input id="counter001" name="day_count" value="1" class="form-control quantity-padding">
+                                                <input id="counter001" name="day_count" value="0" class="form-control quantity-padding">
                                                 <button id="plus">+</button>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-3 col-sm-3 search-col-padding week section">
                                             <label>Week</label><br>
                                             <div class="d-flex gap-4">
                                                 <button id="minus1">-</button>
-                                                <input id="counter002" name="week_count" value="1" class="form-control quantity-padding">
+                                                <input id="counter002" name="week_count" value="0" class="form-control quantity-padding">
                                                 <button id="plus1">+</button>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-3 col-sm-3 search-col-padding month section">
                                             <label>Month</label><br>
                                             <div class="d-flex gap-4">
                                                 <button id="minus2">-</button>
-                                                <input id="counter003" name="month_count" value="1" class="form-control quantity-padding">
+                                                <input id="counter003" name="month_count" value="0" class="form-control quantity-padding">
                                                 <button id="plus2">+</button>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox">
-                                            <label class="form-check-label" for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
-                                            <input type="hidden" name="additional_driver" id="additionalDriverInput" value="0">
+                                            <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox" name="additional_driver" value="20">
+                                            <label class="form-check-label"  for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
+                                            {{-- <input type="hidden" name="additional_driver" id="additionalDriverInput" value="20"> --}}
                                         </div>
-                                        
+
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox">
+                                            <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
                                             <label class="form-check-label" for="boosterSeatCheckbox">Child booster seat<br>(20.-/month)</label>
-                                            <input type="hidden" name="booster_seat" id="boosterSeatInput" value="0">
+                                            {{-- <input type="hidden" name="booster_seat" id="boosterSeatInput" value="20"> --}}
                                         </div>
-                                        
+
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="childSeatCheckbox">
+                                            <input class="form-check-input" type="checkbox" id="childSeatCheckbox" name="child_seat" value="30">
                                             <label class="form-check-label" for="childSeatCheckbox">Child seat<br>(30.-/month)</label>
-                                            <input type="hidden" name="child_seat" id="childSeatInput" value="0">
+                                            {{-- <input type="hidden" name="child_seat" id="childSeatInput" value="30"> --}}
                                         </div>
-                                        
+
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="exitPermitCheckbox">
+                                            <input class="form-check-input" type="checkbox" id="exitPermitCheckbox" name="exit_permit" value="149">
                                             <label class="form-check-label" for="exitPermitCheckbox">Exit permit<br>(149.-/month)</label>
-                                            <input type="hidden" name="exit_permit" id="exitPermitInput" value="0">
+                                            {{-- <input type="hidden" name="exit_permit" id="exitPermitInput" value="149"> --}}
                                         </div>
-                                        
+
                                         <div class="form-floating">
                                             <textarea class="form-control"name="message" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                                             <label for="floatingTextarea2">Leave a comment here</label>
@@ -379,12 +379,11 @@
                                 <div class="de-price text-center mt-2">
                                     Total Price
                                     <h4>
-                                        <input type="text" name="total_price" id="totalPrice" value="{{ $totalPrice }}">
-                                        <h5 id="totalPriceDisplay">{{ $totalPrice }}</h5>
+                                        <input type="hidden" name="total_price" id="totalPrice" value="{{ $totalPrice }}">
+                                        <p id="totalPriceDisplay">{{ $totalPrice }}</p>
                                         <br>
                                     </h4>
                                 </div>
-
                         </form>
                     </div>
 
@@ -420,6 +419,10 @@
             var dayVal = parseFloat($("#Dprice").val()) || 0;
             var weekVal = parseFloat($("#wprice").val()) || 0;
             var monthVal = parseFloat($("#mprice").val()) || 0;
+            var additionalDriverVal = parseFloat($("#additionalDriverCheckbox").val()) || 0;
+            var boosterSeatVal = parseFloat($("#boosterSeatCheckbox").val()) || 0;
+            var childSeatVal = parseFloat($("#childSeatCheckbox").val()) || 0;
+            var exitPermitVal = parseFloat($("#exitPermitCheckbox").val()) || 0;
 
             $(".targetDate").change(function() {
                 var value = $(this).val();
@@ -431,72 +434,123 @@
                     $(".day").show();
                     totalPrice += dayVal;
                 } else if (value == 'week') {
-                    $(".day").show();
                     $(".week").show();
-                    totalPrice += dayVal + weekVal;
+                    totalPrice += weekVal;
                 } else if (value == 'month') {
-                    $(".day").show();
-                    $(".week").show();
                     $(".month").show();
-                    totalPrice += dayVal + weekVal + monthVal;
+                    totalPrice += monthVal;
                 }
-                console.log(totalPrice);
-
-                $("#totalPrice").val(totalPrice);
-                $("#totalPriceDisplay").text(totalPrice);
+                updateTotalPrice(value);
+                // $("#totalPrice").val(totalPrice);
+                // $("#totalPriceDisplay").text(totalPrice);
             });
 
-            function updateTotalPrice() {
+            function updateTotalPrice(value) {
                 var dayCount = parseFloat($("#counter001").val()) || 0;
                 var weekCount = parseFloat($("#counter002").val()) || 0;
                 var monthCount = parseFloat($("#counter003").val()) || 0;
 
-                var totalPrice = (dayCount * dayVal) + (weekCount * weekVal) + (monthCount * monthVal);
+                var totalPrice = totalVal;
+                if (value == "day") {
+                    totalPrice += (dayCount * dayVal);
+                } else if (value == "week") {
+                    totalPrice += (weekCount * weekVal);
+                } else if (value == "month") {
+                    totalPrice += (monthCount * monthVal);
+                }
+
+                if ($("#additionalDriverCheckbox").is(':checked')) {
+                    totalPrice += additionalDriverVal;
+                } else {
+                    totalPrice = totalPrice;
+                }
+
+                if ($("#boosterSeatCheckbox").is(':checked')) {
+                    totalPrice += boosterSeatVal;
+                } else {
+                    totalPrice = totalPrice;
+                }
+
+                if ($("#childSeatCheckbox").is(':checked')) {
+                    totalPrice += childSeatVal;
+                } else {
+                    totalPrice = totalPrice;
+                }
+
+                if ($("#exitPermitCheckbox").is(':checked')) {
+                    totalPrice += exitPermitVal;
+                } else {
+                    totalPrice = totalPrice;
+                }
+
+                console.log(totalPrice);
+
                 $("#totalPrice").val(totalPrice);
                 $("#totalPriceDisplay").text(totalPrice);
             }
 
-            $("#plus").click(function(){
+            $("#plus").click(function() {
                 var counter001Val = parseFloat($("#counter001").val()) || 0;
-                $("#counter001").val(counter001Val + 1);
-                updateTotalPrice();
+                $("#counter001").val(counter001Val);
+                updateTotalPrice("day");
             });
 
-            $("#plus1").click(function(){
+            $("#plus1").click(function() {
                 var counter002Val = parseFloat($("#counter002").val()) || 0;
-                $("#counter002").val(counter002Val + 1);
-                updateTotalPrice();
+                $("#counter002").val(counter002Val);
+                updateTotalPrice("week");
             });
 
-            $("#plus2").click(function(){
+            $("#plus2").click(function() {
                 var counter003Val = parseFloat($("#counter003").val()) || 0;
-                $("#counter003").val(counter003Val + 1);
-                updateTotalPrice();
+                $("#counter003").val(counter003Val);
+                updateTotalPrice("month");
             });
 
-            $("#minus").click(function(){
+            $("#minus").click(function() {
                 var counter001Val = parseFloat($("#counter001").val()) || 0;
                 if (counter001Val > 0) {
-                    $("#counter001").val(counter001Val - 1);
+                    $("#counter001").val(counter001Val);
                 }
-                updateTotalPrice();
+                updateTotalPrice("day");
             });
 
-            $("#minus1").click(function(){
+            $("#minus1").click(function() {
                 var counter002Val = parseFloat($("#counter002").val()) || 0;
                 if (counter002Val > 0) {
-                    $("#counter002").val(counter002Val - 1);
+                    $("#counter002").val(counter002Val);
                 }
-                updateTotalPrice();
+                updateTotalPrice("week");
             });
 
-            $("#minus2").click(function(){
+            $("#minus2").click(function() {
                 var counter003Val = parseFloat($("#counter003").val()) || 0;
                 if (counter003Val > 0) {
-                    $("#counter003").val(counter003Val - 1);
+                    $("#counter003").val(counter003Val);
                 }
-                updateTotalPrice();
+                updateTotalPrice("month");
+            });
+
+            $("#additionalDriverCheckbox").change(function() {
+                var currentDateSelection = $(".targetDate").val();
+                updateTotalPrice(currentDateSelection);
+            });
+
+            $("#boosterSeatCheckbox").change(function() {
+                var currentDateSelection = $(".targetDate").val();
+                updateTotalPrice(currentDateSelection);
+            });
+
+            $("#childSeatCheckbox").change(function() {
+                var currentDateSelection = $(".targetDate").val();
+                updateTotalPrice(currentDateSelection);
+            });
+
+            $("#exitPermitCheckbox").change(function() {
+                var currentDateSelection = $(".targetDate").val();
+                updateTotalPrice(currentDateSelection);
             });
         });
+
     </script>
 @endsection
