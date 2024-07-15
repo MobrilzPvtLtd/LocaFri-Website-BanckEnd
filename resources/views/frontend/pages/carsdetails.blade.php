@@ -136,11 +136,19 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Pick Up Location</h5>
                                         <div class="date-time-field">
+                                            
                                             <select name="pickUpLocation" id="pick_up">
-                                                <option selected disabled value="Select pick_up">
-                                                    {{ session()->get('pickUpLocation') }}</option>
-                                                <option value="{{ session()->get('pickUpLocation') }}">
-                                                    {{ session()->get('pickUpLocation') }}</option>
+                                                @if(session()->has('pickUpLocation'))
+                                                    <option selected value="{{ session()->get('pickUpLocation') }}">
+                                                        {{ session()->get('pickUpLocation') }}
+                                                    </option>
+                                                @else
+                                                    <option selected disabled value="">Select pick up</option>
+                                                @endif
+                                    
+                                                @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
+                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -154,10 +162,17 @@
                                         <h5>Drop Off Location</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off">
-                                                <option selected disabled value="Select drop_off">
-                                                    {{ session()->get('dropOffLocation') }}</option>
-                                                <option value="{{ session()->get('dropOffLocation') }}">
-                                                    {{ session()->get('dropOffLocation') }}</option>
+                                                @if(session()->has('dropOffLocation'))
+                                                    <option selected value="{{ session()->get('dropOffLocation') }}">
+                                                        {{ session()->get('dropOffLocation') }}
+                                                    </option>
+                                                @else
+                                                    <option selected disabled value="">Select drop off</option>
+                                                @endif
+                                    
+                                                @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
+                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -175,6 +190,7 @@
                                             <select name="pickUpTime" id="pickup-time">
                                                 <option selected disabled value="{{ session()->get('pickUpTime') }}">
                                                     {{ session()->get('pickUpTime') }}</option>
+                                                <option selected disabled value=""> Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
                                                 <option value="01:00">01:00</option>
@@ -236,6 +252,7 @@
                                             <select name="collectionTime" id="collection-time">
                                                 <option selected disabled value="{{ session()->get('collectionTime') }}">
                                                     {{ session()->get('collectionTime') }}</option>
+                                                    <option selected disabled value=""> Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
                                                 <option value="01:00">01:00</option>
@@ -300,50 +317,57 @@
                                         </div>
                                         <div class="col-md-3 col-sm-3 search-col-padding day section">
                                             <label>Days</label><br>
-                                            <div class="d-flex gap-4"><button id="minus">-</button>
-                                                <input id="counter001" name="adult_count" value="1"
-                                                    class="form-control quantity-padding">
-                                                    <button id="plus">+</button>
+                                            <div class="d-flex gap-4">
+                                                <button id="minus">-</button>
+                                                <input id="counter001" name="day_count" value="1" class="form-control quantity-padding">
+                                                <button id="plus">+</button>
                                             </div>
                                         </div>
+                                        
                                         <div class="col-md-3 col-sm-3 search-col-padding week section">
                                             <label>Week</label><br>
-                                            <div class="d-flex gap-4"><button id="minus1">-</button>
-                                                <input id="counter002" name="adult_count" value="1"
-                                                    class="form-control quantity-padding"><button
-                                                    id="plus1">+</button>
+                                            <div class="d-flex gap-4">
+                                                <button id="minus1">-</button>
+                                                <input id="counter002" name="week_count" value="1" class="form-control quantity-padding">
+                                                <button id="plus1">+</button>
                                             </div>
                                         </div>
+                                        
                                         <div class="col-md-3 col-sm-3 search-col-padding month section">
                                             <label>Month</label><br>
-                                            <div class="d-flex gap-4"><button id="minus2">-</button>
-                                                <input id="counter003" name="adult_count" value="1"
-                                                    class="form-control quantity-padding"><button
-                                                    id="plus2">+</button>
+                                            <div class="d-flex gap-4">
+                                                <button id="minus2">-</button>
+                                                <input id="counter003" name="month_count" value="1" class="form-control quantity-padding">
+                                                <button id="plus2">+</button>
                                             </div>
                                         </div>
+                                        
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Additional
-                                                driver<br>(20.-/ per month)
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox">
+                                            <label class="form-check-label" for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
+                                            <input type="hidden" name="additional_driver" id="additionalDriverInput" value="0">
                                         </div>
+                                        
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child booster seat<br>(20.-/month)</label>
+                                            <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox">
+                                            <label class="form-check-label" for="boosterSeatCheckbox">Child booster seat<br>(20.-/month)</label>
+                                            <input type="hidden" name="booster_seat" id="boosterSeatInput" value="0">
                                         </div>
+                                        
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Child
-                                                seat<br>(30.-/month)</label>
+                                            <input class="form-check-input" type="checkbox" id="childSeatCheckbox">
+                                            <label class="form-check-label" for="childSeatCheckbox">Child seat<br>(30.-/month)</label>
+                                            <input type="hidden" name="child_seat" id="childSeatInput" value="0">
                                         </div>
+                                        
                                         <div class="form-check form-switch d-flex gap-4">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Exit
-                                                permit<br>(149.-/month)</label>
+                                            <input class="form-check-input" type="checkbox" id="exitPermitCheckbox">
+                                            <label class="form-check-label" for="exitPermitCheckbox">Exit permit<br>(149.-/month)</label>
+                                            <input type="hidden" name="exit_permit" id="exitPermitInput" value="0">
                                         </div>
+                                        
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                            <textarea class="form-control"name="message" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                                             <label for="floatingTextarea2">Leave a comment here</label>
                                         </div>
                                     </div>
@@ -355,7 +379,7 @@
                                 <div class="de-price text-center mt-2">
                                     Total Price
                                     <h4>
-                                        <input type="text" name="totalPrice" id="totalPrice" value="{{ $totalPrice }}">
+                                        <input type="text" name="total_price" id="totalPrice" value="{{ $totalPrice }}">
                                         <h5 id="totalPriceDisplay">{{ $totalPrice }}</h5>
                                         <br>
                                     </h4>
