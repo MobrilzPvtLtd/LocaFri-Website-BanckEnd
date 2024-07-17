@@ -74,7 +74,7 @@ class ApiController extends Controller
             return response()->json(['message' => 'User not found.'], 404);
         }
 
-        if ($user->otp !== $request->otp) {
+        if ($user->otp != $request->otp) {
             return response()->json(['message' => 'Invalid OTP.'], 401);
         }
 
@@ -82,6 +82,7 @@ class ApiController extends Controller
         if (Carbon::now()->greaterThan($otpExpiryTime)) {
 
             $otp = mt_rand(100000, 999999);
+            
             $user->otp = $otp;
             $user->otp_generated_at = Carbon::now();
             $user->save();
