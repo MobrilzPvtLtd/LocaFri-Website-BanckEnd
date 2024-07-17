@@ -44,6 +44,7 @@ return array(
     'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Component\\Clock\\' => array($vendorDir . '/symfony/clock'),
+    'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
     'Spatie\\TemporaryDirectory\\' => array($vendorDir . '/spatie/temporary-directory/src'),
     'Spatie\\Sluggable\\' => array($vendorDir . '/spatie/laravel-sluggable/src'),
     'Spatie\\SignalAwareCommand\\' => array($vendorDir . '/spatie/laravel-signal-aware-command/src'),

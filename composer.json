@@ -30,6 +30,7 @@
         "spatie/laravel-medialibrary": "^11.4",
         "spatie/laravel-permission": "^6.4",
         "spatie/laravel-sluggable": "^3.6",
+        "stripe/stripe-php": "^15.2",
         "unisharp/laravel-filemanager": "^2.8",
         "yajra/laravel-datatables-oracle": "^11.0"
     },

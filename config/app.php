@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -158,5 +157,20 @@ return [
     ],
 
     'demo_mode' => env('DEMO_MODE', false),
+
+
+//     'providers' => [
+//     // Other Service Providers...
+
+//     Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+//    ],
+
+//   'aliases' => [
+//     // Other Class Aliases...
+
+//     'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+//   ],
+
+
 
 ];

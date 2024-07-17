@@ -13,13 +13,36 @@ class BookingController extends Controller
 {
     public function booking(Request $request)
     {
-        $totalPrice = $request->Dprice+$request->wprice+$request->mprice;
-
+        // Validate request data
+        $request->validate([
+            'name' => 'required',
+            'Dprice' => 'required',
+            'wprice' => 'required',
+            'mprice' => 'required',
+            'day_count' => 'required',
+            'week_count' => 'required',
+            'month_count' => 'required',
+            'additional_driver' => 'nullable',
+            'booster_seat' => 'nullable',
+            'child_seat' => 'nullable',
+            'exit_permit' => 'nullable',
+            'targetDate' => 'required',
+            'pickUpLocation' => 'required',
+            'dropOffLocation' => 'required',
+            'pickUpDate' => 'required',
+            'pickUpTime' => 'required',
+            'collectionDate' => 'required',
+            'collectionTime' => 'required',
+        ]);
+    
+        // Calculate total price
+        $totalPrice = $request->Dprice + $request->wprice + $request->mprice;
+    
         $additional_driver = $request->additional_driver ?? 0;
         $booster_seat = $request->booster_seat ?? 0;
         $child_seat = $request->child_seat ?? 0;
         $exit_permit = $request->exit_permit ?? 0;
-
+    
         if ($request->targetDate == 'day') {
             $totalPrice += $request->Dprice * $request->day_count;
         } else if ($request->targetDate == 'week') {
@@ -27,10 +50,14 @@ class BookingController extends Controller
         } else if ($request->targetDate == 'month') {
             $totalPrice += $request->mprice * $request->month_count;
         }
-
+    
         // Add optional charges
         $totalPrice += $additional_driver + $booster_seat + $child_seat + $exit_permit;
-
+    
+        // Debug log to check values
+        \Log::info('Booking data:', $request->all());
+    
+        // Create new booking
         $booking = new Booking();
         $booking->name = $request->name;
         $booking->Dprice = $request->Dprice;
@@ -52,15 +79,8 @@ class BookingController extends Controller
         $booking->collectionDate = $request->collectionDate;
         $booking->collectionTime = $request->collectionTime;
         $booking->save();
-
-        // if (Auth::check()) {
-        //     $userEmail = Auth::user()->email;
-        // } else {
-        //     return redirect()->back()->with('error', 'User is not authenticated.');
-        // }
-
-        // Send the email
-        // Mail::to($userEmail)->send(new EnquiryMail($booking));
-        return redirect()->back()->with('success', 'Booking Successfully');
+    
+        return redirect()->route('reservation')->with('success', 'Booking Successfully');
     }
+    
 }

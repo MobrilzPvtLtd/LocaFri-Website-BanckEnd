@@ -16,6 +16,9 @@ use App\Http\Controllers\Backend\ReservationController;
 use App\Http\Controllers\Backend\CustomercontactController;
 use App\Http\Controllers\Backend\EnquiryController;
 use App\Http\Controllers\Frontend\BookingController;
+use App\Http\Controllers\Frontend\MoneySetupController;
+use App\Http\Controllers\Frontend\TwintController;
+use App\Http\Controllers\StripeWebhookController;
 
 /*
 *
@@ -52,11 +55,23 @@ Route::resource('admin/reservation', ReservationController::class);
 Route::resource('admin/customercontact', CustomercontactController::class);
 
 
+// payment getwey
+Route::get('strip', [StripeWebhookController ::class, 'show'])->name('strip');
+Route::get('twint/payment', [TwintController::class, 'showPaymentForm'])->name('twint.payment');
+Route::post('twint/payment', [TwintController::class, 'processPayment'])->name('twint.process');
+Route::get('twint/success', [TwintController::class, 'success'])->name('twint.success');
+Route::get('twint/failure', [TwintController::class, 'failure'])->name('twint.failure');
+
+// Route::get('stripe', [MoneySetupController::class, 'PaymentStripe'])->name('addmoney.paystripe');
+// Route::post('stripe', [MoneySetupController::class, 'postPaymentStripe'])->name('addmoney.stripe');
+
+
 
 //frontend routes
 
-
 Route::get('reservation', [FrontendController::class, 'reservation'])->name('reservation');
+
+Route::post('reservation', [FrontendController::class, 'save'])->name('reservation.save');
 
 // contact
 Route::post('booking', [BookingController::class, 'booking'])->name('booking');
