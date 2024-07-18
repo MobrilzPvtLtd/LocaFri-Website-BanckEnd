@@ -71,10 +71,11 @@ Route::get('twint/failure', [TwintController::class, 'failure'])->name('twint.fa
 
 Route::get('reservation', [FrontendController::class, 'reservation'])->name('reservation');
 
-Route::post('reservation', [FrontendController::class, 'save'])->name('reservation.save');
+// Route::post('reservation', [FrontendController::class, 'save'])->name('reservation.save');
 
 // contact
-Route::post('booking', [BookingController::class, 'booking'])->name('booking');
+Route::post('booking-checkout', [BookingController::class, 'bookingCheckout'])->name('booking-checkout');
+Route::get('booking', [BookingController::class, 'booking'])->name('booking');
 
 // contact
 Route::post('contact', [ContactController::class, 'submit'])->name('contact.submit');

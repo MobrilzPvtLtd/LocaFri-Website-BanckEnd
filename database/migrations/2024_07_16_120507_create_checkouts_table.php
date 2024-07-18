@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
+            $table->uuid('order_id')->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->nullable();
             $table->string('address_first')->nullable();
-            $table->string('address_last')->nullable(); 
+            $table->string('address_last')->nullable();
             $table->timestamps();
         });
     }

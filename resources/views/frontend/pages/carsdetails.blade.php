@@ -114,8 +114,8 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <form name="contactForm" id='contact_form' method="post" action="{{ route('booking') }}">
-                            @csrf
+                        <form id='contact_form' method="GET" action="{{ route('reservation') }}">
+                            {{-- @csrf --}}
                             <input type="hidden" name="name" value="{{ $vehicles->name }}">
                             <div class="de-price text-center">
                                 Prix
