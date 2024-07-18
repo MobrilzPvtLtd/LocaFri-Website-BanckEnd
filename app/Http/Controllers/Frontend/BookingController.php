@@ -13,30 +13,8 @@ use App\Models\Checkout;
 class BookingController extends Controller
 {
     public function bookingCheckout(Request $request){
-        // dd( $request);
-        // Validate request data
-        // $request->validate([
-        //     'name' => 'required',
-        //     'Dprice' => 'required',
-        //     'wprice' => 'required',
-        //     'mprice' => 'required',
-        //     'day_count' => 'required',
-        //     'week_count' => 'required',
-        //     'month_count' => 'required',
-        //     'additional_driver' => 'nullable',
-        //     'booster_seat' => 'nullable',
-        //     'child_seat' => 'nullable',
-        //     'exit_permit' => 'nullable',
-        //     'targetDate' => 'required',
-        //     'pickUpLocation' => 'required',
-        //     'dropOffLocation' => 'required',
-        //     'pickUpDate' => 'required',
-        //     'pickUpTime' => 'required',
-        //     'collectionDate' => 'required',
-        //     'collectionTime' => 'required',
-        // ]);
+        // dd($request);
 
-        // Calculate total price
         // $totalPrice = $request->Dprice + $request->wprice + $request->mprice;
         $totalPrice = $request->price;
 
@@ -79,20 +57,18 @@ class BookingController extends Controller
         $booking->targetDate = $request->targetDate;
         $booking->pickUpLocation = $request->pickUpLocation;
         $booking->dropOffLocation = $request->dropOffLocation;
-        $booking->pickUpDate = $request->pickUpDate;
+        $booking->pickUpDate = \Carbon\Carbon::parse($request->pickUpDate);
         $booking->pickUpTime = $request->pickUpTime;
-        $booking->collectionDate = $request->collectionDate;
+        $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
         $booking->collectionTime = $request->collectionTime;
-        dd($booking);
         $booking->save();
 
         $checkout = new Checkout();
-
-        $checkout->first_name = $request['first_name'];
-        $checkout->last_name = $request['last_name'];
-        $checkout->email = $request['email'];
-        $checkout->address_first = $request['address_first'];
-        $checkout->address_last = $request['address_last'];
+        $checkout->first_name = $request->first_name;
+        $checkout->last_name = $request->last_name;
+        $checkout->email = $request->email;
+        $checkout->address_first = $request->address_first;
+        $checkout->address_last = $request->address_last;
         $checkout->save();
 
         return redirect()->route('reservation')->with('success', 'Booking Successfully');

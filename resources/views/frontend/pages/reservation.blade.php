@@ -21,152 +21,123 @@
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
                             <h6 class="my-0">Vehicle name</h6>
-                            <small class="text-muted">{{ $name }}</small>
+                            <small class="text-muted">{{ $data['name'] }}</small>
                         </div>
                         {{-- <span class="text-muted">$12</span> --}}
                     </li>
-                    @if (request()->targetDate == 'day')
+                    @if ($data['targetDate'] == 'day')
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Day</h6>
-                                <small class="text-muted">{{ $targetDate }}</small>
+                                <small class="text-muted">{{ $data['targetDate'] }}</small>
                             </div>
-                            <span class="text-muted">$ {{ $Dprice }}</span>
+                            <span class="text-muted">$ {{ $data['Dprice'] }}</span>
                         </li>
                     @endif
 
-                    @if (request()->targetDate == 'week')
+                    @if ($data['targetDate'] == 'week')
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Week</h6>
-                                <small class="text-muted">{{ $targetDate }}</small>
+                                <small class="text-muted">{{ $data['targetDate'] }}</small>
                             </div>
-                            <span class="text-muted">$ {{ $wprice }}</span>
+                            <span class="text-muted">$ {{ $data['wprice'] }}</span>
                         </li>
                     @endif
 
-                    @if (request()->targetDate == 'month')
+                    @if ($data['targetDate'] == 'month')
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Month</h6>
-                                <small class="text-muted">{{ $targetDate }}</small>
+                                <small class="text-muted">{{ $data['targetDate'] }}</small>
                             </div>
-                            <span class="text-muted">$ {{ $mprice }}</span>
+                            <span class="text-muted">$ {{ $data['mprice'] }}</span>
                         </li>
                     @endif
-                    @if (request()->additional_driver)
+                    @if ($data['additional_driver'])
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Additional driver</h6>
                                 <small class="text-muted">(20.-/per month)</small>
                             </div>
-                            <span class="text-muted">${{ $additional_driver }}</span>
+                            <span class="text-muted">${{ $data['additional_driver'] }}</span>
                         </li>
                     @endif
-                    @if (request()->booster_seat)
+                    @if ($data['booster_seat'])
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Child booster seat</h6>
                                 <small class="text-muted">(20.-/month)</small>
                             </div>
-                            <span class="text-muted">${{ $booster_seat }}</span>
+                            <span class="text-muted">${{ $data['booster_seat'] }}</span>
                         </li>
                     @endif
-                    @if (request()->booster_seat)
+                    @if ($data['child_seat'])
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Child seat</h6>
                                 <small class="text-muted">(30.-/month)</small>
                             </div>
-                            <span class="text-muted">${{ $child_seat }}</span>
+                            <span class="text-muted">${{ $data['child_seat'] }}</span>
                         </li>
                     @endif
-                    @if (request()->exit_permit)
+                    @if ($data['exit_permit'])
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Exit permit</h6>
                                 <small class="text-muted">(149.-/month)</small>
                             </div>
-                            <span class="text-muted">${{ $exit_permit }}</span>
+                            <span class="text-muted">${{ $data['exit_permit'] }}</span>
                         </li>
                     @endif
-                    {{-- <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
-                        </div>
-                        <span class="text-success">-$5</span>
-                    </li> --}}
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (USD)</span>
-                        <strong>${{ $total_price }}</strong>
+                        <strong>${{ $data['total_price'] }}</strong>
                     </li>
                 </ul>
-
-                    {{-- <form class="card p-2">
-                     <div class="input-group">
-                   <input type="text" class="form-control" placeholder="Promo code">
-                    <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">Redeem</button>
-                </div>
-            </div>
-            </form> --}}
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
                 <form class="needs-validation" action="{{route('booking-checkout')}}" method="post" novalidate>
                     @csrf
-                    <input type="hidden" value="{{ $name }}" name="name">
-                    @if($Dprice)
-                        <input type="hidden" value="{{ $Dprice }}" name="price">
-                    @elseif($wprice)
-                        <input type="hidden" value="{{ $wprice }}" name="price">
-                    @elseif($mprice)
-                        <input type="hidden" value="{{ $mprice }}" name="price">
-                    @endif
-                    <input type="hidden" value="{{ $additional_driver }}" name="additional_driver">
-                    <input type="hidden" value="{{ $booster_seat }}" name="booster_seat">
-                    <input type="hidden" value="{{ $child_seat }}" name="child_seat">
-                    <input type="hidden" value="{{ $exit_permit }}" name="exit_permit">
-                    <input type="hidden" value="{{ $total_price }}" name="total_price">
-                    <input type="hidden" value="{{ $targetDate }}" name="targetDate">
-                    <input type="hidden" value="{{ $day_count }}" name="day_count">
-                    <input type="hidden" value="{{ $week_count }}" name="week_count">
-                    <input type="hidden" value="{{ $month_count }}" name="month_count">
+                    <input type="hidden" value="{{ $data['name'] }}" name="name">
+                    <input type="hidden" value="{{ $data['Dprice'] ?? $data['wprice'] ?? $data['mprice'] }}" name="price">
+                    <input type="hidden" value="{{ $data['additional_driver'] }}" name="additional_driver">
+                    <input type="hidden" value="{{ $data['booster_seat'] }}" name="booster_seat">
+                    <input type="hidden" value="{{ $data['child_seat'] }}" name="child_seat">
+                    <input type="hidden" value="{{ $data['exit_permit'] }}" name="exit_permit">
+                    <input type="hidden" value="{{ $data['total_price'] }}" name="total_price">
+                    <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate">
+                    <input type="hidden" value="{{ $data['day_count'] }}" name="day_count">
+                    <input type="hidden" value="{{ $data['week_count'] }}" name="week_count">
+                    <input type="hidden" value="{{ $data['month_count'] }}" name="month_count">
+                    <input type="hidden" value="{{ $data['pickUpLocation'] }}" name="pickUpLocation">
+                    <input type="hidden" value="{{ $data['dropOffLocation'] }}" name="dropOffLocation">
+                    <input type="hidden" value="{{ $data['pickUpDate'] }}" name="pickUpDate">
+                    <input type="hidden" value="{{ $data['pickUpTime'] }}" name="pickUpTime">
+                    <input type="hidden" value="{{ $data['collectionDate'] }}" name="collectionDate">
+                    <input type="hidden" value="{{ $data['collectionTime'] }}" name="collectionTime">
+                    <input type="hidden" value="{{ $data['message'] }}" name="message">
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">First name</label>
-                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder=""
-                                value="" required>
+                            <label for="firstName">First name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lastName">Last name</label>
-                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder=""
-                                value="" required>
+                            <label for="lastName">Last name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 Valid last name is required.
                             </div>
                         </div>
                     </div>
 
-                    {{-- <div class="mb-3">
-            <label for="username">Username</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
-              </div>
-              <input type="text" class="form-control" id="username" placeholder="Username" required>
-              <div class="invalid-feedback" style="width: 100%;">
-                Your username is required.
-              </div>
-            </div>
-          </div> --}}
-
                     <div class="mb-3">
-                        <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                        <label for="email">Email <span class="text-danger">*</span></label>
                         <input type="email" name="email" class="form-control" id="email"
                             placeholder="you@example.com" required>
                         <div class="invalid-feedback">
@@ -175,7 +146,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address">Address</label>
+                        <label for="address">Address <span class="text-danger">*</span></label>
                         <input type="text" name="address_first" class="form-control" id="address"
                             placeholder="1234 Main St">
                         <div class="invalid-feedback">
@@ -184,7 +155,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                        <label for="address2">Address 2 <span class="text-muted"></span></label>
                         <input type="text" name="address_last" class="form-control" id="address2"
                             placeholder="Apartment or suite">
                     </div>
@@ -221,14 +192,15 @@
                     <hr class="mb-4">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="same-address">
-                        <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                            address</label>
+                        <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
                     </div>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="save-info">
                         <label class="custom-control-label" for="save-info">Save this information for next time</label>
                     </div>
                     <hr class="mb-4">
+
+                    <p>10% of the total amount will have to be paid</p>
 
                     <h4 class="mb-3">Payment Methods</h4>
 

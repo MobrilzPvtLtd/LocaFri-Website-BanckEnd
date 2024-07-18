@@ -65,16 +65,14 @@ Route::get('twint/failure', [TwintController::class, 'failure'])->name('twint.fa
 // Route::get('stripe', [MoneySetupController::class, 'PaymentStripe'])->name('addmoney.paystripe');
 // Route::post('stripe', [MoneySetupController::class, 'postPaymentStripe'])->name('addmoney.stripe');
 
-
-
 //frontend routes
 
 Route::get('reservation', [FrontendController::class, 'reservation'])->name('reservation');
+Route::post('booking-checkout', [BookingController::class, 'bookingCheckout'])->name('booking-checkout');
 
 // Route::post('reservation', [FrontendController::class, 'save'])->name('reservation.save');
 
 // contact
-Route::post('booking-checkout', [BookingController::class, 'bookingCheckout'])->name('booking-checkout');
 Route::get('booking', [BookingController::class, 'booking'])->name('booking');
 
 // contact

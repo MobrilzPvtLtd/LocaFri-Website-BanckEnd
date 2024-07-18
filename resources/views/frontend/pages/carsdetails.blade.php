@@ -345,25 +345,21 @@
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox" name="additional_driver" value="20">
                                             <label class="form-check-label"  for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
-                                            {{-- <input type="hidden" name="additional_driver" id="additionalDriverInput" value="20"> --}}
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
                                             <label class="form-check-label" for="boosterSeatCheckbox">Child booster seat<br>(20.-/month)</label>
-                                            {{-- <input type="hidden" name="booster_seat" id="boosterSeatInput" value="20"> --}}
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="childSeatCheckbox" name="child_seat" value="30">
                                             <label class="form-check-label" for="childSeatCheckbox">Child seat<br>(30.-/month)</label>
-                                            {{-- <input type="hidden" name="child_seat" id="childSeatInput" value="30"> --}}
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="exitPermitCheckbox" name="exit_permit" value="149">
                                             <label class="form-check-label" for="exitPermitCheckbox">Exit permit<br>(149.-/month)</label>
-                                            {{-- <input type="hidden" name="exit_permit" id="exitPermitInput" value="149"> --}}
                                         </div>
 
                                         <div class="form-floating">
@@ -379,8 +375,8 @@
                                 <div class="de-price text-center mt-2">
                                     Total Price
                                     <h4>
-                                        <input type="hidden" name="total_price" id="totalPrice" value="{{ $totalPrice }}">
-                                        <p id="totalPriceDisplay">{{ $totalPrice }}</p>
+                                        <input type="hidden" name="total_price" id="totalPrice" value="0">
+                                        <p id="totalPriceDisplay">0</p>
                                         <br>
                                     </h4>
                                 </div>

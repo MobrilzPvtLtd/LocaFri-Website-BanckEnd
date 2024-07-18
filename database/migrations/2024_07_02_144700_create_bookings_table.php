@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('collectionTime')->nullable();
             $table->string('collectionDate')->nullable();
             $table->string('targetDate')->nullable();
+            $table->string('status')->default('pending')->nullable();
             $table->timestamps();
         });
     }

@@ -62,9 +62,9 @@ class FrontendController extends Controller
     public function cardetails($slug, Request $req)
     {
         $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
-        $totalPrice = $vehicles->Dprice + $vehicles->wprice + $vehicles->mprice;
-        // dd($totalPrice);
-        return view('frontend.pages.carsdetails', compact('vehicles', 'totalPrice'));
+        // $totalPrice = $vehicles->Dprice + $vehicles->wprice + $vehicles->mprice;
+        // dd($req);
+        return view('frontend.pages.carsdetails', compact('vehicles'));
     }
     /**
      * Privacy Policy Page.
@@ -95,29 +95,18 @@ class FrontendController extends Controller
     }
     public function contact()
     {
-
         return view('frontend.contact');
     }
     public function reservation(Request $request)
     {
-        // dd($request);
-        $name = $request->query('name');
-        $Dprice = $request->query('Dprice');
-        $wprice = $request->query('wprice');
-        $mprice = $request->query('mprice');
-        $pickUpDate = $request->query('pickUpDate');
-        $collectionDate = $request->query('collectionDate');
-        $targetDate = $request->query('targetDate');
-        $day_count = $request->query('day_count');
-        $week_count = $request->query('week_count');
-        $month_count = $request->query('month_count');
-        $additional_driver= $request->query('additional_driver');
-        $booster_seat= $request->query('booster_seat');
-        $child_seat= $request->query('child_seat');
-        $exit_permit= $request->query('exit_permit');
-        $message = $request->query('message');
-        $total_price = $request->query('total_price');
-    //    dd($request);
-        return view('frontend.pages.reservation', compact('name','Dprice', 'wprice', 'mprice', 'pickUpDate', 'collectionDate', 'day_count', 'week_count', 'month_count', 'additional_driver', 'booster_seat', 'child_seat', 'exit_permit','targetDate', 'message', 'total_price'));
+        $params = [
+            'name', 'Dprice', 'wprice', 'mprice','pickUpLocation', 'dropOffLocation','pickUpDate','pickUpTime', 'collectionDate', 'collectionTime','targetDate', 'day_count', 'week_count', 'month_count', 'additional_driver', 'booster_seat', 'child_seat', 'exit_permit', 'message', 'total_price'
+        ];
+
+        $data = array_map(fn($param) => $request->query($param), array_combine($params, $params));
+
+        // dd($data);
+        return view('frontend.pages.reservation', compact('data'));
+
     }
 }
