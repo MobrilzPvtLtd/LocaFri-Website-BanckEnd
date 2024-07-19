@@ -56,14 +56,15 @@ Route::resource('admin/customercontact', CustomercontactController::class);
 
 
 // payment getwey
-Route::get('strip', [StripeWebhookController ::class, 'show'])->name('strip');
+Route::get('stripe/checkout', [StripeWebhookController ::class, 'stripeCheckout'])->name('stripe-checkout');
+Route::get('stripe/checkout/success', [StripeWebhookController::class, 'stripeCheckoutSuccess'])->name('stripe-checkout-success');
+Route::get('stripe/checkout/cancel', [StripeWebhookController::class, 'stripeCheckoutCancel'])->name('stripe-checkout-cancel');
+
 Route::get('twint/payment', [TwintController::class, 'showPaymentForm'])->name('twint.payment');
 Route::post('twint/payment', [TwintController::class, 'processPayment'])->name('twint.process');
 Route::get('twint/success', [TwintController::class, 'success'])->name('twint.success');
 Route::get('twint/failure', [TwintController::class, 'failure'])->name('twint.failure');
 
-// Route::get('stripe', [MoneySetupController::class, 'PaymentStripe'])->name('addmoney.paystripe');
-// Route::post('stripe', [MoneySetupController::class, 'postPaymentStripe'])->name('addmoney.stripe');
 
 //frontend routes
 

@@ -16,7 +16,7 @@ class MoneySetupController extends Controller
         return view('frontend.stripe');
     }
 
-    public function postPaymentStripe(Request $request)
+    public function stripeCheckoutSuccess(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'card_no' => 'required',

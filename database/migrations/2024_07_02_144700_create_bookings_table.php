@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id')->nullable();
             $table->string('name')->nullable();
             $table->decimal('Dprice',10,2)->nullable();
             $table->decimal('wprice',10,2)->nullable();
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->decimal('booster_seat',10,2)->nullable();
             $table->decimal('child_seat',10,2)->nullable();
             $table->decimal('exit_permit',10,2)->nullable();
-            $table->decimal('pickUpLocation')->nullable();
+            $table->string('pickUpLocation')->nullable();
             $table->string('dropOffLocation')->nullable();
             $table->string('pickUpDate')->nullable();
             $table->string('pickUpTime')->nullable();
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->string('collectionDate')->nullable();
             $table->string('targetDate')->nullable();
             $table->string('status')->default('pending')->nullable();
+            $table->string('payment_status')->nullable();
             $table->timestamps();
         });
     }
