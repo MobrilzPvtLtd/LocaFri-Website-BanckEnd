@@ -171,6 +171,17 @@ return [
 //     'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
 //   ],
 
+'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
+
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+    ],
+],
 
 
 ];

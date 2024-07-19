@@ -15,6 +15,37 @@ use Carbon\Carbon;
 
 class ApiController extends Controller
 {
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:50',
+            'email' => 'required|email|max:150',
+            'password' => 'sometimes|required|min:8|confirmed',
+            'mobile' => 'required',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            return response()->json(['status' => false, 'message' => 'Provided email has already been taken']);
+        }
+
+        $otp = mt_rand(100000, 999999);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->mobile = $request->mobile;
+        $user->otp = $otp;
+        $user->save();
+
+        Mail::to($user->email)->send(new SendOtpMail($otp));
+
+        return response()->json([
+            'message' => 'Your account register successfully. Please check your email for 6 digit OTP',
+        ]);
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -33,7 +64,7 @@ class ApiController extends Controller
         Mail::to($user->email)->send(new SendOtpMail($otp));
 
         return response()->json([
-            'message' => 'Your account register successfully. Please check your email for 6 digit OTP',
+            'message' => 'Your OTP has been sent for login. Please check your email for the 6-digit code.',
         ]);
     }
     public function resendOtp(Request $request)
@@ -82,7 +113,7 @@ class ApiController extends Controller
         if (Carbon::now()->greaterThan($otpExpiryTime)) {
 
             $otp = mt_rand(100000, 999999);
-            
+
             $user->otp = $otp;
             $user->otp_generated_at = Carbon::now();
             $user->save();
@@ -103,8 +134,9 @@ class ApiController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'status' => true,
             'message' => 'Logged in successfully',
-            'user' => $user,
+            // 'user' => $user,
             'token' => $token
         ]);
     }
