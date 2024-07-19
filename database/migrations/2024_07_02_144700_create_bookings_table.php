@@ -34,7 +34,9 @@ return new class extends Migration
             $table->string('collectionDate')->nullable();
             $table->string('targetDate')->nullable();
             $table->string('status')->default('pending')->nullable();
-            $table->string('payment_status')->nullable();
+            $table->string('order_status')->nullable();
+            $table->string('payment_status')->default(0)->nullable();
+            $table->string('payment_method')->nullable();
             $table->timestamps();
         });
     }

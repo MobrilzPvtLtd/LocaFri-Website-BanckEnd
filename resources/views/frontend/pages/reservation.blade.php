@@ -206,13 +206,11 @@
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
-                                checked required>
+                            <input id="credit" name="payment_method" type="radio" class="custom-control-input" value="stripe" checked required>
                             <label class="custom-control-label" for="credit">Stripe</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
-                                required>
+                            <input id="debit" name="payment_method" type="radio" class="custom-control-input" value="twint" required>
                             <label class="custom-control-label" for="debit">Twint</label>
                         </div>
                     </div>

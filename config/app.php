@@ -158,30 +158,17 @@ return [
 
     'demo_mode' => env('DEMO_MODE', false),
 
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
 
-//     'providers' => [
-//     // Other Service Providers...
-
-//     Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-//    ],
-
-//   'aliases' => [
-//     // Other Class Aliases...
-
-//     'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
-//   ],
-
-'guards' => [
-    'web' => [
-        'driver' => 'session',
-        'provider' => 'users',
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     ],
-
-    'api' => [
-        'driver' => 'passport',
-        'provider' => 'users',
-    ],
-],
 
 
 ];

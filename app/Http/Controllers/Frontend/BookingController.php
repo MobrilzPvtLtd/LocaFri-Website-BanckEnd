@@ -61,7 +61,8 @@ class BookingController extends Controller
         $booking->pickUpTime = $request->pickUpTime;
         $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
         $booking->collectionTime = $request->collectionTime;
-        $booking->payment_status = "unpaid";
+        $booking->order_status = "unpaid";
+        $booking->payment_method = $request->payment_method;
         $booking->save();
 
         $checkout = new Checkout();
@@ -73,7 +74,12 @@ class BookingController extends Controller
         $checkout->address_last = $request->address_last;
         $checkout->save();
 
-        return redirect()->route('stripe-checkout',['price' => $booking->total_price, 'vehicle_name' => $booking->name, 'customer_email' => $checkout->email,'booking_id' => $booking->id]);
+        if($request->payment_method == "twint"){
+            return redirect()->back();
+        }else{
+            return redirect()->route('stripe-checkout',['price' => $booking->total_price, 'vehicle_name' => $booking->name, 'customer_email' => $checkout->email,'booking_id' => $booking->id]);
+        }
+
     }
 
 }
