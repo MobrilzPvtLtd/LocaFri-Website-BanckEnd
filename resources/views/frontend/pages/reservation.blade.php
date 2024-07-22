@@ -190,6 +190,7 @@
                         </div>
                     </div> --}}
                     <hr class="mb-4">
+
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="same-address">
                         <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
@@ -199,10 +200,14 @@
                         <label class="custom-control-label" for="save-info">Save this information for next time</label>
                     </div>
                     <hr class="mb-4">
+                    {{-- <p>10% of the total amount will have to be paid</p> --}}
+                    <label class="custom-control-label mb-2" for="same-address">Choose Payment Type</label>
+                    <select class="form-select" style="width: 30%;" name="payment_type">
+                        <option value="0">Pay 10% Payment</option>
+                        <option value="1">Pay Full Payment</option>
+                    </select>
 
-                    <p>10% of the total amount will have to be paid</p>
-
-                    <h4 class="mb-3">Payment Methods</h4>
+                    <h4 class="mt-3">Payment Methods</h4>
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">

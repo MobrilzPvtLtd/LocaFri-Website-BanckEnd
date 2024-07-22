@@ -10,9 +10,7 @@
                         <a href="#"><i class="fa fa-envelope"></i>info@locafri.ch</a>
                     </div>
                     <div class="topbar-widget">
-                        <a href="#"><i class="fa fa-clock-o"></i>Lundi à Vendredi : 08:00 - 12:00 / 13:30 - 18:00
-                            Samedi 08:00 -
-                            12:00 Dimanche Sur RDV</a>
+                        <a href="#"><i class="fa fa-clock-o"></i>Lundi à Vendredi : 08:00 - 12:00 / 13:30 - 18:00 Samedi 08:00 - 12:00 Dimanche Sur RDV</a>
                     </div>
                 </div>
             </div>
@@ -40,8 +38,8 @@
                             <!-- logo begin -->
                             <div id="logo">
                                 <a href="/">
-                                    <img class="logo-1" src="images/Final-1 (2).png" alt="" />
-                                    <img class="logo-2" src="images/Final-2 (1).png" alt="" />
+                                    <img class="logo-1" src="{{ asset('images/locafri.png') }}" alt="" />
+                                    <img class="logo-2" src="{{ asset('images/locafri-admin.png') }}" alt="" />
                                 </a>
                             </div>
                             <!-- logo close -->
@@ -54,14 +52,14 @@
 
                             </li>
                             <li>
-                                <a class="menu-item" href="/cars">Véhicules</a>
+                                <a class="menu-item" href="{{ route('cars') }}">Véhicules</a>
 
                             </li>
                             <li>
                                 <a class="menu-item" href="/keybox">Key-Box</a>
                             </li>
                             <li>
-                                <a class="menu-item" href="/contact">Contact</a>
+                                <a class="menu-item" href="{{ route('contact') }}">Contact</a>
 
                             </li>
 

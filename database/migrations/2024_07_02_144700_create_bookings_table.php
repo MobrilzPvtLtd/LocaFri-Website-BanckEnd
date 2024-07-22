@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id')->nullable();
             $table->string('name')->nullable();
             $table->decimal('Dprice',10,2)->nullable();
             $table->decimal('wprice',10,2)->nullable();
@@ -34,9 +33,7 @@ return new class extends Migration
             $table->string('collectionDate')->nullable();
             $table->string('targetDate')->nullable();
             $table->string('status')->default('pending')->nullable();
-            $table->string('order_status')->nullable();
-            $table->string('payment_status')->default(0)->nullable();
-            $table->string('payment_method')->nullable();
+            $table->string('payment_type')->default(0)->nullable();
             $table->timestamps();
         });
     }

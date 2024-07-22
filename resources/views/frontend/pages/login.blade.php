@@ -20,7 +20,7 @@
     -webkit-box-shadow: none;
     color: #333;
 }
-    
+
 </style>
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
@@ -54,7 +54,11 @@
                                             class="btn-main btn-fullwidth rounded-3" />
                                     </div>
                                 </form>
-                                <div class="text-center"><a class="res001" href="{{ route('register') }}">don't have an account?</a>
+                                <div class="mt-2">
+                                    <a href="{{ route('password.email') }}" style="    text-decoration-line: underline;">Forgot Your Password? </a>
+                                </div>
+
+                                <div class="text-center mt-3"><a class="res001" href="{{ route('register') }}">don't have an account?</a>
                                 </div>
                                 <div class="title-line">Or&nbsp;</div>
                                 <div class="row g-2">

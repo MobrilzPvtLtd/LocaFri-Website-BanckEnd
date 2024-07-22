@@ -56,8 +56,8 @@ Route::resource('admin/customercontact', CustomercontactController::class);
 
 
 // payment getwey
-Route::get('stripe/checkout', [StripeWebhookController ::class, 'stripeCheckout'])->name('stripe-checkout');
-Route::get('stripe/checkout/success', [StripeWebhookController::class, 'stripeCheckoutSuccess'])->name('stripe-checkout-success');
+Route::get('stripe', [StripeWebhookController ::class, 'stripe'])->name('stripe');
+Route::get('stripe/checkout', [StripeWebhookController::class, 'stripeCheckout'])->name('stripe-checkout');
 Route::get('stripe/checkout/cancel', [StripeWebhookController::class, 'stripeCheckoutCancel'])->name('stripe-checkout-cancel');
 
 Route::get('twint/payment', [TwintController::class, 'showPaymentForm'])->name('twint.payment');
@@ -79,6 +79,7 @@ Route::get('booking', [BookingController::class, 'booking'])->name('booking');
 // contact
 Route::post('contact', [ContactController::class, 'submit'])->name('contact.submit');
 // home route
+Route::get('thank-you', [FrontendController::class, 'thank_you'])->name('thank-you');
 Route::get('home', [FrontendController::class, 'index'])->name('home');
 // cars
 Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');

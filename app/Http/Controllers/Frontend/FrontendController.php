@@ -19,6 +19,10 @@ class FrontendController extends Controller
 
         return view('frontend.index', compact('vehicles'));
     }
+    public function thank_you()
+    {
+        return view('frontend.thank-you');
+    }
 
     public function cars()
     {

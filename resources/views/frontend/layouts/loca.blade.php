@@ -29,6 +29,8 @@
     <link id="colors" href="{{ asset('css/colors/scheme-01.css') }}" rel="stylesheet" type="text/css" />
 
     <x-google-analytics />
+
+    @yield('style')
 </head>
 
 <body onload="initialize()">

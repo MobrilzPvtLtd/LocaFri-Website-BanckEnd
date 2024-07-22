@@ -26,11 +26,11 @@
         @stack('after-styles')
 
         <x-google-analytics />
-    </head>.sidebar-brand-full
+    </head>
 
     <body>
 
-        @include('frontend.includes.header')
+        {{-- @include('frontend.includes.header') --}}
 
         <main class="bg-white dark:bg-gray-800">
             @yield('content')

@@ -32,7 +32,7 @@ class BookingMail extends Mailable
     public function build()
     {
         $data = $this->data;
-        return $this->view('mail.booking-email', ['data' => $data])
+        return $this->view('email.booking-email', ['data' => $data])
                     ->subject('Vehicle booking Email');
     }
 }

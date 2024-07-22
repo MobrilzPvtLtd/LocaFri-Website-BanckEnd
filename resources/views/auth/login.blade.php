@@ -44,7 +44,7 @@
             </x-primary-button>
         </div>
     </form>
-    
+
     <div class="py-2 text-gray-600 dark:text-gray-400">
         Create an account? <a href="{{ route('register') }}" class="underline">Register</a>
     </div>
