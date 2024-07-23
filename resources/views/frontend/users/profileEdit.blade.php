@@ -171,6 +171,7 @@
 
 @section('content')
     <div class="container-new">
+        @include('frontend.includes.messages')
         <div class="header">
             <h4>Edit Profile</h4>
             <p>This information will be displayed publicly so be careful what you share.</p>
