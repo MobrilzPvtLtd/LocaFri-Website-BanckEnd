@@ -7,7 +7,7 @@
 @section('content')
     <div class="profile-container">
         <div class="profile-header">
-            <img class="mx-auto -mb-24 h-48 w-48 rounded-lg object-cover" src="{{ asset($$module_name_singular->avatar) }}" alt="{{ $$module_name_singular->name }}" />
+            <img class="mx-auto -mb-24 h-48 w-48 rounded-lg object-cover" src="{{ asset('public/storage/' . $$module_name_singular->avatar) }}" alt="{{ $$module_name_singular->name }}" width="80px"/>
             <h1 class="profile-name"> {{ $$module_name_singular->name }}</h1>
             <p class="profile-address">{{ $$module_name_singular->address }}</p>
             @if ($$module_name_singular->url_website)

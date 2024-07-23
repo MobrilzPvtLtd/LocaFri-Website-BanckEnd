@@ -30,7 +30,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -43,7 +43,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -65,7 +65,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -79,7 +79,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->type('date')->value($value)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->type('date')->value($value)->class("profile-input")->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -97,7 +97,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->select($field_name, $select_options)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->select($field_name, $select_options)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -125,7 +125,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -154,7 +154,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -183,7 +183,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->text($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->text($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                     </div>
@@ -197,19 +197,19 @@
                         ?>
                         {{ html()->label($field_lable, $field_name) }}
                         {!! field_required($required) !!}
-                        {{ html()->textarea($field_name)->placeholder($field_placeholder)->attributes(["$required", 'rows' => 5]) }}
+                        {{ html()->textarea($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required", 'rows' => 5]) }}
                     </div>
 
                     <div class="row">
                         <label for="avatar">Photo</label>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <img src="{{ asset($user->avatar) }}" alt="{{ $user->name }}">
+                                <img src="{{ asset('public/storage/' . $user->avatar) }}" alt="{{ $user->name }}" width="80px">
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="file" id="avatar" name="avatar">
+                                <input type="file" id="avatar" name="avatar" class="profile-input">
                             </div>
                         </div>
                     </div>

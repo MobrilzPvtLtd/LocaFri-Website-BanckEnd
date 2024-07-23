@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserProvider;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -181,6 +182,7 @@ class UserController extends Controller
         ]);
 
         $module_name = $this->module_name;
+
         $module_name_singular = Str::singular($this->module_name);
 
         if (! auth()->user()->can('edit_users')) {
@@ -189,20 +191,35 @@ class UserController extends Controller
 
         $$module_name_singular = $module_model::findOrFail($id);
 
+        $oldImagePath = $$module_name_singular->avatar;
+        $modelData = $request->all();
+
         // Handle Avatar upload
+        // if ($request->hasFile('avatar')) {
+        //     if ($module_name_singular->getMedia($module_name)->first()) {
+        //         $module_name_singular->getMedia($module_name)->first()->delete();
+        //     }
+
+        //     $media = $module_name_singular->addMedia($request->file('avatar'))->toMediaCollection($module_name);
+
+        //     $module_name_singular->avatar = $media->getUrl();
+        // }
+
         if ($request->hasFile('avatar')) {
-            if ($$module_name_singular->getMedia($module_name)->first()) {
-                $$module_name_singular->getMedia($module_name)->first()->delete();
+            $imagePath = $request->file('avatar')->store('avatar', 'public');
+            $modelData = $request->except('avatar');
+            $modelData['avatar'] = $imagePath;
+
+            if ($oldImagePath) {
+                Storage::disk('public')->delete($oldImagePath);
             }
-
-            $media = $$module_name_singular->addMedia($request->file('avatar'))->toMediaCollection($module_name);
-
-            $$module_name_singular->avatar = $media->getUrl();
-
-            $$module_name_singular->save();
         }
 
-        return redirect()->route('frontend.users.profile', encode_id($$module_name_singular->id))->with('flash_success', 'Update successful!');
+        // $modelData->save();
+        $$module_name_singular->update($modelData);
+
+        // return redirect()->route('frontend.users.profile', encode_id($$module_name_singular->id))->with('flash_success', 'Update successful!');
+        return redirect()->route('frontend.users.profile')->with('flash_success', 'Update successful!');
     }
 
     /**
@@ -257,7 +274,7 @@ class UserController extends Controller
             return redirect()->route('frontend.users.profile', encode_id(auth()->user()->id));
         }
 
-        $request->validate($request, [
+        $request->validate([
             'password' => 'required|confirmed|min:6',
         ]);
 
@@ -271,7 +288,8 @@ class UserController extends Controller
 
         $$module_name_singular->update($request_data);
 
-        return redirect()->route('frontend.users.profile', encode_id(auth()->user()->id))->with('flash_success', 'Update successful!');
+        // return redirect()->route('frontend.users.profile', encode_id(auth()->user()->id))->with('flash_success', 'Update successful!');
+        return redirect()->route('frontend.users.profile')->with('flash_success', 'Update successful!');
     }
 
     /**

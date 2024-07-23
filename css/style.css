@@ -18414,19 +18414,19 @@ option {
     border-top: 1px solid #eaeaea;
 }
 
-.row {
+/* .row {
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
-}
+} */
 
-.col-md-6 {
+/* .col-md-6 {
     position: relative;
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
-}
+} */
 
 @media (min-width: 768px) {
     .col-md-6 {
@@ -18458,8 +18458,7 @@ label {
 }
 
 /* Custom Input */
-.custom-input,textarea,select,
-input {
+.profile-input {
     display: block;
     width: 100%;
     padding: 0.5rem 1rem;
@@ -18474,23 +18473,23 @@ input {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.custom-input:focus,
+/* .custom-input:focus,
 input:focus {
     color: #374151;
     background-color: #ffffff;
     border-color: transparent;
     outline: 0;
     box-shadow: 0 0 0 1px rgba(37, 99, 235, 1);
-}
+} */
 
-.custom-input:focus,
+/* .custom-input:focus,
 textarea:focus {
     color: #374151;
     background-color: #ffffff;
     border-color: transparent;
     outline: 0;
     box-shadow: 0 0 0 1px rgba(37, 99, 235, 1);
-}
+} */
 
 textarea,input::placeholder {
     color: #d1d5db;
@@ -18509,7 +18508,7 @@ textarea,input::placeholder {
 }
 
 /* File Input */
-input[type="file"] {
+/* input[type="file"] {
     display: block;
     width: 100%;
     padding: 0.5rem;
@@ -18525,7 +18524,7 @@ input[type="file"]:focus {
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-}
+} */
 
 .submit-button {
     display: inline-block;

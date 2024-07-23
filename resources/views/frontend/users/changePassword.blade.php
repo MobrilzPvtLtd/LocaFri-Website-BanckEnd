@@ -18,9 +18,9 @@
         </div>
 
         <div class="form-section">
-            {{ html()->modelForm($$module_name_singular, 'PATCH', route('frontend.users.profileUpdate', encode_id($$module_name_singular->id)))->acceptsFiles()->open() }}
+            {{ html()->modelForm($$module_name_singular, 'PATCH', route('frontend.users.changePasswordUpdate', encode_id($$module_name_singular->id)))->acceptsFiles()->open() }}
 
-            <form method="POST" action="{{ route('frontend.users.profileUpdate', encode_id($$module_name_singular->id)) }}"
+            <form method="POST" action="{{ route('frontend.users.changePasswordUpdate', encode_id($$module_name_singular->id)) }}"
                 enctype="multipart/form-data">
                 <div class="mb-10 sm:grid sm:grid-cols-3 sm:gap-6">
                     <div class="row">
@@ -34,7 +34,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name)}}
                                 {!! field_required($required) !!}
-                                {{ html()->password($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->password($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -47,7 +47,7 @@
                                 ?>
                                 {{ html()->label($field_lable, $field_name) }}
                                 {!! field_required($required) !!}
-                                {{ html()->password($field_name)->placeholder($field_placeholder)->attributes(["$required"]) }}
+                                {{ html()->password($field_name)->class("profile-input")->placeholder($field_placeholder)->attributes(["$required"]) }}
                             </div>
                         </div>
                     </div>
