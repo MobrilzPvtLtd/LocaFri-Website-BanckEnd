@@ -37,9 +37,9 @@ require __DIR__.'/auth.php';
 */
         // Backend routes//
 
-Route::get('mail-text', function () {
-return view('email.booking-email');
-});
+// Route::get('mail-text', function () {
+// return view('email.booking-email');
+// });
 
 // vehicle
 Route::resource('admin/vehicle', VehicleController::class);

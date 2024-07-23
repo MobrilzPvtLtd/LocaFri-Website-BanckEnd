@@ -13,34 +13,29 @@ use App\Models\Checkout;
 class BookingController extends Controller
 {
     public function bookingCheckout(Request $request){
-        // dd($request);
+        $totalPrice = 0;
+        $Dprice = $wprice = $mprice = 0;
 
-        // $totalPrice = $request->Dprice + $request->wprice + $request->mprice;
-        $totalPrice = $request->price;
-
-        $additional_driver = $request->additional_driver ?? 0;
-        $booster_seat = $request->booster_seat ?? 0;
-        $child_seat = $request->child_seat ?? 0;
-        $exit_permit = $request->exit_permit ?? 0;
-
-        if ($request->targetDate == 'day') {
-            $totalPrice += $request->Dprice * $request->day_count;
-            $Dprice = $request->price;
-        } else if ($request->targetDate == 'week') {
-            $totalPrice += $request->wprice * $request->week_count;
-            $wprice = $request->price;
-        } else if ($request->targetDate == 'month') {
-            $totalPrice += $request->mprice * $request->month_count;
-            $mprice = $request->price;
+        switch ($request->targetDate) {
+            case 'day':
+                $Dprice = $request->Dprice;
+                $totalPrice = $Dprice * $request->day_count;
+                break;
+            case 'week':
+                $wprice = $request->wprice;
+                $totalPrice = $wprice * $request->week_count;
+                break;
+            case 'month':
+                $mprice = $request->mprice;
+                $totalPrice = $mprice * $request->month_count;
+                break;
         }
 
-        // Add optional charges
-        $totalPrice += $additional_driver + $booster_seat + $child_seat + $exit_permit;
+        $totalPrice += $request->additional_driver ?? 0;
+        $totalPrice += $request->booster_seat ?? 0;
+        $totalPrice += $request->child_seat ?? 0;
+        $totalPrice += $request->exit_permit ?? 0;
 
-        // Debug log to check values
-        \Log::info('Booking data:', $request->all());
-
-        // Create new booking
         $booking = new Booking();
         $booking->name = $request->name;
         $booking->Dprice = $Dprice ?? '0.00';
@@ -49,10 +44,10 @@ class BookingController extends Controller
         $booking->day_count = $request->day_count;
         $booking->week_count = $request->week_count;
         $booking->month_count = $request->month_count;
-        $booking->additional_driver = $request->additional_driver;
-        $booking->booster_seat = $request->booster_seat;
-        $booking->child_seat = $request->child_seat;
-        $booking->exit_permit = $request->exit_permit;
+        $booking->additional_driver = $request->additional_driver ?? '0.00';
+        $booking->booster_seat = $request->booster_seat ?? '0.00';
+        $booking->child_seat = $request->child_seat ?? '0.00';
+        $booking->exit_permit = $request->exit_permit ?? '0.00';
         $booking->total_price = $totalPrice;
         $booking->targetDate = $request->targetDate;
         $booking->pickUpLocation = $request->pickUpLocation;
@@ -73,7 +68,6 @@ class BookingController extends Controller
         $checkout->address_first = $request->address_first;
         $checkout->address_last = $request->address_last;
         $checkout->save();
-
         if($request->payment_method == "twint"){
             return redirect()->back();
         }else{

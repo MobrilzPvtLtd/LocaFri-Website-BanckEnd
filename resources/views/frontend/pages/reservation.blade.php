@@ -31,7 +31,7 @@
                                 <h6 class="my-0">Day</h6>
                                 <small class="text-muted">{{ $data['targetDate'] }}</small>
                             </div>
-                            <span class="text-muted">$ {{ $data['Dprice'] }}</span>
+                            <span class="text-muted">$ {{ $data['Dprice'] * $data['day_count'] }}</span>
                         </li>
                     @endif
 
@@ -41,7 +41,7 @@
                                 <h6 class="my-0">Week</h6>
                                 <small class="text-muted">{{ $data['targetDate'] }}</small>
                             </div>
-                            <span class="text-muted">$ {{ $data['wprice'] }}</span>
+                            <span class="text-muted">$ {{ $data['wprice'] * $data['week_count'] }}</span>
                         </li>
                     @endif
 
@@ -51,7 +51,7 @@
                                 <h6 class="my-0">Month</h6>
                                 <small class="text-muted">{{ $data['targetDate'] }}</small>
                             </div>
-                            <span class="text-muted">$ {{ $data['mprice'] }}</span>
+                            <span class="text-muted">$ {{ $data['mprice'] * $data['month_count'] }}</span>
                         </li>
                     @endif
                     @if ($data['additional_driver'])
@@ -100,14 +100,16 @@
                 <h4 class="mb-3">Billing address</h4>
                 <form class="needs-validation" action="{{route('booking-checkout')}}" method="post" novalidate>
                     @csrf
+                    <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate">
                     <input type="hidden" value="{{ $data['name'] }}" name="name">
-                    <input type="hidden" value="{{ $data['Dprice'] ?? $data['wprice'] ?? $data['mprice'] }}" name="price">
+                    <input type="hidden" value="{{ $data['Dprice'] }}" name="Dprice">
+                    <input type="hidden" value="{{ $data['wprice'] }}" name="wprice">
+                    <input type="hidden" value="{{ $data['mprice'] }}" name="mprice">
                     <input type="hidden" value="{{ $data['additional_driver'] }}" name="additional_driver">
                     <input type="hidden" value="{{ $data['booster_seat'] }}" name="booster_seat">
                     <input type="hidden" value="{{ $data['child_seat'] }}" name="child_seat">
                     <input type="hidden" value="{{ $data['exit_permit'] }}" name="exit_permit">
                     <input type="hidden" value="{{ $data['total_price'] }}" name="total_price">
-                    <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate">
                     <input type="hidden" value="{{ $data['day_count'] }}" name="day_count">
                     <input type="hidden" value="{{ $data['week_count'] }}" name="week_count">
                     <input type="hidden" value="{{ $data['month_count'] }}" name="month_count">

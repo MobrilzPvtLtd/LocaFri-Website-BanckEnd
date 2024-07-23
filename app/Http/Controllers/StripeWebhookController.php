@@ -29,7 +29,7 @@ class StripeWebhookController extends Controller
                         'product_data' => [
                             'name' => $request->vehicle_name,
                         ],
-                        'unit_amount' => 100 * number_format($request->price / 100, 2, '.', ''),
+                        'unit_amount' => 100 * $request->price,
                         'currency' => 'USD',
                     ],
                     'quantity' => 1,
@@ -50,23 +50,25 @@ class StripeWebhookController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $response = $stripe->checkout->sessions->retrieve($request->session_id);
-        // dd($response);
+
+        $amount_total = number_format($response->amount_total / 100, 2, '.', '');
+
         $booking = Booking::find($response->metadata->booking_id);
         $booking->status = $response->metadata->payment_type == 1 ? $response->status : "Parcel Paid";
         $booking->save();
 
-        $booking = new Transaction();
-        $booking->order_id = $response->metadata->booking_id;
-        $booking->transaction_id = $response->id;
-        $booking->amount = $response->amount_total;
-        $booking->currency = $response->currency;
-        $booking->payment_method = "stripe";
-        $booking->date_time = \Carbon\Carbon::now();
-        $booking->payment_status = $response->metadata->payment_type == 1 ? $response->status : "Parcel Paid";
-        $booking->save();
+        $transaction = new Transaction();
+        $transaction->order_id = $response->metadata->booking_id;
+        $transaction->transaction_id = $response->id;
+        $transaction->amount = $amount_total;
+        $transaction->currency = $response->currency;
+        $transaction->payment_method = "stripe";
+        $transaction->date_time = \Carbon\Carbon::now();
+        $transaction->payment_status = $response->metadata->payment_type == 1 ? $response->status : "Parcel Paid";
+        $transaction->save();
 
-        $checkout = Checkout::where('booking_id',$booking->id)->first();
         $bookingFirst = Booking::where('id', $response->metadata->booking_id)->first();
+        $checkout = Checkout::where('booking_id', $bookingFirst->id)->first();
 
         $remaining_amount = $bookingFirst->total_price;
         $discount = $bookingFirst->total_price * 0.10;
@@ -74,7 +76,7 @@ class StripeWebhookController extends Controller
 
         $data = [
             'name' => $checkout->first_name . ' ' . $checkout->last_name,
-            'email' => $checkout->email,
+            'email' => $response->customer_email,
             'address_first' => $checkout->address_first,
             'address_last' => $checkout->address_last,
             'vehicle_name' => $bookingFirst->name,
@@ -100,8 +102,8 @@ class StripeWebhookController extends Controller
             // 'payment_method' => $booking->payment_method,
         ];
 
-        if ($checkout->email) {
-            Mail::to($checkout->email)->send(new BookingMail($data));
+        if ($response->customer_email) {
+            Mail::to($response->customer_email)->send(new BookingMail($data));
         }
 
         return redirect()->route('thank-you');
