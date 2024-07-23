@@ -133,8 +133,7 @@
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                     style="display: inline;">
                                                     {{ csrf_field() }}
-                                                    <button class="menu-item btn btn-text" type="submit"
-                                                        style="border: none; background: none; padding: 0;">Logout</button>
+                                                    <button class="menu-item" type="submit" style="border: none;background: none;padding: 15px;">Logout</button>
                                                 </form>
                                             </li>
                                         </ul>
@@ -142,8 +141,6 @@
                                 </ul>
                             </div>
                         @endauth
-
-
                     </div>
                 </div>
             </div>
