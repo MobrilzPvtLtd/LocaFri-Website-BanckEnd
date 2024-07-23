@@ -23,7 +23,7 @@
     }
 
     .contact-us-content {
-        width: 50%;
+        width: 70%;
         padding: 10px 20px;
         background: #ffffff;
         margin: 0px auto;
