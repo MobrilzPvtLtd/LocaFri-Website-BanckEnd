@@ -47,8 +47,8 @@ class VehicleController extends Controller
         $imagePaths = [];
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '_' . uniqid() . '.' . $extension;
+                $filename = time() . '_' . $file->getClientOriginalExtension();
+                // $filename = time() . '_' . uniqid() . '.' . $extension;
                 $file->move(public_path('uploads'), $filename);
                 $imagePaths[] = 'uploads/' . $filename;
             }
@@ -59,7 +59,7 @@ class VehicleController extends Controller
 
         $vehicleData = $request->except('image', 'featured', 'features', 'available');
         $vehicleData['image'] = serialize($imagePaths);
-        $vehicleData['available'] = $availableDatetime;
+        $vehicleData['available_date'] = $availableDatetime;
 
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);

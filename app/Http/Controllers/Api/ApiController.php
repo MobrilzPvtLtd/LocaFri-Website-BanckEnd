@@ -11,6 +11,7 @@ use App\Mail\SendOtpMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Models\Vehicle;
+use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 
 class ApiController extends Controller
@@ -184,11 +185,54 @@ class ApiController extends Controller
 
     public function cars()
     {
-        $cars = Vehicle::all();
+        $vehicles = Vehicle::get();
+
+        $vehicleData = [];
+
+        foreach ($vehicles as $vehicle) {
+            $images = unserialize($vehicle->image);
+            $profile = null;
+
+            if (!empty($images) && is_array($images) && count($images) > 0) {
+                $profile = asset('public/' . $images[0]);
+            }
+
+            $data = [
+                'id' => $vehicle->id,
+                'name' => $vehicle->name,
+                'model' => $vehicle->model,
+                'type' => $vehicle->type,
+                'desc' => $vehicle->desc,
+                'location' => $vehicle->location,
+                'mitter' => $vehicle->mitter,
+                'profile' => $profile,
+                'body' => $vehicle->body,
+                'seat' => $vehicle->seat,
+                'door' => $vehicle->door,
+                'luggage' => $vehicle->luggage,
+                'fuel' => $vehicle->fuel,
+                'auth' => $vehicle->auth,
+                'trans' => $vehicle->trans,
+                'exterior' => $vehicle->exterior,
+                'interior' => $vehicle->interior,
+                'featured' => $vehicle->featured,
+                'features' => $vehicle->features,
+                'slug' => $vehicle->slug,
+                'Dprice' => $vehicle->Dprice,
+                'wprice' => $vehicle->wprice,
+                'mprice' => $vehicle->mprice,
+                'available_time' => $vehicle->available_time,
+                'status' => $vehicle->status,
+                'created_at' => $vehicle->created_at,
+                'updated_at' => $vehicle->updated_at,
+            ];
+
+            $vehicleData[] = $data;
+        }
 
         return response()->json([
             'status' => 'success',
-            'data' => $cars
+            'data' => $vehicleData,
         ]);
     }
 }
