@@ -9,7 +9,7 @@ use App\Http\Controllers\ProductController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::post('register', [ApiController::class, 'register']);
+Route::post('singup', [ApiController::class, 'register']);
 Route::post('login', [ApiController::class, 'login']);
 Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 Route::post('verify-otp', [ApiController::class, 'verifyOtp']);
