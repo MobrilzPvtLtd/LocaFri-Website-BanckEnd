@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
@@ -44,13 +45,22 @@ class VehicleController extends Controller
             'available' => 'required|date_format:H:i', // Validate the available time
         ]);
 
+        // $imagePaths = [];
+        // if ($request->hasFile('image')) {
+        //     foreach ($request->file('image') as $file) {
+        //         $filename = time() . '_' . $file->getClientOriginalExtension();
+        //         // $filename = time() . '_' . uniqid() . '.' . $extension;
+        //         $file->move(public_path('uploads'), $filename);
+        //         $imagePaths[] = 'uploads/' . $filename;
+        //     }
+        // }
+
         $imagePaths = [];
+
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
-                $filename = time() . '_' . $file->getClientOriginalExtension();
-                // $filename = time() . '_' . uniqid() . '.' . $extension;
-                $file->move(public_path('uploads'), $filename);
-                $imagePaths[] = 'uploads/' . $filename;
+                $imagePath = $file->store('upload', 'public');
+                $imagePaths[] = $imagePath;
             }
         }
 
@@ -58,7 +68,11 @@ class VehicleController extends Controller
         $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'));
 
         $vehicleData = $request->except('image', 'featured', 'features', 'available');
-        $vehicleData['image'] = serialize($imagePaths);
+        // $vehicleData['image'] = serialize($imagePaths);
+        if (!empty($imagePaths)) {
+            $vehicleData['image'] = json_encode($imagePaths);
+        }
+
         $vehicleData['available_time'] = $availableDatetime;
 
         if (!empty($request->features)) {
@@ -114,21 +128,43 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::findOrFail($id);
 
-        $imagePaths = unserialize($vehicle->image);
+        // $oldImagePath = $vehicle->image;
+        // $imagePaths = unserialize($vehicle->image);
+        // if ($request->hasFile('image')) {
+        //     foreach ($request->file('image') as $file) {
+        //         $extension = $file->getClientOriginalExtension();
+        //         $filename = time() . '_' . uniqid() . '.' . $extension;
+        //         $file->move(public_path('uploads'), $filename);
+        //         $imagePaths[] = 'uploads/' . $filename;
+        //     }
+        //     if ($oldImagePath) {
+        //         Storage::disk('public')->delete($oldImagePath);
+        //     }
+        // }
+
+        $oldImagePath = $vehicle->image;
+        $imagePaths = [];
+
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '_' . uniqid() . '.' . $extension;
-                $file->move(public_path('uploads'), $filename);
-                $imagePaths[] = 'uploads/' . $filename;
+                $imagePath = $file->store('upload', 'public');
+                $imagePaths[] = $imagePath;
+            }
+            if ($oldImagePath) {
+                Storage::disk('public')->delete($oldImagePath);
             }
         }
+
         $currentDate = Carbon::now()->toDateString();
         $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
 
         $vehicleData = $request->except('image', 'featured', 'features', 'available');
-        $vehicleData['image'] = serialize($imagePaths);
-        $vehicleData['available'] = $availableDatetime;
+        // $vehicleData['image'] = serialize($imagePaths);
+        if (!empty($imagePaths)) {
+            $vehicleData['image'] = json_encode($imagePaths);
+        }
+
+        $vehicleData['available_time'] = $availableDatetime;
 
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);

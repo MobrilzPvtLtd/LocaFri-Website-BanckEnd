@@ -31,13 +31,22 @@
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-                                @php
+                                {{-- @php
                                     $images = unserialize($vehicles->image);
                                 @endphp
                                 @if (!empty($images) && is_array($images) && count($images) > 0)
                                     <img src="{{ asset('public/' . $images[0]) }}" alt="Image" class="img-fluid w-100">
                                 @else
                                     <p>No images available</p>
+                                @endif --}}
+                                @if($vehicles->image)
+                                    @php
+                                        $images = json_decode($vehicles->image);
+                                    @endphp
+
+                                    @if($images && count($images) > 0)
+                                        <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
+                                    @endif
                                 @endif
                             </div>
                         </div>
