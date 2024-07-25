@@ -188,14 +188,21 @@ class ApiController extends Controller
         $vehicles = Vehicle::get();
 
         $vehicleData = [];
+        $profile = null;
 
         foreach ($vehicles as $vehicle) {
-            $images = unserialize($vehicle->image);
-            $profile = null;
-
-            if (!empty($images) && is_array($images) && count($images) > 0) {
-                $profile = asset('public/' . $images[0]);
+            if($vehicle->image){
+                $images = json_decode($vehicle->image);
             }
+
+            if($images && count($images) > 0){
+                $profile = asset('public/storage/' . $images[0]);
+            }
+            // $images = unserialize($vehicle->image);
+
+            // if (!empty($images) && is_array($images) && count($images) > 0) {
+            //     $profile = asset('public/storage/' . $images[0]);
+            // }
 
             $data = [
                 'id' => $vehicle->id,

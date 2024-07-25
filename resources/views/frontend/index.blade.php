@@ -364,7 +364,7 @@
                             <div class="col-lg-12">
                                 <div class="de-item mb30">
                                     <div class="d-img">
-                                        @php
+                                        {{-- @php
                                             $images = unserialize($vehicle->image);
                                         @endphp
                                         @if (!empty($images) && is_array($images) && count($images) > 0)
@@ -372,6 +372,16 @@
                                                 class="img-fluid w-100">
                                         @else
                                             <p>No images available</p>
+                                        @endif --}}
+
+                                        @if($vehicle->image)
+                                            @php
+                                                $images = json_decode($vehicle->image);
+                                            @endphp
+
+                                            @if($images && count($images) > 0)
+                                                <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
+                                            @endif
                                         @endif
                                     </div>
                                     <div class="d-info">
