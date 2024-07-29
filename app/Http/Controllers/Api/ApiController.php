@@ -192,13 +192,17 @@ class ApiController extends Controller
         foreach ($vehicles as $vehicle) {
             $profile = null;
             $images = [];
+            $imageUrls = [];
 
             if ($vehicle->image) {
-                $images = json_decode($vehicle->image, true); 
+                $images = json_decode($vehicle->image, true);
             }
 
             if (!empty($images)) {
-                $profile = asset('public/storage/' . $images[0]);
+                foreach ($images as $image) {
+                    $imageUrls[] = asset('public/storage/' . $image);
+                }
+                $profile = $imageUrls[0]; // Use the first image as the profile image
             }
 
             $features = json_decode($vehicle->features, true);
@@ -212,6 +216,7 @@ class ApiController extends Controller
                 'location' => $vehicle->location,
                 'mitter' => $vehicle->mitter,
                 'profile' => $profile,
+                'images' => $imageUrls, // Add all image URLs
                 'body' => $vehicle->body,
                 'seat' => $vehicle->seat,
                 'door' => $vehicle->door,
