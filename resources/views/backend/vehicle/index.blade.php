@@ -81,13 +81,14 @@
                                             @if (!empty($featuresArray))
                                                 <ul>
                                                     @foreach ($featuresArray as $feature)
-                                                            <li>{{ $feature }}</li>
+                                                        <li>{{ $feature }}</li>
                                                     @endforeach
                                                 </ul>
                                             @else
                                                 <p>No features available</p>
                                             @endif
                                         </td>
+
                                         <td>
                                             @if ($vehicle->status == 1)
                                                 Active

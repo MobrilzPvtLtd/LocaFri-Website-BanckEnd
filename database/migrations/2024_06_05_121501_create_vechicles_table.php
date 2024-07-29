@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('exterior')->nullable();
             $table->string('interior')->nullable();
             $table->boolean('featured')->default(0)->nullable();
-            $table->string('features')->nullable();
+            $table->text('features')->nullable();
             $table->string('slug')->nullable();
             $table->decimal('Dprice',10,2);
             $table->decimal('wprice',10,2);

@@ -188,21 +188,20 @@ class ApiController extends Controller
         $vehicles = Vehicle::get();
 
         $vehicleData = [];
-        $profile = null;
 
         foreach ($vehicles as $vehicle) {
-            if($vehicle->image){
-                $images = json_decode($vehicle->image);
+            $profile = null;
+            $images = [];
+
+            if ($vehicle->image) {
+                $images = json_decode($vehicle->image, true); 
             }
 
-            if($images && count($images) > 0){
+            if (!empty($images)) {
                 $profile = asset('public/storage/' . $images[0]);
             }
-            // $images = unserialize($vehicle->image);
 
-            // if (!empty($images) && is_array($images) && count($images) > 0) {
-            //     $profile = asset('public/storage/' . $images[0]);
-            // }
+            $features = json_decode($vehicle->features, true);
 
             $data = [
                 'id' => $vehicle->id,
@@ -223,7 +222,7 @@ class ApiController extends Controller
                 'exterior' => $vehicle->exterior,
                 'interior' => $vehicle->interior,
                 'featured' => $vehicle->featured,
-                'features' => $vehicle->features,
+                'features' => $features, // Add features array instead of JSON string
                 'slug' => $vehicle->slug,
                 'Dprice' => $vehicle->Dprice,
                 'wprice' => $vehicle->wprice,

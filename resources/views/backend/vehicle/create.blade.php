@@ -39,7 +39,8 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Location</label>
-                                    <input type="text" class="form-control" name="location" value="" placeholder="">
+                                    <input type="text" class="form-control" name="location" value=""
+                                        placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
@@ -88,15 +89,18 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Fuel Type</label>
-                                    <input type="text" class="form-control" name="fuel" value="" placeholder="">
+                                    <input type="text" class="form-control" name="fuel" value=""
+                                        placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Authorized</label>
-                                    <input type="text" class="form-control" name="auth" value="" placeholder="">
+                                    <input type="text" class="form-control" name="auth" value=""
+                                        placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Transmission</label>
-                                    <input type="text" class="form-control" name="trans" value="" placeholder="">
+                                    <input type="text" class="form-control" name="trans" value=""
+                                        placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Exterior Color</label>
@@ -138,31 +142,32 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="featured">Featured</label>
-                                    <input type="checkbox" name="featured"  value="1" >
+                                    <input type="checkbox" name="featured" value="1">
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="interior"> Features</label><br>
+                                    <label for="features">Features</label><br>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="features[]" value="Bluetooth" id="interior_black">
-                                        <label class="form-check-label" for="interior_black">Bluetooth</label>
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="Bluetooth" id="feature_bluetooth">
+                                        <label class="form-check-label" for="feature_bluetooth">Bluetooth</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="features[]" value="Multimedia Player" id="interior_gray">
-                                        <label class="form-check-label" for="interior_gray">Multimedia Player</label>
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="Multimedia Player" id="feature_multimedia">
+                                        <label class="form-check-label" for="feature_multimedia">Multimedia Player</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="features[]" value="Central Lock" id="interior_beige">
-                                        <label class="form-check-label" for="interior_beige">Central Lock</label>
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="Central Lock" id="feature_central_lock">
+                                        <label class="form-check-label" for="feature_central_lock">Central Lock</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="features[]" value="Sunroof" id="interior_red">
-                                        <label class="form-check-label" for="interior_red">Sunroof</label>
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="Sunroof" id="feature_sunroof">
+                                        <label class="form-check-label" for="feature_sunroof">Sunroof</label>
                                     </div>
                                 </div>
-
-
-
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

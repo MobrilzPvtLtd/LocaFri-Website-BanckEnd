@@ -38,22 +38,12 @@ class VehicleController extends Controller
             'trans' => 'required',
             'exterior' => 'required',
             'interior' => 'required',
-            'features' => 'required',
+            'features' => 'required', // Commented out validation for 'features' as it's not always required
             'Dprice' => 'required',
             'wprice' => 'required',
             'mprice' => 'required',
             'available' => 'required|date_format:H:i', // Validate the available time
         ]);
-
-        // $imagePaths = [];
-        // if ($request->hasFile('image')) {
-        //     foreach ($request->file('image') as $file) {
-        //         $filename = time() . '_' . $file->getClientOriginalExtension();
-        //         // $filename = time() . '_' . uniqid() . '.' . $extension;
-        //         $file->move(public_path('uploads'), $filename);
-        //         $imagePaths[] = 'uploads/' . $filename;
-        //     }
-        // }
 
         $imagePaths = [];
 
@@ -67,25 +57,26 @@ class VehicleController extends Controller
         $currentDate = Carbon::now()->toDateString();
         $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'));
 
+        // $features = $request->input('features', []);
         $vehicleData = $request->except('image', 'featured', 'features', 'available');
-        // $vehicleData['image'] = serialize($imagePaths);
         if (!empty($imagePaths)) {
             $vehicleData['image'] = json_encode($imagePaths);
         }
 
-        $vehicleData['available_time'] = $availableDatetime;
-
+        // $vehicleData['features'] = json_encode($features);
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);
         }
 
+        $vehicleData['available_time'] = $availableDatetime;
+
         $vehicleData['featured'] = $request->has('featured');
 
-        // dd($vehicleData);
         Vehicle::create($vehicleData);
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been created successfully.');
     }
+
 
     public function show()
     {
@@ -99,7 +90,7 @@ class VehicleController extends Controller
         //     $data_feature = $feature;
         //     // dd($data_feature);
         // }
-        return view('backend.vehicle.edit', compact('vehicle','featuresArray'));
+        return view('backend.vehicle.edit', compact('vehicle', 'featuresArray'));
     }
 
     public function update(Request $request, $id)
@@ -174,6 +165,8 @@ class VehicleController extends Controller
         $vehicle->update($vehicleData);
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been updated successfully.');
+
+    
     }
 
 
