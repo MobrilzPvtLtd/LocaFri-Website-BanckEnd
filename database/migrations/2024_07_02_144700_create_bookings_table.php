@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('targetDate')->nullable();
             $table->string('status')->default('pending')->nullable();
             $table->string('payment_type')->default(0)->nullable();
+            $table->tinyInteger('is_viewbooking')->default(0);
             $table->timestamps();
         });
     }

@@ -49,6 +49,8 @@ Route::resource('admin/vehiclestatus', VehiclestatusController::class);
 Route::resource('admin/alert', AlertController::class);
 // contact
 Route::resource('admin/contact', ContactsController::class);
+Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
+Route::post('is_viewbooking', [ContactsController::class, 'is_viewbooking'])->name('is_viewbooking');
 // contact
 Route::resource('admin/enquiry', EnquiryController::class);
 

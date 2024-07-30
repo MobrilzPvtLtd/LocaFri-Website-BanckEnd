@@ -2,6 +2,8 @@
 $notifications = optional(auth()->user())->unreadNotifications;
 $notifications_count = optional($notifications)->count();
 $notifications_latest = optional($notifications)->take(5);
+$total_contact = App\Models\Contact::where('is_view', 0)->count();
+$total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
 ?>
 
 <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
@@ -24,18 +26,29 @@ $notifications_latest = optional($notifications)->take(5);
         </li>
         @can('enquirys')
             <li class="nav-group" aria-expanded="true">
-                <a class="nav-link nav-group-toggle" href="#">
-                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')
+                <a class="nav-link nav-group-toggle" href="">
+                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')<p class="notify001">
+                        {{ $total_contact + $total_booking }}
+                    </p>
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Contact enquiry
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span>
+                            </span><span id="is_view">Contact enquiry</span>
+                            <p class="notify001">
+                                {{ $total_contact }}
+                            </p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('enquiry.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Booking enquiry
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
+                            <span id="is_viewbooking">Booking
+                                enquiry</span>
+                            <p class="notify001">
+                                {{ $total_booking }}
+                            </p>
                         </a>
                     </li>
                 </ul>
@@ -50,7 +63,7 @@ $notifications_latest = optional($notifications)->take(5);
             </a>
         </li>
 
-     {{-- @can('view_posts')
+        {{-- @can('view_posts')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.posts.index') }}">
                     <i class="nav-icon fa-regular fa-file-lines"></i>&nbsp;@lang('Posts')
@@ -103,7 +116,7 @@ $notifications_latest = optional($notifications)->take(5);
                 </ul>
             </li>
         @endcan
-{{--
+        {{--
         @can('view_categories')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.categories.index') }}">
@@ -150,7 +163,7 @@ $notifications_latest = optional($notifications)->take(5);
                 </a>
             </li>
         @endcan
-{{--
+        {{--
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
@@ -176,3 +189,16 @@ $notifications_latest = optional($notifications)->take(5);
         <button class="sidebar-toggler" data-coreui-toggle="unfoldable" type="button"></button>
     </div>
 </div>
+<style>
+    p.notify001 {
+        color: #fff;
+        background-color: #e62525;
+        width: 1.5vw;
+        height: 3vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 41px;
+        font-size: 12px;
+    }
+</style>
