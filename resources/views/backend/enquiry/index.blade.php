@@ -12,17 +12,75 @@
                         <table id="datatable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    {{-- <th scope="col">Id</th> --}}
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    {{-- <th scope="col">Phone</th>
-                                    <th scope="col">Subject</th> --}}
-                                    <th scope="col">Message</th>
-                                    {{-- <th scope="col">Action</th> --}}
+                                    <th scope="col">Id</th>
+                                    <th scope="col"> Name</th>
+                                    <th scope="col">Dprice</th>
+                                    <th scope="col">Wprice</th>
+                                    <th scope="col">Mprice</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Days</th>
+                                    <th scope="col">Weeks</th>
+                                    <th scope="col">Months</th>
+                                    <th scope="col">additional_driver</th>
+                                    <th scope="col">booster_seat</th>
+                                    <th scope="col">child_seat</th>
+                                    <th scope="col">exit_permit</th>
+                                    <th scope="col">pickUpLocation</th>
+                                    <th scope="col">dropOffLocation</th>
+                                    <th scope="col">pickUpDate</th>
+                                    <th scope="col">pickUpTime</th>
+                                    <th scope="col">collectionTime</th>
+                                    <th scope="col">collectionDate</th>
+                                    <th scope="col">targetDate</th>
+                                    <th scope="col">status</th>
+                                    <th scope="col">payment_type</th>
+                                    <th scope="col">Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($bookings as $booking)
+                                <tr>
+                                    <td>{{ $booking->id }}</td>
+                                    <td>{{ $booking->name }}</td>
+                                    <td>{{ $booking->Dprice }}</td>
+                                    <td>{{ $booking->wprice }}</td>
+                                    <td>{{ $booking->mprice }}</td>
+                                    <td>{{ $booking->total_price}}</td>
+                                    <td>{{ $booking->day_count }}</td>
+                                    <td>{{ $booking->week_count }}</td>
+                                    <td>{{ $booking->month_count }}</td>
+                                    <td>{{ $booking->additional_driver }}</td>
+                                    <td>{{ $booking->booster_seat }}</td>
+                                    <td>{{ $booking->child_seat }}</td>
+                                    <td>{{ $booking->exit_permit }}</td>
+                                    <td>{{ $booking->pickUpLocation }}</td>
+                                    <td>{{ $booking->dropOffLocation }}</td>
+                                    <td>{{ $booking->pickUpDate }}</td>
+                                    <td>{{ $booking->pickUpTime }}</td>
+                                    <td>{{ $booking->collectionTime }}</td>
+                                    <td>{{ $booking->collectionDate }}</td>
+                                    <td>{{ $booking->targetDate }}</td>
+                                    <td>{{ $booking->status }}</td>
+                                    <td>{{ $booking->payment_type }}</td>
 
+                                    <td>
+                                        <form action="" method="POST" style="display: inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">Accept</button>
+                                        </form>
+
+                                        <a class="btn btn-primary" href="">Keybox</a>
+
+                                        <form action="" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Reject</button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
