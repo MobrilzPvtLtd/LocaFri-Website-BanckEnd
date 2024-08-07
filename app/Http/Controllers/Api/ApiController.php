@@ -185,65 +185,69 @@ class ApiController extends Controller
 
     public function cars()
     {
-        $vehicles = Vehicle::get();
+        try {
+            $vehicles = Vehicle::get();
 
-        $vehicleData = [];
+            $vehicleData = [];
 
-        foreach ($vehicles as $vehicle) {
-            $profile = null;
-            $images = [];
-            $imageUrls = [];
+            foreach ($vehicles as $vehicle) {
+                $profile = null;
+                $images = [];
+                $imageUrls = [];
 
-            if ($vehicle->image) {
-                $images = json_decode($vehicle->image, true);
-            }
-
-            if (!empty($images)) {
-                foreach ($images as $image) {
-                    $imageUrls[] = asset('public/storage/' . $image);
+                if ($vehicle->image) {
+                    $images = json_decode($vehicle->image, true);
                 }
-                $profile = $imageUrls[0]; // Use the first image as the profile image
+
+                if (!empty($images)) {
+                    foreach ($images as $image) {
+                        $imageUrls[] = asset('public/storage/' . $image);
+                    }
+                    $profile = $imageUrls[0]; // Use the first image as the profile image
+                }
+
+                $features = json_decode($vehicle->features, true);
+
+                $data = [
+                    'id' => $vehicle->id,
+                    'name' => $vehicle->name,
+                    'model' => $vehicle->model,
+                    'type' => $vehicle->type,
+                    'desc' => $vehicle->desc,
+                    'location' => $vehicle->location,
+                    'mitter' => $vehicle->mitter,
+                    'profile' => $profile,
+                    'images' => $imageUrls, // Add all image URLs
+                    'body' => $vehicle->body,
+                    'seat' => $vehicle->seat,
+                    'door' => $vehicle->door,
+                    'luggage' => $vehicle->luggage,
+                    'fuel' => $vehicle->fuel,
+                    'auth' => $vehicle->auth,
+                    'trans' => $vehicle->trans,
+                    'exterior' => $vehicle->exterior,
+                    'interior' => $vehicle->interior,
+                    'featured' => $vehicle->featured,
+                    'features' => $features, // Add features array instead of JSON string
+                    'slug' => $vehicle->slug,
+                    'Dprice' => $vehicle->Dprice,
+                    'wprice' => $vehicle->wprice,
+                    'mprice' => $vehicle->mprice,
+                    'available_time' => $vehicle->available_time,
+                    'status' => $vehicle->status,
+                    'created_at' => $vehicle->created_at,
+                    'updated_at' => $vehicle->updated_at,
+                ];
+
+                $vehicleData[] = $data;
             }
 
-            $features = json_decode($vehicle->features, true);
-
-            $data = [
-                'id' => $vehicle->id,
-                'name' => $vehicle->name,
-                'model' => $vehicle->model,
-                'type' => $vehicle->type,
-                'desc' => $vehicle->desc,
-                'location' => $vehicle->location,
-                'mitter' => $vehicle->mitter,
-                'profile' => $profile,
-                'images' => $imageUrls, // Add all image URLs
-                'body' => $vehicle->body,
-                'seat' => $vehicle->seat,
-                'door' => $vehicle->door,
-                'luggage' => $vehicle->luggage,
-                'fuel' => $vehicle->fuel,
-                'auth' => $vehicle->auth,
-                'trans' => $vehicle->trans,
-                'exterior' => $vehicle->exterior,
-                'interior' => $vehicle->interior,
-                'featured' => $vehicle->featured,
-                'features' => $features, // Add features array instead of JSON string
-                'slug' => $vehicle->slug,
-                'Dprice' => $vehicle->Dprice,
-                'wprice' => $vehicle->wprice,
-                'mprice' => $vehicle->mprice,
-                'available_time' => $vehicle->available_time,
-                'status' => $vehicle->status,
-                'created_at' => $vehicle->created_at,
-                'updated_at' => $vehicle->updated_at,
-            ];
-
-            $vehicleData[] = $data;
+            return response()->json([
+                'status' => 'success',
+                'data' => $vehicleData,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
         }
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $vehicleData,
-        ]);
     }
 }
