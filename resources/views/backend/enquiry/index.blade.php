@@ -65,7 +65,7 @@
                                     <td>{{ $booking->payment_type }}</td>
 
                                     <td>
-                                        <form action="" method="POST" style="display: inline;">
+                                        <form action="" method="POST" style="display: inline;" onsubmit="showMessage(event)">
                                             @csrf
                                             <button type="submit" class="btn btn-success">Accept</button>
                                         </form>
@@ -103,3 +103,14 @@
         </div>
     </div>
 @endsection
+@
+@section('scripts')
+<script>
+    function showMessage(event) {
+        event.preventDefault(); // Prevent form submission to show the message first
+        alert('Your booking is done');
+        event.target.submit(); // Submit the form after showing the message
+    }
+</script>
+@endsection
+

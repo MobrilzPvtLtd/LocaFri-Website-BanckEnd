@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\Api\PaymentController;
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -24,6 +24,8 @@ Route::get('cars', [ApiController::class, 'cars']);
     Route::post('delete/{id}', [ProductController ::class, 'destroy']);
 // });
 
-
+Route::post('stripe', [PaymentController::class, 'stripe'])->name('stripe');
+Route::get('stripe-checkout', [PaymentController::class, 'stripeCheckout'])->name('stripe-checkout');
+Route::get('stripe-checkout-cancel', [PaymentController::class, 'stripeCheckoutCancel'])->name('stripe-checkout-cancel');
 
 
