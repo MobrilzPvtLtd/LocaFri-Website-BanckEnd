@@ -73,6 +73,7 @@
     @livewireScripts
 
     @stack('after-scripts')
+    
     <!-- / Scripts -->
     <script>
         $("#is_view").click(function() {

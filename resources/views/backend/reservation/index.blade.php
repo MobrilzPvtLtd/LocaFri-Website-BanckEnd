@@ -3,9 +3,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="pull-right mb-2">
+            {{-- <div class="pull-right mb-2">
                 <a class="btn btn-success" href="{{ route('reservation.create') }}"> Create Reservation</a>
-            </div>
+            </div> --}}
             <div class="row mt-4">
 
                 <div class="col">
@@ -13,32 +13,69 @@
                         <table id="datatable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Reservation ID</th>
-                                    <th scope="col">Customer Name </th>
-                                    <th scope="col"> Vehicle Details </th>
-                                    <th scope="col"> Rental Date start </th>
-                                    <th scope="col"> Rental Date End </th>
-                                    <th scope="col"> Contact Method</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col"> Name</th>
+                                    <th scope="col">Dprice</th>
+                                    <th scope="col">Wprice</th>
+                                    <th scope="col">Mprice</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Days</th>
+                                    <th scope="col">Weeks</th>
+                                    <th scope="col">Months</th>
+                                    <th scope="col">additional_driver</th>
+                                    <th scope="col">booster_seat</th>
+                                    <th scope="col">child_seat</th>
+                                    <th scope="col">exit_permit</th>
+                                    <th scope="col">pickUpLocation</th>
+                                    <th scope="col">dropOffLocation</th>
+                                    <th scope="col">pickUpDate</th>
+                                    <th scope="col">pickUpTime</th>
+                                    <th scope="col">collectionTime</th>
+                                    <th scope="col">collectionDate</th>
+                                    <th scope="col">targetDate</th>
+                                    <th scope="col">status</th>
+                                    <th scope="col">payment_type</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($reservations as $reservation)
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+                                @foreach ($bookings as $booking)
                                 <tr>
-                                    <td>{{ $reservation->id }}</td>
-                                    <td>{{ $reservation->name }}</td>
-                                    <td>{{ $reservation->details }}</td>
-                                    <td>{{ $reservation->start }}</td>
-                                    <td>{{ $reservation->end }}</td>
-                                    <td>{{ $reservation->method }}</td>
+                                    <td>{{ $booking->id }}</td>
+                                    <td>{{ $booking->name }}</td>
+                                    <td>{{ $booking->Dprice }}</td>
+                                    <td>{{ $booking->wprice }}</td>
+                                    <td>{{ $booking->mprice }}</td>
+                                    <td>{{ $booking->total_price }}</td>
+                                    <td>{{ $booking->day_count }}</td>
+                                    <td>{{ $booking->week_count }}</td>
+                                    <td>{{ $booking->month_count }}</td>
+                                    <td>{{ $booking->additional_driver }}</td>
+                                    <td>{{ $booking->booster_seat }}</td>
+                                    <td>{{ $booking->child_seat }}</td>
+                                    <td>{{ $booking->exit_permit }}</td>
+                                    <td>{{ $booking->pickUpLocation }}</td>
+                                    <td>{{ $booking->dropOffLocation }}</td>
+                                    <td>{{ $booking->pickUpDate }}</td>
+                                    <td>{{ $booking->pickUpTime }}</td>
+                                    <td>{{ $booking->collectionTime }}</td>
+                                    <td>{{ $booking->collectionDate }}</td>
+                                    <td>{{ $booking->targetDate }}</td>
+                                    <td>{{ $booking->status }}</td>
+                                    <td>{{ $booking->payment_type }}</td>
                                     <td>
-                                        <form action="{{ route('reservation.destroy', $reservation->id) }}" method="Post">
+                                        {{-- <form action="{{ route('reservation.destroy', $reservation->id) }}" method="Post">
                                             <a class="btn btn-primary"
                                                 href="{{ route('reservation.edit', $reservation->id) }}">Edit</a>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                 </tr>
                             @endforeach

@@ -5,14 +5,34 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Booking;
+use Session;
 
 class ReservationController extends Controller
 {
     public function index()
     {
-        $reservations = Reservation::all();
-        return view('backend.reservation.index',compact('reservations'));
+        $bookings = Booking::all();
+        return view('backend.reservation.index', compact('bookings'));
     }
+
+    public function accept(Request $request)
+    {
+        dd($request);
+        $bookings = Booking::find($request->bookingId);
+        if ($bookings) {
+
+            $bookings->status = 'accepted';
+            $bookings->save();
+
+            Session::flash('success', 'Your booking is done.');
+
+            return redirect()->route('reservation.index')->with('bookings', $bookings);
+        } else {
+            return redirect()->route('reservation.index')->with('error', 'Reservation not found.');
+        }
+    }
+
     public function create()
     {
         return view('backend.reservation.create');

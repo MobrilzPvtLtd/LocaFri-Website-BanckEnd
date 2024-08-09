@@ -40,47 +40,48 @@
                             </thead>
                             <tbody>
                                 @foreach ($bookings as $booking)
-                                <tr>
-                                    <td>{{ $booking->id }}</td>
-                                    <td>{{ $booking->name }}</td>
-                                    <td>{{ $booking->Dprice }}</td>
-                                    <td>{{ $booking->wprice }}</td>
-                                    <td>{{ $booking->mprice }}</td>
-                                    <td>{{ $booking->total_price}}</td>
-                                    <td>{{ $booking->day_count }}</td>
-                                    <td>{{ $booking->week_count }}</td>
-                                    <td>{{ $booking->month_count }}</td>
-                                    <td>{{ $booking->additional_driver }}</td>
-                                    <td>{{ $booking->booster_seat }}</td>
-                                    <td>{{ $booking->child_seat }}</td>
-                                    <td>{{ $booking->exit_permit }}</td>
-                                    <td>{{ $booking->pickUpLocation }}</td>
-                                    <td>{{ $booking->dropOffLocation }}</td>
-                                    <td>{{ $booking->pickUpDate }}</td>
-                                    <td>{{ $booking->pickUpTime }}</td>
-                                    <td>{{ $booking->collectionTime }}</td>
-                                    <td>{{ $booking->collectionDate }}</td>
-                                    <td>{{ $booking->targetDate }}</td>
-                                    <td>{{ $booking->status }}</td>
-                                    <td>{{ $booking->payment_type }}</td>
+                                    <tr>
+                                        <td>{{ $booking->id }}</td>
+                                        <td>{{ $booking->name }}</td>
+                                        <td>{{ $booking->Dprice }}</td>
+                                        <td>{{ $booking->wprice }}</td>
+                                        <td>{{ $booking->mprice }}</td>
+                                        <td>{{ $booking->total_price }}</td>
+                                        <td>{{ $booking->day_count }}</td>
+                                        <td>{{ $booking->week_count }}</td>
+                                        <td>{{ $booking->month_count }}</td>
+                                        <td>{{ $booking->additional_driver }}</td>
+                                        <td>{{ $booking->booster_seat }}</td>
+                                        <td>{{ $booking->child_seat }}</td>
+                                        <td>{{ $booking->exit_permit }}</td>
+                                        <td>{{ $booking->pickUpLocation }}</td>
+                                        <td>{{ $booking->dropOffLocation }}</td>
+                                        <td>{{ $booking->pickUpDate }}</td>
+                                        <td>{{ $booking->pickUpTime }}</td>
+                                        <td>{{ $booking->collectionTime }}</td>
+                                        <td>{{ $booking->collectionDate }}</td>
+                                        <td>{{ $booking->targetDate }}</td>
+                                        <td>{{ $booking->status }}</td>
+                                        <td>{{ $booking->payment_type }}</td>
 
-                                    <td>
-                                        <form action="" method="POST" style="display: inline;" onsubmit="showMessage(event)">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success">Accept</button>
-                                        </form>
+                                        <td>
+                                            {{-- <form action="{{ route('reservation.accept') }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                                            </form> --}}
+                                            <button type="button" id="bookingAccept" class="btn btn-success btn-sm" data-booking-id="{{ $booking->id }}">Accept</button>
 
-                                        <a class="btn btn-primary" href="">Keybox</a>
+                                            <a class="btn btn-primary btn-sm" href="">Keybox</a>
+                                            <form action="" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                            </form>
+                                        </td>
 
-                                        <form action="" method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Reject</button>
-                                        </form>
-                                    </td>
-
-                                </tr>
-                            @endforeach
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -103,14 +104,31 @@
         </div>
     </div>
 @endsection
-@
-@section('scripts')
-<script>
-    function showMessage(event) {
-        event.preventDefault(); // Prevent form submission to show the message first
-        alert('Your booking is done');
-        event.target.submit(); // Submit the form after showing the message
-    }
-</script>
-@endsection
+@push('after-scripts')
+    <script>
+        $(document).ready(function() {
+            $('#bookingAccept').on('click', function() {
+                var bookingId = $(this).data('booking-id');
+                console.log('Booking ID:', bookingId);
 
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('reservation.accept') }}',
+                    data: {
+                        booking_id: bookingId, // Adjust key if necessary
+                        _token: '{{ csrf_token() }}' // Include CSRF token for Laravel
+                    },
+                    success: function(response) {
+                        console.log('Success:', response);
+                        // Handle success scenario, e.g., show a message or update UI
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        // Handle error scenario, e.g., show an error message
+                    }
+                });
+            });
+        });
+
+    </script>
+@endpush
