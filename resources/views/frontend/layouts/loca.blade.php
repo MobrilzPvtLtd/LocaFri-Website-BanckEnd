@@ -28,6 +28,8 @@
     <!-- color scheme -->
     <link id="colors" href="{{ asset('css/colors/scheme-01.css') }}" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <x-google-analytics />
 
     @yield('style')
@@ -50,13 +52,109 @@
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/designesia.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        $(function() {
+            var totalVal = parseFloat($("#totalPrice").val()) || 0;
+            var dayVal = parseFloat($("#Dprice").val()) || 0;
+            var weekVal = parseFloat($("#wprice").val()) || 0;
+            var monthVal = parseFloat($("#mprice").val()) || 0;
+            var additionalDriverVal = parseFloat($("#additionalDriverCheckbox").val()) || 0;
+            var boosterSeatVal = parseFloat($("#boosterSeatCheckbox").val()) || 0;
+            var childSeatVal = parseFloat($("#childSeatCheckbox").val()) || 0;
+            var exitPermitVal = parseFloat($("#exitPermitCheckbox").val()) || 0;
+
+            function calculateTotalPrice() {
+                var dayCount = parseFloat($("#counter001").val()) || 0;
+                var weekCount = parseFloat($("#counter002").val()) || 0;
+                var monthCount = parseFloat($("#counter003").val()) || 0;
+
+                var totalPriceDay = dayCount * dayVal;
+                var totalPriceWeek = weekCount * weekVal;
+                var totalPriceMonth = monthCount * monthVal;
+
+                var totalPrice = totalPriceDay + totalPriceWeek + totalPriceMonth;
+
+                if ($("#additionalDriverCheckbox").is(':checked')) {
+                    totalPrice += additionalDriverVal;
+                }
+
+                if ($("#boosterSeatCheckbox").is(':checked')) {
+                    totalPrice += boosterSeatVal;
+                }
+
+                if ($("#childSeatCheckbox").is(':checked')) {
+                    totalPrice += childSeatVal;
+                }
+
+                if ($("#exitPermitCheckbox").is(':checked')) {
+                    totalPrice += exitPermitVal;
+                }
+
+                totalPrice = totalPrice.toFixed(2);
+
+                $("#totalPrice").val(totalPrice);
+                $("#totalPriceDisplay").text(totalPrice);
+
+                console.log("Total Price: $" + totalPrice);
+            }
+
+            calculateTotalPrice();
+
+            $("#additionalDriverCheckbox, #boosterSeatCheckbox, #childSeatCheckbox, #exitPermitCheckbox").change(function() {
+                calculateTotalPrice();
+            });
+
+            $("#counter001, #counter002, #counter003").on('input', function() {
+                calculateTotalPrice();
+            });
+
+            $('input[name="pickUpDate"]').daterangepicker({
+                timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(32, 'hour'),
+                locale: {
+                    format: 'M/DD hh:mm A'
+                }
+            }, function(start, end) {
+                calculateDateRangeStats(start, end);
+            });
+
+            function calculateDateRangeStats(startDate, endDate) {
+                const startMoment = moment(startDate);
+                const endMoment = moment(endDate);
+
+                const totalDays = endMoment.diff(startMoment, "days") + 1; // Total days including start and end
+
+                // Approximate months (assuming 30 days per month)
+                const totalMonths = Math.floor(totalDays / 30);
+                const remainingDaysAfterMonths = totalDays - totalMonths * 30;
+
+                // Calculate weeks from remaining days after months
+                const percentileWeeks = Math.floor(remainingDaysAfterMonths / 7);
+
+                // Calculate remaining days
+                const remainingDays = remainingDaysAfterMonths - percentileWeeks * 7;
+
+                $("#counter003").val(totalMonths);
+                $("#counter002").val(percentileWeeks);
+                $("#counter001").val(remainingDays);
+
+                calculateTotalPrice();
+            }
+        });
+
+    </script>
+
     @yield('script')
 
     <script
         src="https://maps.googleapis.com/maps/api/js?key=insert_your_api_key_here&libraries=places&callback=initPlaces"
         async="" defer="">
     </script>
-    <script>
+    {{-- <script>
         const value2 = document.querySelector("#counter001")
         const minus = document.querySelector("#minus")
         const plus = document.querySelector("#plus")
@@ -94,7 +192,7 @@
 
         }))
 
-    </script>
+    </script> --}}
 </div>
 
 </body>

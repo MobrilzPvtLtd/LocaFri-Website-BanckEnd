@@ -25,36 +25,36 @@
                         </div>
                         {{-- <span class="text-muted">$12</span> --}}
                     </li>
-                    @if ($data['targetDate'] == 'day')
+                    @if ($data['day_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Day</h6>
-                                <small class="text-muted">{{ $data['targetDate'] }}</small>
+                                {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">$ {{ $data['Dprice'] * $data['day_count'] }}</span>
                         </li>
                     @endif
 
-                    @if ($data['targetDate'] == 'week')
+                    @if ($data['week_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Week</h6>
-                                <small class="text-muted">{{ $data['targetDate'] }}</small>
+                                {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">$ {{ $data['wprice'] * $data['week_count'] }}</span>
                         </li>
                     @endif
 
-                    @if ($data['targetDate'] == 'month')
+                    @if ($data['month_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Month</h6>
-                                <small class="text-muted">{{ $data['targetDate'] }}</small>
+                                {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">$ {{ $data['mprice'] * $data['month_count'] }}</span>
                         </li>
                     @endif
-                    @if ($data['additional_driver'])
+                    @if (isset($data['additional_driver']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Additional driver</h6>
@@ -63,7 +63,7 @@
                             <span class="text-muted">${{ $data['additional_driver'] }}</span>
                         </li>
                     @endif
-                    @if ($data['booster_seat'])
+                    @if (isset($data['booster_seat']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Child booster seat</h6>
@@ -72,7 +72,7 @@
                             <span class="text-muted">${{ $data['booster_seat'] }}</span>
                         </li>
                     @endif
-                    @if ($data['child_seat'])
+                    @if (isset($data['child_seat']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Child seat</h6>
@@ -81,7 +81,7 @@
                             <span class="text-muted">${{ $data['child_seat'] }}</span>
                         </li>
                     @endif
-                    @if ($data['exit_permit'])
+                    @if (isset($data['exit_permit']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Exit permit</h6>
@@ -100,25 +100,36 @@
                 <h4 class="mb-3">Billing address</h4>
                 <form class="needs-validation" action="{{route('booking-checkout')}}" method="post" novalidate>
                     @csrf
-                    <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate">
+                    {{-- <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate"> --}}
                     <input type="hidden" value="{{ $data['name'] }}" name="name">
                     <input type="hidden" value="{{ $data['Dprice'] }}" name="Dprice">
                     <input type="hidden" value="{{ $data['wprice'] }}" name="wprice">
                     <input type="hidden" value="{{ $data['mprice'] }}" name="mprice">
-                    <input type="hidden" value="{{ $data['additional_driver'] }}" name="additional_driver">
-                    <input type="hidden" value="{{ $data['booster_seat'] }}" name="booster_seat">
-                    <input type="hidden" value="{{ $data['child_seat'] }}" name="child_seat">
-                    <input type="hidden" value="{{ $data['exit_permit'] }}" name="exit_permit">
-                    <input type="hidden" value="{{ $data['total_price'] }}" name="total_price">
+
                     <input type="hidden" value="{{ $data['day_count'] }}" name="day_count">
                     <input type="hidden" value="{{ $data['week_count'] }}" name="week_count">
                     <input type="hidden" value="{{ $data['month_count'] }}" name="month_count">
+
+                    @if (isset($data['additional_driver']))
+                        <input type="hidden" value="{{ $data['additional_driver'] }}" name="additional_driver">
+                    @endif
+                    @if (isset($data['booster_seat']))
+                        <input type="hidden" value="{{ $data['booster_seat'] }}" name="booster_seat">
+                    @endif
+                    @if (isset($data['child_seat']))
+                        <input type="hidden" value="{{ $data['child_seat'] }}" name="child_seat">
+                    @endif
+                    @if (isset($data['exit_permit']))
+                        <input type="hidden" value="{{ $data['exit_permit'] }}" name="exit_permit">
+                    @endif
+                    <input type="hidden" value="{{ $data['total_price'] }}" name="total_price">
+
                     <input type="hidden" value="{{ $data['pickUpLocation'] }}" name="pickUpLocation">
                     <input type="hidden" value="{{ $data['dropOffLocation'] }}" name="dropOffLocation">
-                    <input type="hidden" value="{{ $data['pickUpDate'] }}" name="pickUpDate">
-                    <input type="hidden" value="{{ $data['pickUpTime'] }}" name="pickUpTime">
-                    <input type="hidden" value="{{ $data['collectionDate'] }}" name="collectionDate">
-                    <input type="hidden" value="{{ $data['collectionTime'] }}" name="collectionTime">
+                    <input type="hidden" value="{{ $data['startDate'] }}" name="startDate">
+                    <input type="hidden" value="{{ $data['startTime'] }}" name="startTime">
+                    <input type="hidden" value="{{ $data['endDate'] }}" name="endDate">
+                    <input type="hidden" value="{{ $data['endTime'] }}" name="endTime">
                     <input type="hidden" value="{{ $data['message'] }}" name="message">
 
                     <div class="row">

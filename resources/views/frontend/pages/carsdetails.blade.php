@@ -118,7 +118,6 @@
                             @else
                                 <p>No features available</p>
                             @endif
-
                         </ul>
                     </div>
 
@@ -194,9 +193,14 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Pick Up Date & Time</h5>
                                         <div class="date-time-field">
-                                            <input type="text" id="date-picker" name="pickUpDate"
-                                                value="{{ session()->get('pickUpDate') }}">
-                                            <select name="pickUpTime" id="pickup-time">
+                                            {{-- <input type="text" id="date-picker" name="pickUpDate"
+                                                value="{{ session()->get('pickUpDate') }}"> --}}
+
+                                            <input type="text" name="pickUpDate" value="{{ session()->get('pickUpDate') }}" class="form-control" style="width: 100%;"/>
+
+                                            {{-- <input type="text" name="datetimes" class="form-control mt-4" style="width: 100%;"/> --}}
+
+                                            {{-- <select name="pickUpTime" id="pickup-time">
                                                 <option selected disabled value="{{ session()->get('pickUpTime') }}">
                                                     {{ session()->get('pickUpTime') }}</option>
                                                 <option selected disabled value=""> Time</option>
@@ -248,11 +252,11 @@
                                                 <option value="22:30">22:30</option>
                                                 <option value="23:00">23:00</option>
                                                 <option value="23:30">23:30</option>
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 mb20">
+                                    {{-- <div class="col-lg-12 mb20">
                                         <h5>Return Date & Time</h5>
                                         <div class="date-time-field">
 
@@ -312,46 +316,46 @@
                                                 <option value="23:30">23:30</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-lg-12 mb20">
-                                        <h5>Select Days</h5>
-                                        <div class="date-time-field">
+                                        {{-- <h5>Select Days</h5> --}}
+                                        {{-- <div class="date-time-field">
                                             <select name="targetDate" id="pick_up" class="targetDate">
                                                 <option selected disabled value="">Pick up Days</option>
                                                 <option value="day">Day</option>
                                                 <option value="week">Week</option>
                                                 <option value="month">Month</option>
                                             </select>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 search-col-padding day section">
-                                            <label>Days</label><br>
-                                            <div class="d-flex gap-4">
-                                                <button id="minus">-</button>
-                                                <input id="counter001" name="day_count" value="0" class="form-control quantity-padding">
-                                                <button id="plus">+</button>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-3 search-col-padding week section">
-                                            <label>Week</label><br>
-                                            <div class="d-flex gap-4">
-                                                <button id="minus1">-</button>
-                                                <input id="counter002" name="week_count" value="0" class="form-control quantity-padding">
-                                                <button id="plus1">+</button>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-3 search-col-padding month section">
+                                        </div> --}}
+                                        {{-- <div class="col-md-3 col-sm-3 search-col-padding month section"> --}}
                                             <label>Month</label><br>
                                             <div class="d-flex gap-4">
-                                                <button id="minus2">-</button>
-                                                <input id="counter003" name="month_count" value="0" class="form-control quantity-padding">
-                                                <button id="plus2">+</button>
+                                                {{-- <button id="minus2">-</button> --}}
+                                                <input type="text" id="counter003" name="month_count" value="0" class="form-control quantity-padding" style="width: 100%;">
+                                                {{-- <button id="plus2">+</button> --}}
                                             </div>
-                                        </div>
+                                        {{-- </div> --}}
 
-                                        <div class="form-check form-switch d-flex gap-4">
+                                        {{-- <div class="col-md-3 col-sm-3 search-col-padding week section"> --}}
+                                            <label>Week</label><br>
+                                            <div class="d-flex gap-4">
+                                                {{-- <button id="minus1">-</button> --}}
+                                                <input type="text" id="counter002" name="week_count" value="0" class="form-control quantity-padding" style="width: 100%;">
+                                                {{-- <button id="plus1">+</button> --}}
+                                            </div>
+                                        {{-- </div> --}}
+
+                                        {{-- <div class="col-md-3 col-sm-3 search-col-padding day section"> --}}
+                                            <label>Days</label><br>
+                                            <div class="d-flex gap-4">
+                                                {{-- <button id="minus">-</button> --}}
+                                                <input type="text" name="day_count" id="counter001" value="0" class="form-control quantity-padding" style="width: 100%;">
+                                                {{-- <button id="plus">+</button> --}}
+                                            </div>
+                                        {{-- </div> --}}
+
+                                        <div class="form-check form-switch d-flex gap-4 mt-4">
                                             <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox" name="additional_driver" value="20">
                                             <label class="form-check-label"  for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
                                         </div>
@@ -408,7 +412,7 @@
                 </div>
 
             </div>
-    </div>
+        </div>
     </section>
 
 
@@ -416,11 +420,13 @@
     <!-- content close -->
 
 @endsection
-@section('script')
+{{-- @section('script')
     <script>
         $(document).ready(function() {
-            $('.section').hide();
-            var totalVal = parseFloat($("#totalPrice").val()) || 0;
+            // $('.section').hide();
+            var totalPrice = parseFloat($("#totalPrice").val()) || 0;
+            console.log(totalPrice);
+
             var dayVal = parseFloat($("#Dprice").val()) || 0;
             var weekVal = parseFloat($("#wprice").val()) || 0;
             var monthVal = parseFloat($("#mprice").val()) || 0;
@@ -429,133 +435,133 @@
             var childSeatVal = parseFloat($("#childSeatCheckbox").val()) || 0;
             var exitPermitVal = parseFloat($("#exitPermitCheckbox").val()) || 0;
 
-            $(".targetDate").change(function() {
-                var value = $(this).val();
-                var totalPrice = totalVal;
 
-                $(".section").hide();
+            // $(".targetDate").change(function() {
+            //     var value = $(this).val();
+            //     var totalPrice = totalVal;
 
-                if (value == 'day') {
-                    $(".day").show();
-                    totalPrice += dayVal;
-                } else if (value == 'week') {
-                    $(".week").show();
-                    totalPrice += weekVal;
-                } else if (value == 'month') {
-                    $(".month").show();
-                    totalPrice += monthVal;
-                }
-                updateTotalPrice(value);
-                // $("#totalPrice").val(totalPrice);
-                // $("#totalPriceDisplay").text(totalPrice);
-            });
+            //     $(".section").hide();
 
-            function updateTotalPrice(value) {
-                var dayCount = parseFloat($("#counter001").val()) || 0;
-                var weekCount = parseFloat($("#counter002").val()) || 0;
-                var monthCount = parseFloat($("#counter003").val()) || 0;
+            //     if (value == 'day') {
+            //         $(".day").show();
+            //         totalPrice += dayVal;
+            //     } else if (value == 'week') {
+            //         $(".week").show();
+            //         totalPrice += weekVal;
+            //     } else if (value == 'month') {
+            //         $(".month").show();
+            //         totalPrice += monthVal;
+            //     }
+            //     updateTotalPrice(value);
+            //     // $("#totalPrice").val(totalPrice);
+            //     // $("#totalPriceDisplay").text(totalPrice);
+            // });
 
-                var totalPrice = totalVal;
-                if (value == "day") {
-                    totalPrice += (dayCount * dayVal);
-                } else if (value == "week") {
-                    totalPrice += (weekCount * weekVal);
-                } else if (value == "month") {
-                    totalPrice += (monthCount * monthVal);
-                }
+            // function updateTotalPrice(value) {
+            //     var dayCount = parseFloat($("#counter001").val()) || 0;
+            //     var weekCount = parseFloat($("#counter002").val()) || 0;
+            //     var monthCount = parseFloat($("#counter003").val()) || 0;
 
-                if ($("#additionalDriverCheckbox").is(':checked')) {
-                    totalPrice += additionalDriverVal;
-                } else {
-                    totalPrice = totalPrice;
-                }
+            //     var totalPrice = totalVal;
+            //     if (value == "day") {
+            //         totalPrice += (dayCount * dayVal);
+            //     } else if (value == "week") {
+            //         totalPrice += (weekCount * weekVal);
+            //     } else if (value == "month") {
+            //         totalPrice += (monthCount * monthVal);
+            //     }
 
-                if ($("#boosterSeatCheckbox").is(':checked')) {
-                    totalPrice += boosterSeatVal;
-                } else {
-                    totalPrice = totalPrice;
-                }
+            //     if ($("#additionalDriverCheckbox").is(':checked')) {
+            //         totalPrice += additionalDriverVal;
+            //     } else {
+            //         totalPrice = totalPrice;
+            //     }
 
-                if ($("#childSeatCheckbox").is(':checked')) {
-                    totalPrice += childSeatVal;
-                } else {
-                    totalPrice = totalPrice;
-                }
+            //     if ($("#boosterSeatCheckbox").is(':checked')) {
+            //         totalPrice += boosterSeatVal;
+            //     } else {
+            //         totalPrice = totalPrice;
+            //     }
 
-                if ($("#exitPermitCheckbox").is(':checked')) {
-                    totalPrice += exitPermitVal;
-                } else {
-                    totalPrice = totalPrice;
-                }
+            //     if ($("#childSeatCheckbox").is(':checked')) {
+            //         totalPrice += childSeatVal;
+            //     } else {
+            //         totalPrice = totalPrice;
+            //     }
 
-                console.log(totalPrice);
+            //     if ($("#exitPermitCheckbox").is(':checked')) {
+            //         totalPrice += exitPermitVal;
+            //     } else {
+            //         totalPrice = totalPrice;
+            //     }
 
-                $("#totalPrice").val(totalPrice);
-                $("#totalPriceDisplay").text(totalPrice);
-            }
+            //     console.log(totalPrice);
 
-            $("#plus").click(function() {
-                var counter001Val = parseFloat($("#counter001").val()) || 0;
-                $("#counter001").val(counter001Val);
-                updateTotalPrice("day");
-            });
+            //     $("#totalPrice").val(totalPrice);
+            //     $("#totalPriceDisplay").text(totalPrice);
+            // }
 
-            $("#plus1").click(function() {
-                var counter002Val = parseFloat($("#counter002").val()) || 0;
-                $("#counter002").val(counter002Val);
-                updateTotalPrice("week");
-            });
+            // $("#plus").click(function() {
+            //     var counter001Val = parseFloat($("#counter001").val()) || 0;
+            //     $("#counter001").val(counter001Val);
+            //     updateTotalPrice("day");
+            // });
 
-            $("#plus2").click(function() {
-                var counter003Val = parseFloat($("#counter003").val()) || 0;
-                $("#counter003").val(counter003Val);
-                updateTotalPrice("month");
-            });
+            // $("#plus1").click(function() {
+            //     var counter002Val = parseFloat($("#counter002").val()) || 0;
+            //     $("#counter002").val(counter002Val);
+            //     updateTotalPrice("week");
+            // });
 
-            $("#minus").click(function() {
-                var counter001Val = parseFloat($("#counter001").val()) || 0;
-                if (counter001Val > 0) {
-                    $("#counter001").val(counter001Val);
-                }
-                updateTotalPrice("day");
-            });
+            // $("#plus2").click(function() {
+            //     var counter003Val = parseFloat($("#counter003").val()) || 0;
+            //     $("#counter003").val(counter003Val);
+            //     updateTotalPrice("month");
+            // });
 
-            $("#minus1").click(function() {
-                var counter002Val = parseFloat($("#counter002").val()) || 0;
-                if (counter002Val > 0) {
-                    $("#counter002").val(counter002Val);
-                }
-                updateTotalPrice("week");
-            });
+            // $("#minus").click(function() {
+            //     var counter001Val = parseFloat($("#counter001").val()) || 0;
+            //     if (counter001Val > 0) {
+            //         $("#counter001").val(counter001Val);
+            //     }
+            //     updateTotalPrice("day");
+            // });
 
-            $("#minus2").click(function() {
-                var counter003Val = parseFloat($("#counter003").val()) || 0;
-                if (counter003Val > 0) {
-                    $("#counter003").val(counter003Val);
-                }
-                updateTotalPrice("month");
-            });
+            // $("#minus1").click(function() {
+            //     var counter002Val = parseFloat($("#counter002").val()) || 0;
+            //     if (counter002Val > 0) {
+            //         $("#counter002").val(counter002Val);
+            //     }
+            //     updateTotalPrice("week");
+            // });
 
-            $("#additionalDriverCheckbox").change(function() {
-                var currentDateSelection = $(".targetDate").val();
-                updateTotalPrice(currentDateSelection);
-            });
+            // $("#minus2").click(function() {
+            //     var counter003Val = parseFloat($("#counter003").val()) || 0;
+            //     if (counter003Val > 0) {
+            //         $("#counter003").val(counter003Val);
+            //     }
+            //     updateTotalPrice("month");
+            // });
 
-            $("#boosterSeatCheckbox").change(function() {
-                var currentDateSelection = $(".targetDate").val();
-                updateTotalPrice(currentDateSelection);
-            });
+            // $("#additionalDriverCheckbox").change(function() {
+            //     var currentDateSelection = $(".targetDate").val();
+            //     updateTotalPrice(currentDateSelection);
+            // });
 
-            $("#childSeatCheckbox").change(function() {
-                var currentDateSelection = $(".targetDate").val();
-                updateTotalPrice(currentDateSelection);
-            });
+            // $("#boosterSeatCheckbox").change(function() {
+            //     var currentDateSelection = $(".targetDate").val();
+            //     updateTotalPrice(currentDateSelection);
+            // });
 
-            $("#exitPermitCheckbox").change(function() {
-                var currentDateSelection = $(".targetDate").val();
-                updateTotalPrice(currentDateSelection);
-            });
+            // $("#childSeatCheckbox").change(function() {
+            //     var currentDateSelection = $(".targetDate").val();
+            //     updateTotalPrice(currentDateSelection);
+            // });
+
+            // $("#exitPermitCheckbox").change(function() {
+            //     var currentDateSelection = $(".targetDate").val();
+            //     updateTotalPrice(currentDateSelection);
+            // });
         });
-
     </script>
-@endsection
+@endsection --}}
