@@ -13,23 +13,30 @@ use App\Models\Checkout;
 class BookingController extends Controller
 {
     public function bookingCheckout(Request $request){
+        // dd($request);
         $totalPrice = 0;
-        $Dprice = $wprice = $mprice = 0;
+        $totalPriceDay = $request->Dprice * $request->day_count;
 
-        switch ($request->targetDate) {
-            case 'day':
-                $Dprice = $request->Dprice;
-                $totalPrice = $Dprice * $request->day_count;
-                break;
-            case 'week':
-                $wprice = $request->wprice;
-                $totalPrice = $wprice * $request->week_count;
-                break;
-            case 'month':
-                $mprice = $request->mprice;
-                $totalPrice = $mprice * $request->month_count;
-                break;
-        }
+        $totalPriceWeek = $request->wprice * $request->week_count;
+
+        $totalPriceMonth = $request->mprice * $request->month_count;
+
+        $totalPrice = $totalPriceDay + $totalPriceWeek + $totalPriceMonth;
+
+        // switch ($request->targetDate) {
+        //     case 'day':
+        //         $Dprice = $request->Dprice;
+        //         $totalPrice = $Dprice * $request->day_count;
+        //         break;
+        //     case 'week':
+        //         $wprice = $request->wprice;
+        //         $totalPrice = $wprice * $request->week_count;
+        //         break;
+        //     case 'month':
+        //         $mprice = $request->mprice;
+        //         $totalPrice = $mprice * $request->month_count;
+        //         break;
+        // }
 
         $totalPrice += $request->additional_driver ?? 0;
         $totalPrice += $request->booster_seat ?? 0;
@@ -38,9 +45,9 @@ class BookingController extends Controller
 
         $booking = new Booking();
         $booking->name = $request->name;
-        $booking->Dprice = $Dprice ?? '0.00';
-        $booking->wprice = $wprice ?? '0.00';
-        $booking->mprice = $mprice ?? '0.00';
+        $booking->Dprice = $request->Dprice ?? '0.00';
+        $booking->wprice = $request->wprice ?? '0.00';
+        $booking->mprice = $request->mprice ?? '0.00';
         $booking->day_count = $request->day_count;
         $booking->week_count = $request->week_count;
         $booking->month_count = $request->month_count;
@@ -52,10 +59,10 @@ class BookingController extends Controller
         $booking->targetDate = $request->targetDate;
         $booking->pickUpLocation = $request->pickUpLocation;
         $booking->dropOffLocation = $request->dropOffLocation;
-        $booking->pickUpDate = \Carbon\Carbon::parse($request->pickUpDate);
-        $booking->pickUpTime = $request->pickUpTime;
-        $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
-        $booking->collectionTime = $request->collectionTime;
+        $booking->pickUpDate = \Carbon\Carbon::parse($request->startDate);
+        $booking->pickUpTime = $request->startTime;
+        $booking->collectionDate = \Carbon\Carbon::parse($request->endDate);
+        $booking->collectionTime = $request->endTime;
         // $booking->order_status = "unpaid";
         $booking->payment_type = $request->payment_type;
         $booking->save();

@@ -145,7 +145,7 @@
                                         <h5>Pick Up Location</h5>
                                         <div class="date-time-field">
 
-                                            <select name="pickUpLocation" id="pick_up">
+                                            <select name="pickUpLocation" id="pick_up" required>
                                                 @if(session()->has('pickUpLocation'))
                                                     <option selected value="{{ session()->get('pickUpLocation') }}">
                                                         {{ session()->get('pickUpLocation') }}
@@ -169,7 +169,7 @@
                                     <div class="col-lg-12 mb20">
                                         <h5>Drop Off Location</h5>
                                         <div class="date-time-field">
-                                            <select name="dropOffLocation" id="Drop_Off">
+                                            <select name="dropOffLocation" id="Drop_Off" required>
                                                 @if(session()->has('dropOffLocation'))
                                                     <option selected value="{{ session()->get('dropOffLocation') }}">
                                                         {{ session()->get('dropOffLocation') }}
