@@ -12,4 +12,11 @@ class EnquiryController extends Controller
         $bookings = Booking::all();
         return view('backend.enquiry.index',compact('bookings'));
     }
+
+    public function destroy(Booking $booking)
+    {
+        // dd($booking);
+        $booking->delete();
+        return redirect()->route('enquiry.index');
+    }
 }

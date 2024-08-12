@@ -3,9 +3,6 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {{-- <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('country.create') }}"> Create Country</a>
-            </div> --}}
             <div class="row mt-4">
                 <div class="col">
                     <div class="table-responsive">
@@ -13,7 +10,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col"> Name</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Dprice</th>
                                     <th scope="col">Wprice</th>
                                     <th scope="col">Mprice</th>
@@ -21,21 +18,20 @@
                                     <th scope="col">Days</th>
                                     <th scope="col">Weeks</th>
                                     <th scope="col">Months</th>
-                                    <th scope="col">additional_driver</th>
-                                    <th scope="col">booster_seat</th>
-                                    <th scope="col">child_seat</th>
-                                    <th scope="col">exit_permit</th>
-                                    <th scope="col">pickUpLocation</th>
-                                    <th scope="col">dropOffLocation</th>
-                                    <th scope="col">pickUpDate</th>
-                                    <th scope="col">pickUpTime</th>
-                                    <th scope="col">collectionTime</th>
-                                    <th scope="col">collectionDate</th>
-                                    <th scope="col">targetDate</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col">payment_type</th>
+                                    <th scope="col">Additional Driver</th>
+                                    <th scope="col">Booster Seat</th>
+                                    <th scope="col">Child Seat</th>
+                                    <th scope="col">Exit Permit</th>
+                                    <th scope="col">Pick Up Location</th>
+                                    <th scope="col">Drop Off Location</th>
+                                    <th scope="col">Pick Up Date</th>
+                                    <th scope="col">Pick Up Time</th>
+                                    <th scope="col">Collection Time</th>
+                                    <th scope="col">Collection Date</th>
+                                    <th scope="col">Target Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Payment Type</th>
                                     <th scope="col">Action</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,23 +59,17 @@
                                         <td>{{ $booking->targetDate }}</td>
                                         <td>{{ $booking->status }}</td>
                                         <td>{{ $booking->payment_type }}</td>
-
                                         <td>
-                                            {{-- <form action="{{ route('reservation.accept') }}" method="POST"
+                                            <button type="button" class="btn btn-success btn-sm bookingAccept"
+                                                data-booking-id="{{ $booking->id }}">Accept</button>
+                                            <a class="btn btn-primary btn-sm" href="#">Keybox</a>
+                                            <form action="{{ route('enquiry.destroy', $booking->id) }}" method="POST"
                                                 style="display: inline;">
-                                                @csrf
-                                                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                                            </form> --}}
-                                            <button type="button" id="bookingAccept" class="btn btn-success btn-sm" data-booking-id="{{ $booking->id }}">Accept</button>
-
-                                            <a class="btn btn-primary btn-sm" href="">Keybox</a>
-                                            <form action="" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                                             </form>
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -104,31 +94,31 @@
         </div>
     </div>
 @endsection
+
 @push('after-scripts')
     <script>
         $(document).ready(function() {
-            $('#bookingAccept').on('click', function() {
+            $('.bookingAccept').on('click', function() {
                 var bookingId = $(this).data('booking-id');
-                console.log('Booking ID:', bookingId);
 
                 $.ajax({
                     type: 'POST',
                     url: '{{ route('reservation.accept') }}',
                     data: {
-                        booking_id: bookingId, // Adjust key if necessary
-                        _token: '{{ csrf_token() }}' // Include CSRF token for Laravel
+                        booking_id: bookingId,
+                        _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
                         console.log('Success:', response);
-                        // Handle success scenario, e.g., show a message or update UI
+                        if (response.status) {
+                            window.location.href = '{{ route('reservation.index') }}';
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error('Error:', error);
-                        // Handle error scenario, e.g., show an error message
                     }
                 });
             });
         });
-
     </script>
 @endpush

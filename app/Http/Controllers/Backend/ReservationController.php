@@ -12,26 +12,33 @@ class ReservationController extends Controller
 {
     public function index()
     {
+        $booking = session('booking', null);
         $bookings = Booking::all();
-        return view('backend.reservation.index', compact('bookings'));
+        return view('backend.reservation.index', compact('bookings', 'booking'));
     }
+
 
     public function accept(Request $request)
     {
-        dd($request);
-        $bookings = Booking::find($request->bookingId);
-        if ($bookings) {
+        $booking = Booking::find($request->booking_id);
 
-            $bookings->status = 'accepted';
-            $bookings->save();
+        if ($booking) {
+            $booking->status = 'accepted';
+            $booking->save();
 
-            Session::flash('success', 'Your booking is done.');
+            // Set the booking in the session
+            session(['booking' => $booking]);
 
-            return redirect()->route('reservation.index')->with('bookings', $bookings);
+            // session()->flash('booking', $booking);
+            session()->flash('message', 'Your booking has been accepted.');
+            // Redirect back to the reservation index page
+            return response()->json(['status' => true, 'data' => $booking]);
         } else {
-            return redirect()->route('reservation.index')->with('error', 'Reservation not found.');
+            return response()->json(['status' => false, 'message' => 'Booking not found.']);
         }
     }
+
+
 
     public function create()
     {
@@ -52,9 +59,7 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation.index')->with('success', 'reservation has been created successfully.');
     }
-    public function show()
-    {
-    }
+    public function show() {}
 
     public function edit($id)
     {
@@ -79,9 +84,10 @@ class ReservationController extends Controller
         return redirect()->route('reservation.index')->with('success', 'reservations has been updated successfully.');
     }
 
-    public function destroy(Reservation $reservation)
-    {
-        $reservation->delete();
-        return redirect()->route('reservation.index');
-    }
+    // public function destroy(Booking $booking)
+    // {
+    //     dd($booking);
+    //     $booking->delete();
+    //     return redirect()->route('enquiry');
+    // }
 }

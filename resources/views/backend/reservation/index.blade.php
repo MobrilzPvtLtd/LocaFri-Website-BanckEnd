@@ -39,46 +39,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Session::has('success'))
-                                    <div class="alert alert-success">
-                                        {{ Session::get('success') }}
-                                    </div>
+                                @if ($booking)
+                                    <tr>
+                                        <td>{{ $booking->id }}</td>
+                                        <td>{{ $booking->name }}</td>
+                                        <td>{{ $booking->Dprice }}</td>
+                                        <td>{{ $booking->wprice }}</td>
+                                        <td>{{ $booking->mprice }}</td>
+                                        <td>{{ $booking->total_price }}</td>
+                                        <td>{{ $booking->day_count }}</td>
+                                        <td>{{ $booking->week_count }}</td>
+                                        <td>{{ $booking->month_count }}</td>
+                                        <td>{{ $booking->additional_driver }}</td>
+                                        <td>{{ $booking->booster_seat }}</td>
+                                        <td>{{ $booking->child_seat }}</td>
+                                        <td>{{ $booking->exit_permit }}</td>
+                                        <td>{{ $booking->pickUpLocation }}</td>
+                                        <td>{{ $booking->dropOffLocation }}</td>
+                                        <td>{{ $booking->pickUpDate }}</td>
+                                        <td>{{ $booking->pickUpTime }}</td>
+                                        <td>{{ $booking->collectionTime }}</td>
+                                        <td>{{ $booking->collectionDate }}</td>
+                                        <td>{{ $booking->targetDate }}</td>
+                                        <td>{{ $booking->status }}</td>
+                                        <td>{{ $booking->payment_type }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm bookingAccept"
+                                             >Contract</button>
+                                            {{-- <a class="btn btn-primary btn-sm" href="#">Keybox</a> --}}
+                                            {{-- <form action="#" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                            </form> --}}
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td colspan="22">No accepted booking data available.</td>
+                                    </tr>
                                 @endif
-                                @foreach ($bookings as $booking)
-                                <tr>
-                                    <td>{{ $booking->id }}</td>
-                                    <td>{{ $booking->name }}</td>
-                                    <td>{{ $booking->Dprice }}</td>
-                                    <td>{{ $booking->wprice }}</td>
-                                    <td>{{ $booking->mprice }}</td>
-                                    <td>{{ $booking->total_price }}</td>
-                                    <td>{{ $booking->day_count }}</td>
-                                    <td>{{ $booking->week_count }}</td>
-                                    <td>{{ $booking->month_count }}</td>
-                                    <td>{{ $booking->additional_driver }}</td>
-                                    <td>{{ $booking->booster_seat }}</td>
-                                    <td>{{ $booking->child_seat }}</td>
-                                    <td>{{ $booking->exit_permit }}</td>
-                                    <td>{{ $booking->pickUpLocation }}</td>
-                                    <td>{{ $booking->dropOffLocation }}</td>
-                                    <td>{{ $booking->pickUpDate }}</td>
-                                    <td>{{ $booking->pickUpTime }}</td>
-                                    <td>{{ $booking->collectionTime }}</td>
-                                    <td>{{ $booking->collectionDate }}</td>
-                                    <td>{{ $booking->targetDate }}</td>
-                                    <td>{{ $booking->status }}</td>
-                                    <td>{{ $booking->payment_type }}</td>
-                                    <td>
-                                        {{-- <form action="{{ route('reservation.destroy', $reservation->id) }}" method="Post">
-                                            <a class="btn btn-primary"
-                                                href="{{ route('reservation.edit', $reservation->id) }}">Edit</a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
                             </tbody>
                         </table>
                     </div>
