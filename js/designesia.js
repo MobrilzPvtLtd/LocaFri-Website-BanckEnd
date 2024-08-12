@@ -1585,98 +1585,98 @@
 
         /* detepicker */
 
-        $('#date-picker').daterangepicker({
-                "singleDatePicker": true,
-                "showISOWeekNumbers": true,
-                "timePicker": false,
-                "autoUpdateInput": true,
-                "locale": {
-                    "format": "MMMM DD, YYYY",
-                    "separator": " - ",
-                    "applyLabel": "Apply",
-                    "cancelLabel": "Cancel",
-                    "fromLabel": "From",
-                    "toLabel": "To",
-                    "customRangeLabel": "Custom",
-                    "weekLabel": "W",
-                    "daysOfWeek": [
-                        "Su",
-                        "Mo",
-                        "Tu",
-                        "We",
-                        "Th",
-                        "Fr",
-                        "Sa"
-                    ],
-                    "monthNames": [
-                        "January",
-                        "February",
-                        "March",
-                        "April",
-                        "May",
-                        "June",
-                        "July",
-                        "August",
-                        "September",
-                        "October",
-                        "November",
-                        "December"
-                    ],
-                    "firstDay": 1
-                },
-                "linkedCalendars": true,
-                "showCustomRangeLabel": false,
-                "startDate": 1,
-                "endDate": moment().startOf('hour').add(24, 'hour'),
-                "opens": "right"
-            });
+        // $('#date-picker').daterangepicker({
+        //         "singleDatePicker": true,
+        //         "showISOWeekNumbers": true,
+        //         "timePicker": false,
+        //         "autoUpdateInput": true,
+        //         "locale": {
+        //             "format": "MMMM DD, YYYY",
+        //             "separator": " - ",
+        //             "applyLabel": "Apply",
+        //             "cancelLabel": "Cancel",
+        //             "fromLabel": "From",
+        //             "toLabel": "To",
+        //             "customRangeLabel": "Custom",
+        //             "weekLabel": "W",
+        //             "daysOfWeek": [
+        //                 "Su",
+        //                 "Mo",
+        //                 "Tu",
+        //                 "We",
+        //                 "Th",
+        //                 "Fr",
+        //                 "Sa"
+        //             ],
+        //             "monthNames": [
+        //                 "January",
+        //                 "February",
+        //                 "March",
+        //                 "April",
+        //                 "May",
+        //                 "June",
+        //                 "July",
+        //                 "August",
+        //                 "September",
+        //                 "October",
+        //                 "November",
+        //                 "December"
+        //             ],
+        //             "firstDay": 1
+        //         },
+        //         "linkedCalendars": true,
+        //         "showCustomRangeLabel": false,
+        //         "startDate": 1,
+        //         "endDate": moment().startOf('hour').add(24, 'hour'),
+        //         "opens": "right"
+        //     });
 
 
-        $('#date-picker-2').daterangepicker({
-                "singleDatePicker": true,
-                "showISOWeekNumbers": true,
-                "timePicker": false,
-                "autoUpdateInput": true,
-                "locale": {
-                    "format": "MMMM DD, YYYY",
-                    "separator": " - ",
-                    "applyLabel": "Apply",
-                    "cancelLabel": "Cancel",
-                    "fromLabel": "From",
-                    "toLabel": "To",
-                    "customRangeLabel": "Custom",
-                    "weekLabel": "W",
-                    "daysOfWeek": [
-                        "Su",
-                        "Mo",
-                        "Tu",
-                        "We",
-                        "Th",
-                        "Fr",
-                        "Sa"
-                    ],
-                    "monthNames": [
-                        "January",
-                        "February",
-                        "March",
-                        "April",
-                        "May",
-                        "June",
-                        "July",
-                        "August",
-                        "September",
-                        "October",
-                        "November",
-                        "December"
-                    ],
-                    "firstDay": 1
-                },
-                "linkedCalendars": true,
-                "showCustomRangeLabel": false,
-                "startDate": 1,
-                "endDate": moment().startOf('hour').add(24, 'hour'),
-                "opens": "right"
-            });
+        // $('#date-picker-2').daterangepicker({
+        //         "singleDatePicker": true,
+        //         "showISOWeekNumbers": true,
+        //         "timePicker": false,
+        //         "autoUpdateInput": true,
+        //         "locale": {
+        //             "format": "MMMM DD, YYYY",
+        //             "separator": " - ",
+        //             "applyLabel": "Apply",
+        //             "cancelLabel": "Cancel",
+        //             "fromLabel": "From",
+        //             "toLabel": "To",
+        //             "customRangeLabel": "Custom",
+        //             "weekLabel": "W",
+        //             "daysOfWeek": [
+        //                 "Su",
+        //                 "Mo",
+        //                 "Tu",
+        //                 "We",
+        //                 "Th",
+        //                 "Fr",
+        //                 "Sa"
+        //             ],
+        //             "monthNames": [
+        //                 "January",
+        //                 "February",
+        //                 "March",
+        //                 "April",
+        //                 "May",
+        //                 "June",
+        //                 "July",
+        //                 "August",
+        //                 "September",
+        //                 "October",
+        //                 "November",
+        //                 "December"
+        //             ],
+        //             "firstDay": 1
+        //         },
+        //         "linkedCalendars": true,
+        //         "showCustomRangeLabel": false,
+        //         "startDate": 1,
+        //         "endDate": moment().startOf('hour').add(24, 'hour'),
+        //         "opens": "right"
+        //     });
 
         // switch
 

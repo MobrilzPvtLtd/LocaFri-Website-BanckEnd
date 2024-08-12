@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
@@ -107,10 +108,37 @@ class FrontendController extends Controller
             'name', 'Dprice', 'wprice', 'mprice','pickUpLocation', 'dropOffLocation','pickUpDate','pickUpTime', 'collectionDate', 'collectionTime','targetDate', 'day_count', 'week_count', 'month_count', 'additional_driver', 'booster_seat', 'child_seat', 'exit_permit', 'message', 'total_price'
         ];
 
-        $data = array_map(fn($param) => $request->query($param), array_combine($params, $params));
+        $params = $request->only($params);
 
+        $parsedDates = $this->parseDateRange($params['pickUpDate']);
+
+        $data = array_merge($params, $parsedDates);
         // dd($data);
+        // $data = array_map(fn($param) => $request->query($param), array_combine($params, $params));
+
         return view('frontend.pages.reservation', compact('data'));
 
+    }
+
+    private function parseDateRange($dateRange)
+    {
+        list($startPart, $endPart) = explode(' - ', $dateRange);
+
+        $dateFormat = 'n/j h:i A';
+
+        $startMoment = Carbon::createFromFormat($dateFormat, $startPart);
+        $endMoment = Carbon::createFromFormat($dateFormat, $endPart);
+
+        $startDate = $startMoment->format('Y-m-d');
+        $endDate = $endMoment->format('Y-m-d');
+        $startTime = $startMoment->format('H:i:s');
+        $endTime = $endMoment->format('H:i:s');
+
+        return [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'startTime' => $startTime,
+            'endTime' => $endTime,
+        ];
     }
 }

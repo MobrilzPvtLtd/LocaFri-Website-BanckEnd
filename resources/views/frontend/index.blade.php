@@ -52,8 +52,7 @@
                                         <h5>Drop Off Location</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off">
-                                                <option selected disabled value="Select drop_off">select your drop Off
-                                                    location</option>
+                                                <option selected disabled value="Select drop_off">select your drop Off location</option>
                                                     @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
                                                 @endforeach
@@ -69,8 +68,10 @@
                                     <div class="col-lg-6 mb20">
                                         <h5>Pick Up Date & Time</h5>
                                         <div class="date-time-field">
-                                            <input type="text" id="date-picker" name="pickUpDate" value="">
-                                            <select name="pickUpTime" id="pickup-time">
+                                            {{-- <input type="text" id="date-picker" name="pickUpDate" value=""> --}}
+                                            <input type="text" name="pickUpDate" value="" class="form-control" style="width: 100%;"/>
+
+                                            {{-- <select name="pickUpTime" id="pickup-time">
                                                 <option selected disabled value="Select time">Time</option>
                                                 <option value="00:00">00:00</option>
                                                 <option value="00:30">00:30</option>
@@ -120,11 +121,11 @@
                                                 <option value="22:30">22:30</option>
                                                 <option value="23:00">23:00</option>
                                                 <option value="23:30">23:30</option>
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 mb20">
+                                    {{-- <div class="col-lg-6 mb20">
                                         <h5>Return Date & Time</h5>
                                         <div class="date-time-field">
                                             <input type="text" id="date-picker-2" name="collectionDate" value="">
@@ -180,12 +181,15 @@
                                                 <option value="23:30">23:30</option>
                                             </select>
                                         </div>
+                                    </div> --}}
+
+                                    <div class="col-lg-6 mt30">
+                                        {{-- <h5>Pick Up Date & Time</h5> --}}
+                                        <div class="date-time-field">
+                                            <input type='submit' id='send_message' value='Find a Vehicle' class="btn-main pull-right">
+                                        </div>
                                     </div>
                                 </div>
-
-                                <input type='submit' id='send_message' value='Find a Vehicle'
-                                    class="btn-main pull-right">
-
                                 <div class="clearfix"></div>
 
                             </form>
