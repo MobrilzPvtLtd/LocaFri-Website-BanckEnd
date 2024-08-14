@@ -3,6 +3,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            {{-- Success message area --}}
+            <div id="success-message" class="alert alert-success d-none"></div>
+
             <div class="row mt-4">
                 <div class="col">
                     <div class="table-responsive">
@@ -60,16 +63,20 @@
                                         <td>{{ $booking->status }}</td>
                                         <td>{{ $booking->payment_type }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-sm bookingAccept"
-                                                data-booking-id="{{ $booking->id }}">Accept</button>
-                                            <a class="btn btn-primary btn-sm" href="#">Keybox</a>
-                                            <form action="{{ route('enquiry.destroy', $booking->id) }}" method="POST"
-                                                style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                                            </form>
+                                            <div class="d-flex flex-column flex-md-row justify-content-between">
+                                                <button type="button"
+                                                    class="btn btn-success btn-sm bookingAccept mb-2 mb-md-0 mx-md-1"
+                                                    data-booking-id="{{ $booking->id }}">Accept</button>
+                                                <a class="btn btn-primary btn-sm mb-2 mb-md-0 mx-md-1" href="#">Keybox</a>
+                                                <form action="{{ route('enquiry.destroy', $booking->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-md-1">Reject</button>
+                                                </form>
+                                            </div>
                                         </td>
+
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -97,28 +104,30 @@
 
 @push('after-scripts')
     <script>
-        $(document).ready(function() {
-            $('.bookingAccept').on('click', function() {
-                var bookingId = $(this).data('booking-id');
+       $(document).ready(function() {
+    $('.bookingAccept').on('click', function() {
+        var bookingId = $(this).data('booking-id');
 
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('reservation.accept') }}',
-                    data: {
-                        booking_id: bookingId,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        console.log('Success:', response);
-                        if (response.status) {
-                            window.location.href = '{{ route('reservation.index') }}';
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('booking.accept') }}',
+            data: {
+                booking_id: bookingId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                console.log('Success:', response);
+                if (response.status) {
+                    $('#success-message').text('Your booking has been accepted and a new entry created.')
+                        .removeClass('d-none');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
         });
+    });
+});
+
     </script>
 @endpush

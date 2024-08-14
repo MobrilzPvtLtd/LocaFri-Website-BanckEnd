@@ -13,6 +13,9 @@ use Illuminate\Support\Str;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
+use App\Models\Booking;
+use App\Models\BookingEntry;
+use App\Models\Checkout;
 
 class ApiController extends Controller
 {
@@ -248,6 +251,28 @@ class ApiController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
+        }
+    }
+
+    public function acceptBooking(Request $request)
+    {
+        $bookingId = $request->input('booking_id');
+        $booking = Booking::find($bookingId);
+
+        if ($booking) {
+            $booking->status = 'accepted';
+            $booking->save();
+
+            // Create a new entry based on the booking details
+            $newEntry = new Checkout();
+            $newEntry->booking_id = $booking->id;
+            $newEntry->name = $booking->name;
+            $newEntry->user_id = $booking->user_id; // Assuming user_id is available in the booking table
+            $newEntry->save();
+
+            return response()->json(['status' => true, 'message' => 'Booking accepted and new entry created']);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Booking not found'], 404);
         }
     }
 }

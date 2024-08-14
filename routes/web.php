@@ -57,7 +57,6 @@ Route::resource('admin/enquiry', EnquiryController::class);
 // Reservation
 Route::resource('admin/reservation', ReservationController::class);
 Route::post('admin/reservation/accept', [ReservationController::class, 'accept'])->name('reservation.accept');
-
 // Customercontact
 Route::resource('admin/customercontact', CustomercontactController::class);
 

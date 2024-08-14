@@ -31,12 +31,14 @@ class ReservationController extends Controller
 
             // session()->flash('booking', $booking);
             session()->flash('message', 'Your booking has been accepted.');
-            // Redirect back to the reservation index page
+
+            // Return JSON response for AJAX request
             return response()->json(['status' => true, 'data' => $booking]);
         } else {
             return response()->json(['status' => false, 'message' => 'Booking not found.']);
         }
     }
+
 
 
 
