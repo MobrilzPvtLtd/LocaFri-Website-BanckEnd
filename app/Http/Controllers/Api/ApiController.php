@@ -256,21 +256,36 @@ class ApiController extends Controller
 
     public function acceptBooking(Request $request)
     {
+        // Retrieve the booking ID from the request
         $bookingId = $request->input('booking_id');
-        $booking = Booking::find($bookingId);
+
+        // Find the booking with the associated user
+        $booking = Booking::with('user')->find($bookingId);
 
         if ($booking) {
-            $booking->status = 'accepted';
-            $booking->save();
+            // Retrieve the associated user
+            $user = $booking->user;
 
-            // Create a new entry based on the booking details
-            $newEntry = new Checkout();
-            $newEntry->booking_id = $booking->id;
-            $newEntry->name = $booking->name;
-            $newEntry->user_id = $booking->user_id; // Assuming user_id is available in the booking table
-            $newEntry->save();
+            $checkout = Checkout::where('booking_id', $booking->id)
+                ->where('booking_id', $booking->id)
+                ->first();
 
-            return response()->json(['status' => true, 'message' => 'Booking accepted and new entry created']);
+            if ($checkout) {
+                // Fetch the first name, last name, and email from the matching Checkout entry
+                $firstName = $checkout->first_name;
+                $lastName = $checkout->last_name;
+                $email = $checkout->email;
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Booking accepted',
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'email' => $email, // This will use the email from the Checkout entry
+                ]);
+            } else {
+                return response()->json(['status' => false, 'message' => 'No matching Checkout entry found'], 404);
+            }
         } else {
             return response()->json(['status' => false, 'message' => 'Booking not found'], 404);
         }
