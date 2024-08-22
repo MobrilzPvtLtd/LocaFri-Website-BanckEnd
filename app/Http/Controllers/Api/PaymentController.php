@@ -12,32 +12,25 @@ use Stripe\Exception\AuthenticationException;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
+use App\Models\Booking;
 
 class PaymentController extends Controller
 {
-    public function stripe(Request $request)
-    {
+    public function stripe(Request $request){
+
         try {
-            $stripeSecret = env('STRIPE_SECRET');
-            if (!$stripeSecret) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Stripe secret key not set in environment.',
-                ], 500);
-            }
+            // Initialize Stripe client with secret key
+            $stripe = new StripeClient(env('STRIPE_SECRET'));
 
-            $stripe = new StripeClient($stripeSecret);
-
+            // Construct success and cancel URLs
             $redirectUrl = route('stripe-checkout') . '?session_id={CHECKOUT_SESSION_ID}';
             $cancelUrl = route('stripe-checkout-cancel') . '?session_id={CHECKOUT_SESSION_ID}';
 
-            // Log request data for debugging
-            Log::info('Stripe Request Data:', $request->all());
-
+            // Create a Stripe checkout session
             $response = $stripe->checkout->sessions->create([
                 'success_url' => $redirectUrl,
                 'cancel_url' => $cancelUrl,
-                'customer_email' => $request->customer_email,
+                // 'customer_email' => $request->customer_email,
                 'payment_method_types' => ['link', 'card'],
                 'line_items' => [
                     [
@@ -45,7 +38,7 @@ class PaymentController extends Controller
                             'product_data' => [
                                 'name' => $request->vehicle_name,
                             ],
-                            'unit_amount' => 100 * $request->price,
+                            'unit_amount' => 100 * $request->price, // Price in cents
                             'currency' => 'USD',
                         ],
                         'quantity' => 1,
@@ -58,27 +51,102 @@ class PaymentController extends Controller
                     'payment_type' => $request->payment_type,
                 ],
             ]);
-
+            // dd($response);
+            // Return the session URL in a JSON response
             return response()->json([
                 'status' => true,
                 'message' => 'Stripe session created successfully.',
                 'session_url' => $response['url'],
-                'session_id' => $response['id'],
             ]);
-        } catch (InvalidRequestException $e) {
-            Log::error("Stripe Invalid Request Error: " . $e->getMessage(), [
-                'stripe_error' => $e->getJsonBody(),
-            ]);
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid request made: ' . $e->getMessage(),
-            ], 400);
         } catch (\Exception $e) {
-            Log::error("Stripe General Error: " . $e->getMessage());
+            // Log error and return a JSON error response
+            Log::error('Stripe Error: ' . $e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => 'Failed to create Stripe session: ' . $e->getMessage(),
             ], 500);
         }
     }
+
+    // public function stripe(Request $request)
+    // {
+    //     try {
+    //         // Ensure the Stripe secret key is set
+    //         $stripeSecret = env('STRIPE_SECRET');
+    //         if (!$stripeSecret) {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => 'Stripe secret key not set in environment.',
+    //             ], 500);
+    //         }
+
+    //         // Instantiate the Stripe client
+    //         $stripe = new StripeClient($stripeSecret);
+
+    //         // Construct URLs
+    //         $redirectUrl = route('stripe-checkout') . '?session_id={CHECKOUT_SESSION_ID}';
+    //         $cancelUrl = route('stripe-checkout-cancel') . '?session_id={CHECKOUT_SESSION_ID}';
+
+    //         // Fetch the booking information using the booking ID from the request
+    //         $booking = Booking::find($request->booking_id);
+
+    //         // Check if the booking exists
+    //         if (!$booking) {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => 'Booking not found.',
+    //             ], 404);
+    //         }
+
+    //         // Log request data for debugging
+    //         Log::info('Stripe Request Data:', $request->all());
+
+    //         // Create the Stripe checkout session
+    //         $response = $stripe->checkout->sessions->create([
+    //             'success_url' => $redirectUrl,
+    //             'cancel_url' => $cancelUrl,
+    //             'payment_method_types' => ['link', 'card'],
+    //             'line_items' => [
+    //                 [
+    //                     'price_data' => [
+    //                         'product_data' => [
+    //                             'name' => $booking->vehicle_name, // Use the vehicle name from the booking
+    //                         ],
+    //                         'unit_amount' => 100 * $request->price, // Assuming price is in dollars, converted to cents
+    //                         'currency' => 'USD',
+    //                     ],
+    //                     'quantity' => 1,
+    //                 ],
+    //             ],
+    //             'mode' => 'payment',
+    //             'allow_promotion_codes' => true,
+    //             'metadata' => [
+    //                 'booking_id' => $request->booking_id,
+    //                 'payment_type' => $request->payment_type,
+    //             ],
+    //         ]);
+
+    //         // Return a successful response
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Stripe session created successfully.',
+    //             'session_url' => $response['url'],
+    //             'session_id' => $response['id'],
+    //         ]);
+    //     } catch (InvalidRequestException $e) {
+    //         Log::error("Stripe Invalid Request Error: " . $e->getMessage(), [
+    //             'stripe_error' => $e->getJsonBody(),
+    //         ]);
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Invalid request made: ' . $e->getMessage(),
+    //         ], 400);
+    //     } catch (\Exception $e) {
+    //         Log::error("Stripe General Error: " . $e->getMessage());
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Failed to create Stripe session: ' . $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
 }

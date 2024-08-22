@@ -25,8 +25,12 @@ Route::post('accept', [ApiController::class, 'acceptBooking'])->name('booking.ac
     Route::post('update/{id}', [ProductController ::class, 'update']);
     Route::post('delete/{id}', [ProductController ::class, 'destroy']);
 // });
-Route::post('stripe', [PaymentController::class, 'stripe'])->name('stripe');
-Route::get('stripe-checkout', [PaymentController::class, 'stripeCheckout'])->name('stripe-checkout');
-Route::get('stripe-checkout-cancel', [PaymentController::class, 'stripeCheckoutCancel'])->name('stripe-checkout-cancel');
+// Route::post('stripe', [PaymentController::class, 'stripe'])->name('stripe');
+// Route::get('stripe-checkout', [PaymentController::class, 'stripeCheckout'])->name('stripe-checkout');
+// Route::get('stripe-checkout-cancel', [PaymentController::class, 'stripeCheckoutCancel'])->name('stripe-checkout-cancel');
+
+Route::get('stripe', [PaymentController ::class, 'stripe']);
+// Route::get('stripe/checkout', [PaymentController::class, 'stripeCheckout']);
+// Route::get('stripe/checkout/cancel', [PaymentController::class, 'stripeCheckoutCancel']);
 
 

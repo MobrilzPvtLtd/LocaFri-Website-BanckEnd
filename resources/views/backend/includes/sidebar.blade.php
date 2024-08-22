@@ -3,7 +3,7 @@ $notifications = optional(auth()->user())->unreadNotifications;
 $notifications_count = optional($notifications)->count();
 $notifications_latest = optional($notifications)->take(5);
 $total_contact = App\Models\Contact::where('is_view', 0)->count();
-$total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
+// $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
 ?>
 
 <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
@@ -28,7 +28,7 @@ $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="">
                     <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')<p class="notify001">
-                        {{ $total_contact + $total_booking }}
+                        {{ $total_contact }}
                     </p>
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
@@ -41,7 +41,7 @@ $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('enquiry.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span></span>
                             <span id="is_viewbooking">Booking
@@ -50,7 +50,7 @@ $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
                                 {{ $total_booking }}
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
         @endcan
@@ -107,10 +107,35 @@ $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
                             <span class="nav-icon"><span class="fa-sharp fa-solid fa-hotel"></span></span> Reservations
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('customercontact.index') }}">
                             <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Contracts
 
+                        </a>
+                    </li> --}}
+                </ul>
+            </li>
+        @endcan
+        @can('view_logs')
+            <li class="nav-group" aria-expanded="true">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="fa-solid fa-triangle-exclamation"></i>&nbsp;@lang('Contract Handling')
+                </a>
+                <ul class="nav-group-items compact" style="height: auto;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('customercontact.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span> Create Contract
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('alert.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Complete Contract
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span>Completed Contract
                         </a>
                     </li>
                 </ul>

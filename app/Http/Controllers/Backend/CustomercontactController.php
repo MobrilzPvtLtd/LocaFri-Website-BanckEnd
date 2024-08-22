@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customercontact;
+use App\Models\Booking;
+use Session;
 
 class CustomercontactController extends Controller
 {
     public function index()
     {
         $customercontacts = Customercontact::all();
-        return view('backend.customercontact.index',compact('customercontacts'));
+        $booking = session('booking', null);
+        return view('backend.customercontact.index',compact('customercontacts','booking'));
     }
     public function create()
     {
@@ -63,5 +66,26 @@ class CustomercontactController extends Controller
     {
         $customercontact->delete();
         return redirect()->route('customercontact.index');
+    }
+
+    public function accept(Request $request)
+    {
+        $booking = Booking::find($request->booking_id);
+
+        if ($booking) {
+            $booking->status = 'accepted';
+            $booking->save();
+
+            // Set the booking in the session
+            session(['booking' => $booking]);
+
+            // session()->flash('booking', $booking);
+            session()->flash('message', 'Your booking has been accepted.');
+
+            // Return JSON response for AJAX request
+            return response()->json(['status' => true, 'data' => $booking]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Booking not found.']);
+        }
     }
 }

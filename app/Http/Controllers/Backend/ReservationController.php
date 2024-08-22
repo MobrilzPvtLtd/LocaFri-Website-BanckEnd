@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
@@ -12,34 +11,35 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $booking = session('booking', null);
-        $bookings = Booking::all();
-        return view('backend.reservation.index', compact('bookings', 'booking'));
+        $bookings = Booking::where('is_viewbooking', '!=', 1)->get();
+        return view('backend.reservation.index', compact('bookings'));
     }
 
-
-    public function accept(Request $request)
+    public function is_viewbooking(Request $request)
     {
-        $booking = Booking::find($request->booking_id);
+        $booking = Booking::where('id', $request->booking_id)->first();
 
         if ($booking) {
-            $booking->status = 'accepted';
+            $booking->is_viewbooking = 1;
             $booking->save();
 
-            // Set the booking in the session
-            session(['booking' => $booking]);
-
-            // session()->flash('booking', $booking);
-            session()->flash('message', 'Your booking has been accepted.');
-
-            // Return JSON response for AJAX request
-            return response()->json(['status' => true, 'data' => $booking]);
-        } else {
-            return response()->json(['status' => false, 'message' => 'Booking not found.']);
+            return response()->json($booking);
         }
     }
 
+    // public function is_viewbooking()
+    // {
 
+    //     $booking = Booking::where('id', request()->booking_id)->first();
+
+    //     if ($booking) {
+
+    //         $booking->is_viewbooking = 1;
+    //         $booking->save();
+
+    //         return response()->json($booking);
+    //     }
+    // }
 
 
     public function create()
