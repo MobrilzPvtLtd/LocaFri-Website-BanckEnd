@@ -13,7 +13,6 @@ class CustomercontactController extends Controller
     public function index()
     {
         $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
-        // dd($bookings);
         return view('backend.customercontact.index',compact('bookings'));
     }
     public function create()

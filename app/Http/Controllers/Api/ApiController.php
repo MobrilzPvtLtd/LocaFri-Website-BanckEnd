@@ -290,4 +290,12 @@ class ApiController extends Controller
             return response()->json(['status' => false, 'message' => 'Booking not found'], 404);
         }
     }
+
+    public function contract()
+    {
+
+        $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
+
+        return response()->json($bookings);
+    }
 }
