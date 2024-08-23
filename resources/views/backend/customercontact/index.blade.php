@@ -42,13 +42,13 @@
                                     <tr>
                                         <td>{{ $booking->id }}</td>
                                         <td>{{ $booking->name }}</td>
-                                        <td>{{ $booking->dprice }}</td>
+                                        <td>{{ $booking->Dprice }}</td>
                                         <td>{{ $booking->wprice }}</td>
                                         <td>{{ $booking->mprice }}</td>
-                                        <td>{{ $booking->total }}</td>
-                                        <td>{{ $booking->days }}</td>
-                                        <td>{{ $booking->weeks }}</td>
-                                        <td>{{ $booking->months }}</td>
+                                        <td>{{ $booking->total_price }}</td>
+                                        <td>{{ $booking->day_count }}</td>
+                                        <td>{{ $booking->week_count }}</td>
+                                        <td>{{ $booking->month_count }}</td>
                                         <td>{{ $booking->additional_driver }}</td>
                                         <td>{{ $booking->booster_seat }}</td>
                                         <td>{{ $booking->child_seat }}</td>

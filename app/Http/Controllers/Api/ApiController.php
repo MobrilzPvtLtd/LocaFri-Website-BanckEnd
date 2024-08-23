@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Models\Booking;
 use App\Models\BookingEntry;
 use App\Models\Checkout;
+use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
 {
@@ -290,12 +291,21 @@ class ApiController extends Controller
             return response()->json(['status' => false, 'message' => 'Booking not found'], 404);
         }
     }
-
+    
     public function contract()
     {
-
-        $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
-
-        return response()->json($bookings);
+        try {
+            $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
+            return response()->json([
+                'status' => 'success',
+                'data' => $bookings
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Error fetching bookings: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to fetch bookings.'
+            ], 500);
+        }
     }
 }
