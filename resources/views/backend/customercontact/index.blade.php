@@ -4,17 +4,16 @@
     <div class="card">
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('customercontact.create') }}"> Create Customercontact</a>
+                <a class="btn btn-success" href="{{ route('customercontact.create') }}">Create Customercontact</a>
             </div>
             <div class="row mt-4">
-
                 <div class="col">
                     <div class="table-responsive">
                         <table id="datatable" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col"> Name</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Dprice</th>
                                     <th scope="col">Wprice</th>
                                     <th scope="col">Mprice</th>
@@ -22,36 +21,50 @@
                                     <th scope="col">Days</th>
                                     <th scope="col">Weeks</th>
                                     <th scope="col">Months</th>
-                                    <th scope="col">additional_driver</th>
-                                    <th scope="col">booster_seat</th>
-                                    <th scope="col">child_seat</th>
-                                    <th scope="col">exit_permit</th>
-                                    <th scope="col">pickUpLocation</th>
-                                    <th scope="col">dropOffLocation</th>
-                                    <th scope="col">pickUpDate</th>
-                                    <th scope="col">pickUpTime</th>
-                                    <th scope="col">collectionTime</th>
-                                    <th scope="col">collectionDate</th>
-                                    <th scope="col">targetDate</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col">payment_type</th>
+                                    <th scope="col">Additional Driver</th>
+                                    <th scope="col">Booster Seat</th>
+                                    <th scope="col">Child Seat</th>
+                                    <th scope="col">Exit Permit</th>
+                                    <th scope="col">Pick Up Location</th>
+                                    <th scope="col">Drop Off Location</th>
+                                    <th scope="col">Pick Up Date</th>
+                                    <th scope="col">Pick Up Time</th>
+                                    <th scope="col">Collection Time</th>
+                                    <th scope="col">Collection Date</th>
+                                    <th scope="col">Target Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Payment Type</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($customercontacts as $customer)
+                                @foreach ($bookings as $booking)
                                     <tr>
-                                        {{-- <td>{{ $customer->id }}</td>
-                                        <td>{{ $customer->name }}</td>
-                                        <td>{{ $customer->email }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->address }}</td>
-                                        <td>{{ $customer->massage }}</td> --}}
+                                        <td>{{ $booking->id }}</td>
+                                        <td>{{ $booking->name }}</td>
+                                        <td>{{ $booking->dprice }}</td>
+                                        <td>{{ $booking->wprice }}</td>
+                                        <td>{{ $booking->mprice }}</td>
+                                        <td>{{ $booking->total }}</td>
+                                        <td>{{ $booking->days }}</td>
+                                        <td>{{ $booking->weeks }}</td>
+                                        <td>{{ $booking->months }}</td>
+                                        <td>{{ $booking->additional_driver }}</td>
+                                        <td>{{ $booking->booster_seat }}</td>
+                                        <td>{{ $booking->child_seat }}</td>
+                                        <td>{{ $booking->exit_permit }}</td>
+                                        <td>{{ $booking->pickUpLocation }}</td>
+                                        <td>{{ $booking->dropOffLocation }}</td>
+                                        <td>{{ $booking->pickUpDate }}</td>
+                                        <td>{{ $booking->pickUpTime }}</td>
+                                        <td>{{ $booking->collectionTime }}</td>
+                                        <td>{{ $booking->collectionDate }}</td>
+                                        <td>{{ $booking->targetDate }}</td>
+                                        <td>{{ $booking->status }}</td>
+                                        <td>{{ $booking->payment_type }}</td>
                                         <td>
-                                            <form action="{{ route('customercontact.destroy', $customer->id) }}"
-                                                method="Post">
-                                                <a class="btn btn-primary"
-                                                    href="{{ route('customercontact.edit', $customer->id) }}">Make Contract</a>
+                                            <form action="{{ route('customercontact.destroy', $booking->id) }}" method="POST">
+                                                <a class="btn btn-primary" href="{{ route('customercontact.edit', $booking->id) }}">Make Contract</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -61,20 +74,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-7">
-                    <div class="float-left">
-                        <!-- Any additional content you want to add -->
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="float-end">
-                        <!-- Any additional content you want to add -->
                     </div>
                 </div>
             </div>

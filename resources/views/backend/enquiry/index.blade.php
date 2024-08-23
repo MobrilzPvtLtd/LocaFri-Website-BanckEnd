@@ -38,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bookings as $booking)
+                                {{-- @foreach ($bookings as $booking)
                                     <tr>
                                         <td>{{ $booking->id }}</td>
                                         <td>{{ $booking->name }}</td>
@@ -81,7 +81,7 @@
 
 
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

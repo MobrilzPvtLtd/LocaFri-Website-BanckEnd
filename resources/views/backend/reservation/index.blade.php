@@ -79,26 +79,10 @@
                                                 </form>
                                             </div>
                                         </td>
-
-
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-7">
-                    <div class="float-left">
-                        <!-- Any additional content you want to add -->
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="float-end">
-                        <!-- Any additional content you want to add -->
                     </div>
                 </div>
             </div>

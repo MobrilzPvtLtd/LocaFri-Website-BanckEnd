@@ -12,9 +12,9 @@ class CustomercontactController extends Controller
 {
     public function index()
     {
-        $customercontacts = Customercontact::all();
-        $booking = session('booking', null);
-        return view('backend.customercontact.index',compact('customercontacts','booking'));
+        $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
+        // dd($bookings);
+        return view('backend.customercontact.index',compact('bookings'));
     }
     public function create()
     {
