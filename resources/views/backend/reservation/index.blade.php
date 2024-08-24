@@ -74,8 +74,9 @@
                                                     style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-danger btn-sm mx-md-1">Reject</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-md-1"
+                                                        data-booking-id="{{ $booking->id }}"
+                                                        id="is_rejected">Reject</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -121,6 +122,39 @@
                 }).fail(function(error) {
                     console.error('Error:', error);
                 });
+            });
+        });
+        $("#is_rejected").click(function() {
+            var bookingId = $(this).data('booking-id'); // Fetch the booking ID
+            var row = $(this).closest('tr'); // Get the row element to remove it later
+
+            $.ajax({
+                url: '/is_rejected',
+                type: 'post',
+                data: {
+                    booking_id: bookingId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.status) {
+                        // Show success message
+                        $('#success-message').text('Your booking has been rejected.')
+                            .removeClass('d-none');
+
+                        // Remove the row from the table
+                        row.remove();
+
+                        // Redirect to rejected.index after 2 seconds
+                        setTimeout(function() {
+                            window.location.href = '{{ route('reject.index') }}';
+                        }, 2000);
+                    } else {
+                        console.error('Error rejecting booking:', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('An error occurred: ' + error);
+                }
             });
         });
     </script>

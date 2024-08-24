@@ -11,7 +11,7 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::where('is_viewbooking', '!=', 1)->get();
+        $bookings = Booking::where('is_viewbooking', '!=', 1)->where('is_rejected', '!=', 1)->get();
         return view('backend.reservation.index', compact('bookings'));
     }
 
@@ -21,6 +21,18 @@ class ReservationController extends Controller
 
         if ($booking) {
             $booking->is_viewbooking = 1;
+            $booking->save();
+
+            return response()->json($booking);
+        }
+    }
+
+    public function is_rejected(Request $request)
+    {
+        $booking = Booking::where('id', $request->booking_id)->first();
+
+        if ($booking) {
+            $booking->is_rejected = 1;
             $booking->save();
 
             return response()->json($booking);

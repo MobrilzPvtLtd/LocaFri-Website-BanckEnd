@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\VehiclestatusController;
 use App\Http\Controllers\Backend\ReservationController;
 use App\Http\Controllers\Backend\CustomercontactController;
 use App\Http\Controllers\Backend\EnquiryController;
+use App\Http\Controllers\Backend\RejectController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\MoneySetupController;
 use App\Http\Controllers\Frontend\TwintController;
@@ -51,6 +52,9 @@ Route::resource('admin/alert', AlertController::class);
 Route::resource('admin/contact', ContactsController::class);
 Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
 Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
+Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
+// Rejet
+Route::resource('admin/reject', RejectController::class);
 // contact
 Route::resource('admin/enquiry', EnquiryController::class);
 

@@ -107,12 +107,12 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
                             <span class="nav-icon"><span class="fa-sharp fa-solid fa-hotel"></span></span> Reservations
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customercontact.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Contracts
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reject.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-ban"></span></span>Reject Reservations
 
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
         @endcan
