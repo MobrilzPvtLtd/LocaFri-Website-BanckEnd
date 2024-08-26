@@ -39,10 +39,10 @@
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-info">
                     <div class="card-body">
                         <div class="float-right">
-                            <i class="fa-solid fa-house" style="font-size: 20px"></i>
+                            <i class="fa-solid fa-car" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-info"></h3>
-                        <p class="text-muted mb-0">Total Buy Property</p>
+                        <h3 class="font-size-20 mt-0 pt-1 text-info">{{$vehicles}}</h3>
+                        <p class="text-muted mb-0">Total Vehicles</p>
                     </div>
                 </div>
             </div>
@@ -50,10 +50,10 @@
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-danger">
                     <div class="card-body">
                         <div class="float-right">
-                            <i class="fa-solid fa-house ml-3" style="font-size: 20px"></i>
+                            <i class="fa-solid fa-ticket ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-danger"></h3>
-                        <p class="text-muted mb-0">Total Rent Property</p>
+                        <h3 class="font-size-20 mt-0 pt-1 text-danger">{{$bookings}}</h3>
+                        <p class="text-muted mb-0">Total Bookings</p>
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-success">
                     <div class="card-body">
                         <div class="float-right">
-                            <i class="fa-solid fa-hotel ml-3" style="font-size: 20px"></i>
+                            <i class="fa-solid fa-address-book ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-success"></h3>
-                        <p class="text-muted mb-0">Total Holiday Rental</p>
+                        <h3 class="font-size-20 mt-0 pt-1 text-success">{{$contacts}}</h3>
+                        <p class="text-muted mb-0">Total Contacts</p>
                     </div>
                 </div>
             </div>
