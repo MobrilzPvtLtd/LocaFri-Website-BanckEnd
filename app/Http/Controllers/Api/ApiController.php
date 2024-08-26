@@ -291,14 +291,21 @@ class ApiController extends Controller
             return response()->json(['status' => false, 'message' => 'Booking not found'], 404);
         }
     }
-    
-    public function contract()
+
+    public function contract(Request $request)
     {
         try {
             $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
+            $booking = Booking::where('id', $request->booking_id)->first();
+            if ($booking) {
+                $booking->is_contract = 1;
+                $booking->save();
+
+                return response()->json($booking);
+            }
             return response()->json([
                 'status' => 'success',
-                'data' => $bookings
+                'contract' => $bookings
             ], 200);
         } catch (\Exception $e) {
             Log::error('Error fetching bookings: ' . $e->getMessage());
@@ -307,5 +314,11 @@ class ApiController extends Controller
                 'message' => 'Failed to fetch bookings.'
             ], 500);
         }
+    }
+
+    public function createcontract()
+    {
+    //  dd('111');
+    
     }
 }

@@ -159,3 +159,26 @@
         });
     </script>
 @endpush
+$(document).ready(function() {
+    $('.make-contract-btn').on('click', function() {
+        var bookingId = $(this).data('booking-id');
+        var button = $(this);
+        $.ajax({
+            url: '/is_contract',
+            type: 'POST',
+            data: {
+                booking_id: bookingId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    button.text('Contract Created');
+                    button.prop('disabled', true);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('An error occurred: ' + error);
+            }
+        });
+    });
+});

@@ -3,9 +3,6 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('customercontact.create') }}">Create Customercontact</a>
-            </div>
             <div class="row mt-4">
                 <div class="col">
                     <div class="table-responsive">
@@ -63,12 +60,8 @@
                                         <td>{{ $booking->status }}</td>
                                         <td>{{ $booking->payment_type }}</td>
                                         <td>
-                                            <form action="{{ route('customercontact.destroy', $booking->id) }}" method="POST">
-                                                <a class="btn btn-primary" href="{{ route('customercontact.edit', $booking->id) }}">Make Contract</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
+                                            <button type="button" class="btn btn-primary make-contract-btn"
+                                                data-booking-id="{{ $booking->id }}" @if ($booking->is_contract == 1) disabled @endif>Make Contract</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -80,3 +73,36 @@
         </div>
     </div>
 @endsection
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function() {
+            $('.make-contract-btn').on('click', function() {
+                var bookingId = $(this).data('booking-id');
+                var button = $(this);
+
+                $.ajax({
+                    url: '/api/contract',
+                    type: 'POST',
+                    data: {
+                        booking_id: bookingId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response);
+
+                        if (response.is_contract === 1) {
+                            button.text('Contract Created'); // Change button text
+                            button.prop('disabled', true); // Disable the button
+                        } else {
+                            alert('Failed to create contract.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('An error occurred: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

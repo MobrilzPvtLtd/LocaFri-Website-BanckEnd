@@ -39,20 +39,17 @@ class ReservationController extends Controller
         }
     }
 
-    // public function is_viewbooking()
-    // {
+    public function is_contract(Request $request)
+    {
+        $booking = Booking::where('id', $request->booking_id)->first();
 
-    //     $booking = Booking::where('id', request()->booking_id)->first();
+        if ($booking) {
+            $booking->is_contract = 1;
+            $booking->save();
 
-    //     if ($booking) {
-
-    //         $booking->is_viewbooking = 1;
-    //         $booking->save();
-
-    //         return response()->json($booking);
-    //     }
-    // }
-
+            return response()->json($booking);
+        }
+    }
 
     public function create()
     {

@@ -53,6 +53,8 @@ Route::resource('admin/contact', ContactsController::class);
 Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
 Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
 Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
+Route::post('is_contract', [ReservationController::class, 'is_contract'])->name('is_contract');
+
 // Rejet
 Route::resource('admin/reject', RejectController::class);
 // contact

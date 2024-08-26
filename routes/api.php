@@ -17,7 +17,7 @@ Route::get('avalibalcars', [ApiController::class, 'avalibalcars']);
 Route::get('cardetails/{id}', [ApiController::class, 'cardetails']);
 Route::get('cars', [ApiController::class, 'cars']);
 Route::post('contract', [ApiController::class, 'contract']);
-// Route::post('contract', [ApiController::class, 'contract'])->name('contract');
+Route::post('create-contract', [ApiController::class, 'createcontract']);
 Route::post('accept', [ApiController::class, 'acceptBooking'])->name('booking.accept');
 
 // Route::middleware('auth')->group(function () {
