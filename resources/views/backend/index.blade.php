@@ -88,7 +88,7 @@
                         <div class="float-right">
                             <i class="fa fa-ship ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-info"></h3>
+                        <h3 class="font-size-20 mt-0 pt-1 text-info">{{$rejectedBookings}}</h3>
                         <p class="text-muted mb-0">Rejected Bookings </p>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <div class="float-right">
                             <i class="fa fa-home ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-danger"></h3>
+                        <h3 class="font-size-20 mt-0 pt-1 text-danger">{{ $contracts }}</h3>
                         <p class="text-muted mb-0">Total Contracts</p>
                     </div>
                 </div>

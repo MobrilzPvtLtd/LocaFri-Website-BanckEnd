@@ -70,14 +70,12 @@
                                                     id="is_viewbooking">Accept</button>
                                                 <a class="btn btn-primary btn-sm mb-2 mb-md-0 mx-md-1"
                                                     href="#">Keybox</a>
-                                                <form action="{{ route('enquiry.destroy', $booking->id) }}" method="POST"
-                                                    style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm mx-md-1"
                                                         data-booking-id="{{ $booking->id }}"
                                                         id="is_rejected">Reject</button>
-                                                </form>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -159,26 +157,4 @@
         });
     </script>
 @endpush
-$(document).ready(function() {
-    $('.make-contract-btn').on('click', function() {
-        var bookingId = $(this).data('booking-id');
-        var button = $(this);
-        $.ajax({
-            url: '/is_contract',
-            type: 'POST',
-            data: {
-                booking_id: bookingId,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.status === 'success') {
-                    button.text('Contract Created');
-                    button.prop('disabled', true);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('An error occurred: ' + error);
-            }
-        });
-    });
-});
+

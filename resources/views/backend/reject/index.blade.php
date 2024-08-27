@@ -3,9 +3,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="pull-right mb-2">
+            {{-- <div class="pull-right mb-2">
                 <a class="btn btn-success" href="{{ route('customercontact.create') }}">Create Customercontact</a>
-            </div>
+            </div> --}}
             <div class="row mt-4">
                 <div class="col">
                     <div class="table-responsive">
