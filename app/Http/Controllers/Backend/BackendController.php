@@ -20,7 +20,7 @@ class BackendController extends Controller
         $vehicles = Vehicle::all()->count();
         $bookings = Booking::all()->count();
         $contacts = contact::all()->count();
-        // $contacts = Contact::all()->count();
-        return view('backend.index',compact('vehicles','bookings','contacts'));
+        $acceptedBookingsCount = Booking::where('is_viewbooking', '!=', 0)->count();
+        return view('backend.index',compact('vehicles','bookings','contacts', 'acceptedBookingsCount'));
     }
 }

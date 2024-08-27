@@ -34,7 +34,7 @@
             </x-slot>
         </x-backend.section-header>
 
-        <div class="row">
+        <div class="row  py-3">
             <div class="col-xl-3 col-md-6">
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-info">
                     <div class="card-body">
@@ -74,8 +74,8 @@
                         <div class="float-right">
                             <i class="fa fa-cab ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-warning"></h3>
-                        <p class="text-muted mb-0">Total Contact Inquiry</p>
+                        <h3 class="font-size-20 mt-0 pt-1 text-warning">{{ $acceptedBookingsCount }}</h3>
+                        <p class="text-muted mb-0">Accepted Bookings</p>
                     </div>
                 </div>
             </div>
@@ -89,10 +89,11 @@
                             <i class="fa fa-ship ml-3" style="font-size: 20px"></i>
                         </div>
                         <h3 class="font-size-20 mt-0 pt-1 text-info"></h3>
-                        <p class="text-muted mb-0">Total Property Inquiry</p>
+                        <p class="text-muted mb-0">Rejected Bookings </p>
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-3 col-md-6">
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-danger">
                     <div class="card-body">
@@ -100,32 +101,32 @@
                             <i class="fa fa-home ml-3" style="font-size: 20px"></i>
                         </div>
                         <h3 class="font-size-20 mt-0 pt-1 text-danger"></h3>
-                        <p class="text-muted mb-0">Total Property</p>
+                        <p class="text-muted mb-0">Total Contracts</p>
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6">
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-danger">
                     <div class="card-body">
                         <div class="float-right">
                             <i class="fa fa-users ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-danger">user</h3>
-                        <p class="text-muted mb-0">Total Users</p>
+                        <h3 class="font-size-20 mt-0 pt-1 text-danger"></h3>
+                        <p class="text-muted mb-0">Complete contract</p>
                     </div>
                 </div>
-            </div> --}}
-            {{-- <div class="col-xl-3 col-md-6">
+            </div>
+            <div class="col-xl-3 col-md-6">
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-success">
                     <div class="card-body">
                         <div class="float-right">
                             <i class="fab fa-first-order ml-3" style="font-size: 20px"></i>
                         </div>
-                        <h3 class="font-size-20 mt-0 pt-1 text-success">total</h3>
-                        <p class="text-muted mb-0">Total Bookings</p>
+                        <h3 class="font-size-20 mt-0 pt-1 text-success"></h3>
+                        <p class="text-muted mb-0">Completed contracts</p>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             {{-- <div class="col-xl-3 col-md-6">
                 <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-warning">
                     <div class="card-body">
