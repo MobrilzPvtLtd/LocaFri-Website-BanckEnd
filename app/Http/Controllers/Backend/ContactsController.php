@@ -9,7 +9,7 @@ use App\Models\Booking;
 
 class ContactsController extends Controller
 {
-    public function index(){
+        public function index(){
         $contacts = Contact::all();
         return view('backend.contact.massage',compact('contacts'));
     }

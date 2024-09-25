@@ -16,7 +16,9 @@ use Carbon\Carbon;
 use App\Models\Booking;
 use App\Models\BookingEntry;
 use App\Models\Checkout;
+use App\Models\Contract;
 use Illuminate\Support\Facades\Log;
+use App\Mail\vehicleInspectionMail;
 
 class ApiController extends Controller
 {
@@ -174,16 +176,66 @@ class ApiController extends Controller
 
     public function cardetails($id)
     {
-        $car = Vehicle::find($id);
-        if (!$car) {
+        $vehicle = Vehicle::find($id);
+
+        if (!$vehicle) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Car not found'
             ], 404);
         }
+
+        $profile = null;
+        $images = [];
+        $imageUrls = [];
+
+        if ($vehicle->image) {
+            $images = json_decode($vehicle->image, true);
+        }
+
+        if (!empty($images)) {
+            foreach ($images as $image) {
+                $imageUrls[] = asset('public/storage/' . $image);
+            }
+            $profile = $imageUrls[0]; // Use the first image as the profile image
+        }
+
+        $features = json_decode($vehicle->features, true);
+
+        $data = [
+            'id' => $vehicle->id,
+            'name' => $vehicle->name,
+            'model' => $vehicle->modal,
+            'type' => $vehicle->type,
+            'desc' => $vehicle->desc,
+            'location' => $vehicle->location,
+            'mitter' => $vehicle->mitter,
+            'profile' => $profile,
+            'images' => $imageUrls, // Add all image URLs
+            'body' => $vehicle->body,
+            'seat' => $vehicle->seat,
+            'door' => $vehicle->door,
+            'luggage' => $vehicle->luggage,
+            'fuel' => $vehicle->fuel,
+            'auth' => $vehicle->auth,
+            'trans' => $vehicle->trans,
+            'exterior' => $vehicle->exterior,
+            'interior' => $vehicle->interior,
+            'featured' => $vehicle->featured,
+            'features' => $features, // Add features array instead of JSON string
+            'slug' => $vehicle->slug,
+            'Dprice' => $vehicle->Dprice,
+            'wprice' => $vehicle->wprice,
+            'mprice' => $vehicle->mprice,
+            'available_time' => $vehicle->available_time,
+            'status' => $vehicle->status,
+            'created_at' => $vehicle->created_at,
+            'updated_at' => $vehicle->updated_at,
+        ];
+
         return response()->json([
             'status' => 'success',
-            'data' => $car
+            'data' => $data
         ]);
     }
 
@@ -215,7 +267,7 @@ class ApiController extends Controller
                 $data = [
                     'id' => $vehicle->id,
                     'name' => $vehicle->name,
-                    'model' => $vehicle->model,
+                    'model' => $vehicle->modal,
                     'type' => $vehicle->type,
                     'desc' => $vehicle->desc,
                     'location' => $vehicle->location,
@@ -295,8 +347,8 @@ class ApiController extends Controller
     public function contract(Request $request)
     {
         try {
-            $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
-            $booking = Booking::where('id', $request->booking_id)->first();
+        $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
+         $booking = Booking::where('id', $request->booking_id)->first();
             if ($booking) {
                 $booking->is_contract = 1;
                 $booking->save();
@@ -316,9 +368,72 @@ class ApiController extends Controller
         }
     }
 
-    public function createcontract()
+    public function createcontract(Request $request)
     {
-    //  dd('111');
-    
+        $val = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:10',
+            'email' => 'required|email',
+            'license_photo' => 'required|file|mimes:jpeg,png,jpg',
+            'record_kilometers' => 'required|string',
+            'fuel_level' => 'required|in:empty,quarter,half,three_quarters,full',
+            // 'vehicle_images[]' => 'required',
+            // 'vehicle_images' => 'required|array',
+            'vehicle_images.*' => 'image|mimes:jpeg,png,jpg',
+            'vehicle_damage_comments' => 'nullable|string',
+            'customer_signature' => 'required|file|mimes:jpeg,png,jpg'
+        ]);
+
+
+        if ($request->hasFile('license_photo')) {
+            $licensePhotoPath = $request->file('license_photo')->store('license_photos', 'public');
+        }
+
+        $vehicleImagePaths = [];
+        if ($request->hasFile('vehicle_images')) {
+            foreach ($request->file('vehicle_images') as $image) {
+                $path = $image->store('vehicle_images', 'public');
+                $vehicleImagePaths[] = $path;
+            }
+        }
+
+        if ($request->hasFile('customer_signature')) {
+            $customerSignaturePath = $request->file('customer_signature')->store('signatures', 'public');
+        }
+
+        $vehicleInspection = Contract::create([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'postal_code' => $request->input('postal_code'),
+            'email' => $request->input('email'),
+            'license_photo' => $licensePhotoPath ?? null,
+            'record_kilometers' => $request->input('record_kilometers'),
+            'fuel_level' => $request->input('fuel_level'),
+            'vehicle_images' => json_encode($vehicleImagePaths),
+            'vehicle_damage_comments' => $request->input('vehicle_damage_comments'),
+            'customer_signature' => $customerSignaturePath ?? null
+        ]);
+
+        // dd($request->all());
+        $data = [
+            'name' => $vehicleInspection->name,
+            'email' => $vehicleInspection->email,
+            'address' => $vehicleInspection->address,
+            'message' => 'Your vehicle inspection has been recorded successfully!',
+            'message_title' => 'Vehicle Inspection Completed',
+        ];
+
+
+        if ($vehicleInspection->email) {
+            Mail::to($vehicleInspection->email)->send(new vehicleInspectionMail($data));
+        }
+
+        return response()->json([
+            'message' => 'Contract created successfully!',
+            'data' => $vehicleInspection
+        ]);
     }
+
+
 }

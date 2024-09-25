@@ -35,6 +35,8 @@ return new class extends Migration
             $table->string('status')->default('pending')->nullable();
             $table->string('payment_type')->default(0)->nullable();
             $table->tinyInteger('is_viewbooking')->default(0);
+            $table->tinyInteger('is_rejected')->default(0);
+            $table->tinyInteger('is_contract')->default(0);
             $table->timestamps();
         });
     }
