@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('license_photo')->nullable();
             $table->string('record_kilometers')->nullable();
-            $table->tinyInteger('fuel_level')->default(0);
+            $table->string('fuel_level')->nullable();
             $table->longText('vehicle_images')->nullable();
             $table->text('vehicle_damage_comments')->nullable();
             $table->text('customer_signature')->nullable();
 
-            // $table->tinyInteger('is_view')->default(0);
+            $table->tinyInteger('is_view')->default(0);
             $table->timestamps();
         });
     }

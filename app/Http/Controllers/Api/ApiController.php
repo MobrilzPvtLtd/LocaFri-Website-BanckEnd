@@ -222,13 +222,14 @@ class ApiController extends Controller
             'exterior' => $vehicle->exterior,
             'interior' => $vehicle->interior,
             'featured' => $vehicle->featured,
-            'features' => $features, // Add features array instead of JSON string
+            'features' => $features,
             'slug' => $vehicle->slug,
             'Dprice' => $vehicle->Dprice,
             'wprice' => $vehicle->wprice,
             'mprice' => $vehicle->mprice,
             'available_time' => $vehicle->available_time,
             'status' => $vehicle->status,
+            'ratings' => $vehicle->ratings,//added for ratings
             'created_at' => $vehicle->created_at,
             'updated_at' => $vehicle->updated_at,
         ];
@@ -291,6 +292,7 @@ class ApiController extends Controller
                     'mprice' => $vehicle->mprice,
                     'available_time' => $vehicle->available_time,
                     'status' => $vehicle->status,
+                    'ratings' => $vehicle->ratings,//added
                     'created_at' => $vehicle->created_at,
                     'updated_at' => $vehicle->updated_at,
                 ];
@@ -368,72 +370,53 @@ class ApiController extends Controller
         }
     }
 
-    public function createcontract(Request $request)
+    public function createContract(Request $request)
     {
-        $val = $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'postal_code' => 'required|string|max:10',
             'email' => 'required|email',
             'license_photo' => 'required|file|mimes:jpeg,png,jpg',
             'record_kilometers' => 'required|string',
-            'fuel_level' => 'required|in:empty,quarter,half,three_quarters,full',
-            // 'vehicle_images[]' => 'required',
-            // 'vehicle_images' => 'required|array',
+            'fuel_level' => 'required',
             'vehicle_images.*' => 'image|mimes:jpeg,png,jpg',
             'vehicle_damage_comments' => 'nullable|string',
             'customer_signature' => 'required|file|mimes:jpeg,png,jpg'
         ]);
 
-
-        if ($request->hasFile('license_photo')) {
-            $licensePhotoPath = $request->file('license_photo')->store('license_photos', 'public');
-        }
+        $licensePhotoPath = $request->hasFile('license_photo')
+                            ? $request->file('license_photo')->store('license_photos', 'public')
+                            : null;
 
         $vehicleImagePaths = [];
         if ($request->hasFile('vehicle_images')) {
             foreach ($request->file('vehicle_images') as $image) {
-                $path = $image->store('vehicle_images', 'public');
-                $vehicleImagePaths[] = $path;
+                $vehicleImagePaths[] = $image->store('vehicle_images', 'public');
             }
         }
 
-        if ($request->hasFile('customer_signature')) {
-            $customerSignaturePath = $request->file('customer_signature')->store('signatures', 'public');
-        }
+        $customerSignaturePath = $request->hasFile('customer_signature')
+                                ? $request->file('customer_signature')->store('signatures', 'public')
+                                : null;
 
         $vehicleInspection = Contract::create([
-            'name' => $request->input('name'),
-            'address' => $request->input('address'),
-            'postal_code' => $request->input('postal_code'),
-            'email' => $request->input('email'),
-            'license_photo' => $licensePhotoPath ?? null,
-            'record_kilometers' => $request->input('record_kilometers'),
-            'fuel_level' => $request->input('fuel_level'),
+            'name' => $validated['name'],
+            'address' => $validated['address'],
+            'postal_code' => $validated['postal_code'],
+            'email' => $validated['email'],
+            'license_photo' => $licensePhotoPath,
+            'record_kilometers' => $validated['record_kilometers'],
+            'fuel_level' => $validated['fuel_level'],
             'vehicle_images' => json_encode($vehicleImagePaths),
-            'vehicle_damage_comments' => $request->input('vehicle_damage_comments'),
-            'customer_signature' => $customerSignaturePath ?? null
+            'vehicle_damage_comments' => $validated['vehicle_damage_comments'],
+            'customer_signature' => $customerSignaturePath
         ]);
-
-        // dd($request->all());
-        $data = [
-            'name' => $vehicleInspection->name,
-            'email' => $vehicleInspection->email,
-            'address' => $vehicleInspection->address,
-            'message' => 'Your vehicle inspection has been recorded successfully!',
-            'message_title' => 'Vehicle Inspection Completed',
-        ];
-
-
-        if ($vehicleInspection->email) {
-            Mail::to($vehicleInspection->email)->send(new vehicleInspectionMail($data));
-        }
 
         return response()->json([
             'message' => 'Contract created successfully!',
             'data' => $vehicleInspection
         ]);
     }
-
 
 }

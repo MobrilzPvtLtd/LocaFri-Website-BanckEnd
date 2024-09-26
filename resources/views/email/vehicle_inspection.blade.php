@@ -55,7 +55,7 @@
         }
 
         .email-details td {
-            padding: 10px 0;
+            padding: 10px;
             font-size: 16px;
             color: #555;
         }
@@ -78,6 +78,14 @@
         @media only screen and (max-width: 600px) {
             .email-content {
                 width: 90%;
+            }
+
+            .email-details td {
+                font-size: 14px;
+            }
+
+            .email-header h2 {
+                font-size: 20px;
             }
         }
     </style>
@@ -113,7 +121,7 @@
                     </tr>
                     <tr>
                         <td>Fuel Level</td>
-                        <td>{{ ucfirst($data['fuel_level']) }}</td>
+                        <td>{{ $data['fuel_level'] }}</td>
                     </tr>
                     <tr>
                         <td>Vehicle Damage Comments</td>
@@ -124,14 +132,14 @@
                         <td><a href="{{ asset('storage/' . $data['customer_signature']) }}" target="_blank">View Signature</a></td>
                     </tr>
                     @if(!empty($data['vehicle_images']))
-                        <tr>
-                            <td>Vehicle Images</td>
-                            <td>
-                                @foreach (json_decode($data['vehicle_images']) as $image)
-                                    <a href="{{ asset('storage/' . $image) }}" target="_blank">View Image</a><br>
-                                @endforeach
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>Vehicle Images</td>
+                        <td>
+                            @foreach (json_decode($data['vehicle_images']) as $image)
+                            <a href="{{ asset('storage/' . $image) }}" target="_blank">View Image</a><br>
+                            @endforeach
+                        </td>
+                    </tr>
                     @endif
                 </table>
             </div>

@@ -315,10 +315,6 @@
                 </div>
             </div>
         </section>
-
-
-
-
         <section class="text-light jarallax" aria-label="section">
             <img src="images/background/3.jpg" alt="" class="jarallax-img" />
             <div class="container">
@@ -392,7 +388,7 @@
                                         <div class="d-text">
                                             <h4>{{ $vehicle->name }}</h4>
                                             <div class="d-item_like">
-                                                <i class="fa fa-heart"></i><span>74</span>
+                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span>5</span>
                                             </div>
                                             <div class="d-atr-group">
                                                 <span class="d-atr"><img src="images/icons/1.svg"
