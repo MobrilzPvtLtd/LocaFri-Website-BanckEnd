@@ -18,7 +18,11 @@ use App\Models\BookingEntry;
 use App\Models\Checkout;
 use App\Models\Contract;
 use Illuminate\Support\Facades\Log;
-use App\Mail\vehicleInspectionMail;
+use App\Mail\ContractCreatedMail; 
+use App\Models\CreateContract;
+
+
+
 
 class ApiController extends Controller
 {
@@ -197,7 +201,7 @@ class ApiController extends Controller
             foreach ($images as $image) {
                 $imageUrls[] = asset('public/storage/' . $image);
             }
-            $profile = $imageUrls[0]; // Use the first image as the profile image
+            $profile = $imageUrls[0]; 
         }
 
         $features = json_decode($vehicle->features, true);
@@ -370,53 +374,163 @@ class ApiController extends Controller
         }
     }
 
-    public function createContract(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
-            'email' => 'required|email',
-            'license_photo' => 'required|file|mimes:jpeg,png,jpg',
-            'record_kilometers' => 'required|string',
-            'fuel_level' => 'required',
-            'vehicle_images.*' => 'image|mimes:jpeg,png,jpg',
-            'vehicle_damage_comments' => 'nullable|string',
-            'customer_signature' => 'required|file|mimes:jpeg,png,jpg'
-        ]);
 
-        $licensePhotoPath = $request->hasFile('license_photo')
-                            ? $request->file('license_photo')->store('license_photos', 'public')
-                            : null;
+    public function create_contract(Request $request)
+{
+    try {
+        $totalPrice = 0;
+        $totalPriceDay = $request->Dprice * $request->day_count;
+        $totalPriceWeek = $request->wprice * $request->week_count;
+        $totalPriceMonth = $request->mprice * $request->month_count;
+        $totalPrice = $totalPriceDay + $totalPriceWeek + $totalPriceMonth;
+        $totalPrice += $request->additional_driver ?? 0;
+        $totalPrice += $request->booster_seat ?? 0;
+        $totalPrice += $request->child_seat ?? 0;
+        $totalPrice += $request->exit_permit ?? 0;
+        
+        $booking = new Booking();
+        $booking->name = $request->vehicle_name;
+        $booking->Dprice = $request->Dprice ?? '0.00';
+        $booking->wprice = $request->wprice ?? '0.00';
+        $booking->mprice = $request->mprice ?? '0.00';
+        $booking->day_count = $request->day_count;
+        $booking->week_count = $request->week_count;
+        $booking->month_count = $request->month_count;
+        $booking->additional_driver = $request->additional_driver ?? '0.00';
+        $booking->booster_seat = $request->booster_seat ?? '0.00';
+        $booking->child_seat = $request->child_seat ?? '0.00';
+        $booking->exit_permit = $request->exit_permit ?? '0.00';
+        $booking->total_price = $totalPrice;
+        $booking->targetDate = $request->targetDate;
+        $booking->pickUpLocation = $request->pickUpLocation;
+        $booking->dropOffLocation = $request->dropOffLocation;
+        $booking->pickUpDate = \Carbon\Carbon::parse($request->startDate);
+        $booking->pickUpTime = $request->startTime;
+        $booking->collectionDate = \Carbon\Carbon::parse($request->endDate);
+        $booking->collectionTime = $request->endTime;
+        $booking->payment_type = $request->payment_type;
+        $booking->save();
 
-        $vehicleImagePaths = [];
-        if ($request->hasFile('vehicle_images')) {
-            foreach ($request->file('vehicle_images') as $image) {
-                $vehicleImagePaths[] = $image->store('vehicle_images', 'public');
-            }
+        
+        $checkout = new Checkout();
+        $checkout->booking_id = $booking->id;
+        $checkout->first_name = $request->first_name ?? null;
+        $checkout->last_name = $request->last_name ?? null;
+        $checkout->email = $request->email ?? null;
+        $checkout->phone = $request->phone ?? null;
+        $checkout->address_first = $request->address_first ?? null;
+        $checkout->address_last = $request->address_last ?? null;
+        $checkout->save();
+
+        
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'email' => $request->email,
+            ]);
         }
 
-        $customerSignaturePath = $request->hasFile('customer_signature')
-                                ? $request->file('customer_signature')->store('signatures', 'public')
-                                : null;
+        $otp = mt_rand(100000, 999999); 
+        $user->otp = $otp;
+        $user->save(); 
 
-        $vehicleInspection = Contract::create([
-            'name' => $validated['name'],
-            'address' => $validated['address'],
-            'postal_code' => $validated['postal_code'],
-            'email' => $validated['email'],
-            'license_photo' => $licensePhotoPath,
-            'record_kilometers' => $validated['record_kilometers'],
-            'fuel_level' => $validated['fuel_level'],
-            'vehicle_images' => json_encode($vehicleImagePaths),
-            'vehicle_damage_comments' => $validated['vehicle_damage_comments'],
-            'customer_signature' => $customerSignaturePath
-        ]);
+        Mail::to($user->email)->send(new SendOtpMail($otp));
 
+        
         return response()->json([
-            'message' => 'Contract created successfully!',
-            'data' => $vehicleInspection
-        ]);
+            'message' => 'Contract and Checkout created successfully! OTP sent to email.',
+            'booking_data' => $booking,
+            'checkout_data' => $checkout,
+        ], 201);
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'message' => 'Validation failed.',
+            'errors' => $e->errors(),
+        ], 422);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'An error occurred while processing your request.',
+            'error' => $e->getMessage(),
+        ], 500);
     }
+}
+
+
+  public function checkin(Request $request)
+    {
+        try {
+               $validated = $request->validate([
+                'name' => 'nullable|string|max:255',
+                'address' => 'nullable|string|max:255', 
+                'postal_code' => 'nullable|string|max:10', 
+                'email' => 'nullable|email',
+                'license_photo' => 'nullable|file|mimes:jpeg,png,jpg',
+                'record_kilometers' => 'nullable|string',
+                'fuel_level' => 'nullable|string', 
+                'vehicle_images' => 'nullable|array', 
+                'vehicle_images.*' => 'file|mimes:jpeg,png,jpg', 
+                'vehicle_damage_comments' => 'nullable|string', 
+                'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg'
+            ]);
+    
+            
+            $licensePhotoPath = isset($validated['license_photo'])
+                ? $request->file('license_photo')->store('license_photos', 'public')
+                : null;
+    
+            
+            $vehicleImagePaths = [];
+            if (isset($validated['vehicle_images'])) {
+                foreach ($validated['vehicle_images'] as $image) {
+                    $vehicleImagePaths[] = $image->store('vehicle_images', 'public');
+                }
+            }
+    
+            
+            $customerSignaturePath = isset($validated['customer_signature'])
+                ? $request->file('customer_signature')->store('signatures', 'public')
+                : null;
+    
+            
+            $vehicleInspection = Contract::create([
+                'name' => $validated['name'],
+                'address' => $validated['address'],
+                'postal_code' => $validated['postal_code'],
+                'email' => $validated['email'],
+                'license_photo' => $licensePhotoPath,
+                'record_kilometers' => $validated['record_kilometers'],
+                'fuel_level' => $validated['fuel_level'],
+                'vehicle_images' => json_encode($vehicleImagePaths),
+                'vehicle_damage_comments' => $validated['vehicle_damage_comments'],
+                'customer_signature' => $customerSignaturePath
+            ]);
+            
+         Mail::to($validated['email'])->send(new ContractCreatedMail($vehicleInspection));
+
+    
+            
+            return response()->json([
+                'message' => 'Contract created successfully!',
+                'data' => $vehicleInspection
+            ], 201);
+    
+        } catch (\Illuminate\Validation\ValidationException $e) {
+           
+            return response()->json([
+                'message' => 'Validation failed.',
+                'errors' => $e->errors()
+            ], 422);
+    
+        } catch (\Exception $e) {
+           
+            return response()->json([
+                'message' => 'An error occurred while processing your request.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
 }
