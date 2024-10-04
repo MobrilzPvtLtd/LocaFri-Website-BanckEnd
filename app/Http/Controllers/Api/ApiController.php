@@ -375,7 +375,7 @@ class ApiController extends Controller
     }
 
 
-    public function create_contract(Request $request)
+public function create_contract(Request $request)
 {
     try {
         $totalPrice = 0;
@@ -421,8 +421,7 @@ class ApiController extends Controller
         $checkout->address_first = $request->address_first ?? null;
         $checkout->address_last = $request->address_last ?? null;
         $checkout->save();
-
-        
+     
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
@@ -437,11 +436,11 @@ class ApiController extends Controller
 
         Mail::to($user->email)->send(new SendOtpMail($otp));
 
-        
         return response()->json([
+            'status' => true,
             'message' => 'Contract and Checkout created successfully! OTP sent to email.',
-            'booking_data' => $booking,
-            'checkout_data' => $checkout,
+            // 'booking_data' => $booking,
+            // 'checkout_data' => $checkout,
         ], 201);
 
     } catch (\Illuminate\Validation\ValidationException $e) {
