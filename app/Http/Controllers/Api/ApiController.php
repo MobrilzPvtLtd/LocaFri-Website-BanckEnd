@@ -18,8 +18,10 @@ use App\Models\BookingEntry;
 use App\Models\Checkout;
 use App\Models\Contract;
 use Illuminate\Support\Facades\Log;
-use App\Mail\ContractCreatedMail; 
+use App\Mail\ContractCreatedMail;
 use App\Models\CreateContract;
+use Illuminate\Http\JsonResponse;
+
 
 
 
@@ -152,33 +154,74 @@ class ApiController extends Controller
         ]);
     }
 
+
     public function avalibalcars(Request $request)
     {
-        $request->validate([
-            'available' => 'required|date_format:Y-m-d H:i:s',
-        ]);
+        $activeCarsQuery = Vehicle::where('status', 1);
 
-        $availableDateTime = Carbon::parse($request->available)->toDateTimeString();
-
-        $activeCars = Vehicle::where('status', 1)
-            ->where('available', $availableDateTime)
-            ->get();
-
-        if ($activeCars->isEmpty()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'No cars found for the given datetime',
-                'datetime' => $availableDateTime
-            ]);
+        if ($request->location) {
+            $activeCarsQuery->where('location', $request->location);
         }
 
-        return response()->json([
-            'status' => 'Available Cars',
-            'data' => $activeCars
-        ]);
-    }
+        if ($request->available_time) {
+            $availableDateTime = Carbon::parse($request->available_time);
 
-    public function cardetails($id)
+            $formattedAvailableTime = $availableDateTime->format('Y-m-d H:i:s');
+
+            $activeCarsQuery->where('available_time', $formattedAvailableTime);
+        }
+
+        $activeCars = $activeCarsQuery->get();
+
+        $vehicleData = [];
+        foreach ($activeCars as $vehicle) {
+
+            $images = $vehicle->image ? json_decode($vehicle->image, true) : [];
+            $imageUrls = array_map(fn($image) => asset('public/storage/' . $image), $images);
+            $profile = !empty($imageUrls) ? $imageUrls[0] : null;
+
+            $features = $vehicle->features ? json_decode($vehicle->features, true) : [];
+
+            $vehicleData[] = [
+                'id' => $vehicle->id,
+                'name' => $vehicle->name,
+                'model' => $vehicle->model,
+                'type' => $vehicle->type,
+                'desc' => $vehicle->desc,
+                'location' => $vehicle->location,
+                'mitter' => $vehicle->mitter,
+                'profile' => $profile,
+                'images' => $imageUrls,
+                'body' => $vehicle->body,
+                'seat' => $vehicle->seat,
+                'door' => $vehicle->door,
+                'luggage' => $vehicle->luggage,
+                'fuel' => $vehicle->fuel,
+                'auth' => $vehicle->auth,
+                'trans' => $vehicle->trans,
+                'exterior' => $vehicle->exterior,
+                'interior' => $vehicle->interior,
+                'featured' => $vehicle->featured,
+                'features' => $features,
+                'slug' => $vehicle->slug,
+                'Dprice' => $vehicle->Dprice,
+                'wprice' => $vehicle->wprice,
+                'mprice' => $vehicle->mprice,
+                'available_time' => $vehicle->available_time,
+                'status' => $vehicle->status,
+                'ratings' => $vehicle->ratings,
+                'created_at' => $vehicle->created_at,
+                'updated_at' => $vehicle->updated_at,
+            ];
+        }
+        return response()->json([
+            'status' => true,
+            'data' => $vehicleData
+        ]);
+}
+
+
+ public function cardetails($id)
     {
         $vehicle = Vehicle::find($id);
 
@@ -201,7 +244,7 @@ class ApiController extends Controller
             foreach ($images as $image) {
                 $imageUrls[] = asset('public/storage/' . $image);
             }
-            $profile = $imageUrls[0]; 
+            $profile = $imageUrls[0];
         }
 
         $features = json_decode($vehicle->features, true);
@@ -387,7 +430,7 @@ public function create_contract(Request $request)
         $totalPrice += $request->booster_seat ?? 0;
         $totalPrice += $request->child_seat ?? 0;
         $totalPrice += $request->exit_permit ?? 0;
-        
+
         $booking = new Booking();
         $booking->name = $request->vehicle_name;
         $booking->Dprice = $request->Dprice ?? '0.00';
@@ -411,7 +454,7 @@ public function create_contract(Request $request)
         $booking->payment_type = $request->payment_type;
         $booking->save();
 
-        
+
         $checkout = new Checkout();
         $checkout->booking_id = $booking->id;
         $checkout->first_name = $request->first_name ?? null;
@@ -421,7 +464,7 @@ public function create_contract(Request $request)
         $checkout->address_first = $request->address_first ?? null;
         $checkout->address_last = $request->address_last ?? null;
         $checkout->save();
-     
+
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
@@ -430,9 +473,9 @@ public function create_contract(Request $request)
             ]);
         }
 
-        $otp = mt_rand(100000, 999999); 
+        $otp = mt_rand(100000, 999999);
         $user->otp = $otp;
-        $user->save(); 
+        $user->save();
 
         Mail::to($user->email)->send(new SendOtpMail($otp));
 
@@ -456,126 +499,19 @@ public function create_contract(Request $request)
     }
 }
 
-// public function checkin(Request $request)
-// {
-//     try {
-//         // Check if email is present in the request
-//         if (!$request->has('email') || empty($request->email)) {
-//             return response()->json(['message' => 'Email is required for authentication.'], 401);
-//         }
-
-//         // Log incoming email
-//         $email = $request->email;
-//         Log::channel('checkin_logs')->info('Incoming email for check-in', ['email' => $email]);
-
-//         // Try to find booking_id from the Checkout model
-//         $checkout = Checkout::where('email', $email)->first();
-//         if ($checkout) {
-//             $bookingId = $checkout->booking_id;
-//             Log::channel('checkin_logs')->info('Booking found in Checkout model', ['booking_id' => $bookingId]);
-//         } else {
-//             Log::channel('checkin_logs')->info('No booking found in Checkout model for email', ['email' => $email]);
-//             return response()->json(['message' => 'No booking found for this email.'], 404);
-//         }
-
-//         // Fetch contract record using the email
-//         $contract = Contract::where('email', $email)->first();
-
-//         // If no contract found, create a new one
-//         if (!$contract) {
-//             $contract = new Contract();
-//             $contract->email = $email;
-//             $contract->booking_id = $bookingId; // Store the fetched booking_id
-//         } else {
-//             // If contract exists, update the booking_id if it is not already set
-//             if (empty($contract->booking_id)) {
-//                 $contract->booking_id = $bookingId; // Store the fetched booking_id
-//             }
-//         }
-
-//         // Proceed with validation of other inputs
-//         $validated = $request->validate([
-//             'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-//             'record_kilometers' => 'nullable|string',
-//             'fuel_level' => 'nullable|string',
-//             'vehicle_images' => 'nullable|array',
-//             'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
-//             'vehicle_damage_comments' => 'nullable|string',
-//             'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
-//         ]);
-
-//         Log::channel('checkin_logs')->info('Check-in request validated', ['validated' => $validated]);
-
-//         // Handle file uploads and update paths
-//         $licensePhotoPath = $request->hasFile('license_photo')
-//             ? $request->file('license_photo')->store('license_photos', 'public')
-//             : $contract->license_photo;
-
-//         // Process vehicle images
-//         $vehicleImagePaths = $contract->vehicle_images ? json_decode($contract->vehicle_images, true) : [];
-//         if ($request->hasFile('vehicle_images')) {
-//             foreach ($validated['vehicle_images'] as $image) {
-//                 $vehicleImagePaths[] = $image->store('vehicle_images', 'public');
-//             }
-//         }
-
-//         // Process customer signature
-//         $customerSignaturePath = $request->hasFile('customer_signature')
-//             ? $request->file('customer_signature')->store('signatures', 'public')
-//             : $contract->customer_signature;
-
-//         // Update the contract with new details
-//         $contract->license_photo = $licensePhotoPath;
-//         $contract->record_kilometers = $validated['record_kilometers'] ?? $contract->record_kilometers;
-//         $contract->fuel_level = $validated['fuel_level'] ?? $contract->fuel_level;
-//         $contract->vehicle_images = json_encode($vehicleImagePaths);
-//         $contract->vehicle_damage_comments = $validated['vehicle_damage_comments'] ?? $contract->vehicle_damage_comments;
-//         $contract->customer_signature = $customerSignaturePath;
-//         $contract->save(); // Save the contract
-
-//         Log::channel('checkin_logs')->info('Check-in successful, contract updated.', ['contract' => $contract]);
-
-//         // Send email notification
-//         try {
-//             Mail::to($email)->send(new ContractCreatedMail($contract));
-
-//             if (count(Mail::failures()) > 0) {
-//                 Log::channel('checkin_logs')->error('Email failed to send', ['failures' => Mail::failures()]);
-//                 return response()->json(['message' => 'Failed to send email. Check the log for more details.', 'error' => Mail::failures()], 500);
-//             }
-
-//             Log::channel('checkin_logs')->info('Email sent successfully', ['email' => $email]);
-//         } catch (\Exception $e) {
-//             Log::channel('checkin_logs')->error('Failed to send email', ['error' => $e->getMessage()]);
-//             return response()->json(['message' => 'Failed to send email.', 'error' => $e->getMessage()], 500);
-//         }
-
-//         // Return success response
-//         return response()->json([
-//             'message' => 'Check-in completed successfully! Contract updated and email sent.',
-//             'data' => $contract
-//         ], 201);
-//     } catch (\Illuminate\Validation\ValidationException $e) {
-//         Log::channel('checkin_logs')->error('Validation failed', ['errors' => $e->errors()]);
-//         return response()->json(['message' => 'Validation failed.', 'errors' => $e->errors()], 422);
-//     } catch (\Exception $e) {
-//         Log::channel('checkin_logs')->error('An error occurred while processing the check-in', ['error' => $e->getMessage()]);
-//         return response()->json(['message' => 'An error occurred while processing your request.', 'error' => $e->getMessage()], 500);
-//     }
-// }
 public function checkin(Request $request)
 {
     try {
-        // Check if email is present in the request
+
         if (!$request->has('email') || empty($request->email)) {
             return response()->json(['message' => 'Email is required for authentication.'], 401);
         }
 
-        // Log incoming email
+
         $email = $request->email;
         Log::channel('checkin_logs')->info('Incoming email for check-in', ['email' => $email]);
 
-        // Try to find booking_id from the Checkout model
+
         $checkout = Checkout::where('email', $email)->first();
         if ($checkout) {
             $bookingId = $checkout->booking_id;
@@ -585,22 +521,22 @@ public function checkin(Request $request)
             return response()->json(['message' => 'No booking found for this email.'], 404);
         }
 
-        // Fetch contract record using the email
+
         $contract = Contract::where('email', $email)->first();
 
-        // If no contract found, create a new one
+
         if (!$contract) {
             $contract = new Contract();
             $contract->email = $email;
-            $contract->booking_id = $bookingId; // Store the fetched booking_id
+            $contract->booking_id = $bookingId;
         } else {
-            // If contract exists, update the booking_id if it is not already set
+
             if (empty($contract->booking_id)) {
-                $contract->booking_id = $bookingId; // Store the fetched booking_id
+                $contract->booking_id = $bookingId;
             }
         }
 
-        // Proceed with validation of other inputs
+
         $validated = $request->validate([
             'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
             'record_kilometers' => 'nullable|string',
@@ -613,12 +549,12 @@ public function checkin(Request $request)
 
         Log::channel('checkin_logs')->info('Check-in request validated', ['validated' => $validated]);
 
-        // Handle file uploads and update paths
+
         $licensePhotoPath = $request->hasFile('license_photo')
             ? $request->file('license_photo')->store('license_photos', 'public')
             : $contract->license_photo;
 
-        // Process vehicle images
+
         $vehicleImagePaths = $contract->vehicle_images ? json_decode($contract->vehicle_images, true) : [];
         if ($request->hasFile('vehicle_images')) {
             foreach ($validated['vehicle_images'] as $image) {
@@ -626,23 +562,23 @@ public function checkin(Request $request)
             }
         }
 
-        // Process customer signature
+
         $customerSignaturePath = $request->hasFile('customer_signature')
             ? $request->file('customer_signature')->store('signatures', 'public')
             : $contract->customer_signature;
 
-        // Update the contract with new details
+
         $contract->license_photo = $licensePhotoPath;
         $contract->record_kilometers = $validated['record_kilometers'] ?? $contract->record_kilometers;
         $contract->fuel_level = $validated['fuel_level'] ?? $contract->fuel_level;
         $contract->vehicle_images = json_encode($vehicleImagePaths);
         $contract->vehicle_damage_comments = $validated['vehicle_damage_comments'] ?? $contract->vehicle_damage_comments;
         $contract->customer_signature = $customerSignaturePath;
-        $contract->save(); // Save the contract
+        $contract->save();
 
         Log::channel('checkin_logs')->info('Check-in successful, contract updated.', ['contract' => $contract]);
 
-        // Send email notification
+
         try {
             Mail::to($email)->send(new ContractCreatedMail($contract));
 
@@ -652,7 +588,7 @@ public function checkin(Request $request)
             return response()->json(['message' => 'Failed to send email.', 'error' => $e->getMessage()], 500);
         }
 
-        // Return success response
+
         return response()->json([
             'message' => 'Check-in completed successfully! Contract updated and email sent.',
             'data' => $contract
@@ -665,6 +601,7 @@ public function checkin(Request $request)
         return response()->json(['message' => 'An error occurred while processing your request.', 'error' => $e->getMessage()], 500);
     }
 }
+
 
 
 }

@@ -13,14 +13,14 @@ Route::post('singup', [ApiController::class, 'register']);
 Route::post('login', [ApiController::class, 'login']);
 Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 Route::post('verify-otp', [ApiController::class, 'verifyOtp']);
-Route::get('avalibalcars', [ApiController::class, 'avalibalcars']);
+Route::post('avalibalcars', [ApiController::class, 'avalibalcars']);
 Route::get('cardetails/{id}', [ApiController::class, 'cardetails']);
 Route::get('cars', [ApiController::class, 'cars']);
 Route::post('contract', [ApiController::class, 'contract']);
 Route::post('create-contract', [ApiController::class, 'create_contract']);
 
-
 Route::post('checkin', [ApiController::class, 'checkin']);
+// Route::middleware('auth:api')->post('checkin', [ApiController::class, 'checkin']);
 Route::post('accept', [ApiController::class, 'acceptBooking'])->name('booking.accept');
 
 // Route::middleware('auth')->group(function () {
