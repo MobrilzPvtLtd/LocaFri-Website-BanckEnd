@@ -35,7 +35,7 @@ return new class extends Migration
             $table->decimal('Dprice',10,2);
             $table->decimal('wprice',10,2);
             $table->decimal('mprice',10,2);
-            $table->string('available_time')->nullable();
+            $table->timestamp('available_time')->nullable()->change();
             $table->boolean('status')->default(0)->nullable();
             $table->timestamps();
         });

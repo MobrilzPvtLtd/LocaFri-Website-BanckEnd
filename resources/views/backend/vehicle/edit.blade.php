@@ -151,10 +151,14 @@
                                     <input type="text" class="form-control" name="mprice"
                                         value="{{ $vehicle->mprice }}" placeholder="">
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Available Time</label>
-                                    <input type="time" class="form-control" name="available" value="{{ \Carbon\Carbon::parse($vehicle->available)->format('H:i') }}" placeholder="">
+                                    <label for="available">Available Time</label>
+                                    <input type="time" class="form-control" name="available"
+                                           value="{{ $vehicle->available_time ? \Carbon\Carbon::parse($vehicle->available_time)->format('H:i') : '' }}"
+                                           placeholder="">
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="status">Status</label>
                                     <select class="form-control" name="status" id="status">
