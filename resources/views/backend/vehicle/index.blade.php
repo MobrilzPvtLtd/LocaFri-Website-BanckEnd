@@ -13,24 +13,25 @@
                         <table id="datatable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Vehicle ID</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
                                     <th scope="col">Company</th>
                                     <th scope="col">Model</th>
                                     <th scope="col">Type</th>
-                                    <th scope="col">Description</th>
+                                    {{-- <th scope="col">Description</th> --}}
                                     <th scope="col">Location</th>
-                                    <th scope="col">Image</th>
+
                                     <th scope="col">Kilometers</th>
-                                    <th scope="col">Body</th>
-                                    <th scope="col">Seat</th>
-                                    <th scope="col">Door</th>
-                                    <th scope="col">Luggage</th>
-                                    <th scope="col">Fuel Type</th>
-                                    <th scope="col">Authorized</th>
+                                    {{-- <th scope="col">Body</th> --}}
+                                    {{-- <th scope="col">Seat</th> --}}
+                                    {{-- <th scope="col">Door</th> --}}
+                                    {{-- <th scope="col">Luggage</th> --}}
+                                    {{-- <th scope="col">Fuel Type</th> --}}
+                                    {{-- <th scope="col">Authorized</th>
                                     <th scope="col">Transmission</th>
                                     <th scope="col">Exterior Color</th>
-                                    <th scope="col">Interior Color</th>
-                                    <th scope="col">features</th>
+                                    <th scope="col">Interior Color</th>--}}
+                                    {{-- <th scope="col">features</th> --}}
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -39,11 +40,6 @@
                                 @foreach ($vehicles as $vehicle)
                                     <tr>
                                         <td>{{ $vehicle->id }}</td>
-                                        <td>{{ $vehicle->name }}</td>
-                                        <td>{{ $vehicle->model }}</td>
-                                        <td>{{ $vehicle->type }}</td>
-                                        <td>{{ $vehicle->desc }}</td>
-                                        <td>{{ $vehicle->location }}</td>
                                         <td>
                                             {{-- @php
                                                 $images = unserialize($vehicle->image);
@@ -64,8 +60,14 @@
                                                 @endif
                                             @endif
                                         </td>
+                                        <td>{{ $vehicle->name }}</td>
+                                        <td>{{ $vehicle->model }}</td>
+                                        <td>{{ $vehicle->type }}</td>
+                                        {{-- <td>{{ $vehicle->desc }}</td> --}}
+                                        <td>{{ $vehicle->location }}</td>
+
                                         <td>{{ $vehicle->mitter }}</td>
-                                        <td>{{ $vehicle->body }}</td>
+                                        {{-- <td>{{ $vehicle->body }}</td>
                                         <td>{{ $vehicle->seat }}</td>
                                         <td>{{ $vehicle->door }}</td>
                                         <td>{{ $vehicle->luggage }}</td>
@@ -73,8 +75,8 @@
                                         <td>{{ $vehicle->auth }}</td>
                                         <td>{{ $vehicle->trans }}</td>
                                         <td>{{ $vehicle->exterior }}</td>
-                                        <td>{{ $vehicle->interior }}</td>
-                                        <td>
+                                        <td>{{ $vehicle->interior }}</td> --}}
+                                        {{-- <td>
                                             @php
                                                 $featuresArray = json_decode($vehicle->features);
                                             @endphp
@@ -87,7 +89,7 @@
                                             @else
                                                 <p>No features available</p>
                                             @endif
-                                        </td>
+                                        </td> --}}
 
                                         <td>
                                             @if ($vehicle->status == 1)
@@ -98,11 +100,13 @@
                                         </td>
                                         <td>
                                             <form action="{{ route('vehicle.destroy', $vehicle->id) }}" method="Post">
-                                                <a class="btn btn-primary"
+                                                   <a class="btn btn-primary btn-sm"
                                                     href="{{ route('vehicle.edit', $vehicle->id) }}">Edit</a>
+                                                    <a class="btn btn-info  btn-sm"
+                                                    href="{{ route('vehicle.show', $vehicle->id) }}">View</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

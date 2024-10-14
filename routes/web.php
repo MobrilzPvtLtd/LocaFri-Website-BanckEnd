@@ -20,6 +20,11 @@ use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Frontend\MoneySetupController;
 use App\Http\Controllers\Frontend\TwintController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\backend\CheckInController;
+use App\Http\Controllers\Backend\AlerrtController;
+use App\Http\Controllers\Backend\CompleteContractController;
+
+
 
 /*
 *
@@ -48,6 +53,8 @@ Route::resource('admin/vehicle', VehicleController::class);
 Route::resource('admin/vehiclestatus', VehiclestatusController::class);
 // alert
 Route::resource('admin/alert', AlertController::class);
+Route::resource('admin/alerrt', AlerrtController::class);
+
 // contact
 Route::resource('admin/contact', ContactsController::class);
 Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
@@ -62,9 +69,19 @@ Route::resource('admin/enquiry', EnquiryController::class);
 
 // Reservation
 Route::resource('admin/reservation', ReservationController::class);
+// Route::get('reservation/{id}/show', [ReservationController::class, 'show'])->name('reservation.show');
+
+
 Route::post('admin/reservation/accept', [ReservationController::class, 'accept'])->name('reservation.accept');
 // Customercontact
 Route::resource('admin/customercontact', CustomercontactController::class);
+//CompleteContract
+Route::resource('admin/completecontract', CompleteContractController::class);
+
+// Route::get('/checkin', [CheckInController::class, 'index'])->name('checkin.index');
+Route::get('backend/checkin', [CheckInController::class, 'index'])->name('checkin.index');
+
+
 
 
 // payment getwey

@@ -54,14 +54,14 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
                 </ul>
             </li>
         @endcan
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.notifications.index') }}">
                 <i class="nav-icon fa-regular fa-bell"></i>&nbsp;@lang('Notifications')
                 @if ($notifications_count)
                     &nbsp;<span class="badge badge-sm bg-info ms-auto">{{ $notifications_count }}</span>
                 @endif
             </a>
-        </li>
+        </li> --}}
 
         {{-- @can('view_posts')
             <li class="nav-item">
@@ -71,77 +71,108 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
             </li>
         @endcan --}}
         @can('view_logs')
+    <li class="nav-group" aria-expanded="true">
+        <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon fa-solid fa-car  fa-list-ul"></i>&nbsp;@lang('Vehicle Management')
+        </a>
+        <ul class="nav-group-items" style=" height: auto; "> <!-- Added list-style and padding-left for bullets -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('vehicle.index') }}">
+                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicles
+                </a>
+            </li>
+
+            {{-- <li class="nav-item">
+                <a class="nav-link" href="{{ route('alert.index') }}">
+                    <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span> Alert Settings
+                </a>
+            </li> --}}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
+                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicle Status
+                </a>
+            </li>
+        </ul>
+
+    </li>
+@endcan
+@can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
-                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('Vehicle Management')
+                    <i class=" nav-icon fa-solid fa-hotel"></i></i>&nbsp;@lang('Reservation Management')
+                </a>
+
+                <ul class="nav-group-items compact" style="height: auto;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reservation.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Reservations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reject.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Reject Reservations
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endcan
+        @can('view_logs')
+            <li class="nav-group" aria-expanded="true">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="nav-icon fa-solid fa-triangle-exclamation"></i>&nbsp;@lang('Contract Handling')
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vehicle.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> Vehicles
+                        <a class="nav-link" href="{{ route('customercontact.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Create Contract
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('alert.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Alert
+                        <a class="nav-link" href="{{ route('completecontract.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Complete Contract
+
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('alerrt.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert
                             Settings
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span>Vehicle Status
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
                         </a>
                     </li>
                 </ul>
             </li>
         @endcan
-        @can('view_logs')
-            <li class="nav-group" aria-expanded="true">
-                <a class="nav-link nav-group-toggle" href="#">
-                    <i class="fa-solid fa-hotel"></i></i>&nbsp;@lang('Reservation Management')
-                </a>
-                <ul class="nav-group-items compact" style="height: auto;">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('reservation.index') }}">
-                            <span class="nav-icon"><span class="fa-sharp fa-solid fa-hotel"></span></span> Reservations
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('reject.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-ban"></span></span>Reject Reservations
 
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        @endcan
-        @can('view_logs')
+        {{-- @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
-                    <i class="fa-solid fa-triangle-exclamation"></i>&nbsp;@lang('Contract Handling')
+                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('CheckIn- CheckOut')
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customercontact.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span> Create Contract
+                        <a class="nav-link" href="{{ route('checkin.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> CheckIn
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('alert.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>Complete Contract
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>CheckOut
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span>Completed Contract
-                        </a>
-                    </li>
-                </ul>
+                  </ul>
             </li>
-        @endcan
-        {{--
+        @endcan --}}
+
+      {{--
         @can('view_categories')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.categories.index') }}">

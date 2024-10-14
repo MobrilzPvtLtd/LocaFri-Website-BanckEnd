@@ -12,6 +12,7 @@ class ReservationController extends Controller
     public function index()
     {
         $bookings = Booking::where('is_viewbooking', '!=', 1)->where('is_rejected', '!=', 1)->get();
+        // dd($bookings);
         return view('backend.reservation.index', compact('bookings'));
     }
 
@@ -70,7 +71,11 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation.index')->with('success', 'reservation has been created successfully.');
     }
-    public function show() {}
+    public function show($id)
+{
+    $booking = Booking::findOrFail($id); // Fetch the booking by its ID
+    return view('backend.reservation.show', compact('booking'));
+}
 
     public function edit($id)
     {

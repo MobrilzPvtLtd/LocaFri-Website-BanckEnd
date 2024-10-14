@@ -76,13 +76,13 @@ public function store(Request $request)
     Vehicle::create($vehicleData);
 
     return redirect()->route('vehicle.index')->with('success', 'Vehicle has been created successfully.');
+   }
+
+   public function show($id)
+{
+    $vehicle = Vehicle::findOrFail($id);
+    return view('backend.vehicle.show', compact('vehicle'));
 }
-
-
-
-    public function show()
-    {
-    }
 
     public function edit($id)
     {

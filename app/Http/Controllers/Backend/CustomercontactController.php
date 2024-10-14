@@ -34,9 +34,13 @@ class CustomercontactController extends Controller
 
         return redirect()->route('customercontact.index')->with('success', 'customercontact has been created successfully.');
     }
-    public function show()
+
+    public function show($id)
     {
+        $booking = Booking::findOrFail($id);
+        return view('backend.customercontact.show', compact('booking'));
     }
+
 
     public function edit($id)
     {
