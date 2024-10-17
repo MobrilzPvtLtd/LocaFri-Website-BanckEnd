@@ -23,6 +23,10 @@ use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\backend\CheckInController;
 use App\Http\Controllers\Backend\AlerrtController;
 use App\Http\Controllers\Backend\CompleteContractController;
+// use App\Http\Controllers\Backend\CompletedController;
+use App\Http\Controllers\Backend\CompletedController;
+
+
 
 
 
@@ -64,25 +68,29 @@ Route::post('is_contract', [ReservationController::class, 'is_contract'])->name(
 
 // Rejet
 Route::resource('admin/reject', RejectController::class);
+// Route::post('reject/addBack/{id}', [RejectController::class, 'addBack'])->name('reject.addBack');
+
+
+Route::post('admin/customercontact/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
+Route::post('/confirm-contract', [CompleteContractController::class, 'confirmContract'])->name('confirm.contract');
+
+// Route::post('admin/reject/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
+
 // contact
 Route::resource('admin/enquiry', EnquiryController::class);
 
 // Reservation
 Route::resource('admin/reservation', ReservationController::class);
 // Route::get('reservation/{id}/show', [ReservationController::class, 'show'])->name('reservation.show');
-
-
 Route::post('admin/reservation/accept', [ReservationController::class, 'accept'])->name('reservation.accept');
 // Customercontact
 Route::resource('admin/customercontact', CustomercontactController::class);
+// Route::post('admin/send-contract-email', [CustomercontactController::class, 'sendContractEmail']);
 //CompleteContract
 Route::resource('admin/completecontract', CompleteContractController::class);
 
 // Route::get('/checkin', [CheckInController::class, 'index'])->name('checkin.index');
-Route::get('backend/checkin', [CheckInController::class, 'index'])->name('checkin.index');
-
-
-
+Route::get('backend/checkin', [CheckInContrapoller::class, 'index'])->name('checkin.index');
 
 // payment getwey
 Route::get('stripe', [StripeWebhookController ::class, 'stripe'])->name('stripe');

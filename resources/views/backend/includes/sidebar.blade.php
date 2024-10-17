@@ -141,12 +141,12 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
                             <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert
                             Settings
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('completecontract.index') }}">
+                                <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
+                            </a>
+                        </li>
+
                 </ul>
             </li>
         @endcan

@@ -17,10 +17,15 @@ use App\Models\Booking;
 use App\Models\BookingEntry;
 use App\Models\Checkout;
 use App\Models\Contract;
+use App\Models\ContractsOut;
 use Illuminate\Support\Facades\Log;
 use App\Mail\ContractCreatedMail;
 use App\Models\CreateContract;
 use Illuminate\Http\JsonResponse;
+use App\Mail\MakeContract;
+use App\Mail\CheckOutMail;
+
+
 
 
 
@@ -395,15 +400,28 @@ class ApiController extends Controller
 
     public function contract(Request $request)
     {
+
         try {
         $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
          $booking = Booking::where('id', $request->booking_id)->first();
             if ($booking) {
                 $booking->is_contract = 1;
                 $booking->save();
+                //mail logic
+                $checkout = Checkout::where('booking_id', $booking->id)->first();
 
-                return response()->json($booking);
+                if ($checkout && $checkout->email) {
+
+                    Mail::to($checkout->email)->send(new MakeContract($booking));
+                }
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Contract created successfully and email sent.',
+                    'booking' => $booking
+                ], 200);
             }
+
             return response()->json([
                 'status' => 'success',
                 'contract' => $bookings
@@ -416,7 +434,6 @@ class ApiController extends Controller
             ], 500);
         }
     }
-
 
 public function create_contract(Request $request)
 {
@@ -451,7 +468,9 @@ public function create_contract(Request $request)
         $booking->pickUpTime = $request->startTime;
         $booking->collectionDate = \Carbon\Carbon::parse($request->endDate);
         $booking->collectionTime = $request->endTime;
-        $booking->payment_type = $request->payment_type;
+        $booking->payment_type = $request->payment_type ?? '0.00';
+
+
         $booking->save();
 
 
@@ -502,15 +521,12 @@ public function create_contract(Request $request)
 public function checkin(Request $request)
 {
     try {
-
         if (!$request->has('email') || empty($request->email)) {
             return response()->json(['message' => 'Email is required for authentication.'], 401);
         }
 
-
         $email = $request->email;
         Log::channel('checkin_logs')->info('Incoming email for check-in', ['email' => $email]);
-
 
         $checkout = Checkout::where('email', $email)->first();
         if ($checkout) {
@@ -521,21 +537,17 @@ public function checkin(Request $request)
             return response()->json(['message' => 'No booking found for this email.'], 404);
         }
 
-
         $contract = Contract::where('email', $email)->first();
-
 
         if (!$contract) {
             $contract = new Contract();
             $contract->email = $email;
             $contract->booking_id = $bookingId;
         } else {
-
             if (empty($contract->booking_id)) {
                 $contract->booking_id = $bookingId;
             }
         }
-
 
         $validated = $request->validate([
             'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
@@ -549,11 +561,9 @@ public function checkin(Request $request)
 
         Log::channel('checkin_logs')->info('Check-in request validated', ['validated' => $validated]);
 
-
         $licensePhotoPath = $request->hasFile('license_photo')
             ? $request->file('license_photo')->store('license_photos', 'public')
             : $contract->license_photo;
-
 
         $vehicleImagePaths = $contract->vehicle_images ? json_decode($contract->vehicle_images, true) : [];
         if ($request->hasFile('vehicle_images')) {
@@ -562,11 +572,9 @@ public function checkin(Request $request)
             }
         }
 
-
         $customerSignaturePath = $request->hasFile('customer_signature')
             ? $request->file('customer_signature')->store('signatures', 'public')
             : $contract->customer_signature;
-
 
         $contract->license_photo = $licensePhotoPath;
         $contract->record_kilometers = $validated['record_kilometers'] ?? $contract->record_kilometers;
@@ -576,18 +584,28 @@ public function checkin(Request $request)
         $contract->customer_signature = $customerSignaturePath;
         $contract->save();
 
-        Log::channel('checkin_logs')->info('Check-in successful, contract updated.', ['contract' => $contract]);
+        // Retrieve the booking and handle null check
+        $booking = Booking::where('id', $contract->booking_id)->first();
 
+        // Check if booking is found
+        if (!$booking) {
+            Log::channel('checkin_logs')->error('Booking not found with contract\'s booking_id', ['booking_id' => $contract->booking_id]);
+            return response()->json(['message' => 'Booking not found for the contract.'], 404);
+        }
+
+        // Update the booking's is_contract status
+        $booking->is_contract = 2;
+        $booking->save();
+
+        Log::channel('checkin_logs')->info('Check-in successful, contract updated.', ['contract' => $contract]);
 
         try {
             Mail::to($email)->send(new ContractCreatedMail($contract));
-
             Log::channel('checkin_logs')->info('Email sent successfully', ['email' => $email]);
         } catch (\Exception $e) {
             Log::channel('checkin_logs')->error('Failed to send email', ['error' => $e->getMessage()]);
             return response()->json(['message' => 'Failed to send email.', 'error' => $e->getMessage()], 500);
         }
-
 
         return response()->json([
             'message' => 'Check-in completed successfully! Contract updated and email sent.',
@@ -601,6 +619,108 @@ public function checkin(Request $request)
         return response()->json(['message' => 'An error occurred while processing your request.', 'error' => $e->getMessage()], 500);
     }
 }
+public function checkout(Request $request)
+{
+    try {
+        // Validate incoming data
+        $request->validate([
+            'email' => 'required|email',
+            'record_kilometers' => 'required|integer',
+            'fuel_level' => 'required|integer|min:0|max:100',
+            'vehicle_images' => 'required|array',
+            'vehicle_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'vehicle_damage_comments' => 'nullable|string',
+            'customer_signature' => 'required|file|mimes:jpeg,png,jpg|max:2048',
+            'odometer_image' => 'required|file|mimes:jpeg,png,jpg|max:2048', // Add odometer image validation
+        ]);
+
+        // Find the contract based on the provided email
+        $contract = Contract::where('email', $request->email)->first();
+
+        if (!$contract) {
+            return response()->json(['error' => 'Contract not found for the provided email.'], 404);
+        }
+
+        // Check if the related booking is confirmed
+        $booking = Booking::where('id', $contract->booking_id)->first();
+        if (!$booking || $booking->is_confirm != 1) {
+            return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
+        }
+
+        // Check if a ContractsOut record already exists for this contract
+        $contractsOut = ContractsOut::where('contract_id', $contract->id)->first();
+
+        // Handle vehicle images upload
+        $vehicleImages = [];
+        if ($request->hasFile('vehicle_images')) {
+            foreach ($request->file('vehicle_images') as $image) {
+                $path = $image->store('vehicle_images', 'public');
+                $vehicleImages[] = $path;
+            }
+        }
+
+        // Handle customer signature upload
+        $customerSignaturePath = $request->hasFile('customer_signature')
+            ? $request->file('customer_signature')->store('signatures', 'public')
+            : null;
+
+        // Handle odometer image upload
+        $odometerImagePath = $request->hasFile('odometer_image')
+            ? $request->file('odometer_image')->store('odometer_images', 'public')
+            : null;
+
+        // If ContractsOut exists, update it; otherwise, create a new one
+        if ($contractsOut) {
+            $contractsOut->update([
+                'record_kilometers' => $request->record_kilometers,
+                'fuel_level' => $request->fuel_level,
+                'vehicle_images' => json_encode($vehicleImages),
+                'vehicle_damage_comments' => $request->vehicle_damage_comments,
+                'customer_signature' => $customerSignaturePath,
+                'odometer_image' => $odometerImagePath,
+            ]);
+        } else {
+            $contractsOut = ContractsOut::create([
+                'contract_id' => $contract->id,
+                'email' => $contract->email,
+                'record_kilometers' => $request->record_kilometers,
+                'fuel_level' => $request->fuel_level,
+                'vehicle_images' => json_encode($vehicleImages),
+                'vehicle_damage_comments' => $request->vehicle_damage_comments,
+                'customer_signature' => $customerSignaturePath,
+                'odometer_image' => $odometerImagePath,
+            ]);
+        }
+
+        // Update the booking status to 'successful'
+        $booking->status = 'successful';
+        $booking->save();
+
+        // Log success message
+        Log::channel('checkout_logs')->info('Contracts-Out details saved/updated successfully.', ['contracts_out' => $contractsOut]);
+
+        // Send email notifications
+        $customerEmail = $contract->email;
+        $adminEmail = config('mail.admin_email') ?? 'admin@example.com';
+
+        Mail::to($customerEmail)->send(new CheckOutMail($contract, $contractsOut));
+        Mail::to($adminEmail)->send(new CheckOutMail($contract, $contractsOut));
+
+        return response()->json([
+            'message' => 'Contracts-Out details saved/updated, booking status updated to successful, and emails sent.',
+            'data' => $contractsOut
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        Log::channel('checkout_logs')->error('Validation failed', ['errors' => $e->errors()]);
+        return response()->json(['message' => 'Validation failed.', 'errors' => $e->errors()], 422);
+    } catch (\Exception $e) {
+        Log::channel('checkout_logs')->error('An error occurred while processing the checkout', ['error' => $e->getMessage()]);
+        return response()->json(['message' => 'An error occurred while processing your request.', 'error' => $e->getMessage()], 500);
+    }
+}
+
+
+
 
 
 

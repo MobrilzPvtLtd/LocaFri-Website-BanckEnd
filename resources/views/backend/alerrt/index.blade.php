@@ -15,7 +15,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Vehicle</th>
                                     <th scope="col">Kilometer</th>
-                                    <th scope="col">Servicing</th>
+                                    <th scope="col">Service</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>

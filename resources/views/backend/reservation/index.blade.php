@@ -13,7 +13,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">Car Name</th>
                                     <th scope="col">Pick Up Location</th>
                                     <th scope="col">Drop Off Location</th>
                                     {{-- <th scope="col">Dprice</th>

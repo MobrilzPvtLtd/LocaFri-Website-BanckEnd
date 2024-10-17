@@ -12,7 +12,7 @@
                     <td>{{ $booking->id }}</td>
                 </tr>
                 <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col">Car Name</th>
                     <td>{{ $booking->name }}</td>
                 </tr>
                 <tr>

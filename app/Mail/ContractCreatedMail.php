@@ -10,7 +10,7 @@ class ContractCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $contract; 
+    public $contract;
 
     /**
      * Create a new message instance.
@@ -20,7 +20,7 @@ class ContractCreatedMail extends Mailable
      */
     public function __construct($contract)
     {
-        $this->contract = $contract; 
+        $this->contract = $contract;
     }
 
     /**
@@ -30,8 +30,8 @@ class ContractCreatedMail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.contract_created') 
-                    ->with(['contract' => $this->contract]) 
-                    ->subject('New Contract Created'); 
+        return $this->view('email.contract_created')
+                    ->with(['contract' => $this->contract])
+                    ->subject('CheckIn Successful');
     }
 }

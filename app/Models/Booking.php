@@ -9,7 +9,7 @@ class Booking extends Model
 {
     use HasFactory;
 
-    
+
     protected $fillable = [
         'name',
         'Dprice',
@@ -34,12 +34,33 @@ class Booking extends Model
         'payment_type',
         'is_viewbooking',
         'is_rejected',
-        'is_contract'
+        'is_contract',
+        'Actions'
     ];
 
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class, 'booking_id', 'id');
+    }
+
+    // Define relationship with Checkout
+    public function checkout()
+    {
+        return $this->hasOne(Checkout::class, 'booking_id', 'id');
+    }
+
+
+    public function contractsOut()
+    {
+        return $this->hasOne(ContractsOut::class);
+    }
 }
+
+
+

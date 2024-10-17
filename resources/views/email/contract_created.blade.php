@@ -1,62 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Contract Created</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333333;
-            margin: 0;
-            padding: 0;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
+@extends('email.layout')
+
+@section('style')
+<style>
+    .body {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .header {
+        text-align: center;
+    }
+    .footer {
+        text-align: center;
+        /* margin-top: 40px; */
+    }
+
+    .contact-main-div {
+        width: 100%;
+        display: inline-block;
+        background: #f5f5f5;
+        /* height: 100vh; */
+    }
+
+    .contact-us-content {
+        width: 70%;
+        padding: 10px 20px;
+        background: #ffffff;
+        margin: 0px auto;
+        margin-top: 4%;
+        margin-bottom: 4%;
+        border-radius: 5px;
+    }
+
+    .contact-table {
+        width: 100%;
+    }
+
+    table.contact-table tr {
+        display: flex;
+        width: 100%;
+        float: left;
+        border-top: 1px solid #f5f5f5;
+        padding: 10px 0px;
+    }
+
+    table.contact-table tr td {
+        width: 50%;
+        float: left;
+        font-size: 16px;
+        color: #8C8889;
+    }
+
+    table.contact-table tr td:nth-child(2) {
+        text-align: right;
+    }
+    @media only screen and (max-width: 600px) {
+       .contact-us-content {
+            width:90%;
         }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 30px auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 24px;
-            color: #4CAF50;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-            margin: 10px 0;
-        }
-        .details {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        .details td {
-            padding: 8px 0;
-        }
-        .details td:first-child {
-            font-weight: bold;
-            color: #555555;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 14px;
-            color: #888888;
-            border-top: 1px solid #eeeeee;
-        }
-        .footer a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
+    }
+</style>
+@endsection
+@section('content')
+ {{-- <body> --}}
+@section('content')
     <div class="container">
         <h1>You have Checked-In Successfully</h1>
         <table class="details">
@@ -78,11 +85,5 @@
             </tr>
         </table>
         <p>Thank you for your business!</p>
-
-        <div class="footer">
-            <p>Need help? <a href="mailto:support@example.com">Contact our support team</a></p>
-            <p>&copy; {{ date('Y') }} Your Company. All rights reserved.</p>
-        </div>
     </div>
-</body>
-</html>
+@endsection

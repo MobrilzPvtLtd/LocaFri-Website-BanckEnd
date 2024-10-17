@@ -6,13 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customercontact;
 use App\Models\Booking;
+use App\Models\Checkout;
+use App\Models\Contract;
+
+
 use Session;
 
 class CustomercontactController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
+        $bookings = Booking::where('is_viewbooking', '!=', 0)
+        ->where('is_confirm', '!=', 1)
+        ->with(['checkout'])
+        ->get();
         return view('backend.customercontact.index',compact('bookings'));
     }
     public function create()
@@ -37,7 +44,9 @@ class CustomercontactController extends Controller
 
     public function show($id)
     {
-        $booking = Booking::findOrFail($id);
+        // $booking = Booking::findOrFail($id);
+        $booking = Booking::with(['checkout'])->findOrFail($id); // Fetch related data
+
         return view('backend.customercontact.show', compact('booking'));
     }
 
@@ -91,4 +100,26 @@ class CustomercontactController extends Controller
             return response()->json(['status' => false, 'message' => 'Booking not found.']);
         }
     }
+
+//     public function sendContractEmail(Request $request)
+// {
+//     $bookingId = $request->booking_id;
+//     $checkout = Checkout::where('booking_id', $bookingId)->first();
+
+//     if ($checkout) {
+//         $email = $checkout->email;
+
+//         Mail::to($email)->send(new MakeContract($checkout));
+
+//         return response()->json(['status' => true, 'message' => 'Email sent successfully!']);
+//     } else {
+//         return response()->json(['status' => false, 'message' => 'Checkout not found.']);
+//     }
+// }
+
+
+
+
+
+
 }

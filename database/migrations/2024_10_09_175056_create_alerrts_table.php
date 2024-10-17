@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('alerrts', function (Blueprint $table) {
             $table->id();
+            // Define the vehicle_id as a foreign key that references the vehicles table
+            $table->unsignedBigInteger('vehicle_id');
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->integer('kilometer')->nullable();
             $table->string('servicing')->nullable();
