@@ -4,6 +4,13 @@
     {{ app_name() }} - Cars
 @endsection
 
+@php
+    $pickUpLocation = session()->get('pickUpLocation');
+    $dropOffLocation = session()->get('dropOffLocation');
+    $pickUpDate = session()->get('pickUpDate');
+    // dd($pickUpDate);
+@endphp
+
 @section('content')
     <div class="no-bottom no-top zebra" id="content">
         <div id="top"></div>
@@ -146,16 +153,16 @@
                                         <div class="date-time-field">
 
                                             <select name="pickUpLocation" id="pick_up" required>
-                                                @if(session()->has('pickUpLocation'))
+                                                {{-- @if(session()->has('pickUpLocation'))
                                                     <option selected value="{{ session()->get('pickUpLocation') }}">
                                                         {{ session()->get('pickUpLocation') }}
                                                     </option>
                                                 @else
                                                     <option selected disabled value="">Select pick up</option>
-                                                @endif
+                                                @endif --}}
 
                                                 @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
-                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                                    <option value="{{ $location->location }}" {{ $location->location == $pickUpLocation ? 'selected' : '' }}>{{ $location->location }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -170,16 +177,16 @@
                                         <h5>Drop Off Location</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off" required>
-                                                @if(session()->has('dropOffLocation'))
+                                                {{-- @if(session()->has('dropOffLocation'))
                                                     <option selected value="{{ session()->get('dropOffLocation') }}">
                                                         {{ session()->get('dropOffLocation') }}
                                                     </option>
                                                 @else
                                                     <option selected disabled value="">Select drop off</option>
-                                                @endif
+                                                @endif --}}
 
                                                 @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
-                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                                    <option value="{{ $location->location }}" {{ $location->location == $dropOffLocation ? 'selected' : '' }}>{{ $location->location }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -196,7 +203,7 @@
                                             {{-- <input type="text" id="date-picker" name="pickUpDate"
                                                 value="{{ session()->get('pickUpDate') }}"> --}}
 
-                                            <input type="text" name="pickUpDate" value="{{ session()->get('pickUpDate') }}" class="form-control" style="width: 100%;"/>
+                                            <input type="text" name="pickUpDate" value="" class="form-control" style="width: 100%;"/>
 
                                             {{-- <input type="text" name="datetimes" class="form-control mt-4" style="width: 100%;"/> --}}
 

@@ -37,9 +37,9 @@ class FrontendController extends Controller
         session()->put('pickUpLocation', $req->pickUpLocation);
         session()->put('dropOffLocation', $req->dropOffLocation);
         session()->put('pickUpDate', $req->pickUpDate);
-        session()->put('pickUpTime', $req->pickUpTime);
-        session()->put('collectionDate', $req->collectionDate);
-        session()->put('collectionTime', $req->collectionTime);
+        // session()->put('pickUpTime', $req->pickUpTime);
+        // session()->put('collectionDate', $req->collectionDate);
+        // session()->put('collectionTime', $req->collectionTime);
 
         return redirect()->route('cars');
     }
@@ -49,19 +49,16 @@ class FrontendController extends Controller
         session()->put('pickUpLocation', $req->pickUpLocation);
         session()->put('dropOffLocation', $req->dropOffLocation);
         session()->put('pickUpDate', $req->pickUpDate);
-        session()->put('pickUpTime', $req->pickUpTime);
-        session()->put('collectionDate', $req->collectionDate);
-        session()->put('collectionTime', $req->collectionTime);
+        // session()->put('pickUpTime', $req->pickUpTime);
+        // session()->put('collectionDate', $req->collectionDate);
+        // session()->put('collectionTime', $req->collectionTime);
         $slug = $req->slug;
 
         // $pickUpLocation = session()->get('pickUpLocation');
         // $dropOffLocation = session()->get('dropOffLocation');
         // $pickUpDate = session()->get('pickUpDate');
-        // $pickUpTime = session()->get('pickUpTime');
-        // $collectionDate = session()->get('collectionDate');
-        // $collectionTime = session()->get('collectionTime');
 
-        // dd($pickUpLocation,$dropOffLocation,$pickUpDate,$pickUpTime,$collectionDate,$collectionTime,$slug);
+        // dd($pickUpLocation,$dropOffLocation,$pickUpDate,$slug);
         return redirect()->route('carsdetails', $slug);
     }
     public function cardetails($slug, Request $req)

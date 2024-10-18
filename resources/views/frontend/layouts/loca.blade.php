@@ -49,6 +49,11 @@
 
     @include('frontend.includes.footer')
 
+    @php
+        $isHome = request()->routeIs('frontend.index');
+        $pickUpDate = session()->get('pickUpDate');
+    @endphp
+
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/designesia.js') }}"></script>
 
@@ -111,17 +116,40 @@
                 calculateTotalPrice();
             });
 
-            $('input[name="pickUpDate"]').daterangepicker({
-                timePicker: true,
-                startDate: moment().startOf('hour'),
-                endDate: moment().startOf('hour').add(32, 'hour'),
-                locale: {
-                    format: 'M/DD hh:mm A'
-                }
-            }, function(start, end) {
-                calculateDateRangeStats(start, end);
-            });
+            var pickUpDate = "{{ $pickUpDate }}";
 
+            if ({{ $isHome ? 'true' : 'false' }}) {
+                $('input[name="pickUpDate"]').daterangepicker({
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(32, 'hour'),
+                    minDate: moment(),
+                    locale: {
+                        format: 'DD/M/YY h:mm A'
+                    }
+                });
+            } else {
+                if (pickUpDate) {
+                    var dates = pickUpDate.split(' - ');
+                    var startDate = moment(dates[0], 'DD/M/YY h:mm A');
+                    var endDate = moment(dates[1], 'DD/M/YY h:mm A');
+
+                    $('input[name="pickUpDate"]').daterangepicker({
+                        timePicker: true,
+                        startDate: startDate,
+                        endDate: endDate,
+                        minDate: moment(),
+                        locale: {
+                            format: 'DD/M/YY h:mm A'
+                        }
+                    }, function(start, end) {
+                        calculateDateRangeStats(start, end);
+                    });
+
+                    calculateDateRangeStats(startDate, endDate);
+
+                }
+            }
             function calculateDateRangeStats(startDate, endDate) {
                 const startMoment = moment(startDate);
                 const endMoment = moment(endDate);
