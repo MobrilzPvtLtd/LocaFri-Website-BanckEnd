@@ -215,7 +215,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="payment_type">Payment Type</label>
+                    <label for="payment_type">Payment Method</label>
                     <select name="payment_type" id="payment_type" class="form-control">
                         <option value="1" {{ $booking->payment_type == 1 ? 'selected' : '' }}>Stripe</option>
                         <option value="0" {{ $booking->payment_type == 0 ? 'selected' : '' }}>Twint</option>

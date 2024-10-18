@@ -25,4 +25,14 @@ class ContractsOut extends Model
         'customer_signature',
         'odometer_image' // Ensure this is included
     ];
+
+    public function contract()
+{
+    return $this->belongsTo(Contract::class, 'contract_id');
+}
+public function booking()
+{
+    return $this->belongsTo(Booking::class, 'booking_id');
+}
+
 }

@@ -57,11 +57,37 @@
                     <td>{{ $booking->status }}</td>
                 </tr>
                 <tr>
-                    <th>Payment Type</th>
+                    <th>Payment Method</th>
                     <td>{{ $booking->payment_type == 1 ? 'Stripe' : ($booking->payment_type == 0 ? 'Twint' : 'Unknown') }}
                     </td>
                 </tr>
-                {{-- Uncommented details --}}
+                @if ($booking->is_contract == 2 && $booking->contract)
+                    <h4> Contract Details </h4>
+                    <tr>
+                        <th>License Photo</th>
+                        <td><img src="{{ $booking->contract->license_photo }}" alt="License Photo" /></td>
+                    </tr>
+                    <tr>
+                        <th>Record Kilometers</th>
+                        <td>{{ $booking->contract->record_kilometers }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fuel Level</th>
+                        <td>{{ $booking->contract->fuel_level }}</td>
+                    </tr>
+                    <tr>
+                        <th>Vehicle Damage Comments</th>
+                        <td>{{ $booking->contract->vehicle_damage_comments }}</td>
+                    </tr>
+                    <tr>
+                        <th>Customer Signature</th>
+                        <td><img src="{{ $booking->contract->customer_signature }}" alt="Customer Signature" /></td>
+                    </tr>
+                @endif
+
+
+
+                {{-- Other details --}}
                 <tr>
                     <th>Daily Price</th>
                     <td>{{ $booking->Dprice }}</td>

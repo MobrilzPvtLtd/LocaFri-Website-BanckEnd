@@ -15,6 +15,12 @@ class Contract extends Model
         return $this->belongsTo(Booking::class);
     }
 
+//     public function booking()
+// {
+//     return $this->belongsTo(Booking::class, 'booking_id');
+// }
+
+
 }
 
 

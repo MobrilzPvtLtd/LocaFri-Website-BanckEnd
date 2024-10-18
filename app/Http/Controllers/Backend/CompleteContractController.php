@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Customercontact;
 use App\Models\Booking;
 use App\Models\Checkout;
+use App\Models\ContractsOut;
 
 
 class CompleteContractController extends Controller
@@ -17,8 +18,10 @@ class CompleteContractController extends Controller
     public function index()
     {
        $bookings = Booking::where('is_viewbooking', '!=', 0)
+
             ->where('is_confirm', 1)
-            ->with(['contract', 'checkout'])
+            ->where('status', '!=', 'successful') // Exclude bookings with status 'success'
+            ->with(['contract', 'checkout','ContractsOut'])
             ->get();
 
         return view('backend.completecontract.index', compact('bookings'));
@@ -152,6 +155,5 @@ class CompleteContractController extends Controller
     {
         //
     }
-
 
 }

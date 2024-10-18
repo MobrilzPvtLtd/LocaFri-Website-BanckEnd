@@ -73,7 +73,7 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
         @can('view_logs')
     <li class="nav-group" aria-expanded="true">
         <a class="nav-link nav-group-toggle" href="#">
-            <i class="nav-icon fa-solid fa-car  fa-list-ul"></i>&nbsp;@lang('Vehicle Management')
+            <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('Vehicle Management')
         </a>
         <ul class="nav-group-items" style=" height: auto; "> <!-- Added list-style and padding-left for bullets -->
             <li class="nav-item">
@@ -142,10 +142,11 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
                             Settings
                         </a>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('completecontract.index') }}">
+                            <a class="nav-link" href="{{ route('completedcontract.index') }}">
                                 <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
                             </a>
                         </li>
+
 
                 </ul>
             </li>

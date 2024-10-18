@@ -74,7 +74,6 @@ Route::resource('admin/reject', RejectController::class);
 Route::post('admin/customercontact/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
 Route::post('/confirm-contract', [CompleteContractController::class, 'confirmContract'])->name('confirm.contract');
 
-// Route::post('admin/reject/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
 
 // contact
 Route::resource('admin/enquiry', EnquiryController::class);
@@ -85,11 +84,11 @@ Route::resource('admin/reservation', ReservationController::class);
 Route::post('admin/reservation/accept', [ReservationController::class, 'accept'])->name('reservation.accept');
 // Customercontact
 Route::resource('admin/customercontact', CustomercontactController::class);
-// Route::post('admin/send-contract-email', [CustomercontactController::class, 'sendContractEmail']);
 //CompleteContract
 Route::resource('admin/completecontract', CompleteContractController::class);
+Route::resource('admin/completedcontract', CompletedController::class);
 
-// Route::get('/checkin', [CheckInController::class, 'index'])->name('checkin.index');
+
 Route::get('backend/checkin', [CheckInContrapoller::class, 'index'])->name('checkin.index');
 
 // payment getwey

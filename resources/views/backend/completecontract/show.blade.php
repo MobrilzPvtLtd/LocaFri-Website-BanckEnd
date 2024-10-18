@@ -163,7 +163,7 @@
                     <td>{{ $booking->status }}</td>
                 </tr>
                 <tr>
-                    <th>Payment Type</th>
+                    <th>Payment Method</th>
                     <td>{{ $booking->payment_type == 1 ? 'Stripe' : ($booking->payment_type == 0 ? 'Twint' : 'Unknown') }}
                     </td>
                 </tr>

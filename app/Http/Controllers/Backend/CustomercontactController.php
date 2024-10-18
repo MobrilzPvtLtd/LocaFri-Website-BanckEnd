@@ -45,11 +45,10 @@ class CustomercontactController extends Controller
     public function show($id)
     {
         // $booking = Booking::findOrFail($id);
-        $booking = Booking::with(['checkout'])->findOrFail($id); // Fetch related data
+        $booking = Booking::with(['checkout','contract'])->findOrFail($id); // Fetch related data
 
         return view('backend.customercontact.show', compact('booking'));
     }
-
 
     public function edit($id)
     {

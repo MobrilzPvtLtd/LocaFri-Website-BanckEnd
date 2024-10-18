@@ -15,7 +15,7 @@
                                     <th scope="col">Pick Up Location</th>
                                     <th scope="col">Drop Off Location</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Payment Type</th>
+                                    <th scope="col">Payment Method</th>
                                     {{-- <th scope="col">Contract Details</th>
                                     <th scope="col">Checkout Details</th>   --}}
                                     <th scope="col">Action</th>
