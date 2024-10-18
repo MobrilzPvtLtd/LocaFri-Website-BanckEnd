@@ -100,4 +100,16 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'stream' => [
+        'ssl' => [
+            'verify_peer' => true,
+            'verify_peer_name' => true,
+            'allow_self_signed' => false,
+            'crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT,
+        ],
+    ],
+    'options' => [
+        'timeout' => 30, // Aumenta el timeout
+    ],
+
 ];

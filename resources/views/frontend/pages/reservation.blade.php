@@ -6,7 +6,6 @@
 @section('content')
     <div class="container ">
         <div class="py-5 text-center">
-
             <h2 style="margin-top: 150px">Checkout form</h2>
             {{-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> --}}
         </div>
@@ -98,7 +97,7 @@
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
-                <form class="needs-validation" action="{{route('booking-checkout')}}" method="post" novalidate>
+                <form class="needs-validation" action="{{ route('booking-checkout') }}" method="post" novalidate>
                     @csrf
                     {{-- <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate"> --}}
                     <input type="hidden" value="{{ $data['name'] }}" name="name">
@@ -135,17 +134,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
+                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder="" required>
+                            @error('first_name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid last name is required.
-                            </div>
+                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder="" required>
                         </div>
                     </div>
 
@@ -153,9 +149,9 @@
                         <label for="email">Email <span class="text-danger">*</span></label>
                         <input type="email" name="email" class="form-control" id="email"
                             placeholder="you@example.com" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
-                        </div>
+                        @error('email')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
@@ -206,7 +202,8 @@
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="same-address">
-                        <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                        <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
+                            address</label>
                     </div>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="save-info">
@@ -224,11 +221,13 @@
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="payment_method" type="radio" class="custom-control-input" value="stripe" checked required>
+                            <input id="credit" name="payment_method" type="radio" class="custom-control-input"
+                                value="stripe" checked required>
                             <label class="custom-control-label" for="credit">Stripe</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="payment_method" type="radio" class="custom-control-input" value="twint" required>
+                            <input id="debit" name="payment_method" type="radio" class="custom-control-input"
+                                value="twint" required>
                             <label class="custom-control-label" for="debit">Twint</label>
                         </div>
                     </div>

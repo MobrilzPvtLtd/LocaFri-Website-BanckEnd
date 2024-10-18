@@ -108,6 +108,7 @@ class FrontendController extends Controller
         $params = $request->only($params);
 
         $parsedDates = $this->parseDateRange($params['pickUpDate']);
+        // dd($parsedDates);
 
         $data = array_merge($params, $parsedDates);
         // dd($data);
@@ -119,9 +120,8 @@ class FrontendController extends Controller
 
     private function parseDateRange($dateRange)
     {
-        list($startPart, $endPart) = explode(' - ', $dateRange);
-
-        $dateFormat = 'n/j h:i A';
+        $startMoments = list($startPart, $endPart) = explode(' - ', $dateRange);
+        $dateFormat = 'd/m/y h:i A';
 
         $startMoment = Carbon::createFromFormat($dateFormat, $startPart);
         $endMoment = Carbon::createFromFormat($dateFormat, $endPart);

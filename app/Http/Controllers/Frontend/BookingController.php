@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Mail\EnquiryMail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Checkout;
@@ -13,6 +11,14 @@ use App\Models\Checkout;
 class BookingController extends Controller
 {
     public function bookingCheckout(Request $request){
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'email' => 'required|email',
+        ], [
+            'first_name.required' => 'First name is required.',
+            'email.required' => 'Email address is required.',
+        ]);
         // dd($request);
         $totalPrice = 0;
         $totalPriceDay = $request->Dprice * $request->day_count;

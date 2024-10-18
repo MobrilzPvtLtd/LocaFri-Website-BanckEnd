@@ -56,7 +56,7 @@
                                                 @endphp
 
                                                 @if($images && count($images) > 0)
-                                                    <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
+                                                    <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid" width="80px">
                                                 @endif
                                             @endif
                                         </td>

@@ -34,12 +34,16 @@
                                     <th scope="col">Collection Date</th>
                                     <th scope="col">Target Date</th> --}}
                                     <th scope="col">Status</th>
-                                    <th scope="col">Payment Type</th>
+                                    <th scope="col">Payment Method</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($bookings as $booking)
+                                    @php
+                                        $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
+                                        // dd($tran->payment_method);
+                                    @endphp
                                     <tr>
                                         <td>{{ $booking->id }}</td>
                                         <td>{{ $booking->name }}</td>
@@ -62,18 +66,17 @@
                                         <td>{{ $booking->collectionTime }}</td>
                                         <td>{{ $booking->collectionDate }}</td>
                                         <td>{{ $booking->targetDate }}</td> --}}
-                                        <td>{{ $booking->status }}</td>
+                                        <td>{{ ucwords($booking->status) }}</td>
                                         <td>
-                                            {{-- {{ $booking->payment_type }} --}}
-                                            @if($booking->payment_type == 1)
-                                            <span class=" ">Stripe</span>
-                                        @elseif($booking->payment_type == 0)
-                                            <span class=" ">Twint</span>
-                                        @else
-                                            <span class="">Unknown</span>
-                                        @endif
-
-
+                                            @if(isset($tran->payment_method))
+                                            <span style="background-color: #b1d994;padding: 5px;">
+                                                {{ ucwords($tran->payment_method) }}
+                                            </span>
+                                            @else
+                                            <span style="background-color: #e8857d;padding: 5px;">
+                                                Unpaid
+                                            </span>
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="d-flex flex-column flex-md-row justify-content-between">
