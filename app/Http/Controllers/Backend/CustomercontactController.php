@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Customercontact;
 use App\Models\Booking;
 use App\Models\Checkout;
-use App\Models\Contract;
+use App\Models\ContractIn;
 
 
 use Session;
@@ -17,7 +17,7 @@ class CustomercontactController extends Controller
     public function index()
     {
         $bookings = Booking::where('is_viewbooking', '!=', 0)
-        ->where('is_confirm', '!=', 1)
+        ->where('is_confirm', '=', 0)
         ->with(['checkout'])
         ->get();
         return view('backend.customercontact.index',compact('bookings'));
@@ -45,7 +45,7 @@ class CustomercontactController extends Controller
     public function show($id)
     {
         // $booking = Booking::findOrFail($id);
-        $booking = Booking::with(['checkout','contract'])->findOrFail($id); // Fetch related data
+        $booking = Booking::with(['checkout','ContractIn'])->findOrFail($id); // Fetch related data
 
         return view('backend.customercontact.show', compact('booking'));
     }

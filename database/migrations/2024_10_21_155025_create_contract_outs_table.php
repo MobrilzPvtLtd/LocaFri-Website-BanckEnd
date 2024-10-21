@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contracts', function (Blueprint $table) {
+        Schema::create('contract_outs', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('contract_id')->constrained()->unique()->onDelete('cascade');
+            // $table->bigInteger('booking_id');
             $table->string('name')->nullable();
-            // $table->string('first_name');
             $table->string('address')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('email')->nullable();
@@ -24,8 +25,8 @@ return new class extends Migration
             $table->longText('vehicle_images')->nullable();
             $table->text('vehicle_damage_comments')->nullable();
             $table->text('customer_signature')->nullable();
-
-            $table->tinyInteger('is_view')->default(0);
+            $table->string('fuel_image')->nullable();
+            $table->boolean('is_view')->default(0)->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('contract_outs');
     }
 };

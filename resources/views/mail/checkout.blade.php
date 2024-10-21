@@ -78,28 +78,28 @@
             <h1>CheckOut Details</h1>
             <table class="contact-table">
                 <tbody>
-                    <tr>
+                    {{-- <tr>
                         <td><strong>Contract ID:</strong></td>
                         <td>{{ $contract->id }}</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td><strong>Record Kilometers:</strong></td>
-                        <td>{{ $contractsOut->record_kilometers }}</td>
+                        <td>{{ $ContractOut->record_kilometers }}</td>
                     </tr>
                     <tr>
                         <td><strong>Fuel Level:</strong></td>
-                        <td>{{ $contractsOut->fuel_level }}%</td>
+                        <td>{{ $ContractOut->fuel_level }}%</td>
                     </tr>
-                    @if($contractsOut->vehicle_damage_comments)
+                    @if($ContractOut->vehicle_damage_comments)
                         <tr>
                             <td><strong>Vehicle Damage Comments:</strong></td>
-                            <td>{{ $contractsOut->vehicle_damage_comments }}</td>
+                            <td>{{ $ContractOut->vehicle_damage_comments }}</td>
                         </tr>
                     @endif
                     {{-- <tr>
                         <td><strong>Customer Signature:</strong></td>
                         <td>
-                            <img src="{{ asset('storage/' . $contractsOut->customer_signature) }}" alt="Customer Signature" style="max-width: 200px;"/>
+                            <img src="{{ asset('storage/' . $ContractOut->customer_signature) }}" alt="Customer Signature" style="max-width: 200px;"/>
                         </td>
                     </tr> --}}
                 </tbody>

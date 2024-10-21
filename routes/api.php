@@ -26,7 +26,7 @@ Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 Route::post('checkin', [ApiController::class, 'checkin']);
 Route::post('checkout', [ApiController::class, 'checkout']);
 
-// Route::post('/contractsout', [ContractsOutController::class, 'store']);
+// Route::post('/ContractOut', [ContractOutController::class, 'store']);
 
 
 

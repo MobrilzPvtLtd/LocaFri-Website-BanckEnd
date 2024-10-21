@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use App\Models\ContractIn;
 use Illuminate\Queue\SerializesModels;
 
 class ContractCreatedMail extends Mailable
@@ -15,10 +16,10 @@ class ContractCreatedMail extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param  mixed  $contract
+     * @param  ContractIn  $contract
      * @return void
      */
-    public function __construct($contract)
+    public function __construct(ContractIn $contract)
     {
         $this->contract = $contract;
     }
@@ -31,7 +32,7 @@ class ContractCreatedMail extends Mailable
     public function build()
     {
         return $this->view('email.contract_created')
-                    ->with(['contract' => $this->contract])
-                    ->subject('CheckIn Successful');
+                    ->with(['ContractIn' => $this->contract])
+                    ->subject('Check-In Successful');
     }
 }

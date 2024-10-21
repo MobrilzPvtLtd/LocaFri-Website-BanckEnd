@@ -44,9 +44,9 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function contract()
+    public function ContractIn()
     {
-        return $this->hasOne(Contract::class, 'booking_id', 'id');
+        return $this->hasOne(ContractIn::class, 'booking_id', 'id');
     }
 
     // Define relationship with Checkout
@@ -56,10 +56,10 @@ class Booking extends Model
     }
 
 
-    public function contractsOut()
-    {
-        return $this->hasOne(ContractsOut::class, 'booking_id');
-    }
+    // public function ContractOut()
+    // {
+    //     return $this->hasOne(ContractOut::class, 'booking_id');
+    // }
 
 }
 

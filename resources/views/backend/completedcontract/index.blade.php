@@ -9,8 +9,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ContractsOut ID</th>
-                    {{-- <th>ContractsOut Details</th> --}}
+                    <th>ID</th>
+                    {{-- <th>Details</th> --}}
                     {{-- <th>Booking Details</th> --}}
                     {{-- <th>Checkout Details</th> --}}
                     <th>Total Price</th>
@@ -26,11 +26,11 @@
                     {{-- Only display bookings where the status is 'successful' --}}
                     @if ($booking->status == 'successful')
                         <tr>
-                            {{-- ContractsOut ID --}}
+                            {{-- contractOut ID --}}
                             <td>
-                                {{-- Check if contractsOut is available --}}
-                                @if ($booking->contractsOut)
-                                    {{ $booking->contractsOut->id }}
+                                {{-- Check if contractOut is available --}}
+                                @if ($booking->contractOut)
+                                    {{ $booking->contractOut->id }}
                                 @else
                                 @endif
                             </td>

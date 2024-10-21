@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Customercontact;
 use App\Models\Booking;
 use App\Models\Checkout;
-use App\Models\ContractsOut;
+use App\Models\ContractOut;
 
 
 class CompleteContractController extends Controller
@@ -18,11 +18,11 @@ class CompleteContractController extends Controller
     public function index()
     {
        $bookings = Booking::where('is_viewbooking', '!=', 0)
-
-            ->where('is_confirm', 1)
-            ->where('status', '!=', 'successful') // Exclude bookings with status 'success'
-            ->with(['contract', 'checkout','ContractsOut'])
+            ->where('is_confirm', '!=', 0)
+            // ->where('status', '!=', 'successful')
+            ->with(['ContractIn', 'checkout'])
             ->get();
+        // dd($bookings);
 
         return view('backend.completecontract.index', compact('bookings'));
     }
@@ -66,7 +66,7 @@ class CompleteContractController extends Controller
     public function show(string $id)
     {
          // Retrieve the booking by its ID with related contract and checkout details
-         $booking = Booking::with(['contract', 'checkout'])->findOrFail($id);
+         $booking = Booking::with(['ContractIn', 'checkout'])->findOrFail($id);
 
          // Pass the booking data to the view
          return view('backend.completecontract.show', compact('booking'));
@@ -79,7 +79,7 @@ class CompleteContractController extends Controller
     {
 
     // Retrieve the booking by its ID with related contract and checkout details
-    $booking = Booking::with(['contract', 'checkout'])->findOrFail($id);
+    $booking = Booking::with(['ContractIn', 'checkout'])->findOrFail($id);
 
     // Pass the booking data to the edit view
     return view('backend.completecontract.edit', compact('booking'));

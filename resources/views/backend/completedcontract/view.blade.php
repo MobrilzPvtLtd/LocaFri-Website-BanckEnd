@@ -177,49 +177,49 @@
                     </tr>
                 @endif
 
-                {{-- ContractsOut Details --}}
+                {{-- ContractOut Details --}}
                 <tr>
-                    {{-- <th colspan="2" class="text-center">ContractsOut Details</th> --}}
+                    {{-- <th colspan="2" class="text-center">ContractOut Details</th> --}}
                 </tr>
-                @if ($booking->contractsOut)
+                @if ($booking->ContractOut)
                     <tr>
-                        <th>ContractsOut ID</th>
-                        <td>{{ $booking->contractsOut->id }}</td>
+                        <th>ContractOut ID</th>
+                        <td>{{ $booking->ContractOut->id }}</td>
                     </tr>
                     <tr>
                         <th>Email</th>
-                        <td>{{ $booking->contractsOut->email }}</td>
+                        <td>{{ $booking->ContractOut->email }}</td>
                     </tr>
                     <tr>
                         <th>Fuel Level</th>
-                        <td>{{ $booking->contractsOut->fuel_level }}</td>
+                        <td>{{ $booking->ContractOut->fuel_level }}</td>
                     </tr>
                     <tr>
                         <th>Kilometers</th>
-                        <td>{{ $booking->contractsOut->record_kilometers }}</td>
+                        <td>{{ $booking->ContractOut->record_kilometers }}</td>
                     </tr>
                     <tr>
                         <th>Vehicle Damage Comments</th>
-                        <td>{{ $booking->contractsOut->vehicle_damage_comments }}</td>
+                        <td>{{ $booking->ContractOut->vehicle_damage_comments }}</td>
                     </tr>
                     <tr>
                         <th>Customer Signature</th>
                         <td>
-                            <img src="{{ asset('storage/' . $booking->contractsOut->customer_signature) }}"
+                            <img src="{{ asset('storage/' . $booking->ContractOut->customer_signature) }}"
                                 alt="Customer Signature" style="max-width: 100px;">
                         </td>
                     </tr>
                     <tr>
                         <th>Odometer Image</th>
                         <td>
-                            <img src="{{ asset('storage/' . $booking->contractsOut->odometer_image) }}"
+                            <img src="{{ asset('storage/' . $booking->ContractOut->odometer_image) }}"
                                 alt="Odometer Image" style="max-width: 100px;">
                         </td>
                     </tr>
                 @else
                     <tr>
                         <td colspan="2">
-                            <h5>No ContractsOut details available</h5>
+                            <h5>No ContractOut details available</h5>
                         </td>
                     </tr>
                 @endif

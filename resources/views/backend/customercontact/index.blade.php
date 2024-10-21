@@ -87,10 +87,10 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        console.log(response);
-                        if (response.is_contract === 1) {
-                            button.text('Contract Created'); // Change button text
-                            button.prop('disabled', true); // Disable the button
+                        console.log(response.booking);
+                        if (response.booking.is_contract == 1) {
+                            button.text('Contract Created');
+                            button.prop('disabled', true);
                         } else {
                             alert('Failed to create contract.');
                         }
