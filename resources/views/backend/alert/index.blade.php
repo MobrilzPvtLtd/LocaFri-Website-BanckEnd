@@ -24,8 +24,7 @@
                                 @foreach ($alerts as $alert)
                                     <tr>
                                         <td>{{ $alert->id }}</td>
-                                        {{-- Display related vehicle's name or plate number instead of vehicle_id --}}
-                                        <td>{{ $alert->vehicle->name ?? 'No vehicle' }}</td>
+                                        <td>{{ $alert->ContractOut->ContractIn->booking->name ?? 'No vehicle' }}</td>
                                         <td>{{ $alert->kilometer }}</td>
                                         <td>{{ $alert->servicing }}</td>
                                         <td>
@@ -35,11 +34,10 @@
                                         </td>
                                         <td>
                                             <form action="{{ route('alert.destroy', $alert->id) }}" method="POST">
-                                                <a class="btn btn-primary" href="{{ route('alert.edit', $alert->id) }}">Edit</a>
-                                                {{-- <a class="btn btn-primary" href="{{ route('alert.show', $alert->id) }}">View</a> --}}
+                                                <a class="btn btn-primary btn-sm" href="{{ route('alert.edit', $alert->id) }}">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

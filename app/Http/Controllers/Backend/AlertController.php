@@ -11,7 +11,21 @@ class AlertController extends Controller
 {
     public function index()
     {
-        $alerts = Alert::with('vehicle')->get();
+        // $alerts = Alert::join('contract_outs', 'contract_outs.id', 'alerts.vehicle_id')
+        //         ->join('contract_ins', 'contract_ins.id', 'contract_outs.contract_id')
+        //         ->join('bookings', 'bookings.id', 'contract_ins.booking_id')
+        //         ->select('alerts.*','bookings.name as vehicle_name')
+        //         ->get();
+
+        $alerts = Alert::with(['ContractOut.ContractIn', 'ContractOut.booking'])
+            ->select('alerts.*')
+            ->get();
+        // dd($alerts);
+        //     ->map(function ($alert) {
+        //         $alert->vehicle_name = $alert->contractOut->booking->name ?? null;
+        //         // return $alert;
+        // });
+
         return view('backend.alert.index', compact('alerts'));
     }
 

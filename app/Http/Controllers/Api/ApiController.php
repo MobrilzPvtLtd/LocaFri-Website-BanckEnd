@@ -655,6 +655,8 @@ class ApiController extends Controller
 
             $licensePhotoPath = $request->hasFile('license_photo') ? $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
 
+            $record_kilometers = $request->record_kilometers - $contract->record_kilometers;
+
             $data = [
                 'contract_id' => $contract->id,
                 // 'booking_id' => $booking->id,
@@ -662,7 +664,7 @@ class ApiController extends Controller
                 'address' => $request->address,
                 'postal_code' => $request->postal_code,
                 'email' => $request->email,
-                'record_kilometers' => $request->record_kilometers,
+                'record_kilometers' => $record_kilometers,
                 'fuel_level' => $request->fuel_level,
                 'vehicle_images' => json_encode($vehicleImages),
                 'vehicle_damage_comments' => $request->vehicle_damage_comments,
@@ -676,17 +678,17 @@ class ApiController extends Controller
             $booking->is_confirm = 2;
             $booking->save();
 
-            if ($data['record_kilometers'] >= 15000) {
+            if ($contractOutData->record_kilometers >= 15000) {
                 $alert = new Alert();
                 $alert->vehicle_id = $contractOutData->id;
                 $alert->kilometer = $contractOutData->record_kilometers;
 
-                if ($data['record_kilometers'] >= 80000) {
+                if ($contractOutData->record_kilometers >= 80000) {
                     $alert->servicing = 'Brakes check';
-                } elseif ($data['record_kilometers'] >= 40000) {
+                } elseif ($contractOutData->record_kilometers >= 40000) {
                     $alert->servicing = 'Plates change';
                 } else {
-                    $alert->servicing = 'Service';
+                    $alert->servicing = 'Servicing';
                 }
 
                 $alert->save();
