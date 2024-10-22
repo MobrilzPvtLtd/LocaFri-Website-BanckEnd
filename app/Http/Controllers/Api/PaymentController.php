@@ -20,7 +20,7 @@ class PaymentController extends Controller
 
         try {
             // Initialize Stripe client with secret key
-            $stripe = new StripeClient(env('STRIPE_SECRET'));
+            $stripe = new StripeClient('sk_test_51Pd8PgBp68NP3WCI17AKodrNUA2PaYx3nu9phTE71DgvdmKsQ8cAPMpStfzeg6ByDL0QUWbn03TKdiiVz5orxNVx00gW8VrV0r');
 
             // Construct success and cancel URLs
             $redirectUrl = route('stripe-checkout') . '?session_id={CHECKOUT_SESSION_ID}';
@@ -72,7 +72,7 @@ class PaymentController extends Controller
     // {
     //     try {
     //         // Ensure the Stripe secret key is set
-    //         $stripeSecret = env('STRIPE_SECRET');
+    //         $stripeSecret = 'sk_test_51Pd8PgBp68NP3WCI17AKodrNUA2PaYx3nu9phTE71DgvdmKsQ8cAPMpStfzeg6ByDL0QUWbn03TKdiiVz5orxNVx00gW8VrV0r';
     //         if (!$stripeSecret) {
     //             return response()->json([
     //                 'status' => false,

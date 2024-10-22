@@ -13,7 +13,7 @@ class StripeWebhookController extends Controller
 {
     public function stripe(Request $request){
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient('sk_test_51Pd8PgBp68NP3WCI17AKodrNUA2PaYx3nu9phTE71DgvdmKsQ8cAPMpStfzeg6ByDL0QUWbn03TKdiiVz5orxNVx00gW8VrV0r');
 
         $redirectUrl = route('stripe-checkout') . '?session_id={CHECKOUT_SESSION_ID}';
         $cancelUrl = route('stripe-checkout-cancel') . '?session_id={CHECKOUT_SESSION_ID}';
@@ -47,7 +47,7 @@ class StripeWebhookController extends Controller
     }
 
     public function stripeCheckout(Request $request){
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient('sk_test_51Pd8PgBp68NP3WCI17AKodrNUA2PaYx3nu9phTE71DgvdmKsQ8cAPMpStfzeg6ByDL0QUWbn03TKdiiVz5orxNVx00gW8VrV0r');
 
         $response = $stripe->checkout->sessions->retrieve($request->session_id);
 

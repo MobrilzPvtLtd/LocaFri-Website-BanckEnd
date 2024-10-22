@@ -49,7 +49,7 @@ return [
     ],
 
     'stripe' => [
-        'secret' => env('STRIPE_SECRET'),
+        'secret' => "sk_test_51Pd8PgBp68NP3WCI17AKodrNUA2PaYx3nu9phTE71DgvdmKsQ8cAPMpStfzeg6ByDL0QUWbn03TKdiiVz5orxNVx00gW8VrV0r",
     ],
 
 ];
