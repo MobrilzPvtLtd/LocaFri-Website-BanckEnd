@@ -9,6 +9,14 @@ class Alert extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'service','plates','brakes',
+        'vehicle_id',
+        'kilometer',
+        'servicing',
+        'status',
+        'seen',
     ];
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
 }

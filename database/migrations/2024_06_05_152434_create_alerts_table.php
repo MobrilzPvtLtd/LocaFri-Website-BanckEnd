@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('alerts', function (Blueprint $table) {
             $table->id();
-            $table->string('service');
-            $table->string('plates');
-            $table->string('brakes');
+            $table->unsignedBigInteger('vehicle_id');
+            $table->integer('kilometer')->nullable();
+            $table->string('servicing')->nullable();
+            $table->string('status')->default('pending')->nullable();
+            $table->string('seen')->default(0)->nullable();
             $table->timestamps();
         });
     }

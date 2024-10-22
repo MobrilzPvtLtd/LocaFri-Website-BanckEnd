@@ -5,7 +5,8 @@
         <div class="card-body">
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('alert.index') }}" enctype="multipart/form-data">
-                    Back</a>
+                    Back
+                </a>
             </div>
             <div class="row mt-4">
                 <div class="col">
@@ -15,16 +16,35 @@
                             @method('PUT')
                             <div class="row">
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Service</label>
-                                    <input type="text" class="form-control" name="service" value="{{ $alert->service }}" placeholder="">
+                                    <label for="vehicle_id">Vehicle</label>
+                                    <select class="form-control" name="vehicle_id" required>
+                                        <option value="">Select Vehicle</option>
+                                        @foreach ($vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}" {{ $alert->vehicle_id == $vehicle->id ? 'selected' : '' }}>
+                                                {{ $vehicle->name }} (ID: {{ $vehicle->id }})
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Plates Change</label>
-                                    <input type="text" class="form-control" name="plates" value="{{ $alert->plates }}" placeholder="">
+                                    <label for="kilometer">Kilometer</label>
+                                    <input type="number" class="form-control" name="kilometer" value="{{ $alert->kilometer }}" required>
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Brakes Check</label>
-                                    <input type="text" class="form-control" name="brakes" value="{{ $alert->brakes }}" placeholder="">
+                                    <label for="servicing">Servicing</label>
+                                    {{-- <input type="text" class="form-control" name="servicing" value="{{ $alert->servicing }}" required> --}}
+                                    <select class="form-control" name="servicing" required>
+                                        <option value="service" {{ $alert->servicing == 'service' ? 'selected' : '' }}>servicing</option>
+                                        <option value="platesCheck" {{ $alert->servicing == 'platesCheck' ? 'selected' : '' }}>Plates Check</option>
+                                        <option value="breakesCheck" {{ $alert->servicing == 'breakesCheck' ? 'selected' : '' }}>Brakes Check</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" name="status" required>
+                                        <option value="pending" {{ $alert->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="completed" {{ $alert->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                                    </select>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -36,14 +56,10 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-7">
-                    <div class="float-left">
-
-                    </div>
+                    <div class="float-left"></div>
                 </div>
                 <div class="col-5">
-                    <div class="float-end">
-
-                    </div>
+                    <div class="float-end"></div>
                 </div>
             </div>
         </div>

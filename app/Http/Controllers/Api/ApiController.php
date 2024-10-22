@@ -18,6 +18,7 @@ use App\Mail\MakeContract;
 use App\Mail\CheckOutMail;
 use App\Models\ContractIn;
 use App\Models\ContractOut;
+use App\Models\Alert;
 use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
@@ -616,6 +617,7 @@ class ApiController extends Controller
             'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
 
             'email' => 'required|email|exists:contract_ins,email',
+            'contract_id' => 'required|exists:contract_ins,id',
         ], [
             'email.required' => 'Email address is required.',
             'email.exists' => 'The selected email does not exist in our records.',
@@ -630,7 +632,10 @@ class ApiController extends Controller
             ], 422);
         }
         try {
-            $contract = ContractIn::where('email', $request->email)->first();
+            $contract = ContractIn::where('id', $request->contract_id)->where('email', $request->email)->first();
+            if (!$contract) {
+                return response()->json(['error' => 'contract_id is invalid.'], 403);
+            }
 
             $booking = Booking::where('id', $contract->booking_id)->first();
             if (!$booking || $booking->is_confirm != 1) {
@@ -670,6 +675,22 @@ class ApiController extends Controller
 
             $booking->is_confirm = 2;
             $booking->save();
+
+            if ($data['record_kilometers'] >= 15000) {
+                $alert = new Alert();
+                $alert->vehicle_id = $contractOutData->id;
+                $alert->kilometer = $contractOutData->record_kilometers;
+
+                if ($data['record_kilometers'] >= 80000) {
+                    $alert->servicing = 'Brakes check';
+                } elseif ($data['record_kilometers'] >= 40000) {
+                    $alert->servicing = 'Plates change';
+                } else {
+                    $alert->servicing = 'Service';
+                }
+
+                $alert->save();
+            }
 
             $admin = User::where('id', 1)->first();
 

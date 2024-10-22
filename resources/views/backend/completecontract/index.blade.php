@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('alerrt.create') }}">Complete Contract</a>
+                <a class="btn btn-success" href="{{ route('alert.create') }}">Complete Contract</a>
             </div>
             <div class="row mt-4">
                 <div class="col">

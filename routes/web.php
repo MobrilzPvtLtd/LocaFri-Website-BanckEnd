@@ -21,7 +21,6 @@ use App\Http\Controllers\Frontend\MoneySetupController;
 use App\Http\Controllers\Frontend\TwintController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\backend\CheckInController;
-use App\Http\Controllers\Backend\AlerrtController;
 use App\Http\Controllers\Backend\CompleteContractController;
 // use App\Http\Controllers\Backend\CompletedController;
 use App\Http\Controllers\Backend\CompletedController;
@@ -58,7 +57,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/vehiclestatus', VehiclestatusController::class);
     // alert
     Route::resource('admin/alert', AlertController::class);
-    Route::resource('admin/alerrt', AlerrtController::class);
 
     // contact
     Route::resource('admin/contact', ContactsController::class);

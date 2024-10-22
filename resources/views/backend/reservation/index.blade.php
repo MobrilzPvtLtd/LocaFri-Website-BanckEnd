@@ -82,8 +82,7 @@
                                             <div class="d-flex flex-column flex-md-row justify-content-between">
                                                 <button type="button"
                                                     class="btn btn-success btn-sm bookingAccept"
-                                                    data-booking-id="{{ $booking->id }}"
-                                                    id="is_viewbooking">Accept</button>
+                                                    data-booking-id="{{ $booking->id }}">Accept</button>
                                                     <a class="btn btn-info btn-sm" href="{{ route('reservation.show', $booking->id) }}">View</a>
                                                     @csrf
                                                     @method('DELETE')

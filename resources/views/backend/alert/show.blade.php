@@ -6,23 +6,23 @@
             <h3>Alert Details</h3>
 
             <div class="mb-3">
-                <strong>ID:</strong> {{ $alerrt->id }}
+                <strong>ID:</strong> {{ $alert->id }}
             </div>
             <div class="mb-3">
-                <strong>Vehicle ID:</strong> {{ $alerrt->vehicle_id }}
+                <strong>Vehicle ID:</strong> {{ $alert->vehicle_id }}
             </div>
             <div class="mb-3">
-                <strong>Kilometer:</strong> {{ $alerrt->kilometer }}
+                <strong>Kilometer:</strong> {{ $alert->kilometer }}
             </div>
             <div class="mb-3">
-                <strong>Servicing:</strong> {{ $alerrt->servicing }}
+                <strong>Servicing:</strong> {{ $alert->servicing }}
             </div>
             <div class="mb-3">
-                <strong>Status:</strong> {{ $alerrt->status }}
+                <strong>Status:</strong> {{ $alert->status }}
             </div>
 
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('alerrt.index') }}">Back to Alerts</a>
+                <a class="btn btn-primary" href="{{ route('alert.index') }}">Back to Alerts</a>
             </div>
         </div>
     </div>
