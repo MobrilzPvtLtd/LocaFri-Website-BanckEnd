@@ -25,6 +25,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @php
+                                $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
+                                // dd($tran->payment_method);
+                            @endphp --}}
                                 @foreach ($bookings as $booking)
                                     <tr>
                                         <td>{{ $booking->id }}</td>
@@ -32,14 +36,16 @@
                                         <td>{{ $booking->total_price }}</td>
                                         <td>{{ $booking->pickUpLocation }}</td>
                                         <td>{{ $booking->dropOffLocation }}</td>
-                                        <td>{{ $booking->status }}</td>
+                                        <td>{{ ucwords($booking->status) }}</td>
                                         <td>
-                                            @if ($booking->payment_type == 1)
-                                                <span>Stripe</span>
-                                            @elseif($booking->payment_type == 0)
-                                                <span>Twint</span>
+                                            @if (isset($tran->payment_method))
+                                                <span style="background-color: #b1d994;padding: 5px;">
+                                                    {{ ucwords($tran->payment_method) }}
+                                                </span>
                                             @else
-                                                <span>Unknown</span>
+                                                <span style="background-color: #e8857d;padding: 5px;">
+                                                    Unpaid
+                                                </span>
                                             @endif
                                         </td>
 

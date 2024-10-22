@@ -1,104 +1,61 @@
 @extends('backend.layouts.app')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h4>Booking Details</h4>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <tr>
-                    <th scope="col">Booking ID</th>
-                    <td>{{ $booking->id }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Car Name</th>
-                    <td>{{ $booking->name }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Pick Up Location</th>
-                    <td>{{ $booking->pickUpLocation }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Drop Off Location</th>
-                    <td>{{ $booking->dropOffLocation }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Total Price</th>
-                    <td>{{ $booking->total_price }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Status</th>
-                    <td>{{ $booking->status }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Payment Type</th>
-                    <td>
-                        @if($booking->payment_type == 1)
-                            <span>Stripe</span>
-                        @elseif($booking->payment_type == 0)
-                            <span>Twint</span>
-                        @else
-                            <span>Unknown</span>
-                        @endif
-                    </td>
-                </tr>
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Reservation Details</h4>
+        <a href="{{ route('reservation.index') }}" class="btn btn-warning btn-sm">
+            <i class="fas fa-reply"></i>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Booking Information</h5>
+                @php
+                    // Fetch the transaction linked to the booking
+                    $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
+                @endphp
+                {{-- <p><strong>Booking ID:</strong> {{ $booking->id }}</p> --}}
+                <p><strong>Car Name:</strong> {{ $booking->name }}</p>
+                <p><strong>Pick Up Location:</strong> {{ $booking->pickUpLocation }}</p>
+                <p><strong>Drop Off Location:</strong> {{ $booking->dropOffLocation }}</p>
+                <p><strong>Total Price:</strong> {{ $booking->total_price }}</p>
+                <p><strong>Status:</strong> {{ ucwords($booking->status) }}</p>
+                <p><strong>Payment Method:</strong>
+                    @if (isset($tran->payment_method))
+                        <span style="background-color: #b1d994; padding: 5px;">
+                            {{ ucwords($tran->payment_method) }}
+                        </span>
+                    @else
+                        <span style="background-color: #e8857d; padding: 5px;">
+                            Unpaid
+                        </span>
+                    @endif
+                </p>
+            </div>
 
-                {{-- Optional fields that were commented off --}}
-                <tr>
-                    <th scope="col">Pick Up Date</th>
-                    <td>{{ $booking->pickUpDate }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Pick Up Time</th>
-                    <td>{{ $booking->pickUpTime }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Collection Date</th>
-                    <td>{{ $booking->collectionDate }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Collection Time</th>
-                    <td>{{ $booking->collectionTime }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Target Date</th>
-                    <td>{{ $booking->targetDate }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Additional Driver</th>
-                    <td>{{ $booking->additional_driver }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Booster Seat</th>
-                    <td>{{ $booking->booster_seat }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Child Seat</th>
-                    <td>{{ $booking->child_seat }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Exit Permit</th>
-                    <td>{{ $booking->exit_permit }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Day Count</th>
-                    <td>{{ $booking->day_count }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Week Count</th>
-                    <td>{{ $booking->week_count }}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Month Count</th>
-                    <td>{{ $booking->month_count }}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="card-footer">
-           <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('reservation.index') }}">Back to Reservations</a>
+            <div class="col-md-6">
+                <h5>Additional Booking Information</h5>
+                <p><strong>Pick Up Date:</strong> {{ $booking->pickUpDate }}</p>
+                <p><strong>Pick Up Time:</strong> {{ $booking->pickUpTime }}</p>
+                <p><strong>Collection Date:</strong> {{ $booking->collectionDate }}</p>
+                <p><strong>Collection Time:</strong> {{ $booking->collectionTime }}</p>
+                <p><strong>Additional Driver:</strong> {{ $booking->additional_driver }}</p>
+                <p><strong>Booster Seat:</strong> {{ $booking->booster_seat }}</p>
+                <p><strong>Child Seat:</strong> {{ $booking->child_seat }}</p>
+                <p><strong>Exit Permit:</strong> {{ $booking->exit_permit }}</p>
+                <p><strong>Daily Price:</strong> {{ $booking->Dprice }}</p>
+                <p><strong>Weekly Price:</strong> {{ $booking->wprice }}</p>
+                <p><strong>Monthly Price:</strong> {{ $booking->mprice }}</p>
+                <p><strong>Days Count:</strong> {{ $booking->day_count }}</p>
+                <p><strong>Weeks Count:</strong> {{ $booking->week_count }}</p>
+                <p><strong>Months Count:</strong> {{ $booking->month_count }}</p>
             </div>
         </div>
+        <div class="mt-4">
+            <a href="{{ route('reservation.index') }}" class="btn btn-secondary">Back to List</a>
+        </div>
     </div>
+</div>
 @endsection

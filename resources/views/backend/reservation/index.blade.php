@@ -1,7 +1,13 @@
 @extends('backend.layouts.app')
 
 @section('content')
-    <div class="card">
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Reservation Details</h4>
+        {{-- <a href="{{ route('reservation.index') }}" class="btn btn-warning btn-sm">
+            <i class="fas fa-reply"></i>
+        </a> --}}
+    </div>
         <div class="card-body">
             {{-- Success message area --}}
             <div id="success-message" class="alert alert-success d-none"></div>
@@ -68,27 +74,29 @@
                                         <td>{{ $booking->targetDate }}</td> --}}
                                         <td>{{ ucwords($booking->status) }}</td>
                                         <td>
-                                            @if(isset($tran->payment_method))
-                                            <span style="background-color: #b1d994;padding: 5px;">
-                                                {{ ucwords($tran->payment_method) }}
-                                            </span>
+                                            @if (isset($tran->payment_method))
+                                                <span style="background-color: #b1d994;padding: 5px;">
+                                                    {{ ucwords($tran->payment_method) }}
+                                                </span>
                                             @else
-                                            <span style="background-color: #e8857d;padding: 5px;">
-                                                Unpaid
-                                            </span>
+                                                <span style="background-color: #e8857d;padding: 5px;">
+                                                    Unpaid
+                                                </span>
                                             @endif
                                         </td>
                                         <td>
                                             <div class="d-flex flex-column flex-md-row justify-content-between">
-                                                <button type="button"
-                                                    class="btn btn-success btn-sm bookingAccept"
+
+                                                <button type="button" class="btn btn-success btn-sm bookingAccept"
                                                     data-booking-id="{{ $booking->id }}">Accept</button>
-                                                    <a class="btn btn-info btn-sm" href="{{ route('reservation.show', $booking->id) }}">View</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm "
-                                                        data-booking-id="{{ $booking->id }}"
-                                                        id="is_rejected">Reject</button>
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('reservation.show', $booking->id) }}">View</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm "
+                                                    data-booking-id="{{ $booking->id }}" id="is_rejected">Reject</button>
+
+
                                             </div>
                                         </td>
                                     </tr>
@@ -170,4 +178,3 @@
         });
     </script>
 @endpush
-

@@ -137,11 +137,11 @@
                         value="{{ old('collectionTime', $booking->collectionTime) }}">
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="targetDate">Target Date</label>
                     <input type="date" class="form-control" id="targetDate" name="targetDate"
                         value="{{ old('targetDate', $booking->targetDate) }}">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="Dprice">Daily Price</label>
