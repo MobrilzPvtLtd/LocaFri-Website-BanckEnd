@@ -44,9 +44,11 @@
                                         </td>
 
                                         <td>
-                                            <button type="button" class="btn btn-success text-white complete-contract-btn" data-booking-id="{{ $booking->id }}" value="complete">
-                                                Complete
-                                            </button>
+                                            @if($booking->is_confirm == 2)
+                                                <button type="button" class="btn btn-success text-white complete-contract-btn" data-booking-id="{{ $booking->id }}" value="complete">
+                                                    Complete
+                                                </button>
+                                            @endif
                                             <a class="btn btn-info btn-md"
                                                 href="{{ route('completecontract.show', $booking->id) }}">View Details</a>
                                             <a class="btn btn-primary btn-md"
