@@ -51,45 +51,47 @@ require __DIR__.'/auth.php';
 // return view('email.booking-email');
 // });
 
-// vehicle
-Route::resource('admin/vehicle', VehicleController::class);
-// vehiclestatus
-Route::resource('admin/vehiclestatus', VehiclestatusController::class);
-// alert
-Route::resource('admin/alert', AlertController::class);
-Route::resource('admin/alerrt', AlerrtController::class);
+Route::group(['middleware' => ['auth']], function () {
+    // vehicle
+    Route::resource('admin/vehicle', VehicleController::class);
+    // vehiclestatus
+    Route::resource('admin/vehiclestatus', VehiclestatusController::class);
+    // alert
+    Route::resource('admin/alert', AlertController::class);
+    Route::resource('admin/alerrt', AlerrtController::class);
 
-// contact
-Route::resource('admin/contact', ContactsController::class);
-Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
-Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
-Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
-Route::post('is_contract', [ReservationController::class, 'is_contract'])->name('is_contract');
+    // contact
+    Route::resource('admin/contact', ContactsController::class);
+    Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
+    Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
+    Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
+    Route::post('is_contract', [ReservationController::class, 'is_contract'])->name('is_contract');
 
-// Rejet
-Route::resource('admin/reject', RejectController::class);
-// Route::post('reject/addBack/{id}', [RejectController::class, 'addBack'])->name('reject.addBack');
-
-
-Route::post('admin/customercontact/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
-Route::post('/confirm-contract', [CompleteContractController::class, 'confirmContract'])->name('confirm.contract');
+    // Rejet
+    Route::resource('admin/reject', RejectController::class);
+    // Route::post('reject/addBack/{id}', [RejectController::class, 'addBack'])->name('reject.addBack');
 
 
-// contact
-Route::resource('admin/enquiry', EnquiryController::class);
-
-// Reservation
-Route::resource('admin/reservation', ReservationController::class);
-// Route::get('reservation/{id}/show', [ReservationController::class, 'show'])->name('reservation.show');
-Route::post('admin/reservation/accept', [ReservationController::class, 'accept'])->name('reservation.accept');
-// Customercontact
-Route::resource('admin/customercontact', CustomercontactController::class);
-//CompleteContract
-Route::resource('admin/completecontract', CompleteContractController::class);
-Route::resource('admin/completedcontract', CompletedController::class);
+    Route::post('admin/customercontact/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
+    Route::post('/confirm-contract', [CompleteContractController::class, 'confirmContract'])->name('confirm.contract');
 
 
-Route::get('backend/checkin', [CheckInContrapoller::class, 'index'])->name('checkin.index');
+    // contact
+    Route::resource('admin/enquiry', EnquiryController::class);
+
+    // Reservation
+    Route::resource('admin/reservation', ReservationController::class);
+    // Route::get('reservation/{id}/show', [ReservationController::class, 'show'])->name('reservation.show');
+    Route::post('admin/reservation/accept', [ReservationController::class, 'accept'])->name('reservation.accept');
+    // Customercontact
+    Route::resource('admin/customercontact', CustomercontactController::class);
+    //CompleteContract
+    Route::resource('admin/completecontract', CompleteContractController::class);
+    Route::resource('admin/completedcontract', CompletedController::class);
+
+
+    Route::get('backend/checkin', [CheckInContrapoller::class, 'index'])->name('checkin.index');
+});
 
 // payment getwey
 Route::get('stripe', [StripeWebhookController ::class, 'stripe'])->name('stripe');

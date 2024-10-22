@@ -27,18 +27,23 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
         @can('enquirys')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="">
-                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')<p class="notify001">
-                        {{ $total_contact }}
-                    </p>
+                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')
+                    @if ($total_contact)
+                        <p class="notify001">
+                            {{ $total_contact }}
+                        </p>
+                    @endif
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span>
                             </span><span id="is_view">Contact enquiry</span>
-                            <p class="notify001">
-                                {{ $total_contact }}
-                            </p>
+                            @if ($total_contact)
+                                <p class="notify001">
+                                    {{ $total_contact }}
+                                </p>
+                            @endif
                         </a>
                     </li>
                     {{-- <li class="nav-item">
@@ -71,33 +76,32 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
             </li>
         @endcan --}}
         @can('view_logs')
-    <li class="nav-group" aria-expanded="true">
-        <a class="nav-link nav-group-toggle" href="#">
-            <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('Vehicle Management')
-        </a>
-        <ul class="nav-group-items" style=" height: auto; "> <!-- Added list-style and padding-left for bullets -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('vehicle.index') }}">
-                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicles
+            <li class="nav-group" aria-expanded="true">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('Vehicle Management')
                 </a>
+                <ul class="nav-group-items" style=" height: auto; "> <!-- Added list-style and padding-left for bullets -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('vehicle.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicles
+                        </a>
+                    </li>
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{ route('alert.index') }}">
+                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span> Alert Settings
+                        </a>
+                    </li> --}}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicle Status
+                        </a>
+                    </li>
+                </ul>
             </li>
-
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="{{ route('alert.index') }}">
-                    <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span> Alert Settings
-                </a>
-            </li> --}}
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
-                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicle Status
-                </a>
-            </li>
-        </ul>
-
-    </li>
-@endcan
-@can('view_logs')
+        @endcan
+        @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
                     <i class=" nav-icon fa-solid fa-hotel"></i></i>&nbsp;@lang('Reservation Management')
@@ -112,7 +116,6 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('reject.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Reject Reservations
-
                         </a>
                     </li>
                 </ul>
@@ -122,6 +125,11 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
                     <i class="nav-icon fa-solid fa-triangle-exclamation"></i>&nbsp;@lang('Contract Handling')
+                    @if ($total_contact)
+                        <p class="notify001">
+                            {{ $total_contact }}
+                        </p>
+                    @endif
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
@@ -133,21 +141,24 @@ $total_contact = App\Models\Contact::where('is_view', 0)->count();
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('completecontract.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Complete Contract
-
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('alerrt.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert
-                            Settings
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span>
+                            </span><span id="is_view">Alert Settings</span>
+                            @if ($total_contact)
+                                <p class="notify001">
+                                    {{ $total_contact }}
+                                </p>
+                            @endif
                         </a>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('completedcontract.index') }}">
                                 <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
                             </a>
                         </li>
-
-
+                    </li>
                 </ul>
             </li>
         @endcan

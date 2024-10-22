@@ -15,10 +15,9 @@ class CompletedController extends Controller
 {
 public function index()
 {
-    // Fetch bookings where status is 'successful'
     $bookings = Booking::with(['ContractOut', 'checkout', 'ContractIn'])
-                        // ->where('status', 'success')
-                        ->get();
+            ->where('is_complete', 1)
+            ->get();
 
     return view('backend.completedcontract.index', compact('bookings'));
 }

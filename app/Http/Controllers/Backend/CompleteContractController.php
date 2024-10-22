@@ -19,8 +19,8 @@ class CompleteContractController extends Controller
     {
        $bookings = Booking::where('is_viewbooking', '!=', 0)
             ->where('is_confirm', '!=', 0)
-            // ->where('status', '!=', 'successful')
-            ->with(['ContractIn', 'checkout'])
+            ->where('is_complete', '!=', 1)
+            ->with(['ContractIn','ContractOut', 'checkout'])
             ->get();
         // dd($bookings);
 
@@ -28,19 +28,19 @@ class CompleteContractController extends Controller
     }
 
 
-        public function confirmContract(Request $request)
-        {
-            $booking = Booking::find($request->booking_id);
+    public function confirmContract(Request $request)
+    {
+        $booking = Booking::find($request->booking_id);
 
-            if ($booking) {
-                $booking->is_confirm = 1; // Set is_confirm to 1
-                $booking->save();
-
-                return response()->json(['status' => true, 'is_confirm' => 1]);
-            }
-
-            return response()->json(['status' => false, 'message' => 'Booking not found']);
+        if ($request->btnVal == 'complete') {
+            $booking->is_complete = 1;
+            $booking->status = 'success';
+        }else{
+            $booking->is_confirm = 1;
         }
+        $booking->save();
+        return response()->json(['status' => true, $booking]);
+    }
 
     /**
      * Show the form for creating a new resource.

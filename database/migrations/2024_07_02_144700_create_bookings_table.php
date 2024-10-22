@@ -37,6 +37,7 @@ return new class extends Migration
             $table->tinyInteger('is_viewbooking')->default(0);
             $table->tinyInteger('is_rejected')->default(0);
             $table->tinyInteger('is_contract')->default(0);
+            $table->tinyInteger('is_complete')->default(0);
             $table->timestamps();
         });
     }

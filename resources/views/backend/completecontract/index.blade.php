@@ -44,11 +44,13 @@
                                         </td>
 
                                         <td>
+                                            <button type="button" class="btn btn-success text-white complete-contract-btn" data-booking-id="{{ $booking->id }}" value="complete">
+                                                Complete
+                                            </button>
                                             <a class="btn btn-info btn-md"
                                                 href="{{ route('completecontract.show', $booking->id) }}">View Details</a>
                                             <a class="btn btn-primary btn-md"
                                                 href="{{ route('completecontract.edit', $booking->id) }}">Edit Details</a>
-
                                         </td>
                                     </tr>
                                 @endforeach
@@ -74,3 +76,36 @@
         </div>
     </div>
 @endsection
+@push('after-scripts')
+    <script>
+        $(document).ready(function() {
+            $('.complete-contract-btn').on('click', function() {
+                var bookingId = $(this).data('booking-id');
+                var btnVal = $(this).val();
+                var button = $(this);
+
+                $.ajax({
+                    url: '{{ route('confirm.contract') }}',
+                    type: 'POST',
+                    data: {
+                        booking_id: bookingId,
+                        btnVal: btnVal,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        // if (response.is_complete == 1) {
+                        //     window.location.href = '{{ route('completedcontract.index') }}';
+                        // }
+                        setTimeout(function() {
+                            window.location.href =
+                                '{{ route('completedcontract.index') }}';
+                        }, 2000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('An error occurred: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

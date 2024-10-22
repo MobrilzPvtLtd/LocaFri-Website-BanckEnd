@@ -23,6 +23,10 @@
                             </thead>
                             <tbody>
                                 @foreach ($bookings as $booking)
+                                    @php
+                                        $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
+                                        // dd($tran->payment_method);
+                                    @endphp
                                     <tr>
                                         <td>{{ $booking->id }}</td>
                                         <td>{{ $booking->name }}</td>
@@ -31,12 +35,14 @@
                                         <td>{{ $booking->dropOffLocation }}</td>
                                         <td>{{ $booking->status }}</td>
                                         <td>
-                                            @if ($booking->payment_type == 1)
-                                                <span>Stripe</span>
-                                            @elseif($booking->payment_type == 0)
-                                                <span>Twint</span>
+                                            @if(isset($tran->payment_method))
+                                            <span style="background-color: #b1d994;padding: 5px;">
+                                                {{ ucwords($tran->payment_method) }}
+                                            </span>
                                             @else
-                                                <span>Unknown</span>
+                                            <span style="background-color: #e8857d;padding: 5px;">
+                                                Unpaid
+                                            </span>
                                             @endif
                                         </td>
                                         <td>
@@ -114,22 +120,18 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        if (response.is_confirm === 1) {
-                            button.text('Confirmed'); // Change button text
-                            button.prop('disabled', true); // Disable the button
+                        console.log(response);
+                        button.text('Confirmed'); // Change button text
+                        button.prop('disabled', true); // Disable the button
 
-                            // Show success message
-                            $('#success-message').text('Booking confirmed successfully!')
-                                .removeClass('d-none');
+                        // Show success message
+                        $('#success-message').text('Booking confirmed successfully!')
+                            .removeClass('d-none');
 
-                            // Optionally redirect after a timeout
-                            setTimeout(function() {
-                                window.location.href =
-                                    '{{ route('completecontract.index') }}';
-                            }, 2000);
-                        } else {
-                            alert('Failed to confirm contract.');
-                        }
+                        setTimeout(function() {
+                            window.location.href =
+                                '{{ route('completecontract.index') }}';
+                        }, 2000);
                     },
                     error: function(xhr, status, error) {
                         console.log('An error occurred: ' + error);
