@@ -19,6 +19,7 @@ use App\Mail\CheckOutMail;
 use App\Models\ContractIn;
 use App\Models\ContractOut;
 use App\Models\Alert;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
@@ -156,6 +157,20 @@ class ApiController extends Controller
 
     public function avalibalcars(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'location' => 'required',
+            'available_time' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The given data was invalid.',
+                "status_code" => 422,
+                "errors" => $validator->errors(),
+            ], 422);
+        }
+
         $activeCarsQuery = Vehicle::where('status', 1);
 
         if ($request->location) {
@@ -483,6 +498,7 @@ class ApiController extends Controller
         $booking->pickUpTime = $request->pickUpTime;
         $booking->collectionDate = Carbon::parse($request->collectionDate);
         $booking->collectionTime = $request->collectionTime;
+        $booking->payment_type = $request->payment_type;
         $booking->save();
 
         // Crear el checkout
@@ -513,6 +529,11 @@ class ApiController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Contract created successfully.',
+            'price' => $booking->total_price,
+            'vehicle_name' => $booking->name,
+            'customer_email' => $checkout->email,
+            'booking_id' => $booking->id,
+            'payment_type' => $booking->payment_type
         ], 201);
     }
 

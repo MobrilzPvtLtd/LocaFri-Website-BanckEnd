@@ -8,11 +8,21 @@ use App\Models\Checkout;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Request as UrlRequest;
 
 class StripeWebhookController extends Controller
 {
-    public function stripe(Request $request){
+    public function stripePayment(Request $request){
+        $currentUrl = UrlRequest::url();
+        $segments = explode('/', $currentUrl);
+        $apiUrl = end($segments);
 
+        $redirectUrl = route('stripe',['price' => $request->price, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
+
+        return response()->json(['status' => true, 'redirectUrl' => $redirectUrl]);
+    }
+    public function stripe(Request $request){
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $redirectUrl = route('stripe-checkout') . '?session_id={CHECKOUT_SESSION_ID}';
@@ -40,6 +50,7 @@ class StripeWebhookController extends Controller
             'metadata' => [
                 'booking_id' => $request->booking_id,
                 'payment_type' => $request->payment_type,
+                'apiUrl' => $request->apiUrl ?? '',
             ],
         ]);
 
@@ -50,7 +61,6 @@ class StripeWebhookController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $response = $stripe->checkout->sessions->retrieve($request->session_id);
-
         $amount_total = number_format($response->amount_total / 100, 2, '.', '');
 
         $booking = Booking::find($response->metadata->booking_id);
@@ -106,7 +116,11 @@ class StripeWebhookController extends Controller
             Mail::to($response->customer_email)->send(new BookingMail($data));
         }
 
-        return redirect()->route('thank-you');
+        if ($response->metadata->apiUrl) {
+            return response()->json(['status' => true, 'data' => $data]);
+        } else {
+            return redirect()->route('thank-you');
+        }
     }
 
     public function stripeCheckoutCancel(Request $request){
