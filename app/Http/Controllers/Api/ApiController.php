@@ -158,7 +158,7 @@ class ApiController extends Controller
     public function avalibalcars(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'location' => 'required',
+            // 'location' => 'required',
             'available_time' => 'required',
         ]);
 
@@ -304,7 +304,7 @@ class ApiController extends Controller
     public function cars()
     {
         try {
-            $vehicles = Vehicle::get();
+            $vehicles = Vehicle::where('status', 1)->get();
 
             $vehicleData = [];
 
