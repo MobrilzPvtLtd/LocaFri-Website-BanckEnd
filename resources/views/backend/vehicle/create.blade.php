@@ -39,9 +39,15 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Location</label>
-                                    <input type="text" class="form-control" name="location" value=""
-                                        placeholder="">
+                                    {{-- <input type="text" class="form-control" name="location" value=""
+                                        placeholder=""> --}}
+                                    <select name="location" id="location" class="form-control">
+                                        <option value="Switzerland"
+                                            {{ isset($vehicle) && $vehicle->location == 'Switzerland' ? 'selected' : '' }}>
+                                            Switzerland</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
                                     <input type="file" class="form-control" name="image[]" value="" placeholder=""

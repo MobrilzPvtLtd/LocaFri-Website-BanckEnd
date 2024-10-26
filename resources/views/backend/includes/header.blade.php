@@ -155,24 +155,24 @@ $notifications_latest = optional($notifications)->take(5);
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
-                    <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
+                    {{-- <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
                         {{ __('Account') }}
-                    </div>
+                    </div> --}}
                     <a class="dropdown-item" href="{{ route('backend.users.show', Auth::user()->id) }}">
                         <i class="fa-regular fa-user me-2"></i>&nbsp;{{ Auth::user()->name }}
                     </a>
-                    <a class="dropdown-item" href="{{ route('backend.users.show', Auth::user()->id) }}">
+                    {{-- <a class="dropdown-item" href="{{ route('backend.users.show', Auth::user()->id) }}">
                         <i class="fa-solid fa-at me-2"></i>&nbsp;{{ Auth::user()->email }}
-                    </a>
-                    <a class="dropdown-item" href="{{ route('backend.notifications.index', Auth::user()->id) }}">
+                    </a> --}}
+                    {{-- <a class="dropdown-item" href="{{ route('backend.notifications.index', Auth::user()->id) }}">
                         <i class="fa-regular fa-bell me-2"></i>&nbsp;@lang('Notifications')
                         @if ($notifications_count)
                             &nbsp;<span class="badge bg-danger ms-2">{{ $notifications_count }}</span>
                         @endif
-                    </a>
+                    </a> --}}
                     <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
-                        <div class="fw-semibold">@lang('Settings')</div>
-                    </div>
+                        {{-- <div class="fw-semibold">@lang('Settings')</div>
+                    </div> --}}
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fa-solid fa-right-from-bracket me-2"></i>&nbsp;@lang('Logout')

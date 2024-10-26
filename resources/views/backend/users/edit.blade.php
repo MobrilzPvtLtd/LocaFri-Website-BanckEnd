@@ -153,7 +153,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 @php
                     $socialFieldsNames = $$module_name_singular->socialFieldsNames();
                 @endphp
@@ -246,7 +246,7 @@
                     </div>
                 </div>
 
-                @can('edit_users_permissions')
+                {{-- @can('edit_users_permissions')
                     <div class="form-group row mb-3">
                         {{ html()->label(__('Abilities'))->class('col-sm-2 form-label') }}
                         <div class="col">
@@ -304,7 +304,7 @@
                             </div>
                         </div>
                     </div>
-                @endcan
+                @endcan --}}
 
                 <div class="row">
                     <div class="col-4 mb-3">

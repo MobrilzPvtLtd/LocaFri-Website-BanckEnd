@@ -45,9 +45,15 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Location</label>
-                                    <input type="text" class="form-control" name="location"
-                                        value="{{ $vehicle->location }}" placeholder="">
+                                    {{-- <input type="text" class="form-control" name="location"
+                                        value="{{ $vehicle->location }}" placeholder=""> --}}
+                                    <select name="location" id="location" class="form-control">
+                                        <option value="Switzerland"
+                                            {{ isset($vehicle) && $vehicle->location == 'Switzerland' ? 'selected' : '' }}>
+                                            Switzerland</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
                                     <input type="file" class="form-control" name="image[]" value="{{ $vehicle->image }}"
@@ -152,22 +158,24 @@
                                         value="{{ $vehicle->mprice }}" placeholder="">
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="available">Available Time</label>
                                     <input type="time" class="form-control" name="available"
-                                           value="{{ $vehicle->available_time ? \Carbon\Carbon::parse($vehicle->available_time)->format('H:i') : '' }}"
-                                           placeholder="">
-                                </div>
+                                        value="{{ $vehicle->available_time ? \Carbon\Carbon::parse($vehicle->available_time)->format('H:i') : '' }}"
+                                        placeholder="">
+                                </div> --}}
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="status">Status</label>
                                     <select class="form-control" name="status" id="status">
                                         <option value="" disabled selected>Select Status</option>
-                                        <option value="1" {{ $vehicle->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="0" {{ $vehicle->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" {{ $vehicle->status == 1 ? 'selected' : '' }}>Active
+                                        </option>
+                                        <option value="0" {{ $vehicle->status == 0 ? 'selected' : '' }}>Inactive
+                                        </option>
                                     </select>
                                 </div>
-
+                                <br>
                                 <div class="form-group mb-2 col-4">
                                     <label for="featured">Featured</label>
                                     <input type="checkbox" name="featured" value="1"
