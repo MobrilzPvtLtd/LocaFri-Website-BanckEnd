@@ -19,7 +19,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col">Car Name</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Vehicle Name</th>
                                     <th scope="col">Pick Up Location</th>
                                     <th scope="col">Drop Off Location</th>
                                     {{-- <th scope="col">Dprice</th>
@@ -39,7 +40,7 @@
                                     <th scope="col">Collection Time</th>
                                     <th scope="col">Collection Date</th>
                                     <th scope="col">Target Date</th> --}}
-                                    <th scope="col">Status</th>
+                                    {{-- <th scope="col">Status</th> --}}
                                     <th scope="col">Payment Method</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -52,6 +53,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $booking->id }}</td>
+                                        <td>{{ $booking->checkout->first_name ?? 'N/A' }} {{ $booking->checkout->last_name ?? '' }}</td>
                                         <td>{{ $booking->name }}</td>
                                         <td>{{ $booking->pickUpLocation }}</td>
                                         <td>{{ $booking->dropOffLocation }}</td>
@@ -72,7 +74,7 @@
                                         <td>{{ $booking->collectionTime }}</td>
                                         <td>{{ $booking->collectionDate }}</td>
                                         <td>{{ $booking->targetDate }}</td> --}}
-                                        <td>{{ ucwords($booking->status) }}</td>
+                                        {{-- <td>{{ ucwords($booking->status) }}</td> --}}
                                         <td>
                                             @if (isset($tran->payment_method))
                                                 <span style="background-color: #b1d994;padding: 5px;">

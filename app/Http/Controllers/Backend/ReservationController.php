@@ -10,7 +10,12 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::where('is_viewbooking', '!=', 1)->where('is_rejected', '!=', 1)->get();
+        $bookings = Booking::with('checkout')
+        ->where('is_viewbooking', '!=', 1)
+        ->where('is_rejected', '!=', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
         // dd($bookings);
         return view('backend.reservation.index', compact('bookings'));
     }
@@ -26,6 +31,7 @@ class ReservationController extends Controller
             return response()->json($booking);
         }
     }
+
 
     public function is_rejected(Request $request)
     {
@@ -72,8 +78,10 @@ class ReservationController extends Controller
     }
     public function show($id)
 {
-    $booking = Booking::findOrFail($id); // Fetch the booking by its ID
+    $booking = Booking::with(['checkout','ContractIn'])->findOrFail($id); // Fetch the booking by its ID
     return view('backend.reservation.show', compact('booking'));
+
+
 }
 
     public function edit($id)

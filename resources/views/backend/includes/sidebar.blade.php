@@ -25,10 +25,10 @@ $alert = App\Models\Alert::where('seen', 0)->count();
                 <i class="nav-icon fa-solid fa-cubes"></i>&nbsp;@lang('Dashboard')
             </a>
         </li>
-        @can('enquirys')
+        @can('Inqueries')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="">
-                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('enquirys')
+                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('Inqueries')
                     @if ($total_contact)
                         <p class="notify001">
                             {{ $total_contact }}
@@ -39,7 +39,7 @@ $alert = App\Models\Alert::where('seen', 0)->count();
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span>
-                            </span><span id="is_view">Contact enquiry</span>
+                            </span><span id="is_view">Contact Inqueries</span>
                             @if ($total_contact)
                                 <p class="notify001">
                                     {{ $total_contact }}
@@ -125,7 +125,7 @@ $alert = App\Models\Alert::where('seen', 0)->count();
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
-                    <i class="nav-icon fa-solid fa-triangle-exclamation"></i>&nbsp;@lang('Contract Handling')
+                    <i class=" fa-solid fa-handshake nav-icon contract-icon "></i>&nbsp;@lang('Contract Handling')
                     @if ($alert)
                         <p class="notify001">
                             {{ $alert }}
@@ -144,7 +144,7 @@ $alert = App\Models\Alert::where('seen', 0)->count();
                             <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Complete Contract
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('alert.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span>
                             </span><span id="alert_seen" data-alert-seen="alert">Alert Settings</span>
@@ -153,39 +153,18 @@ $alert = App\Models\Alert::where('seen', 0)->count();
                                     {{ $alert }}
                                 </p>
                             @endif
-                        </a>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('completedcontract.index') }}">
-                                <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
-                            </a>
-                        </li>
-                    </li>
-                </ul>
-            </li>
-        @endcan
-
-        {{-- @can('view_logs')
-            <li class="nav-group" aria-expanded="true">
-                <a class="nav-link nav-group-toggle" href="#">
-                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('CheckIn- CheckOut')
-                </a>
-                <ul class="nav-group-items compact" style="height: auto;">
+                        </a> --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('checkin.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-car"></span></span> CheckIn
+                        <a class="nav-link" href="{{ route('completedcontract.index') }}">
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
                         </a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('alert.index') }}">
-                            <span class="nav-icon"><span class="fa-solid fa-triangle-exclamation"></span></span>CheckOut
-                        </a>
-                    </li>
-                  </ul>
             </li>
-        @endcan --}}
+        </ul>
+        </li>
+    @endcan
 
-      {{--
+    {{--
         @can('view_categories')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.categories.index') }}">
@@ -193,23 +172,44 @@ $alert = App\Models\Alert::where('seen', 0)->count();
                 </a>
             </li>
         @endcan --}}
-        {{-- @can('view_tags')
+    {{-- @can('view_tags')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.tags.index') }}">
                     <i class="nav-icon fa-solid fa-tags"></i>&nbsp;@lang('Tags')
                 </a>
             </li>
         @endcan --}}
+    @can('service_alert')
+        <li class="nav-group" aria-expanded="true">
+            <a class="nav-link nav-group-toggle" href="#">
+                <i class="nav-icon fa-solid fa-triangle-exclamation me-2"></i>&nbsp;@lang('Service Alert')
+            </a>
 
-        @can('edit_settings')
+            <ul class="nav-group-items compact" style="height: auto;">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('alert.index') }}">
+                        <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert Setting
+                    </a>
+                    @if ($alert)
+                        <p class="notify001">
+                            {{ $alert }}
+                        </p>
+                    @endif
+                    </a>
+                </li>
+            </ul>
+        </li>
+    @endcan
+
+    {{-- @can('edit_settings')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.settings') }}">
                     <i class="nav-icon fa-solid fa-gears"></i>&nbsp;@lang('Settings')
                 </a>
             </li>
-        @endcan
+        @endcan --}}
 
-        {{-- @can('view_backups')
+    {{-- @can('view_backups')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('backend.backups.index') }}">
                     <i class="nav-icon fa-solid fa-box-archive"></i>&nbsp;@lang('Backups')
@@ -217,22 +217,22 @@ $alert = App\Models\Alert::where('seen', 0)->count();
             </li>
         @endcan --}}
 
-        @can('view_users')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('backend.users.index') }}">
-                    <i class="nav-icon fa-solid fa-user-group"></i>&nbsp;@lang('Users')
-                </a>
-            </li>
-        @endcan
+    @can('view_users')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.users.index') }}">
+                <i class="nav-icon fa-solid fa-user-group"></i>&nbsp;@lang('Users')
+            </a>
+        </li>
+    @endcan
 
-        @can('view_roles')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('backend.roles.index') }}">
-                    <i class="nav-icon fa-solid fa-user-shield"></i>&nbsp;@lang('Roles')
-                </a>
-            </li>
-        @endcan
-        {{--
+    @can('view_roles')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.roles.index') }}">
+                <i class="nav-icon fa-solid fa-user-shield"></i>&nbsp;@lang('Roles')
+            </a>
+        </li>
+    @endcan
+    {{--
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
