@@ -112,11 +112,11 @@ public function store(Request $request)
             'trans' => 'required',
             'exterior' => 'required',
             'interior' => 'required',
-            'features' => 'required|array',
+            'features' => 'array',
             'Dprice' => 'required',
             'wprice' => 'required',
             'mprice' => 'required',
-            'available' => 'required|date_format:H:i', // Validate the time format
+            // 'available' => 'date_format:H:i', // Validate the time format
         ]);
 
         $vehicle = Vehicle::findOrFail($id);
@@ -136,8 +136,8 @@ public function store(Request $request)
                 }
             }
         }
-        $currentDate = Carbon::now()->toDateString();
-        $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
+        // $currentDate = Carbon::now()->toDateString();
+        // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
 
         // Prepare vehicle data for updating
         $vehicleData = $request->except('image', 'featured', 'features', 'available');
@@ -150,7 +150,7 @@ public function store(Request $request)
             $vehicleData['features'] = json_encode($request->features);
         }
 
-        $vehicleData['available_time'] = $availableDatetime;
+        // $vehicleData['available_time'] = $availableDatetime;
         $vehicleData['featured'] = $request->has('featured');
 
         // Update the vehicle record
