@@ -2,12 +2,19 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>Edit Alert</h4>
+                <a href="{{ route('alert.index') }}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-reply"></i>
+                </a>
+            </div>
+        {{-- <div class="card-body">
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('alert.index') }}" enctype="multipart/form-data">
                     Back
                 </a>
-            </div>
+            </div> --}}
             <div class="row mt-4">
                 <div class="col">
                     <div class="container mt-5">
@@ -47,7 +54,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary  m-2">Submit</button>
                         </form>
                     </div>
                 </div>

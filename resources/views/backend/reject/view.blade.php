@@ -51,9 +51,9 @@
                     <p><strong>Collection Time:</strong> {{ $booking->collectionTime }}</p>
                 </div>
             </div>
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <a href="{{ route('reject.index') }}" class="btn btn-secondary">Back to List</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

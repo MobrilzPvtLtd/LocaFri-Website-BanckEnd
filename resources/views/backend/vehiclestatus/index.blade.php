@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="card">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>Vehicle Status Details</h4>
+                {{-- <a href="{{ route('vehicle.index') }}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-reply"></i>
+                </a> --}}
+            </div>
         <div class="card-body">
             <div class="pull-right mb-2">
                 <a class="btn btn-success" href="{{ route('vehiclestatus.create') }}"> Create vehiclestatus</a>

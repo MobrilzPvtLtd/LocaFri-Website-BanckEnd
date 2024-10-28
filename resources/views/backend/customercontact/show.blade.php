@@ -86,10 +86,10 @@
                 </div>
 
 
-            </div>
+            {{-- </div>
 
 
             <a href="{{ route('customercontact.index') }}" class="btn btn-primary">Back to List</a>
-        </div>
+        </div> --}}
     </div>
 @endsection

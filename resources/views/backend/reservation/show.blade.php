@@ -64,9 +64,9 @@
                     <p><strong>Months Count:</strong> {{ $booking->month_count }}</p>
                 </div>
             </div>
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <a href="{{ route('reservation.index') }}" class="btn btn-secondary">Back to List</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
