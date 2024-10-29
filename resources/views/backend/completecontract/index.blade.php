@@ -30,7 +30,8 @@
                                 // dd($tran->payment_method);
                             @endphp --}}
                                 @foreach ($bookings as $booking)
-                                    <tr>
+                                    {{-- <tr> --}}
+                                        <tr class="{{ $loop->first ? 'table-primary' : '' }}">
                                         <td>{{ $booking->id }}</td>
                                         <td>{{ $booking->name }}</td>
                                         <td>{{ $booking->total_price }}</td>

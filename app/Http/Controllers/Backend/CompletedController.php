@@ -17,6 +17,7 @@ public function index()
 {
     $bookings = Booking::with(['ContractOut', 'checkout', 'ContractIn'])
             ->where('is_complete', 1)
+            ->orderBy('created_at', 'desc')
             ->get();
 
     return view('backend.completedcontract.index', compact('bookings'));

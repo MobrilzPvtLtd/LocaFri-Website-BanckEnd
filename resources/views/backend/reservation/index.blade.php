@@ -38,11 +38,11 @@
                             </thead>
                             <tbody>
                                 @foreach ($bookings as $booking)
-                                    @php
-                                        $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
-                                    @endphp
                                     {{-- <tr class="table-primary"> --}}
-                                    <tr class="{{ $booking->seen === 0 ? 'table-primary' : '' }}">
+                                    <tr class="{{ $loop->first ? 'table-primary' : '' }}">
+                                        {{-- <tr class="{{ $booking->id === $maxBookingId ? 'table-primary' : '' }}"> --}}
+
+
                                         <td>{{ $booking->id }}</td>
                                         <td>{{ $booking->checkout->first_name ?? 'N/A' }}
                                             {{ $booking->checkout->last_name ?? '' }}</td>
@@ -75,8 +75,6 @@
                         <div class="d-flex flex-column flex-md-row justify-content-between">
                             <button type="button" class="btn btn-success btn-sm bookingAccept"
                                 data-booking-id="{{ $booking->id }}">Accept</button>
-                            {{-- <a class="btn btn-info btn-sm" href="{{ route('reservation.show', $booking->id) }}">View</a> --}}
-
                             <a class="btn btn-info btn-sm view" data-booking-id="{{ $booking->id }}"
                                 href="{{ route('reservation.show', $booking->id) }}">View</a>
 

@@ -24,7 +24,8 @@
                         $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
                         // dd($tran->payment_method);
                     @endphp
-                    <tr>
+                    {{-- <tr> --}}
+                        <tr class="{{ $loop->first ? 'table-primary' : '' }}">
                         <td>{{ $booking->id }}</td>
                         <td>{{ $booking->total_price }}</td>
                         <td>{{ $booking->pickUpLocation }}</td>

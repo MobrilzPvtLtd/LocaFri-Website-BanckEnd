@@ -19,6 +19,7 @@ class CustomercontactController extends Controller
         $bookings = Booking::where('is_viewbooking', '!=', 0)
         ->where('is_confirm', '=', 0)
         ->with(['checkout'])
+        ->orderBy('created_at', 'desc')
         ->get();
         return view('backend.customercontact.index',compact('bookings'));
     }
