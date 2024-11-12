@@ -38,9 +38,9 @@
                     <li class="list-group-item"><strong>Price (Daily):</strong> ${{ number_format($vehicle->Dprice, 2) }}</li>
                     <li class="list-group-item"><strong>Price (Weekly):</strong> ${{ number_format($vehicle->wprice, 2) }}</li>
                     <li class="list-group-item"><strong>Price (Monthly):</strong> ${{ number_format($vehicle->mprice, 2) }}</li>
-                    <li class="list-group-item"><strong>Permitted Kilometer (Daily):</strong> ${{ number_format($vehicle->permitted_kilometers_day, 2) }}</li>
-                    <li class="list-group-item"><strong>Permitted Kilometer (Weekly):</strong> ${{ number_format($vehicle->permitted_kilometers_week, 2) }}</li>
-                    <li class="list-group-item"><strong>Permitted Kilometer (Monthly):</strong> ${{ number_format($vehicle->permitted_kilometers_month, 2) }}</li>
+                    <li class="list-group-item"><strong>Permitted Kilometer (Daily):</strong> Kms {{ number_format($vehicle->permitted_kilometers_day) }}</li>
+                    <li class="list-group-item"><strong>Permitted Kilometer (Weekly):</strong>Kms {{ number_format($vehicle->permitted_kilometers_week) }}</li>
+                    <li class="list-group-item"><strong>Permitted Kilometer (Monthly):</strong> kms {{ number_format($vehicle->permitted_kilometers_month) }}</li>
                     <li class="list-group-item"><strong>Status:</strong> {{ $vehicle->status ? 'Available' : 'Not Available' }}</li>
 
                 </ul>
