@@ -288,7 +288,10 @@ class ApiController extends Controller
             'Dprice' => $vehicle->Dprice,
             'wprice' => $vehicle->wprice,
             'mprice' => $vehicle->mprice,
-            'available_time' => $vehicle->available_time,
+            'permitted_kilometers_day' => $vehicle->permitted_kilometers_day,
+            'permitted_kilometers_week' => $vehicle->permitted_kilometers_week,
+            'permitted_kilometers_month' => $vehicle->permitted_kilometers_month,
+           'available_time' => $vehicle->available_time,
             'status' => $vehicle->status,
             'ratings' => $vehicle->ratings,//added for ratings
             'created_at' => $vehicle->created_at,

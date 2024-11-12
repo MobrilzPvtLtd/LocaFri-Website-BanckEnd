@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('body')->nullable();
             $table->string('seat')->nullable();
-            $table->string('door')->nullable();
+            // $table->string('door')->nullable();
+            $table->integer('door')->nullable();
             $table->string('luggage')->nullable();
             $table->string('fuel')->nullable();
             $table->string('auth')->nullable();
@@ -35,8 +36,15 @@ return new class extends Migration
             $table->decimal('Dprice',10,2);
             $table->decimal('wprice',10,2);
             $table->decimal('mprice',10,2);
-            $table->timestamp('available_time')->nullable()->change();
+            $table->timestamp('available_time')->nullable();
             $table->boolean('status')->default(0)->nullable();
+
+
+            $table->integer('permitted_kilometers_day')->default(200);
+            $table->integer('permitted_kilometers_week')->default(1000);
+            $table->integer('permitted_kilometers_month')->default(3000);
+
+
             $table->timestamps();
         });
     }

@@ -35,7 +35,7 @@
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="desc">Description</label>
-                                    <textarea class="form-control" name="desc" placeholder=""></textarea>
+                                    <textarea class="form-control" name="desc" placeholder="" required></textarea>
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Location</label>
@@ -85,16 +85,28 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">Door</label>
                                     <input type="text" class="form-control" name="door" value="" placeholder="">
+                                </div> --}}
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="door">Door</label>
+                                    <select class="form-control" name="door">
+                                        <option value="" disabled selected>Select Number of Doors</option>
+                                        <option value="2 ">2 </option>
+                                        <option value="4">4</option>
+                                        <option value="6">6</option>
+                                        <option value="6+ ">6+</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Luggage</label>
                                     <input type="text" class="form-control" name="luggage" value="" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Fuel Type</label>
+                                    <label for="city">Fuel</label>
                                     <input type="text" class="form-control" name="fuel" value=""
                                         placeholder="">
                                 </div>
@@ -103,11 +115,22 @@
                                     <input type="text" class="form-control" name="auth" value=""
                                         placeholder="">
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">Transmission</label>
                                     <input type="text" class="form-control" name="trans" value=""
                                         placeholder="">
+                                </div> --}}
+                                <div class="form-group mb-2 col-4">
+                                    <label for="trans">Transmission</label>
+                                    <select class="form-control" name="trans" id="trans" required>
+                                        <option value="" disabled selected>Select Transmission</option>
+                                        <option value="Manual">Manual</option>
+                                        {{-- <option value="Automatic">Automatic</option> --}}
+                                    </select>
                                 </div>
+
+
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Exterior Color</label>
                                     <input type="text" class="form-control" name="exterior" value=""
@@ -133,6 +156,27 @@
                                     <input type="text" class="form-control" name="mprice" value=""
                                         placeholder="">
                                 </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_day">permitted kilometers Day</label>
+                                    <input type="text" class="form-control" name="permitted_kilometers_day"
+                                    value="" placeholder="">
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_week">Permitted kilometers Week</label>
+                                    <input type="text" class="form-control" name="permitted_kilometers_week"
+                                        value="" placeholder="">
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_month">Permitted kilometers Month</label>
+                                    <input type="text" class="form-control" name="permitted_kilometers_month"
+                                        value="" placeholder="">
+                                </div>
+
+
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Available Time</label>
                                     <input type="time" class="form-control" name="available" value=""

@@ -125,7 +125,7 @@
                                         value="{{ $vehicle->luggage }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Fuel Type</label>
+                                    <label for="city">Fuel</label>
                                     <input type="text" class="form-control" name="fuel"
                                         value="{{ $vehicle->fuel }}" placeholder="">
                                 </div>
@@ -134,11 +134,24 @@
                                     <input type="text" class="form-control" name="auth"
                                         value="{{ $vehicle->auth }}" placeholder="">
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">Transmission</label>
                                     <input type="text" class="form-control" name="trans"
                                         value="{{ $vehicle->trans }}" placeholder="">
+                                </div> --}}
+                                <div class="form-group mb-2 col-4">
+                                    <label for="trans">Transmission</label>
+                                    <select class="form-control" name="trans" id="trans">
+                                        <option value="Manual" {{ $vehicle->trans == 'Manual' ? 'selected' : '' }}>Manual</option>
+                                        {{-- <option value="Automatic" {{ $vehicle->trans == 'Automatic' ? 'selected' : '' }}>Automatic</option> --}}
+                                        {{-- <option value="AMT" {{ $vehicle->trans == 'AMT' ? 'selected' : '' }}>AMT</option>
+                                        <option value="CVT" {{ $vehicle->trans == 'CVT' ? 'selected' : '' }}>CVT</option>
+                                        <option value="DCT" {{ $vehicle->trans == 'DCT' ? 'selected' : '' }}>DCT</option>
+                                        <option value="Tiptronic" {{ $vehicle->trans == 'Tiptronic' ? 'selected' : '' }}>Tiptronic</option>
+                                        <option value="EV Single-Speed" {{ $vehicle->trans == 'EV Single-Speed' ? 'selected' : '' }}>EV Single-Speed</option> --}}
+                                    </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Exterior Color</label>
                                     <input type="text" class="form-control" name="exterior"
@@ -164,6 +177,28 @@
                                     <input type="text" class="form-control" name="mprice"
                                         value="{{ $vehicle->mprice }}" placeholder="">
                                 </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_day">Permitted kilometersd  Day</label>
+                                    <input type="text" class="form-control" name="permitted_kilometers_day"
+                                        value="{{ $vehicle->permitted_kilometers_day}}" placeholder="">
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_week">Permitted kilometers Week</label>
+                                    <input type="text" class="form-control" name="permitted_kilometers_week"
+                                        value="{{ $vehicle->permitted_kilometers_week}}" placeholder="">
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_month">Permitted Kilometers Month</label>
+                                    <input type="text" class="form-control" name="permitted_kilometers_week"
+                                        value="{{ $vehicle->permitted_kilometers_month}}" placeholder="">
+                                </div>
+
+
+
+
 
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="available">Available Time</label>

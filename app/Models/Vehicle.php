@@ -13,7 +13,7 @@ class Vehicle extends Model
     use HasFactory;
     use HasSlug;
     protected $fillable = [
-        'name','model','type','desc','mitter','image','body','seat','door','luggage','fuel','auth','trans','exterior','interior','featured','features','Dprice','wprice','mprice','location','status','available_time',
+        'name','model','type','desc','mitter','image','body','seat','door','luggage','fuel','auth','trans','exterior','interior','featured','features','Dprice','wprice','mprice','location','status','available_time','permitted_kilometers_day','permitted_kilometers_week','permitted_kilometers_month'
     ];
     public function getSlugOptions() : SlugOptions
     {
