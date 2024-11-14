@@ -411,10 +411,7 @@ class ApiController extends Controller
      $token = $user->createToken('auth_token')->plainTextToken;
 
       // Ensure the token is at least 250 characters long (if needed)
-       if (strlen($token) < 250) {
-       // Append random characters to make it exceed 250 characters
-       $token = Str::random(250 - strlen($token)) . $token;
-      }
+
        return response()->json([
             'status' => true,
             'message' => 'Your email is verified.',
@@ -422,22 +419,21 @@ class ApiController extends Controller
         ]);
     }
 
+
     public function create_contract(Request $request)
-    {
+{
+    try {
+        // Check if the user is authenticated
         if (!Auth::check()) {
-            $token = $request->bearerToken();
             return response()->json([
                 'status' => false,
                 'message' => 'Unauthenticated. Please login to continue.',
-                'debug' => [
-                    'token_present' => $token ? true : false,
-                    'auth_user' => Auth::user(),
-                ],
             ], 401);
         }
 
         $user = Auth::user();
 
+        // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'vehicle_name' => 'required|string|max:255',
             'Dprice' => 'required|numeric|min:0',
@@ -460,12 +456,13 @@ class ApiController extends Controller
             'email.exists' => 'The selected email does not exist in our records.',
         ]);
 
+        // Handle validation errors
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'The given data was invalid.',
-                "status_code" => 422,
-                "errors" => $validator->errors(),
+                'status_code' => 422,
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -521,24 +518,77 @@ class ApiController extends Controller
             'booking_id' => $booking->id,
             'payment_type' => $booking->payment_type,
         ], 201);
+
+    } catch (\Illuminate\Auth\AuthenticationException $e) {
+        // Handle unauthenticated access
+        return response()->json([
+            'status' => false,
+            'message' => 'You are not authenticated. Please login and try again.',
+        ], 401);
+    } catch (\Exception $e) {
+        // Handle any other exceptions
+        return response()->json([
+            'status' => false,
+            'message' => 'An error occurred while creating the contract.',
+            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
+        ], 500);
+    }
+}
+
+
+    public function logout(Request $request)
+    {
+        // Get the authenticated user
+        $user = $request->user();
+
+        // Revoke the token that was used to authenticate the current request
+        $user->currentAccessToken()->delete();
+
+        // Set 'verified' to 0
+        $user->update(['verified' => 0]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Logout successful. Your token has been invalidated, and verified status has been reset.',
+        ], 200);
     }
 
-//     public function logout(Request $request)
-// {
-//     // Get the authenticated user's token
-//     $user = $request->user();
 
-//     // Revoke the token that was used to authenticate the current request
-//     $user->currentAccessToken()->delete();
+    public function updateProfile(Request $request)
+   {
+    // Get the authenticated user
+    $user = $request->user();
 
-//     return response()->json([
-//         'status' => true,
-//         'message' => 'Logout successful. Your token has been invalidated.',
-//     ], 200);
-// }
+    // Validate the request input
+    $request->validate([
+        'name' => 'string|max:255|nullable',
+        'email' => 'email|unique:users,email,' . $user->id . '|nullable',
+        'password' => 'string|min:8|nullable',
+    ], [
+        'email.unique' => 'The email address is already taken.',
+        'password.min' => 'The password must be at least 8 characters.',
+    ]);
 
+    // Prepare data to update
+    $data = $request->only('name', 'email');
 
-    public function checkin(Request $request)
+    // If password is provided, hash it before updating
+    if ($request->filled('password')) {
+        $data['password'] = bcrypt($request->password);
+    }
+
+    // Update user profile
+    $user->update($data);
+
+    // Return response
+    return response()->json([
+        'status' => true,
+        'message' => 'Profile updated successfully.',
+        'user' => $user,
+    ], 200);
+   }
+
+public function checkin(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
