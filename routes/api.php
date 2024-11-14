@@ -24,8 +24,16 @@ Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 Route::get('cars', [ApiController::class, 'cars']);
 Route::get('cardetails/{id}', [ApiController::class, 'cardetails']);
 Route::post('avalibalcars', [ApiController::class, 'avalibalcars']);
+
 Route::post('stripe-payment', [StripeWebhookController::class, 'stripePayment']);
-Route::post('create-contract', [ApiController::class, 'create_contract']);
+
+Route::middleware('auth:sanctum')->group( function () {
+    Route::post('create-contract', [ApiController::class, 'create_contract']);
+    // Route::post('logout', [ApiController::class, 'logout']);
+
+});
+
+
 Route::post('checkin', [ApiController::class, 'checkin']);
 Route::post('checkout', [ApiController::class, 'checkout']);
 

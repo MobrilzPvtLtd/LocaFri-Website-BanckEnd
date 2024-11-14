@@ -21,6 +21,11 @@ use App\Models\ContractOut;
 use App\Models\Alert;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+
+
 
 class ApiController extends Controller
 {
@@ -52,106 +57,6 @@ class ApiController extends Controller
 
         return response()->json([
             'message' => 'Your account register successfully. Please check your email for 6 digit OTP',
-        ]);
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user) {
-            $user = User::create([
-                'email' => $request->email,
-            ]);
-        }
-        $otp = mt_rand(100000, 999999);
-        $user->otp = $otp;
-        $user->save();
-        Mail::to($user->email)->send(new SendOtpMail($otp));
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Your OTP has been sent for login. Please check your email for the 6-digit OTP.',
-        ], 200);
-    }
-    public function resendOtp(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found.'], 404);
-        }
-
-        $otp = mt_rand(100000, 999999);
-        $user->otp = $otp;
-        $user->otp = Carbon::now();
-        $user->save();
-
-        Mail::to($user->email)->send(new SendOtpMail($otp));
-
-        return response()->json([
-            'message' => 'A new OTP has been sent to your email.',
-        ]);
-    }
-
-    public function verifyOtp(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'otp' => 'required',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found.'], 404);
-        }
-
-        if ($user->otp != $request->otp) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid OTP.',
-            ], 401);
-        }
-
-        $otpExpiryTime = Carbon::parse($user->otp_generated_at)->addSeconds(30);
-        if (Carbon::now()->greaterThan($otpExpiryTime)) {
-
-            $otp = mt_rand(100000, 999999);
-
-            $user->otp = $otp;
-            $user->otp_generated_at = Carbon::now();
-            $user->save();
-
-
-            Mail::to($user->email)->send(new SendOtpMail($otp));
-
-            return response()->json([
-                'status' => true,
-                'message' => 'OTP has expired. New OTP has been sent to your email.',
-            ], 200);
-        }
-
-        $user->otp = null;
-        $user->verified = 1;
-        $user->save();
-
-        // Auth::login($user);
-        // $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Your email is verified.',
-            // 'user' => $user,
-            // 'token' => $token
         ]);
     }
 
@@ -233,7 +138,6 @@ class ApiController extends Controller
             'data' => $vehicleData
         ]);
     }
-
 
     public function cardetails($id)
     {
@@ -435,8 +339,105 @@ class ApiController extends Controller
         }
     }
 
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'email' => $request->email,
+            ]);
+        }
+        $otp = mt_rand(100000, 999999);
+        $user->otp = $otp;
+        $user->save();
+        Mail::to($user->email)->send(new SendOtpMail($otp));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Your OTP has been sent for login. Please check your email for the 6-digit OTP.',
+        ], 200);
+    }
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['status' => false,'message' => 'User not found.'], 404);
+        }
+
+        $otp = mt_rand(100000, 999999);
+
+        $user->otp = $otp;
+        $user->verified = 0;
+        $user->save();
+
+        Mail::to($user->email)->send(new SendOtpMail($otp));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'A new OTP has been sent to your email.',
+        ]);
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate(['email' => 'required|email', 'otp' => 'required']);
+
+        // Find user by email
+        $user = User::where('email', $request->email)->first();
+
+        // Check if the OTP matches
+        if ($user->otp !== $request->otp) {
+            return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
+        }
+
+        if ($user->verified == 1) {
+            return response()->json(['status' => false, 'message' => 'OTP has expired. A new OTP has been sent to your email.'], 401);
+        }
+
+        $user->update(['otp' => null, 'verified' => 1]);
+
+        // Generate a token
+      // Generate and return a simple API token using Sanctum
+     $token = $user->createToken('auth_token')->plainTextToken;
+
+      // Ensure the token is at least 250 characters long (if needed)
+       if (strlen($token) < 250) {
+       // Append random characters to make it exceed 250 characters
+       $token = Str::random(250 - strlen($token)) . $token;
+      }
+       return response()->json([
+            'status' => true,
+            'message' => 'Your email is verified.',
+            'token' => $token,
+        ]);
+    }
+
     public function create_contract(Request $request)
     {
+        if (!Auth::check()) {
+            $token = $request->bearerToken();
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated. Please login to continue.',
+                'debug' => [
+                    'token_present' => $token ? true : false,
+                    'auth_user' => Auth::user(),
+                ],
+            ], 401);
+        }
+
+        $user = Auth::user();
+
         $validator = Validator::make($request->all(), [
             'vehicle_name' => 'required|string|max:255',
             'Dprice' => 'required|numeric|min:0',
@@ -468,66 +469,48 @@ class ApiController extends Controller
             ], 422);
         }
 
-        // Calcular el precio total
-        $totalPrice = 0;
-        $totalPriceDay = $request->Dprice * $request->day_count;
-        $totalPriceWeek = $request->wprice * $request->week_count;
-        $totalPriceMonth = $request->mprice * $request->month_count;
-        $totalPrice = $totalPriceDay + $totalPriceWeek + $totalPriceMonth;
+        // Calculate the total price
+        $totalPrice = $request->Dprice * $request->day_count +
+                      $request->wprice * $request->week_count +
+                      $request->mprice * $request->month_count +
+                      ($request->additional_driver ?? 0) +
+                      ($request->booster_seat ?? 0) +
+                      ($request->child_seat ?? 0) +
+                      ($request->exit_permit ?? 0);
 
-        // Añadir costos adicionales
-        $totalPrice += $request->additional_driver ?? 0;
-        $totalPrice += $request->booster_seat ?? 0;
-        $totalPrice += $request->child_seat ?? 0;
-        $totalPrice += $request->exit_permit ?? 0;
+        // Create the booking
+        $booking = Booking::create([
+            'name' => $request->vehicle_name,
+            'Dprice' => $request->Dprice,
+            'wprice' => $request->wprice,
+            'mprice' => $request->mprice,
+            'day_count' => $request->day_count,
+            'week_count' => $request->week_count,
+            'month_count' => $request->month_count,
+            'additional_driver' => $request->additional_driver ?? 0,
+            'booster_seat' => $request->booster_seat ?? 0,
+            'child_seat' => $request->child_seat ?? 0,
+            'exit_permit' => $request->exit_permit ?? 0,
+            'total_price' => $totalPrice,
+            'pickUpLocation' => $request->pickUpLocation,
+            'dropOffLocation' => $request->dropOffLocation,
+            'pickUpDate' => Carbon::parse($request->pickUpDate),
+            'pickUpTime' => $request->pickUpTime,
+            'collectionDate' => Carbon::parse($request->collectionDate),
+            'collectionTime' => $request->collectionTime,
+            'payment_type' => $request->payment_type,
+        ]);
 
-        // Crear la reserva
-        $booking = new Booking();
-        $booking->name = $request->vehicle_name;
-        $booking->Dprice = $request->Dprice;
-        $booking->wprice = $request->wprice;
-        $booking->mprice = $request->mprice;
-        $booking->day_count = $request->day_count;
-        $booking->week_count = $request->week_count;
-        $booking->month_count = $request->month_count;
-        $booking->additional_driver = $request->additional_driver ?? 0;
-        $booking->booster_seat = $request->booster_seat ?? 0;
-        $booking->child_seat = $request->child_seat ?? 0;
-        $booking->exit_permit = $request->exit_permit ?? 0;
-        $booking->total_price = $totalPrice;
-        $booking->pickUpLocation = $request->pickUpLocation;
-        $booking->dropOffLocation = $request->dropOffLocation;
-        $booking->pickUpDate = Carbon::parse($request->pickUpDate);
-        $booking->pickUpTime = $request->pickUpTime;
-        $booking->collectionDate = Carbon::parse($request->collectionDate);
-        $booking->collectionTime = $request->collectionTime;
-        $booking->payment_type = $request->payment_type;
-        $booking->save();
-
-        // Crear el checkout
-        $checkout = new Checkout();
-        $checkout->booking_id = $booking->id;
-        $checkout->first_name = $request->first_name;
-        $checkout->last_name = $request->last_name;
-        $checkout->email = $request->email;
-        $checkout->phone = $request->phone;
-        $checkout->address_first = $request->address_first;
-        $checkout->address_last = $request->address_last;
-        $checkout->save();
-
-        // $user = User::where('email', $request->email)->first();
-
-        // if (!$user) {
-        //     $user = User::create([
-        //         'email' => $request->email,
-        //     ]);
-        // }
-
-        // $otp = mt_rand(100000, 999999);
-        // $user->otp = $otp;
-        // $user->save();
-
-        // Mail::to($user->email)->send(new SendOtpMail($otp));
+        // Create the checkout
+        $checkout = Checkout::create([
+            'booking_id' => $booking->id,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address_first' => $request->address_first,
+            'address_last' => $request->address_last,
+        ]);
 
         return response()->json([
             'status' => true,
@@ -536,9 +519,24 @@ class ApiController extends Controller
             'vehicle_name' => $booking->name,
             'customer_email' => $checkout->email,
             'booking_id' => $booking->id,
-            'payment_type' => $booking->payment_type
+            'payment_type' => $booking->payment_type,
         ], 201);
     }
+
+//     public function logout(Request $request)
+// {
+//     // Get the authenticated user's token
+//     $user = $request->user();
+
+//     // Revoke the token that was used to authenticate the current request
+//     $user->currentAccessToken()->delete();
+
+//     return response()->json([
+//         'status' => true,
+//         'message' => 'Logout successful. Your token has been invalidated.',
+//     ], 200);
+// }
+
 
     public function checkin(Request $request)
     {
