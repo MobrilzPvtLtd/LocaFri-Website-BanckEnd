@@ -21,6 +21,8 @@ Route::post('verify-otp', [ApiController::class, 'verifyOtp']);
 Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 
 Route::get('getBookingHistory/{email}', [ApiController::class, 'getBookingHistory']);
+Route::post('contactus', [ApiController::class, 'contactus']);
+
 
 
 Route::middleware('auth:sanctum')->group( function () {

@@ -18,6 +18,10 @@ use App\Mail\MakeContract;
 use App\Mail\CheckOutMail;
 use App\Models\ContractIn;
 use App\Models\ContractOut;
+use App\Models\Contact;
+use App\Mail\ContactMail;
+
+
 use App\Models\Alert;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Validator;
@@ -788,7 +792,7 @@ class ApiController extends Controller
     }
 
     public function getBookingHistory($email)
-{
+  {
     try {
         // Retrieve bookings based on the provided email from the checkout table
         $checkouts = Checkout::where('email', $email)->with('booking')->get();
@@ -832,13 +836,13 @@ class ApiController extends Controller
             'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
         ], 500);
     }
-}
+   }
 
 /**
  * Get the booking status description based on specific conditions.
  */
-private function getBookingStatusDescription($booking)
-{
+    private function getBookingStatusDescription($booking)
+   {
     if ($booking->is_reject == 1) {
         return 'Booking rejected by admin';
     }
@@ -858,52 +862,43 @@ private function getBookingStatusDescription($booking)
         return 'Booking completed';
     }
     return 'Booking is yet to approve';
-}
+   }
 
 
-    // public function getBookingHistory($email)
-    // {
-    //     try {
-    //         // Retrieve bookings based on the provided email from the checkout table
-    //         $checkouts = Checkout::where('email', $email)->with('booking')->get();
+   public function contactus(Request $request)
+   {
+       $request->validate([
+           'name' => 'required',
+           'email' => 'required|email',
+           'message' => 'required',
+       ]);
 
-    //         if ($checkouts->isEmpty()) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'message' => 'No booking history found for this email.',
-    //             ], 404);
-    //         }
+       // Save form data to the database
+       $contact = new Contact();
+       $contact->name = $request->name;
+       $contact->email = $request->email;
+       $contact->message = $request->message;
+       $contact->save();
 
-    //         // Format the response to include booking details and statuses
-    //         $bookingHistory = $checkouts->map(function ($checkout) {
-    //             return [
-    //                 'booking_id' => $checkout->booking->id ?? null,
-    //                 'vehicle_name' => $checkout->booking->name ?? null,
-    //                 'total_price' => $checkout->booking->total_price ?? null,
-    //                 'status' => $checkout->booking->status ?? null,
-    //                 'pickUpLocation' => $checkout->booking->pickUpLocation ?? null,
-    //                 'dropOffLocation' => $checkout->booking->dropOffLocation ?? null,
-    //                 'pickUpDate' => $checkout->booking->pickUpDate ?? null,
-    //                 'collectionDate' => $checkout->booking->collectionDate ?? null,
-    //                 'created_at' => $checkout->created_at,
-    //             ];
-    //         });
+       $admin = User::where('id', 1)->first();
 
-    //         return response()->json([
-    //             'status' => true,
-    //             'message' => 'Booking history retrieved successfully.',
-    //             'data' => $bookingHistory,
+       try {
+            Mail::to($contact->email)->send(new ContactMail($contact));
+            Mail::to($admin->email)->send(new ContactMail($contact));
+       } catch (\Exception $e) {
+            return response()->json([
+               'status' => false,
+               'message' => 'Message saved but failed to send email to the admin.',
+               'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+            ], 500);
+       }
 
-    //         ], 200);
+       return response()->json([
+           'status' => true,
+           'message' => 'Message sent successfully!',
+       ], 200);
+   }
 
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => 'An error occurred while retrieving booking history.',
-    //             'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
-    //         ], 500);
-    //     }
-    // }
 
 
 }
