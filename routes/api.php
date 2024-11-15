@@ -20,6 +20,9 @@ Route::post('login', [ApiController::class, 'login']);
 Route::post('verify-otp', [ApiController::class, 'verifyOtp']);
 Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 
+Route::get('getBookingHistory/{email}', [ApiController::class, 'getBookingHistory']);
+
+
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('logout', [ApiController::class, 'logout']);
     Route::put('updateProfile', [ApiController::class, 'updateProfile']);

@@ -421,7 +421,7 @@ class ApiController extends Controller
 
 
     public function create_contract(Request $request)
-{
+    {
     try {
         // Check if the user is authenticated
         if (!Auth::check()) {
@@ -533,10 +533,10 @@ class ApiController extends Controller
             'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
         ], 500);
     }
-}
+    }
 
 
-    public function logout(Request $request)
+  public function logout(Request $request)
     {
         // Get the authenticated user
         $user = $request->user();
@@ -588,7 +588,7 @@ class ApiController extends Controller
     ], 200);
    }
 
-public function checkin(Request $request)
+    public function checkin(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
@@ -676,6 +676,7 @@ public function checkin(Request $request)
             return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
         }
     }
+
     public function checkout(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -780,5 +781,130 @@ public function checkin(Request $request)
             return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
         }
     }
+
+
+    public function bookinghistory(Request $request){
+
+    }
+
+    public function getBookingHistory($email)
+{
+    try {
+        // Retrieve bookings based on the provided email from the checkout table
+        $checkouts = Checkout::where('email', $email)->with('booking')->get();
+
+        if ($checkouts->isEmpty()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No booking history found for this email.',
+            ], 404);
+        }
+
+        // Format the response to include booking details and statuses
+        $bookingHistory = $checkouts->map(function ($checkout) {
+            $booking = $checkout->booking;
+            $statusDescription = $this->getBookingStatusDescription($booking);
+
+            return [
+                'booking_id' => $booking->id ?? null,
+                'vehicle_name' => $booking->name ?? null,
+                'total_price' => $booking->total_price ?? null,
+                'status' => $booking->status ?? null,
+                'pickUpLocation' => $booking->pickUpLocation ?? null,
+                'dropOffLocation' => $booking->dropOffLocation ?? null,
+                'pickUpDate' => $booking->pickUpDate ?? null,
+                'collectionDate' => $booking->collectionDate ?? null,
+                'created_at' => $checkout->created_at,
+                'status_description' => $statusDescription,
+            ];
+        });
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Booking history retrieved successfully.',
+            'data' => $bookingHistory,
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => 'An error occurred while retrieving booking history.',
+            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+        ], 500);
+    }
+}
+
+/**
+ * Get the booking status description based on specific conditions.
+ */
+private function getBookingStatusDescription($booking)
+{
+    if ($booking->is_reject == 1) {
+        return 'Booking rejected by admin';
+    }
+    if ($booking->is_view == 1) {
+        return 'Booking approved';
+    }
+    if ($booking->is_contract == 1) {
+        return 'Check-in form sent by admin';
+    }
+    if ($booking->is_contract == 2) {
+        return 'Check-in form submitted by user';
+    }
+    if ($booking->is_confirm == 1) {
+        return 'Check-in details seen and approved by admin';
+    }
+    if ($booking->is_complete == 1) {
+        return 'Booking completed';
+    }
+    return 'Booking is yet to approve';
+}
+
+
+    // public function getBookingHistory($email)
+    // {
+    //     try {
+    //         // Retrieve bookings based on the provided email from the checkout table
+    //         $checkouts = Checkout::where('email', $email)->with('booking')->get();
+
+    //         if ($checkouts->isEmpty()) {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => 'No booking history found for this email.',
+    //             ], 404);
+    //         }
+
+    //         // Format the response to include booking details and statuses
+    //         $bookingHistory = $checkouts->map(function ($checkout) {
+    //             return [
+    //                 'booking_id' => $checkout->booking->id ?? null,
+    //                 'vehicle_name' => $checkout->booking->name ?? null,
+    //                 'total_price' => $checkout->booking->total_price ?? null,
+    //                 'status' => $checkout->booking->status ?? null,
+    //                 'pickUpLocation' => $checkout->booking->pickUpLocation ?? null,
+    //                 'dropOffLocation' => $checkout->booking->dropOffLocation ?? null,
+    //                 'pickUpDate' => $checkout->booking->pickUpDate ?? null,
+    //                 'collectionDate' => $checkout->booking->collectionDate ?? null,
+    //                 'created_at' => $checkout->created_at,
+    //             ];
+    //         });
+
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Booking history retrieved successfully.',
+    //             'data' => $bookingHistory,
+
+    //         ], 200);
+
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'An error occurred while retrieving booking history.',
+    //             'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+    //         ], 500);
+    //     }
+    // }
+
+
 }
 
