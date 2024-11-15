@@ -412,15 +412,18 @@ class ApiController extends Controller
         $user->update(['otp' => null, 'verified' => 1]);
 
         // Generate a token
-      // Generate and return a simple API token using Sanctum
-     $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token', ['*'])
+                      ->plainTextToken;
 
-      // Ensure the token is at least 250 characters long (if needed)
+        // Set the expiration time for the token to 1 day from now
+        $expiresAt = Carbon::now()->addDay(1);
 
-       return response()->json([
+        // Return the response with token and expiration time
+        return response()->json([
             'status' => true,
             'message' => 'Your email is verified.',
             'token' => $token,
+            'expires_at' => $expiresAt->toDateTimeString(),  // Optionally return the expiration time
         ]);
     }
 
@@ -557,45 +560,8 @@ class ApiController extends Controller
             'message' => 'Logout successful. Your token has been invalidated, and verified status has been reset.',
         ], 200);
     }
-
-
-//     public function updateProfile(Request $request)
-//    {
-//     // Get the authenticated user
-//     $user = $request->user();
-
-//     // Validate the request input
-//     $request->validate([
-//         'name' => 'string|max:255|nullable',
-//         'email' => 'email|unique:users,email,' . $user->id . '|nullable',
-//         'password' => 'string|min:8|nullable',
-//     ], [
-//         'email.unique' => 'The email address is already taken.',
-//         'password.min' => 'The password must be at least 8 characters.',
-//     ]);
-
-//     // Prepare data to update
-//     $data = $request->only('name', 'email');
-
-//     // If password is provided, hash it before updating
-//     if ($request->filled('password')) {
-//         $data['password'] = bcrypt($request->password);
-//     }
-
-//     // Update user profile
-//     $user->update($data);
-
-//     // Return response
-//     return response()->json([
-//         'status' => true,
-//         'message' => 'Profile updated successfully.',
-//         'user' => $user,
-//     ], 200);
-//    }
-
-
-public function updateProfile(Request $request)
-{
+   public function updateProfile(Request $request)
+   {
     // Get the authenticated user
     $user = $request->user();
 
@@ -629,7 +595,7 @@ public function updateProfile(Request $request)
         'message' => 'Profile updated successfully.',
         'user' => $user,
     ], 200);
-}
+   }
 
 
     public function checkin(Request $request)
