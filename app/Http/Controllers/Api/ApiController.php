@@ -366,6 +366,7 @@ class ApiController extends Controller
             'message' => 'Your OTP has been sent for login. Please check your email for the 6-digit OTP.',
         ], 200);
     }
+
     public function resendOtp(Request $request)
     {
         $request->validate([
@@ -558,23 +559,61 @@ class ApiController extends Controller
     }
 
 
-    public function updateProfile(Request $request)
-   {
+//     public function updateProfile(Request $request)
+//    {
+//     // Get the authenticated user
+//     $user = $request->user();
+
+//     // Validate the request input
+//     $request->validate([
+//         'name' => 'string|max:255|nullable',
+//         'email' => 'email|unique:users,email,' . $user->id . '|nullable',
+//         'password' => 'string|min:8|nullable',
+//     ], [
+//         'email.unique' => 'The email address is already taken.',
+//         'password.min' => 'The password must be at least 8 characters.',
+//     ]);
+
+//     // Prepare data to update
+//     $data = $request->only('name', 'email');
+
+//     // If password is provided, hash it before updating
+//     if ($request->filled('password')) {
+//         $data['password'] = bcrypt($request->password);
+//     }
+
+//     // Update user profile
+//     $user->update($data);
+
+//     // Return response
+//     return response()->json([
+//         'status' => true,
+//         'message' => 'Profile updated successfully.',
+//         'user' => $user,
+//     ], 200);
+//    }
+
+
+public function updateProfile(Request $request)
+{
     // Get the authenticated user
     $user = $request->user();
 
     // Validate the request input
     $request->validate([
-        'name' => 'string|max:255|nullable',
+        'first_name' => 'string|max:255|nullable',
+        'last_name' => 'string|max:255|nullable',
         'email' => 'email|unique:users,email,' . $user->id . '|nullable',
-        'password' => 'string|min:8|nullable',
+        'mobile' => 'string|max:15|nullable|unique:users,mobile,' . $user->id,
+        'password' => 'string|min:8|nullable', // Password is optional and only validated if provided
     ], [
         'email.unique' => 'The email address is already taken.',
-        'password.min' => 'The password must be at least 8 characters.',
+        'password.min' => 'The password must be at least 8 characters.', // Only shows if password is provided
+        'mobile.unique' => 'The mobile number is already taken.',
     ]);
 
     // Prepare data to update
-    $data = $request->only('name', 'email');
+    $data = $request->only('first_name', 'last_name', 'email', 'mobile');
 
     // If password is provided, hash it before updating
     if ($request->filled('password')) {
@@ -590,7 +629,8 @@ class ApiController extends Controller
         'message' => 'Profile updated successfully.',
         'user' => $user,
     ], 200);
-   }
+}
+
 
     public function checkin(Request $request)
     {

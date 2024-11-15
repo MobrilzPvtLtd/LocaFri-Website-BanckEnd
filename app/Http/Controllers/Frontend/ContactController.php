@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Contact;
-use App\Models\User; // Add this line
-
-// use App\Http\Controllers\Frontend\User;
+use App\Models\User;
 
 class ContactController extends Controller
 {
