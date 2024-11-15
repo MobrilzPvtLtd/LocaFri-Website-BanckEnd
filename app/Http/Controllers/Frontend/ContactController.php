@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Contact;
+use App\Models\User; // Add this line
+
+// use App\Http\Controllers\Frontend\User;
 
 class ContactController extends Controller
 {
@@ -25,8 +28,11 @@ class ContactController extends Controller
         $contact->message = $request->message;
         $contact->save();
 
+        $admin = User::where('id', 1)->first();
+
         // Send email
         Mail::to($contact->email)->send(new ContactMail($contact));
+        Mail::to($admin->email)->send(new ContactMail($contact));
 
         return redirect()->back()->with('success', 'Message sent successfully!');
     }
