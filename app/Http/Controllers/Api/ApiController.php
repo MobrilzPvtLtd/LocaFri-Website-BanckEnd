@@ -867,7 +867,7 @@ class ApiController extends Controller
     if ($booking->is_complete == 1) {
         return 'Booking completed';
     }
-    return 'Booking is yet to approve';
+    return 'pending';
    }
 
 
