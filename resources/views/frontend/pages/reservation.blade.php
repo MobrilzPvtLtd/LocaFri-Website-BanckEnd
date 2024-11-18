@@ -134,14 +134,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder="" required>
+                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder=""
+                                required>
                             @error('first_name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder="" required>
+                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder=""
+                                required>
                         </div>
                     </div>
 
@@ -210,12 +212,41 @@
                         <label class="custom-control-label" for="save-info">Save this information for next time</label>
                     </div>
                     <hr class="mb-4">
-                    {{-- <p>10% of the total amount will have to be paid</p> --}}
-                    <label class="custom-control-label mb-2" for="same-address">Choose Payment Type</label>
-                    <select class="form-select" style="width: 30%;" name="payment_type">
-                        <option value="0">Pay 10% Payment</option>
-                        <option value="1">Pay Full Payment</option>
+                    <label class="custom-control-label mb-8" for="same-address">Choose Payment Type</label>
+
+                    <select class="form-select" style="width: 45%;" name="payment_type" id="payment_type"
+                        onchange="updatePayment()">
+                        <option value="0">Pay Partially 10% (PAY PARTIALLY $<span id="payment_10_percent"></span>)
+                        </option>
+                        <option value="1">Pay Full Amount (PAY FULL AMOUNT $<span id="payment_full"></span>)</option>
                     </select>
+
+                    <script>
+                        // Assuming $data['total_price'] is already available in JavaScript
+                        const totalPrice = {{ $data['total_price'] }};
+
+                        function updatePayment() {
+                            const paymentType = document.getElementById('payment_type').value;
+
+                            // Calculate the 10% payment
+                            const payment10Percent = (totalPrice * 0.1).toFixed(2);
+
+                            // Update the text based on the selected option
+                            if (paymentType == "0") {
+                                // For 10% Payment (Partial Payment)
+                                document.getElementById('payment_10_percent').innerText = payment10Percent;
+                                document.getElementById('payment_full').innerText = totalPrice.toFixed(2);
+                            } else if (paymentType == "1") {
+                                // For Full Payment
+                                document.getElementById('payment_full').innerText = totalPrice.toFixed(2);
+                                document.getElementById('payment_10_percent').innerText = payment10Percent;
+                            }
+                        }
+
+                        // Call the function initially to set the default values
+                        updatePayment();
+                    </script>
+
 
                     <h4 class="mt-3">Payment Methods</h4>
 
