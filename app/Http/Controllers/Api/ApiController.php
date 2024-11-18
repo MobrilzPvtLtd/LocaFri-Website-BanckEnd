@@ -850,19 +850,19 @@ class ApiController extends Controller
     private function getBookingStatusDescription($booking)
    {
     if ($booking->is_reject == 1) {
-        return 'Booking rejected by admin';
+        return 'Rejected ';
     }
     if ($booking->is_view == 1) {
-        return 'Booking approved';
+        return 'Approved';
     }
     if ($booking->is_contract == 1) {
-        return 'Check-in form sent by admin';
+        return ' submit Check-in';
     }
     if ($booking->is_contract == 2) {
-        return 'Check-in form submitted by user';
+        return 'Check-in submitted ';
     }
     if ($booking->is_confirm == 1) {
-        return 'Check-in details seen and approved by admin';
+        return 'Check-in Approved';
     }
     if ($booking->is_complete == 1) {
         return 'Booking completed';
