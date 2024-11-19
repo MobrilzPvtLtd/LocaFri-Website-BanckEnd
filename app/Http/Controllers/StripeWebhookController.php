@@ -18,15 +18,30 @@ class StripeWebhookController extends Controller
         $segments = explode('/', $currentUrl);
         $apiUrl = end($segments);
 
-        $redirectUrl = route('stripe',['price' => $request->price, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
+        if($request->payment_type == "payment_partial"){
+            $amount = $request->price * 0.10;
+        }else{
+            $amount = $request->price;
+        }
+
+        $redirectUrl = route('stripe',['price' => $amount, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
 
         return response()->json(['status' => true, 'redirectUrl' => $redirectUrl]);
     }
     public function stripe(Request $request){
+        if($request->payment_type == "payment_partial"){
+            // $amount = $request->price;
+            $amount = $request->price * 0.10;
+            // $amount -= $discount;
+        }else{
+            $amount = $request->price;
+        }
+
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $redirectUrl = route('stripe-checkout') . '?session_id={CHECKOUT_SESSION_ID}';
         $cancelUrl = route('stripe-checkout-cancel') . '?session_id={CHECKOUT_SESSION_ID}';
+
 
         $response = $stripe->checkout->sessions->create([
             'success_url' => $redirectUrl,
@@ -39,7 +54,7 @@ class StripeWebhookController extends Controller
                         'product_data' => [
                             'name' => $request->vehicle_name,
                         ],
-                        'unit_amount' => 100 * $request->price,
+                        'unit_amount' => 100 * $amount,
                         'currency' => 'USD',
                     ],
                     'quantity' => 1,
@@ -63,9 +78,9 @@ class StripeWebhookController extends Controller
         $response = $stripe->checkout->sessions->retrieve($request->session_id);
         $amount_total = number_format($response->amount_total / 100, 2, '.', '');
 
-        $booking = Booking::find($response->metadata->booking_id);
-        $booking->status = $response->metadata->payment_type == 1 ? $response->status : "Parcel Paid";
-        $booking->save();
+        // $booking = Booking::find($response->metadata->booking_id);
+        // $booking->status = $response->metadata->payment_type == "payment_partial" ? $response->status : "payment_partial";
+        // $booking->save();
 
         $transaction = new Transaction();
         $transaction->order_id = $response->metadata->booking_id;
@@ -74,7 +89,7 @@ class StripeWebhookController extends Controller
         $transaction->currency = $response->currency;
         $transaction->payment_method = "stripe";
         $transaction->date_time = \Carbon\Carbon::now();
-        $transaction->payment_status = $response->metadata->payment_type == 1 ? $response->status : "Parcel Paid";
+        $transaction->payment_status = $response->metadata->payment_type == "payment_full" ? $response->status : "payment_partial";
         $transaction->save();
 
         $bookingFirst = Booking::where('id', $response->metadata->booking_id)->first();
@@ -107,9 +122,9 @@ class StripeWebhookController extends Controller
             'collectionDate' => $bookingFirst->collectionDate,
             'targetDate' => $bookingFirst->targetDate,
             'status' => $bookingFirst->status,
-            // 'order_status' => $booking->order_status,
-            // 'payment_status' => $booking->payment_status,
-            // 'payment_method' => $booking->payment_method,
+            'payment_type' => $bookingFirst->payment_type,
+            'payment_method' => $bookingFirst->transaction->payment_method,
+            'amount_paid' => $bookingFirst->transaction->amount,
         ];
 
         if ($response->customer_email) {

@@ -214,14 +214,20 @@
                     <hr class="mb-4">
                     <label class="custom-control-label mb-8" for="same-address">Choose Payment Type</label>
 
-                    <select class="form-select" style="width: 45%;" name="payment_type" id="payment_type"
-                        onchange="updatePayment()">
-                        <option value="0">Pay Partially 10% (PAY PARTIALLY $<span id="payment_10_percent"></span>)
+                    @php
+                        $remaining_amount = $data['total_price'] * 0.10;
+                    @endphp
+
+                    <select class="form-select" style="width: 50%;" name="payment_type" id="payment_type"
+                        {{-- onchange="updatePayment()" --}}
+                    >
+                        <option value="payment_partial">PAY PARTIALLY 10% (10% of the ${{$remaining_amount}})
+                            <span id="payment_10_percent"></span>
                         </option>
-                        <option value="1">Pay Full Amount (PAY FULL AMOUNT $<span id="payment_full"></span>)</option>
+                        <option value="payment_full">PAY FULL AMOUNT (${{$data['total_price']}})<span id="payment_full"></span></option>
                     </select>
 
-                    <script>
+                    {{-- <script>
                         // Assuming $data['total_price'] is already available in JavaScript
                         const totalPrice = {{ $data['total_price'] }};
 
@@ -245,8 +251,7 @@
 
                         // Call the function initially to set the default values
                         updatePayment();
-                    </script>
-
+                    </script> --}}
 
                     <h4 class="mt-3">Payment Methods</h4>
 

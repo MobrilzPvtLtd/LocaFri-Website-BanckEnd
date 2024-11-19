@@ -228,47 +228,27 @@
                         </tr>
                     @endif
                     <tr>
-                        <td>
-                            Total Price
-                        </td>
-                        <td>
-                            ${{ $data['total_price'] }}
-                        </td>
+                        <td>Total Amount</td>
+                        <td>${{ $data['total_price'] }}</td>
                     </tr>
-                    @if($data['status'] == "Parcel Paid")
+                    <tr>
+                        <td>Amount Paid</td>
+                        <td>${{ $data['amount_paid'] }}</td>
+                    </tr>
+                    @if($data['payment_type'] == "payment_partial")
                         <tr>
-                            <td>
-                                Remaining Amount
-                            </td>
-                            <td>
-                                ${{ $data['remaining_amount'] }}
-                            </td>
+                            <td>Remaining Amount</td>
+                            <td>${{ $data['remaining_amount'] }}</td>
                         </tr>
                     @endif
                     <tr>
-                        <td>
-                            Status
-                        </td>
-                        <td>
-                            {{ $data['status'] }}
-                        </td>
-                    </tr>
-                    {{-- <tr>
-                        <td>
-                            Order Status
-                        </td>
-                        <td>
-                            {{ $data['order_status'] }}
-                        </td>
+                        <td>Status</td>
+                        <td>{{ $data['status'] }}</td>
                     </tr>
                     <tr>
-                        <td>
-                            Payment Method
-                        </td>
-                        <td>
-                            {{ $data['payment_method'] }}
-                        </td>
-                    </tr> --}}
+                        <td>Payment Method</td>
+                        <td>{{ $data['payment_method'] }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
