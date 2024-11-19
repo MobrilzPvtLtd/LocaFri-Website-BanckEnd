@@ -72,7 +72,7 @@
                                 <i class="fa-solid fa-address-book ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-success">{{ $contacts ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Total Contacts</p>
+                            <p class="text-muted mb-0">Total Contact Inqueries</p>
                         </div>
                     </div>
                 </div>
