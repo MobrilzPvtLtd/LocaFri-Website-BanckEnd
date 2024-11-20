@@ -117,7 +117,7 @@ $notifications_latest = optional($notifications)->take(5);
             </li> --}}
         </ul>
         <ul class="header-nav">
-            {{-- <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                 <button class="btn btn-link nav-link d-flex align-items-center px-2 py-2" data-coreui-toggle="dropdown"
                     type="button" aria-expanded="false">
                     <svg class="icon icon-lg icon-tabler icons-tabler-outline icon-tabler-language"
@@ -143,7 +143,7 @@ $notifications_latest = optional($notifications)->take(5);
                         </li>
                     @endforeach
                 </ul>
-            </li> --}}
+            </li>
         </ul>
         <ul class="header-nav">
             <li class="nav-item dropdown">
