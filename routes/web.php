@@ -60,6 +60,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // contact
     Route::resource('admin/contact', ContactsController::class);
+    Route::patch('contacts/{id}', [ContactController::class, 'update'])->name('contacts.update');
+
     Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
     Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
     Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');

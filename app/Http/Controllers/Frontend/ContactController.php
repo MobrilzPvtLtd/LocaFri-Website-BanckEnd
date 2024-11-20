@@ -34,4 +34,14 @@ class ContactController extends Controller
 
         return redirect()->back()->with('success', 'Message sent successfully!');
     }
+
+    public function update(Request $request, $id)
+{
+    $contact = Contact::findOrFail($id);
+    $contact->status = $request->status; // Update status to 'open' or 'close'
+    $contact->save();
+
+    return redirect()->back()->with('success', 'Contact status updated successfully.');
+}
+
 }

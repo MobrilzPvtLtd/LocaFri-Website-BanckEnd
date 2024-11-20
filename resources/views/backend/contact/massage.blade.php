@@ -17,12 +17,13 @@
                                 <thead>
                                     <tr>
                                         {{-- <th scope="col">Id</th> --}}
+
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         {{-- <th scope="col">Phone</th>
                                     <th scope="col">Subject</th> --}}
                                         <th scope="col">Message</th>
-                                        {{-- <th scope="col">Action</th> --}}
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,8 +35,44 @@
                                             {{-- <td>{{ $contact->phone }}</td>
                                     <td>{{ $contact->sub }}</td> --}}
                                             <td>{{ $contact->message }}</td>
-
-
+                                            {{-- <td>
+                                                <form action="{{ route('contacts.update', $contact->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <select name="status"
+                                                        class="form-select text-white {{ $contact->status == 'open' ? 'bg-danger' : 'bg-success' }}"
+                                                        onchange="this.form.submit()">
+                                                        <option value="open"
+                                                            {{ $contact->status == 'open' ? 'selected' : '' }}>
+                                                            Open
+                                                        </option>
+                                                        <option value="close"
+                                                            {{ $contact->status == 'close' ? 'selected' : '' }}>
+                                                            Close
+                                                        </option>
+                                                    </select>
+                                                </form>
+                                            </td> --}}
+                                            <td>
+                                                <form action="{{ route('contacts.update', $contact->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <select name="status"
+                                                        class="form-select text-white {{ $contact->status == 'open' ? 'bg-danger' : 'bg-success' }}"
+                                                        style="width: 120px;" <!-- Adjust the width as needed -->
+                                                        onchange="this.form.submit()"
+                                                        >
+                                                        <option value="open"
+                                                            {{ $contact->status == 'open' ? 'selected' : '' }}>
+                                                            Open
+                                                        </option>
+                                                        <option value="close"
+                                                            {{ $contact->status == 'close' ? 'selected' : '' }}>
+                                                            Close
+                                                        </option>
+                                                    </select>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
