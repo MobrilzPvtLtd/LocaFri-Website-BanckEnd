@@ -2,49 +2,46 @@
 
 @section('content')
     <div class="card">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Vehicle Status Details</h4>
-                {{-- <a href="{{ route('vehicle.index') }}" class="btn btn-warning btn-sm">
-                    <i class="fas fa-reply"></i>
-                </a> --}}
-            </div>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>Vehicle Status Details</h4>
+        </div>
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('vehiclestatus.create') }}"> Create vehiclestatus</a>
+                <a class="btn btn-success" href="{{ route('vehiclestatus.create') }}">Create Vehicle Status</a>
             </div>
             <div class="row mt-4">
-
                 <div class="col">
                     <div class="table-responsive">
                         <table id="datatable" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Kilometers </th>
-                                    <th scope="col"> Fuel Level </th>
-                                    <th scope="col"> Damage Records </th>
+                                    <th scope="col">Vehicle Name</th>
+                                    <th scope="col">Kilometers</th>
+                                    <th scope="col">Fuel Level</th>
+                                    <th scope="col">Damage Records</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($vehiclestatus as $vehicles)
-                                <tr>
-                                    <td>{{ $vehicles->id }}</td>
-                                    <td>{{ $vehicles->kilometer }}</td>
-                                    <td>{{ $vehicles->fule }}</td>
-                                    <td>{{ $vehicles->damage }}</td>
-                                    <td>
-                                        <form action="{{ route('vehiclestatus.destroy', $vehicles->id) }}" method="Post">
-                                            <a class="btn btn-primary"
-                                                href="{{ route('vehiclestatus.edit', $vehicles->id) }}">Edit</a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                @foreach ($vehiclestatus as $status)
+                                    <tr>
+                                        <td>{{ $status->id }}</td>
+                                        <td>{{ $status->vehicle ? $status->vehicle->name : 'No Vehicle Assigned' }}</td>
+                                        <td>{{ $status->kilometer }}</td>
+                                        <td>{{ $status->fule }}</td>
+                                        <td>{{ $status->damage }}</td>
+                                        <td>
+                                            <form action="{{ route('vehiclestatus.destroy', $status->id) }}" method="POST">
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('vehiclestatus.edit', $status->id) }}">Edit</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

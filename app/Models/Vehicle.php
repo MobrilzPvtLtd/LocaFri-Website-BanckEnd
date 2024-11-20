@@ -22,5 +22,10 @@ class Vehicle extends Model
             ->saveSlugsTo('slug');
     }
 
+    public function vehicleStatus()
+    {
+        return $this->hasOne(Vehiclestatus::class);
+    }
+
 }
 

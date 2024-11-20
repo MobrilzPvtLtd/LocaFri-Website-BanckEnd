@@ -10,25 +10,36 @@
                 <div class="col">
                     <div class="container mt-5">
 
-                        <form method="POST" action="{{ route('vehiclestatus.store') }}" method="POST" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('vehiclestatus.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">Kilometers</label>
-                                    <input type="number" class="form-control" name="kilometer"  value="" placeholder="">
+                                <div class="form-group mb-4 col-8">
+                                    <label for="city">Vehicle Name</label>
+                                    <select name="vehicle_id" class="form-control" required>
+                                        <option value="" disabled selected>Select Vehicle</option>
+                                        @foreach ($vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}">{{ $vehicle->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">Fuel Level</label>
-                                    <input type="Number" class="form-control" name="fule"  value="" placeholder="">
+                                <div class="row">
+                                    <div class="form-group mb-4 col-8">
+                                        <label for="city">Kilometers</label>
+                                        <input type="number" class="form-control" name="kilometer" value=""
+                                            placeholder="">
+                                    </div>
+                                    <div class="form-group mb-4 col-8">
+                                        <label for="city">Fuel Level</label>
+                                        <input type="Number" class="form-control" name="fule" value=""
+                                            placeholder="">
+                                    </div>
+                                    <div class="form-group mb-4 col-8">
+                                        <label for="city">Damage Records</label>
+                                        <textarea class="form-control" name="damage" placeholder=""></textarea>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">Damage Records</label>
-                                    <textarea type="text"class="form-control" name="damage" placeholder=""></textarea>
 
-                                </div>
-
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary mb-0 col-1">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -49,5 +60,4 @@
             </div>
         </div>
     </div>
-
 @endsection
