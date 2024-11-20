@@ -430,8 +430,6 @@ class ApiController extends Controller
 
     public function create_contract(Request $request)
     {
-    try {
-        // Check if the user is authenticated
         if (!Auth::check()) {
             return response()->json([
                 'status' => false,
@@ -439,112 +437,114 @@ class ApiController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        try {
+            // Check if the user is authenticated
 
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
-            'vehicle_name' => 'required|string|max:255',
-            'Dprice' => 'required|numeric|min:0',
-            'wprice' => 'required|numeric|min:0',
-            'mprice' => 'required|numeric|min:0',
-            'pickUpLocation' => 'required|string|max:255',
-            'dropOffLocation' => 'required|string|max:255',
-            'pickUpDate' => 'required|date',
-            'pickUpTime' => 'required|string',
-            'collectionDate' => 'required|date',
-            'collectionTime' => 'required|string',
-            'day_count' => 'required|integer|min:0',
-            'week_count' => 'required|integer|min:0',
-            'month_count' => 'required|integer|min:0',
-            'first_name' => 'required|string|max:255',
-            'email' => 'required|email|exists:users,email',
-        ], [
-            'first_name.required' => 'First name is required.',
-            'email.required' => 'Email address is required.',
-            'email.exists' => 'The selected email does not exist in our records.',
-        ]);
+            $user = Auth::user();
 
-        // Handle validation errors
-        if ($validator->fails()) {
+            // Validate the incoming request
+            $validator = Validator::make($request->all(), [
+                'vehicle_name' => 'required|string|max:255',
+                'Dprice' => 'required|numeric|min:0',
+                'wprice' => 'required|numeric|min:0',
+                'mprice' => 'required|numeric|min:0',
+                'pickUpLocation' => 'required|string|max:255',
+                'dropOffLocation' => 'required|string|max:255',
+                'pickUpDate' => 'required|date',
+                'pickUpTime' => 'required|string',
+                'collectionDate' => 'required|date',
+                'collectionTime' => 'required|string',
+                'day_count' => 'required|integer|min:0',
+                'week_count' => 'required|integer|min:0',
+                'month_count' => 'required|integer|min:0',
+                'first_name' => 'required|string|max:255',
+                'email' => 'required|email|exists:users,email',
+            ], [
+                'first_name.required' => 'First name is required.',
+                'email.required' => 'Email address is required.',
+                'email.exists' => 'The selected email does not exist in our records.',
+            ]);
+
+            // Handle validation errors
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'The given data was invalid.',
+                    'status_code' => 422,
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
+
+            // Calculate the total price
+            $totalPrice = $request->Dprice * $request->day_count +
+                        $request->wprice * $request->week_count +
+                        $request->mprice * $request->month_count +
+                        ($request->additional_driver ?? 0) +
+                        ($request->booster_seat ?? 0) +
+                        ($request->child_seat ?? 0) +
+                        ($request->exit_permit ?? 0);
+
+            // Create the booking
+            $booking = new Booking();
+            $booking->name = $request->vehicle_name;
+            $booking->Dprice = $request->Dprice ?? '0.00';
+            $booking->wprice = $request->wprice ?? '0.00';
+            $booking->mprice = $request->mprice ?? '0.00';
+            $booking->day_count = $request->day_count;
+            $booking->week_count = $request->week_count;
+            $booking->month_count = $request->month_count;
+            $booking->additional_driver = $request->additional_driver ?? '0.00';
+            $booking->booster_seat = $request->booster_seat ?? '0.00';
+            $booking->child_seat = $request->child_seat ?? '0.00';
+            $booking->exit_permit = $request->exit_permit ?? '0.00';
+            $booking->total_price = $totalPrice;
+            $booking->pickUpLocation = $request->pickUpLocation;
+            $booking->dropOffLocation = $request->dropOffLocation;
+            $booking->pickUpDate = \Carbon\Carbon::parse($request->pickUpDate);
+            $booking->pickUpTime = $request->pickUpTime;
+            $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
+            $booking->collectionTime = $request->collectionTime;
+            $booking->payment_type = $request->payment_type;
+            $booking->save();
+
+            // Create the checkout
+            $checkout = new Checkout();
+            $checkout->booking_id = $booking->id;
+            $checkout->first_name = $request->first_name;
+            $checkout->last_name = $request->last_name;
+            $checkout->email = $request->email;
+            $checkout->phone = $request->phone;
+            $checkout->address_first = $request->address_first;
+            $checkout->address_last = $request->address_last;
+            $checkout->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Contract created successfully.',
+                'price' => $booking->total_price,
+                'vehicle_name' => $booking->name,
+                'customer_email' => $checkout->email,
+                'booking_id' => $booking->id,
+                'payment_type' => $booking->payment_type,
+            ], 201);
+
+        } catch (\Illuminate\Auth\AuthenticationException $e) {
+            // Handle unauthenticated access
             return response()->json([
                 'status' => false,
-                'message' => 'The given data was invalid.',
-                'status_code' => 422,
-                'errors' => $validator->errors(),
-            ], 422);
+                'message' => 'You are not authenticated. Please login and try again.',
+            ], 401);
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred while creating the contract.',
+                'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
+            ], 500);
         }
-
-        // Calculate the total price
-        $totalPrice = $request->Dprice * $request->day_count +
-                      $request->wprice * $request->week_count +
-                      $request->mprice * $request->month_count +
-                      ($request->additional_driver ?? 0) +
-                      ($request->booster_seat ?? 0) +
-                      ($request->child_seat ?? 0) +
-                      ($request->exit_permit ?? 0);
-
-        // Create the booking
-        $booking = Booking::create([
-            'name' => $request->vehicle_name,
-            'Dprice' => $request->Dprice,
-            'wprice' => $request->wprice,
-            'mprice' => $request->mprice,
-            'day_count' => $request->day_count,
-            'week_count' => $request->week_count,
-            'month_count' => $request->month_count,
-            'additional_driver' => $request->additional_driver ?? 0,
-            'booster_seat' => $request->booster_seat ?? 0,
-            'child_seat' => $request->child_seat ?? 0,
-            'exit_permit' => $request->exit_permit ?? 0,
-            'total_price' => $totalPrice,
-            'pickUpLocation' => $request->pickUpLocation,
-            'dropOffLocation' => $request->dropOffLocation,
-            'pickUpDate' => Carbon::parse($request->pickUpDate),
-            'pickUpTime' => $request->pickUpTime,
-            'collectionDate' => Carbon::parse($request->collectionDate),
-            'collectionTime' => $request->collectionTime,
-            'payment_type' => $request->payment_type,
-        ]);
-
-        // Create the checkout
-        $checkout = Checkout::create([
-            'booking_id' => $booking->id,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address_first' => $request->address_first,
-            'address_last' => $request->address_last,
-        ]);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Contract created successfully.',
-            'price' => $booking->total_price,
-            'vehicle_name' => $booking->name,
-            'customer_email' => $checkout->email,
-            'booking_id' => $booking->id,
-            'payment_type' => $booking->payment_type,
-        ], 201);
-
-    } catch (\Illuminate\Auth\AuthenticationException $e) {
-        // Handle unauthenticated access
-        return response()->json([
-            'status' => false,
-            'message' => 'You are not authenticated. Please login and try again.',
-        ], 401);
-    } catch (\Exception $e) {
-        // Handle any other exceptions
-        return response()->json([
-            'status' => false,
-            'message' => 'An error occurred while creating the contract.',
-            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
-        ], 500);
-    }
     }
 
-
-  public function logout(Request $request)
+    public function logout(Request $request)
     {
         // Get the authenticated user
         $user = $request->user();
@@ -560,289 +560,290 @@ class ApiController extends Controller
             'message' => 'Logout successful. Your token has been invalidated, and verified status has been reset.',
         ], 200);
     }
-   public function updateProfile(Request $request)
-   {
-    // Get the authenticated user
-    $user = $request->user();
 
-    // Validate the request input
-    $request->validate([
-        'first_name' => 'string|max:255|nullable',
-        'last_name' => 'string|max:255|nullable',
-        'email' => 'email|unique:users,email,' . $user->id . '|nullable',
-        'mobile' => 'string|max:15|nullable|unique:users,mobile,' . $user->id,
-        'password' => 'string|min:8|nullable', // Password is optional and only validated if provided
-    ], [
-        'email.unique' => 'The email address is already taken.',
-        'password.min' => 'The password must be at least 8 characters.', // Only shows if password is provided
-        'mobile.unique' => 'The mobile number is already taken.',
-    ]);
-
-    // Prepare data to update
-    $data = $request->only('first_name', 'last_name', 'email', 'mobile');
-
-    // If password is provided, hash it before updating
-    if ($request->filled('password')) {
-        $data['password'] = bcrypt($request->password);
-    }
-
-    // Update user profile
-    $user->update($data);
-
-    // Return response
-    return response()->json([
-        'status' => true,
-        'message' => 'Profile updated successfully.',
-        'user' => $user,
-    ], 200);
-   }
-
-
-    public function checkin(Request $request)
+    public function updateProfile(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-            'record_kilometers' => 'required|integer',
-            'fuel_level' => 'nullable|string',
-            'vehicle_images' => 'nullable|array',
-            'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
-            'vehicle_damage_comments' => 'nullable|string',
-            'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-            'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        // Get the authenticated user
+        $user = $request->user();
 
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|exists:checkouts,email',
+        // Validate the request input
+        $request->validate([
+            'first_name' => 'string|max:255|nullable',
+            'last_name' => 'string|max:255|nullable',
+            'email' => 'email|unique:users,email,' . $user->id . '|nullable',
+            'mobile' => 'string|max:15|nullable|unique:users,mobile,' . $user->id,
+            'password' => 'string|min:8|nullable', // Password is optional and only validated if provided
         ], [
-            'name.required' => 'First name is required.',
-            'email.required' => 'Email address is required.',
-            'email.exists' => 'The selected email does not exist in our records.',
+            'email.unique' => 'The email address is already taken.',
+            'password.min' => 'The password must be at least 8 characters.', // Only shows if password is provided
+            'mobile.unique' => 'The mobile number is already taken.',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The given data was invalid.',
-                "status_code" => 422,
-                "errors" => $validator->errors(),
-            ], 422);
+        // Prepare data to update
+        $data = $request->only('first_name', 'last_name', 'email', 'mobile');
+
+        // If password is provided, hash it before updating
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
         }
 
-        try {
-            $checkout = Checkout::where('email', $request->email)->latest()->first();
-            if (!$checkout) {
-                return response()->json(['status' => false,'message' => 'No booking found for this email.'], 404);
-            }
-            $booking_is_contract = Booking::where('id', $checkout->booking_id)->where('is_contract',1)->first();
-            if (!$booking_is_contract) {
-                return response()->json(['status' => false,'message' => 'No is contract found for this email.'], 404);
-            }
+        // Update user profile
+        $user->update($data);
 
-            $contract = new ContractIn();
-            $contract->booking_id = $checkout->id;
-            $contract->name = $request->name;
-            $contract->address = $request->address;
-            $contract->postal_code = $request->postal_code;
-            $contract->email = $request->email;
-
-            $licensePhotoPath = $request->hasFile('license_photo') ? $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
-            $contract->license_photo = $licensePhotoPath;
-
-            $vehicleImagePaths = $contract->vehicle_images ? json_decode($contract->vehicle_images, true) : [];
-
-            if ($request->hasFile('vehicle_images')) {
-                foreach ($request->file('vehicle_images') as $image) {
-                    $vehicleImagePaths[] = $image->store('vehicle_images', 'public');
-                }
-            }
-            $contract->vehicle_images = json_encode($vehicleImagePaths);
-
-            $customerSignaturePath = $request->hasFile('customer_signature')
-                ? $request->file('customer_signature')->store('signatures', 'public')
-                : $contract->customer_signature;
-            $contract->customer_signature = $customerSignaturePath;
-
-            $fuelImagePath = $request->hasFile('fuel_image')
-                ? $request->file('fuel_image')->store('fuel_image', 'public')
-                : $contract->fuel_image;
-            $contract->fuel_image = $fuelImagePath;
-
-            $contract->record_kilometers = $request->record_kilometers;
-            $contract->fuel_level = $request->fuel_level;
-            $contract->vehicle_damage_comments = $request->vehicle_damage_comments;
-            $contract->save();
-
-            $booking = Booking::where('id', $contract->booking_id)->first();
-            $booking->is_contract = 2;
-            $booking->save();
-
-            Mail::to($request->email)->send(new ContractCreatedMail($contract));
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Check-in completed successfully.',
-                'data' => $contract
-            ], 201);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
-        }
-    }
-
-    public function checkout(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-            'record_kilometers' => 'required|integer',
-            'fuel_level' => 'nullable|string',
-            'vehicle_images' => 'nullable|array',
-            'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
-            'vehicle_damage_comments' => 'nullable|string',
-            'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-            'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-
-            'email' => 'required|email|exists:contract_ins,email',
-            'contract_id' => 'required|exists:contract_ins,id',
-        ], [
-            'email.required' => 'Email address is required.',
-            'email.exists' => 'The selected email does not exist in our records.',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The given data was invalid.',
-                "status_code" => 422,
-                "errors" => $validator->errors(),
-            ], 422);
-        }
-        try {
-            $contract = ContractIn::where('id', $request->contract_id)->where('email', $request->email)->first();
-            if (!$contract) {
-                return response()->json(['error' => 'contract_id is invalid.'], 403);
-            }
-
-            $booking = Booking::where('id', $contract->booking_id)->first();
-            if (!$booking || $booking->is_confirm != 1) {
-                return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
-            }
-
-            $contractOut = ContractOut::where('contract_id', $contract->id)->first();
-
-            $vehicleImages = $request->hasFile('vehicle_images') ?
-                array_map(fn($image) => $image->store('vehicle_images', 'public'), $request->file('vehicle_images')) : [];
-
-            $customerSignaturePath = $request->hasFile('customer_signature') ?
-                $request->file('customer_signature')->store('signatures', 'public') : null;
-
-            $fuelImagePath = $request->hasFile('fuel_image') ?
-                $request->file('fuel_image')->store('fuel_images', 'public') : null;
-
-            $licensePhotoPath = $request->hasFile('license_photo') ? $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
-
-            $record_kilometers = $request->record_kilometers - $contract->record_kilometers;
-
-            $data = [
-                'contract_id' => $contract->id,
-                // 'booking_id' => $booking->id,
-                'name' => $request->name,
-                'address' => $request->address,
-                'postal_code' => $request->postal_code,
-                'email' => $request->email,
-                'record_kilometers' => $record_kilometers,
-                'fuel_level' => $request->fuel_level,
-                'vehicle_images' => json_encode($vehicleImages),
-                'vehicle_damage_comments' => $request->vehicle_damage_comments,
-                'customer_signature' => $customerSignaturePath,
-                'fuel_image' => $fuelImagePath,
-                'license_photo' => $licensePhotoPath,
-            ];
-
-            $contractOutData = $contractOut ? $contractOut->update($data) : ContractOut::create($data);
-
-            $booking->is_confirm = 2;
-            $booking->save();
-
-            if ($contractOutData->record_kilometers >= 15000) {
-                $alert = new Alert();
-                $alert->vehicle_id = $contractOutData->id;
-                $alert->kilometer = $contractOutData->record_kilometers;
-
-                if ($contractOutData->record_kilometers >= 80000) {
-                    $alert->servicing = 'Brakes check';
-                } elseif ($contractOutData->record_kilometers >= 40000) {
-                    $alert->servicing = 'Plates change';
-                } else {
-                    $alert->servicing = 'Servicing';
-                }
-
-                $alert->save();
-            }
-
-            $admin = User::where('id', 1)->first();
-
-            Mail::to($contract->email)->send(new CheckOutMail($contract, $contractOutData));
-            Mail::to($admin->email)->send(new CheckOutMail($contract, $contractOutData));
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Contract Out details saved.',
-                'data' => $contractOutData
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
-        }
-    }
-
-
-    public function bookinghistory(Request $request){
-
-    }
-
-    public function getBookingHistory($email)
-  {
-    try {
-        // Retrieve bookings based on the provided email from the checkout table
-        $checkouts = Checkout::where('email', $email)->with('booking')->get();
-
-        if ($checkouts->isEmpty()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'No booking history found for this email.',
-            ], 404);
-        }
-
-        // Format the response to include booking details and statuses
-        $bookingHistory = $checkouts->map(function ($checkout) {
-            $booking = $checkout->booking;
-            $statusDescription = $this->getBookingStatusDescription($booking);
-
-            return [
-                'booking_id' => $booking->id ?? null,
-                'vehicle_name' => $booking->name ?? null,
-                'total_price' => $booking->total_price ?? null,
-                'status' => $booking->status ?? null,
-                'pickUpLocation' => $booking->pickUpLocation ?? null,
-                'dropOffLocation' => $booking->dropOffLocation ?? null,
-                'pickUpDate' => $booking->pickUpDate ?? null,
-                'collectionDate' => $booking->collectionDate ?? null,
-                'created_at' => $checkout->created_at,
-                'status_description' => $statusDescription,
-            ];
-        });
-
+        // Return response
         return response()->json([
             'status' => true,
-            'message' => 'Booking history retrieved successfully.',
-            'data' => $bookingHistory,
+            'message' => 'Profile updated successfully.',
+            'user' => $user,
         ], 200);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => false,
-            'message' => 'An error occurred while retrieving booking history.',
-            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
-        ], 500);
     }
-   }
+
+
+        public function checkin(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+                'record_kilometers' => 'required|integer',
+                'fuel_level' => 'nullable|string',
+                'vehicle_images' => 'nullable|array',
+                'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+                'vehicle_damage_comments' => 'nullable|string',
+                'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+                'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|exists:checkouts,email',
+            ], [
+                'name.required' => 'First name is required.',
+                'email.required' => 'Email address is required.',
+                'email.exists' => 'The selected email does not exist in our records.',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'The given data was invalid.',
+                    "status_code" => 422,
+                    "errors" => $validator->errors(),
+                ], 422);
+            }
+
+            try {
+                $checkout = Checkout::where('email', $request->email)->latest()->first();
+                if (!$checkout) {
+                    return response()->json(['status' => false,'message' => 'No booking found for this email.'], 404);
+                }
+                $booking_is_contract = Booking::where('id', $checkout->booking_id)->where('is_contract',1)->first();
+                if (!$booking_is_contract) {
+                    return response()->json(['status' => false,'message' => 'No is contract found for this email.'], 404);
+                }
+
+                $contract = new ContractIn();
+                $contract->booking_id = $checkout->id;
+                $contract->name = $request->name;
+                $contract->address = $request->address;
+                $contract->postal_code = $request->postal_code;
+                $contract->email = $request->email;
+
+                $licensePhotoPath = $request->hasFile('license_photo') ? $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
+                $contract->license_photo = $licensePhotoPath;
+
+                $vehicleImagePaths = $contract->vehicle_images ? json_decode($contract->vehicle_images, true) : [];
+
+                if ($request->hasFile('vehicle_images')) {
+                    foreach ($request->file('vehicle_images') as $image) {
+                        $vehicleImagePaths[] = $image->store('vehicle_images', 'public');
+                    }
+                }
+                $contract->vehicle_images = json_encode($vehicleImagePaths);
+
+                $customerSignaturePath = $request->hasFile('customer_signature')
+                    ? $request->file('customer_signature')->store('signatures', 'public')
+                    : $contract->customer_signature;
+                $contract->customer_signature = $customerSignaturePath;
+
+                $fuelImagePath = $request->hasFile('fuel_image')
+                    ? $request->file('fuel_image')->store('fuel_image', 'public')
+                    : $contract->fuel_image;
+                $contract->fuel_image = $fuelImagePath;
+
+                $contract->record_kilometers = $request->record_kilometers;
+                $contract->fuel_level = $request->fuel_level;
+                $contract->vehicle_damage_comments = $request->vehicle_damage_comments;
+                $contract->save();
+
+                $booking = Booking::where('id', $contract->booking_id)->first();
+                $booking->is_contract = 2;
+                $booking->save();
+
+                Mail::to($request->email)->send(new ContractCreatedMail($contract));
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Check-in completed successfully.',
+                    'data' => $contract
+                ], 201);
+            } catch (\Exception $e) {
+                return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            }
+        }
+
+        public function checkout(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+                'record_kilometers' => 'required|integer',
+                'fuel_level' => 'nullable|string',
+                'vehicle_images' => 'nullable|array',
+                'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+                'vehicle_damage_comments' => 'nullable|string',
+                'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+                'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+
+                'email' => 'required|email|exists:contract_ins,email',
+                'contract_id' => 'required|exists:contract_ins,id',
+            ], [
+                'email.required' => 'Email address is required.',
+                'email.exists' => 'The selected email does not exist in our records.',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'The given data was invalid.',
+                    "status_code" => 422,
+                    "errors" => $validator->errors(),
+                ], 422);
+            }
+            try {
+                $contract = ContractIn::where('id', $request->contract_id)->where('email', $request->email)->first();
+                if (!$contract) {
+                    return response()->json(['error' => 'contract_id is invalid.'], 403);
+                }
+
+                $booking = Booking::where('id', $contract->booking_id)->first();
+                if (!$booking || $booking->is_confirm != 1) {
+                    return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
+                }
+
+                $contractOut = ContractOut::where('contract_id', $contract->id)->first();
+
+                $vehicleImages = $request->hasFile('vehicle_images') ?
+                    array_map(fn($image) => $image->store('vehicle_images', 'public'), $request->file('vehicle_images')) : [];
+
+                $customerSignaturePath = $request->hasFile('customer_signature') ?
+                    $request->file('customer_signature')->store('signatures', 'public') : null;
+
+                $fuelImagePath = $request->hasFile('fuel_image') ?
+                    $request->file('fuel_image')->store('fuel_images', 'public') : null;
+
+                $licensePhotoPath = $request->hasFile('license_photo') ? $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
+
+                $record_kilometers = $request->record_kilometers - $contract->record_kilometers;
+
+                $data = [
+                    'contract_id' => $contract->id,
+                    // 'booking_id' => $booking->id,
+                    'name' => $request->name,
+                    'address' => $request->address,
+                    'postal_code' => $request->postal_code,
+                    'email' => $request->email,
+                    'record_kilometers' => $record_kilometers,
+                    'fuel_level' => $request->fuel_level,
+                    'vehicle_images' => json_encode($vehicleImages),
+                    'vehicle_damage_comments' => $request->vehicle_damage_comments,
+                    'customer_signature' => $customerSignaturePath,
+                    'fuel_image' => $fuelImagePath,
+                    'license_photo' => $licensePhotoPath,
+                ];
+
+                $contractOutData = $contractOut ? $contractOut->update($data) : ContractOut::create($data);
+
+                $booking->is_confirm = 2;
+                $booking->save();
+
+                if ($contractOutData->record_kilometers >= 15000) {
+                    $alert = new Alert();
+                    $alert->vehicle_id = $contractOutData->id;
+                    $alert->kilometer = $contractOutData->record_kilometers;
+
+                    if ($contractOutData->record_kilometers >= 80000) {
+                        $alert->servicing = 'Brakes check';
+                    } elseif ($contractOutData->record_kilometers >= 40000) {
+                        $alert->servicing = 'Plates change';
+                    } else {
+                        $alert->servicing = 'Servicing';
+                    }
+
+                    $alert->save();
+                }
+
+                $admin = User::where('id', 1)->first();
+
+                Mail::to($contract->email)->send(new CheckOutMail($contract, $contractOutData));
+                Mail::to($admin->email)->send(new CheckOutMail($contract, $contractOutData));
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Contract Out details saved.',
+                    'data' => $contractOutData
+                ]);
+            } catch (\Exception $e) {
+                return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            }
+        }
+
+
+        public function bookinghistory(Request $request){
+
+        }
+
+        public function getBookingHistory($email)
+    {
+        try {
+            // Retrieve bookings based on the provided email from the checkout table
+            $checkouts = Checkout::where('email', $email)->with('booking')->get();
+
+            if ($checkouts->isEmpty()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'No booking history found for this email.',
+                ], 404);
+            }
+
+            // Format the response to include booking details and statuses
+            $bookingHistory = $checkouts->map(function ($checkout) {
+                $booking = $checkout->booking;
+                $statusDescription = $this->getBookingStatusDescription($booking);
+
+                return [
+                    'booking_id' => $booking->id ?? null,
+                    'vehicle_name' => $booking->name ?? null,
+                    'total_price' => $booking->total_price ?? null,
+                    'status' => $booking->status ?? null,
+                    'pickUpLocation' => $booking->pickUpLocation ?? null,
+                    'dropOffLocation' => $booking->dropOffLocation ?? null,
+                    'pickUpDate' => $booking->pickUpDate ?? null,
+                    'collectionDate' => $booking->collectionDate ?? null,
+                    'created_at' => $checkout->created_at,
+                    'status_description' => $statusDescription,
+                ];
+            });
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Booking history retrieved successfully.',
+                'data' => $bookingHistory,
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred while retrieving booking history.',
+                'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+            ], 500);
+        }
+    }
 
 /**
  * Get the booking status description based on specific conditions.
