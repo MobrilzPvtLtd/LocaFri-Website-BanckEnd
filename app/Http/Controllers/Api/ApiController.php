@@ -798,74 +798,82 @@ class ApiController extends Controller
     }
     }
 
- /**
-   * Get the booking status description based on specific conditions.
-   */
-  public function getBookingHistory($email)
-  {
-      try {
-          // Retrieve bookings based on the provided email from the checkout table
-          $checkouts = Checkout::where('email', $email)->with('booking')->get();
+    public function getBookingHistory($email)
+    {
+    try {
+        // Retrieve checkouts based on the provided email from the checkout table, including the booking and transaction details
+        $checkouts = Checkout::where('email', $email)
+            ->with('booking.transaction')  // Eager load the booking and transaction data
+            ->get();
 
-          // Check if no bookings are found
-          if ($checkouts->isEmpty()) {
-              return response()->json([
-                  'status' => false,
-                  'message' => 'No booking history found for this email.',
-              ], 404);
-          }
+        // Check if no checkouts are found
+        if ($checkouts->isEmpty()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No booking history found for this email.',
+            ], 404);
+        }
 
-          // Format the response to include booking details and statuses
-          $bookingHistory = $checkouts->map(function ($checkout) {
-              $booking = $checkout->booking;
+        // Format the response to include booking details and statuses
+        $bookingHistory = $checkouts->map(function ($checkout) {
+            $booking = $checkout->booking;
+            $transaction = $booking->transaction;  // Get the related transaction details
 
-              // Handle null booking cases gracefully
-              if (!$booking) {
-                  return [
-                      'booking_id' => null,
-                      'vehicle_name' => null,
-                      'total_price' => null,
-                      'status' => null,
-                      'pickUpLocation' => null,
-                      'dropOffLocation' => null,
-                      'pickUpDate' => null,
-                      'collectionDate' => null,
-                      'created_at' => $checkout->created_at,
-                      'status_description' => 'No booking data available',
-                  ];
-              }
+            // Handle null booking or transaction cases gracefully
+            if (!$booking) {
+                return [
+                    'booking_id' => null,
+                    'vehicle_name' => null,
+                    'total_price' => null,
+                    'status' => null,
+                    'pickUpLocation' => null,
+                    'dropOffLocation' => null,
+                    'pickUpDate' => null,
+                    'collectionDate' => null,
+                    'created_at' => $checkout->created_at,
+                    'status_description' => 'No booking data available',
+                    'transaction' => null,  // No transaction details if booking is missing
+                ];
+            }
 
-              return [
-                  'booking_id' => $booking->id,
-                  'vehicle_name' => $booking->name,
-                  'total_price' => $booking->total_price,
-                  'status' => $booking->status,
-                  'pickUpLocation' => $booking->pickUpLocation,
-                  'dropOffLocation' => $booking->dropOffLocation,
-                  'pickUpDate' => $booking->pickUpDate,
-                  'collectionDate' => $booking->collectionDate,
-                  'created_at' => $checkout->created_at,
-                  'status_description' => $this->getBookingStatusDescription($booking),
-              ];
-          });
+            return [
+                'booking_id' => $booking->id,
+                'vehicle_name' => $booking->name,
+                'total_price' => $booking->total_price,
+                'status' => $booking->status,
+                'pickUpLocation' => $booking->pickUpLocation,
+                'dropOffLocation' => $booking->dropOffLocation,
+                'pickUpDate' => $booking->pickUpDate,
+                'collectionDate' => $booking->collectionDate,
+                'created_at' => $checkout->created_at,
+                'status_description' => $this->getBookingStatusDescription($booking),
+                'transaction' => $transaction ? [
+                    'transaction_id' => $transaction->transaction_id,
+                    'amount' => $transaction->amount,
+                    'currency' => $transaction->currency,
+                    'payment_method' => $transaction->payment_method,
+                    'payment_status' => $transaction->payment_status,
+                    'date_time' => $transaction->date_time,
+                ] : null,  // Include transaction details if available
+            ];
+        });
 
-          return response()->json([
-              'status' => true,
-              'message' => 'Booking history retrieved successfully.',
-              'data' => $bookingHistory,
-          ], 200);
+        return response()->json([
+            'status' => true,
+            'message' => 'Booking history retrieved successfully.',
+            'data' => $bookingHistory,
+        ], 200);
 
-      } catch (\Exception $e) {
-          return response()->json([
-              'status' => false,
-              'message' => 'An error occurred while retrieving booking history.',
-              'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
-          ], 500);
-      }
-  }
-
-  private function getBookingStatusDescription($booking)
-  {
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => 'An error occurred while retrieving booking history.',
+            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+        ], 500);
+    }
+    }
+    private function getBookingStatusDescription($booking)
+    {
       if ($booking->is_reject == 1) {
           return 'Rejected';
       }
@@ -885,7 +893,10 @@ class ApiController extends Controller
           return 'Booking Completed';
       }
       return 'Pending';
-  }
+    }
+
+
+
 
    public function contactus(Request $request)
    {
