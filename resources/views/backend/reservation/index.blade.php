@@ -33,6 +33,7 @@
                                     {{-- <th scope="col">Pick Up Time</th> --}}
                                     {{-- <th scope="col">Collection Time</th> --}}
                                     <th scope="col">Payment Method</th>
+                                    <th scope="col">Date and Time</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -70,6 +71,7 @@
                                                 <span style="background-color: #e8857d;padding: 5px;">Unpaid</span>
                                             @endif
                                         </td>
+                                        <td>{{ $booking->created_at->format('d M Y (h:i a)') }}</td>
                     </div>
                     <td>
                         <div class="d-flex flex-column flex-md-row justify-content-between">

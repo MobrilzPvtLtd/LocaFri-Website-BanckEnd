@@ -13,14 +13,23 @@
                         <form method="POST" action="{{ route('vehicle.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Company</label>
-                                    <input type="text" class="form-control" name="name" value="" placeholder="">
+                                    <input type="text" class="form-control" name="name" value="" placeholder="" required>
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Model</label>
-                                    <input type="text" class="form-control" name="model" value="" placeholder="">
+                                    <input type="text" class="form-control" name="model" value="" placeholder="" required>
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="type">Type</label>
@@ -51,15 +60,12 @@
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Brand Image</label>
                                     <input type="file" class="form-control" name="image[]" value="" placeholder=""
-                                        multiple>
+                                        multiple required>
                                 </div>
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">Kilometers</label>
-                                    <input type="number" class="form-control" name="mitter" value="" placeholder="">
-                                </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="body">Body</label>
-                                    <select class="form-control" name="body">
+                                    <select class="form-control" name="body" required>
                                         <option value="" disabled selected>Select Body Type</option>
                                         <option value="Convertible">Convertible</option>
                                         <option value="Coupe">Coupe</option>
@@ -76,21 +82,23 @@
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="seat">Seat</label>
-                                    <select class="form-control" name="seat">
+                                    <input type="text" class="form-control" name="seat" value=""
+                                        placeholder=" ">
+                                    {{-- <select class="form-control" name="seat">
                                         <option value="" disabled selected>Select Number of Seats</option>
                                         <option value="2 seats">2 seats</option>
                                         <option value="4 seats">4 seats</option>
                                         <option value="6 seats">6 seats</option>
                                         <option value="6+ seats">6+ seats</option>
-                                    </select>
+                                    </select> --}}
+                                </div>
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Door</label>
+                                    <input type="text" class="form-control" name="door" value="" placeholder="">
                                 </div>
 
                                 {{-- <div class="form-group mb-2 col-4">
-                                    <label for="city">Door</label>
-                                    <input type="text" class="form-control" name="door" value="" placeholder="">
-                                </div> --}}
-
-                                <div class="form-group mb-2 col-4">
                                     <label for="door">Door</label>
                                     <select class="form-control" name="door">
                                         <option value="" disabled selected>Select Number of Doors</option>
@@ -99,7 +107,7 @@
                                         <option value="6">6</option>
                                         <option value="6+ ">6+</option>
                                     </select>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Luggage</label>
@@ -107,8 +115,7 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Fuel</label>
-                                    <input type="text" class="form-control" name="fuel" value=""
-                                        placeholder="">
+                                    <input type="text" class="form-control" name="fuel" value="" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Authorized</label>
@@ -125,6 +132,7 @@
                                     <select class="form-control" name="trans" id="trans" required>
                                         <option value="" disabled selected>Select Transmission</option>
                                         <option value="Manual">Manual</option>
+                                        <option value="Automatic">Automatic</option>
                                         {{-- <option value="Automatic">Automatic</option> --}}
                                     </select>
                                 </div>
@@ -160,7 +168,7 @@
                                 <div class="form-group mb-2 col-4">
                                     <label for="permitted_kilometers_day">permitted kilometers Day</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_day"
-                                    value="" placeholder="">
+                                        value="" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
@@ -175,6 +183,11 @@
                                         value="" placeholder="">
                                 </div>
 
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Authorised Kilometers</label>
+                                    <input type="number" class="form-control" name="mitter" value=""
+                                        placeholder="">
+                                </div>
 
 
                                 <div class="form-group mb-2 col-4">
@@ -216,6 +229,16 @@
                                         <input type="checkbox" class="form-check-input" name="features[]"
                                             value="Sunroof" id="feature_sunroof">
                                         <label class="form-check-label" for="feature_sunroof">Sunroof</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="trailer_hitch" id="trailer_hitch">
+                                        <label class="form-check-label" for="feature_sunroof">Trailer Hitch</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="reversing_camera" id="reversing_camera">
+                                        <label class="form-check-label" for="feature_sunroof">Reversing Camera</label>
                                     </div>
                                 </div>
                             </div>
