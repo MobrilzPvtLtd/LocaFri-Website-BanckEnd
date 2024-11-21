@@ -20,16 +20,11 @@ use App\Models\ContractIn;
 use App\Models\ContractOut;
 use App\Models\Contact;
 use App\Mail\ContactMail;
-
-
 use App\Models\Alert;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
-
-
 
 class ApiController extends Controller
 {
@@ -436,8 +431,7 @@ class ApiController extends Controller
                 'message' => 'Unauthenticated. Please login to continue.',
             ], 401);
         }
-
-        try {
+       try {
             // Check if the user is authenticated
 
             $user = Auth::user();
@@ -599,17 +593,17 @@ class ApiController extends Controller
     }
 
 
-        public function checkin(Request $request)
-        {
-            $validator = Validator::make($request->all(), [
-                'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-                'record_kilometers' => 'required|integer',
-                'fuel_level' => 'nullable|string',
-                'vehicle_images' => 'nullable|array',
-                'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
-                'vehicle_damage_comments' => 'nullable|string',
-                'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-                'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+    public function checkin(Request $request)
+    {
+      $validator = Validator::make($request->all(), [
+       'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'record_kilometers' => 'required|integer',
+        'fuel_level' => 'nullable|string',
+        'vehicle_images' => 'nullable|array',
+        'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+        'vehicle_damage_comments' => 'nullable|string',
+        'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
 
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|exists:checkouts,email',
@@ -686,191 +680,212 @@ class ApiController extends Controller
             } catch (\Exception $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
             }
-        }
+    }
 
-        public function checkout(Request $request)
-        {
-            $validator = Validator::make($request->all(), [
-                'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-                'record_kilometers' => 'required|integer',
-                'fuel_level' => 'nullable|string',
-                'vehicle_images' => 'nullable|array',
-                'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
-                'vehicle_damage_comments' => 'nullable|string',
-                'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-                'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-
-                'email' => 'required|email|exists:contract_ins,email',
-                'contract_id' => 'required|exists:contract_ins,id',
-            ], [
-                'email.required' => 'Email address is required.',
-                'email.exists' => 'The selected email does not exist in our records.',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'The given data was invalid.',
-                    "status_code" => 422,
-                    "errors" => $validator->errors(),
-                ], 422);
-            }
-            try {
-                $contract = ContractIn::where('id', $request->contract_id)->where('email', $request->email)->first();
-                if (!$contract) {
-                    return response()->json(['error' => 'contract_id is invalid.'], 403);
-                }
-
-                $booking = Booking::where('id', $contract->booking_id)->first();
-                if (!$booking || $booking->is_confirm != 1) {
-                    return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
-                }
-
-                $contractOut = ContractOut::where('contract_id', $contract->id)->first();
-
-                $vehicleImages = $request->hasFile('vehicle_images') ?
-                    array_map(fn($image) => $image->store('vehicle_images', 'public'), $request->file('vehicle_images')) : [];
-
-                $customerSignaturePath = $request->hasFile('customer_signature') ?
-                    $request->file('customer_signature')->store('signatures', 'public') : null;
-
-                $fuelImagePath = $request->hasFile('fuel_image') ?
-                    $request->file('fuel_image')->store('fuel_images', 'public') : null;
-
-                $licensePhotoPath = $request->hasFile('license_photo') ? $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
-
-                $record_kilometers = $request->record_kilometers - $contract->record_kilometers;
-
-                $data = [
-                    'contract_id' => $contract->id,
-                    // 'booking_id' => $booking->id,
-                    'name' => $request->name,
-                    'address' => $request->address,
-                    'postal_code' => $request->postal_code,
-                    'email' => $request->email,
-                    'record_kilometers' => $record_kilometers,
-                    'fuel_level' => $request->fuel_level,
-                    'vehicle_images' => json_encode($vehicleImages),
-                    'vehicle_damage_comments' => $request->vehicle_damage_comments,
-                    'customer_signature' => $customerSignaturePath,
-                    'fuel_image' => $fuelImagePath,
-                    'license_photo' => $licensePhotoPath,
-                ];
-
-                $contractOutData = $contractOut ? $contractOut->update($data) : ContractOut::create($data);
-
-                $booking->is_confirm = 2;
-                $booking->save();
-
-                if ($contractOutData->record_kilometers >= 15000) {
-                    $alert = new Alert();
-                    $alert->vehicle_id = $contractOutData->id;
-                    $alert->kilometer = $contractOutData->record_kilometers;
-
-                    if ($contractOutData->record_kilometers >= 80000) {
-                        $alert->servicing = 'Brakes check';
-                    } elseif ($contractOutData->record_kilometers >= 40000) {
-                        $alert->servicing = 'Plates change';
-                    } else {
-                        $alert->servicing = 'Servicing';
-                    }
-
-                    $alert->save();
-                }
-
-                $admin = User::where('id', 1)->first();
-
-                Mail::to($contract->email)->send(new CheckOutMail($contract, $contractOutData));
-                Mail::to($admin->email)->send(new CheckOutMail($contract, $contractOutData));
-
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Contract Out details saved.',
-                    'data' => $contractOutData
-                ]);
-            } catch (\Exception $e) {
-                return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
-            }
-        }
-
-
-        public function bookinghistory(Request $request){
-
-        }
-
-        public function getBookingHistory($email)
+    public function checkout(Request $request)
     {
-        try {
-            // Retrieve bookings based on the provided email from the checkout table
-            $checkouts = Checkout::where('email', $email)->with('booking')->get();
+    $validator = Validator::make($request->all(), [
+        'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'record_kilometers' => 'required|integer',
+        'fuel_level' => 'nullable|string',
+        'vehicle_images' => 'nullable|array',
+        'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+        'vehicle_damage_comments' => 'nullable|string',
+        'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'email' => 'required|email',
+        // Validate contract_id to ensure it exists in contract_ins table
+        // 'contract_id' => 'required|exists:contract_ins,id',
+        // Ensure contract_id exists in contract_ins table
+    ], [
+        'email.required' => 'Email address is required.',
+        'email.exists' => 'The selected email does not exist in our records.',
+        // 'contract_id.exists' => 'The selected contract ID is invalid.',
+    ]);
 
-            if ($checkouts->isEmpty()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'No booking history found for this email.',
-                ], 404);
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => false,
+            'message' => 'The given data was invalid.',
+            "status_code" => 422,
+            "errors" => $validator->errors(),
+        ], 422);
+    }
+
+    try {
+        // Ensure the contract exists and matches the email
+        $contract = ContractIn::where('id', $request->contract_id)
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$contract) {
+            return response()->json(['error' => 'Contract ID is invalid for this email.'], 403);
+        }
+
+        $booking = Booking::where('id', $contract->booking_id)->first();
+        if (!$booking || $booking->is_confirm != 1) {
+            return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
+        }
+
+        $contractOut = ContractOut::where('contract_id', $contract->id)->first();
+
+        // Process vehicle images
+        $vehicleImages = $request->hasFile('vehicle_images') ?
+            array_map(fn($image) => $image->store('vehicle_images', 'public'), $request->file('vehicle_images')) : [];
+
+        $customerSignaturePath = $request->hasFile('customer_signature') ?
+            $request->file('customer_signature')->store('signatures', 'public') : null;
+
+        $fuelImagePath = $request->hasFile('fuel_image') ?
+            $request->file('fuel_image')->store('fuel_images', 'public') : null;
+
+        $licensePhotoPath = $request->hasFile('license_photo') ?
+            $request->file('license_photo')->store('license_photos', 'public') : $contract->license_photo;
+
+        $record_kilometers = $request->record_kilometers - $contract->record_kilometers;
+
+        $data = [
+            'contract_id' => $contract->id,
+            'name' => $request->name,
+            'address' => $request->address,
+            'postal_code' => $request->postal_code,
+            'email' => $request->email,
+            'record_kilometers' => $record_kilometers,
+            'fuel_level' => $request->fuel_level,
+            'vehicle_images' => json_encode($vehicleImages),
+            'vehicle_damage_comments' => $request->vehicle_damage_comments,
+            'customer_signature' => $customerSignaturePath,
+            'fuel_image' => $fuelImagePath,
+            'license_photo' => $licensePhotoPath,
+        ];
+
+        // If contractOut exists, update it, otherwise create a new one.
+        $contractOutData = $contractOut ? $contractOut->update($data) : ContractOut::create($data);
+
+        // Mark booking as confirmed
+        $booking->is_confirm = 2;
+        $booking->save();
+
+        // Check if servicing alert needs to be created
+        if ($contractOutData->record_kilometers >= 15000) {
+            $alert = new Alert();
+            $alert->vehicle_id = $contractOutData->id;
+            $alert->kilometer = $contractOutData->record_kilometers;
+
+            if ($contractOutData->record_kilometers >= 80000) {
+                $alert->servicing = 'Brakes check';
+            } elseif ($contractOutData->record_kilometers >= 40000) {
+                $alert->servicing = 'Plates change';
+            } else {
+                $alert->servicing = 'Servicing';
             }
 
-            // Format the response to include booking details and statuses
-            $bookingHistory = $checkouts->map(function ($checkout) {
-                $booking = $checkout->booking;
-                $statusDescription = $this->getBookingStatusDescription($booking);
-
-                return [
-                    'booking_id' => $booking->id ?? null,
-                    'vehicle_name' => $booking->name ?? null,
-                    'total_price' => $booking->total_price ?? null,
-                    'status' => $booking->status ?? null,
-                    'pickUpLocation' => $booking->pickUpLocation ?? null,
-                    'dropOffLocation' => $booking->dropOffLocation ?? null,
-                    'pickUpDate' => $booking->pickUpDate ?? null,
-                    'collectionDate' => $booking->collectionDate ?? null,
-                    'created_at' => $checkout->created_at,
-                    'status_description' => $statusDescription,
-                ];
-            });
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Booking history retrieved successfully.',
-                'data' => $bookingHistory,
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'An error occurred while retrieving booking history.',
-                'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
-            ], 500);
+            $alert->save();
         }
+
+        // Send checkout mail to user and admin
+        $admin = User::where('id', 1)->first();
+        Mail::to($contract->email)->send(new CheckOutMail($contract, $contractOutData));
+        Mail::to($admin->email)->send(new CheckOutMail($contract, $contractOutData));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Contract Out details saved.',
+            'data' => $contractOutData
+        ]);
+    } catch (\Exception $e) {
+        return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+    }
     }
 
-/**
- * Get the booking status description based on specific conditions.
- */
-    private function getBookingStatusDescription($booking)
-   {
-    if ($booking->is_reject == 1) {
-        return 'Rejected ';
-    }
-    if ($booking->is_view == 1) {
-        return 'Approved';
-    }
-    if ($booking->is_contract == 1) {
-        return ' submit Check-in';
-    }
-    if ($booking->is_contract == 2) {
-        return 'Check-in submitted ';
-    }
-    if ($booking->is_confirm == 1) {
-        return 'Check-in Approved';
-    }
-    if ($booking->is_complete == 1) {
-        return 'Booking completed';
-    }
-    return 'pending';
-   }
+ /**
+   * Get the booking status description based on specific conditions.
+   */
+  public function getBookingHistory($email)
+  {
+      try {
+          // Retrieve bookings based on the provided email from the checkout table
+          $checkouts = Checkout::where('email', $email)->with('booking')->get();
 
+          // Check if no bookings are found
+          if ($checkouts->isEmpty()) {
+              return response()->json([
+                  'status' => false,
+                  'message' => 'No booking history found for this email.',
+              ], 404);
+          }
+
+          // Format the response to include booking details and statuses
+          $bookingHistory = $checkouts->map(function ($checkout) {
+              $booking = $checkout->booking;
+
+              // Handle null booking cases gracefully
+              if (!$booking) {
+                  return [
+                      'booking_id' => null,
+                      'vehicle_name' => null,
+                      'total_price' => null,
+                      'status' => null,
+                      'pickUpLocation' => null,
+                      'dropOffLocation' => null,
+                      'pickUpDate' => null,
+                      'collectionDate' => null,
+                      'created_at' => $checkout->created_at,
+                      'status_description' => 'No booking data available',
+                  ];
+              }
+
+              return [
+                  'booking_id' => $booking->id,
+                  'vehicle_name' => $booking->name,
+                  'total_price' => $booking->total_price,
+                  'status' => $booking->status,
+                  'pickUpLocation' => $booking->pickUpLocation,
+                  'dropOffLocation' => $booking->dropOffLocation,
+                  'pickUpDate' => $booking->pickUpDate,
+                  'collectionDate' => $booking->collectionDate,
+                  'created_at' => $checkout->created_at,
+                  'status_description' => $this->getBookingStatusDescription($booking),
+              ];
+          });
+
+          return response()->json([
+              'status' => true,
+              'message' => 'Booking history retrieved successfully.',
+              'data' => $bookingHistory,
+          ], 200);
+
+      } catch (\Exception $e) {
+          return response()->json([
+              'status' => false,
+              'message' => 'An error occurred while retrieving booking history.',
+              'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+          ], 500);
+      }
+  }
+
+  private function getBookingStatusDescription($booking)
+  {
+      if ($booking->is_reject == 1) {
+          return 'Rejected';
+      }
+      if ($booking->is_view == 1) {
+          return 'Approved';
+      }
+      if ($booking->is_contract == 1) {
+          return 'Submit Check-in';
+      }
+      if ($booking->is_contract == 2) {
+          return 'Check-in Submitted';
+      }
+      if ($booking->is_confirm == 1) {
+          return 'Check-in Approved';
+      }
+      if ($booking->is_complete == 1) {
+          return 'Booking Completed';
+      }
+      return 'Pending';
+  }
 
    public function contactus(Request $request)
    {

@@ -55,7 +55,6 @@ class Booking extends Model
         return $this->hasOne(Checkout::class, 'booking_id', 'id');
     }
 
-
     public function ContractOut()
     {
         return $this->hasOne(ContractOut::class, 'contract_id');
