@@ -9,6 +9,9 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
+use App\Mail\PaymentReminderMail;
+
+
 use Illuminate\Support\Facades\Request as UrlRequest;
 
 class StripeWebhookController extends Controller
@@ -95,9 +98,17 @@ class StripeWebhookController extends Controller
         $bookingFirst = Booking::where('id', $response->metadata->booking_id)->first();
         $checkout = Checkout::where('booking_id', $bookingFirst->id)->first();
 
-        $remaining_amount = $bookingFirst->total_price;
-        $discount = $bookingFirst->total_price * 0.10;
-        $remaining_amount -= $discount;
+        // $remaining_amount = $bookingFirst->total_price;
+        // $discount = $bookingFirst->total_price * 0.10;
+        // $remaining_amount -= $discount;
+
+        $remaining_amount = $bookingFirst->total_price; // Use $bookingFirst instead of $booking
+        if ($response->metadata->payment_type == "payment_partial") {
+        $remaining_amount -= $bookingFirst->total_price * 0.10;
+        } else {
+        $remaining_amount = 0;
+        }
+
 
         $data = [
             'name' => $checkout->first_name . ' ' . $checkout->last_name,
@@ -131,6 +142,36 @@ class StripeWebhookController extends Controller
             Mail::to($response->customer_email)->send(new BookingMail($data));
         }
 
+        // if ($remaining_amount > 0) {
+        //     $paymentUrl = route('stripe', [
+        //         'price' => $remaining_amount,
+        //         'vehicle_name' => $booking->name,
+        //         'customer_email' => $response->customer_email,
+        //         'booking_id' => $response->metadata->booking_id,
+        //         'payment_type' => 'payment_full',
+        //     ]);
+
+        //     $reminderData = $data + ['payment_url' => $paymentUrl];
+        //     Mail::to($response->customer_email)->send(new PaymentReminderMail($reminderData));
+        // }
+
+
+        //
+        if ($remaining_amount > 0) {
+            $paymentUrl = route('stripe', [
+                'price' => $remaining_amount,
+                'vehicle_name' => $bookingFirst->name, // Use $bookingFirst instead of $booking
+                'customer_email' => $response->customer_email,
+                'booking_id' => $response->metadata->booking_id,
+                'payment_type' => 'payment_full',
+            ]);
+
+            $reminderData = $data + ['payment_url' => $paymentUrl];
+            Mail::to($response->customer_email)->send(new PaymentReminderMail($reminderData));
+        }
+
+        //
+
         if ($response->metadata->apiUrl) {
             return response()->json(['status' => true, 'data' => $data]);
         } else {
@@ -146,5 +187,8 @@ class StripeWebhookController extends Controller
 
         return redirect()->route('thank-you');
     }
+
+
+
 
 }
