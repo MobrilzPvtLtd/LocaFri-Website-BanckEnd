@@ -388,155 +388,410 @@ class ApiController extends Controller
         ]);
     }
 
+    // public function verifyOtp(Request $request)
+    // {
+    //     $request->validate(['email' => 'required|email', 'otp' => 'required']);
+
+    //     // Find user by email
+    //     $user = User::where('email', $request->email)->first();
+
+    //     // Check if the OTP matches
+    //     if ($user->otp !== $request->otp) {
+    //         return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
+    //     }
+
+    //     if ($user->verified == 1) {
+    //         return response()->json(['status' => false, 'message' => 'OTP has expired. A new OTP has been sent to your email.'], 401);
+    //     }
+
+    //     $user->update(['otp' => null, 'verified' => 1]);
+
+    //     // Generate a token
+    //     $token = $user->createToken('auth_token', ['*'])
+    //                   ->plainTextToken;
+
+    //     // Set the expiration time for the token to 1 day from now
+    //     $expiresAt = Carbon::now()->addDay(1);
+
+    //     // Return the response with token and expiration time
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Your email is verified.',
+    //         'token' => $token,
+    //         'expires_at' => $expiresAt->toDateTimeString(),  // Optionally return the expiration time
+    //     ]);
+    // }
+
     public function verifyOtp(Request $request)
-    {
-        $request->validate(['email' => 'required|email', 'otp' => 'required']);
+{
+    $request->validate(['email' => 'required|email', 'otp' => 'required']);
 
-        // Find user by email
-        $user = User::where('email', $request->email)->first();
+    // Find user by email
+    $user = User::where('email', $request->email)->first();
 
-        // Check if the OTP matches
-        if ($user->otp !== $request->otp) {
-            return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
-        }
-
-        if ($user->verified == 1) {
-            return response()->json(['status' => false, 'message' => 'OTP has expired. A new OTP has been sent to your email.'], 401);
-        }
-
-        $user->update(['otp' => null, 'verified' => 1]);
-
-        // Generate a token
-        $token = $user->createToken('auth_token', ['*'])
-                      ->plainTextToken;
-
-        // Set the expiration time for the token to 1 day from now
-        $expiresAt = Carbon::now()->addDay(1);
-
-        // Return the response with token and expiration time
-        return response()->json([
-            'status' => true,
-            'message' => 'Your email is verified.',
-            'token' => $token,
-            'expires_at' => $expiresAt->toDateTimeString(),  // Optionally return the expiration time
-        ]);
+    // Check if the user exists
+    if (!$user) {
+        return response()->json(['status' => false, 'message' => 'User not found.'], 404);
     }
 
+    // Check if the OTP matches
+    if ($user->otp !== $request->otp) {
+        return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
+    }
+
+    // If the OTP is correct, and the user hasn't been verified yet, mark them as verified
+    if ($user->verified == 0) {
+        $user->update(['otp' => null,]);
+    }
+
+    // Generate a token (even if the user has already verified the OTP)
+    $token = $user->createToken('auth_token', ['*'])->plainTextToken;
+
+    // Set the expiration time for the token (optional, e.g., 1 day)
+    $expiresAt = Carbon::now()->addDay(1);
+
+    // Return the response with token and expiration time
+    return response()->json([
+        'status' => true,
+        'message' => 'Your email is verified. You are now logged in.',
+        'token' => $token,
+        'expires_at' => $expiresAt->toDateTimeString(), // Optionally return the expiration time
+    ]);
+}
+
+
+
+    // public function create_contract(Request $request)
+    // {
+    //     if (!Auth::check()) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Unauthenticated. Please login to continue.',
+    //         ], 401);
+    //     }
+    //    try {
+    //         // Check if the user is authenticated
+
+    //         $user = Auth::user();
+
+    //         // Validate the incoming request
+    //         $validator = Validator::make($request->all(), [
+    //             'vehicle_name' => 'required|string|max:255',
+    //             'Dprice' => 'required|numeric|min:0',
+    //             'wprice' => 'required|numeric|min:0',
+    //             'mprice' => 'required|numeric|min:0',
+    //             'pickUpLocation' => 'required|string|max:255',
+    //             'dropOffLocation' => 'required|string|max:255',
+    //             'pickUpDate' => 'required|date',
+    //             'pickUpTime' => 'required|string',
+    //             'collectionDate' => 'required|date',
+    //             'collectionTime' => 'required|string',
+    //             'day_count' => 'required|integer|min:0',
+    //             'week_count' => 'required|integer|min:0',
+    //             'month_count' => 'required|integer|min:0',
+    //             'first_name' => 'required|string|max:255',
+    //             'email' => 'required|email|exists:users,email',
+    //         ], [
+    //             'first_name.required' => 'First name is required.',
+    //             'email.required' => 'Email address is required.',
+    //             'email.exists' => 'The selected email does not exist in our records.',
+    //         ]);
+
+    //         // Handle validation errors
+    //         if ($validator->fails()) {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => 'The given data was invalid.',
+    //                 'status_code' => 422,
+    //                 'errors' => $validator->errors(),
+    //             ], 422);
+    //         }
+
+    //         // Calculate the total price
+    //         $totalPrice = $request->Dprice * $request->day_count +
+    //                     $request->wprice * $request->week_count +
+    //                     $request->mprice * $request->month_count +
+    //                     ($request->additional_driver ?? 0) +
+    //                     ($request->booster_seat ?? 0) +
+    //                     ($request->child_seat ?? 0) +
+    //                     ($request->exit_permit ?? 0);
+
+    //         // Create the booking
+    //         $booking = new Booking();
+    //         $booking->name = $request->vehicle_name;
+    //         $booking->Dprice = $request->Dprice ?? '0.00';
+    //         $booking->wprice = $request->wprice ?? '0.00';
+    //         $booking->mprice = $request->mprice ?? '0.00';
+    //         $booking->day_count = $request->day_count;
+    //         $booking->week_count = $request->week_count;
+    //         $booking->month_count = $request->month_count;
+    //         $booking->additional_driver = $request->additional_driver ?? '0.00';
+    //         $booking->booster_seat = $request->booster_seat ?? '0.00';
+    //         $booking->child_seat = $request->child_seat ?? '0.00';
+    //         $booking->exit_permit = $request->exit_permit ?? '0.00';
+    //         $booking->total_price = $totalPrice;
+    //         $booking->pickUpLocation = $request->pickUpLocation;
+    //         $booking->dropOffLocation = $request->dropOffLocation;
+    //         $booking->pickUpDate = \Carbon\Carbon::parse($request->pickUpDate);
+    //         $booking->pickUpTime = $request->pickUpTime;
+    //         $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
+    //         $booking->collectionTime = $request->collectionTime;
+    //         $booking->payment_type = $request->payment_type;
+    //         $booking->save();
+
+    //         // Create the checkout
+    //         $checkout = new Checkout();
+    //         $checkout->booking_id = $booking->id;
+    //         $checkout->first_name = $request->first_name;
+    //         $checkout->last_name = $request->last_name;
+    //         $checkout->email = $request->email;
+    //         $checkout->phone = $request->phone;
+    //         $checkout->address_first = $request->address_first;
+    //         $checkout->address_last = $request->address_last;
+    //         $checkout->save();
+
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Contract created successfully.',
+    //             'price' => $booking->total_price,
+    //             'vehicle_name' => $booking->name,
+    //             'customer_email' => $checkout->email,
+    //             'booking_id' => $booking->id,
+    //             'payment_type' => $booking->payment_type,
+    //         ], 201);
+
+    //     } catch (\Illuminate\Auth\AuthenticationException $e) {
+    //         // Handle unauthenticated access
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'You are not authenticated. Please login and try again.',
+    //         ], 401);
+    //     } catch (\Exception $e) {
+    //         // Handle any other exceptions
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'An error occurred while creating the contract.',
+    //             'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
+    //         ], 500);
+    //     }
+    // }
 
     public function create_contract(Request $request)
-    {
-        if (!Auth::check()) {
+  {
+    if (!Auth::check()) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Unauthenticated. Please login to continue.',
+        ], 401);
+      }
+
+      try {
+        // Check if the user is authenticated
+        $user = Auth::user();
+
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'vehicle_name' => 'required|string|max:255',
+            'Dprice' => 'required|numeric|min:0',
+            'wprice' => 'required|numeric|min:0',
+            'mprice' => 'required|numeric|min:0',
+            'pickUpLocation' => 'required|string|max:255',
+            'dropOffLocation' => 'required|string|max:255',
+            'pickUpDate' => 'required|date',
+            'pickUpTime' => 'required|string',
+            'collectionDate' => 'required|date',
+            'collectionTime' => 'required|string',
+            'day_count' => 'required|integer|min:0',
+            'week_count' => 'required|integer|min:0',
+            'month_count' => 'required|integer|min:0',
+            'first_name' => 'required|string|max:255',
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'first_name.required' => 'First name is required.',
+            'email.required' => 'Email address is required.',
+            'email.exists' => 'The selected email does not exist in our records.',
+        ]);
+
+        // Handle validation errors
+          if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => 'Unauthenticated. Please login to continue.',
-            ], 401);
+                'message' => 'The given data was invalid.',
+                'status_code' => 422,
+                'errors' => $validator->errors(),
+            ], 422);
         }
-       try {
-            // Check if the user is authenticated
 
-            $user = Auth::user();
+        // Calculate the total price
+        $totalPrice = $request->Dprice * $request->day_count +
+                    $request->wprice * $request->week_count +
+                    $request->mprice * $request->month_count +
+                    ($request->additional_driver ?? 0) +
+                    ($request->booster_seat ?? 0) +
+                    ($request->child_seat ?? 0) +
+                    ($request->exit_permit ?? 0);
 
-            // Validate the incoming request
-            $validator = Validator::make($request->all(), [
-                'vehicle_name' => 'required|string|max:255',
-                'Dprice' => 'required|numeric|min:0',
-                'wprice' => 'required|numeric|min:0',
-                'mprice' => 'required|numeric|min:0',
-                'pickUpLocation' => 'required|string|max:255',
-                'dropOffLocation' => 'required|string|max:255',
-                'pickUpDate' => 'required|date',
-                'pickUpTime' => 'required|string',
-                'collectionDate' => 'required|date',
-                'collectionTime' => 'required|string',
-                'day_count' => 'required|integer|min:0',
-                'week_count' => 'required|integer|min:0',
-                'month_count' => 'required|integer|min:0',
-                'first_name' => 'required|string|max:255',
-                'email' => 'required|email|exists:users,email',
-            ], [
-                'first_name.required' => 'First name is required.',
-                'email.required' => 'Email address is required.',
-                'email.exists' => 'The selected email does not exist in our records.',
-            ]);
+        // Create the booking
+        $booking = new Booking();
+        $booking->user_id = $user->id;  // Store the authenticated user's ID
+        $booking->name = $request->vehicle_name;
+        $booking->Dprice = $request->Dprice ?? '0.00';
+        $booking->wprice = $request->wprice ?? '0.00';
+        $booking->mprice = $request->mprice ?? '0.00';
+        $booking->day_count = $request->day_count;
+        $booking->week_count = $request->week_count;
+        $booking->month_count = $request->month_count;
+        $booking->additional_driver = $request->additional_driver ?? '0.00';
+        $booking->booster_seat = $request->booster_seat ?? '0.00';
+        $booking->child_seat = $request->child_seat ?? '0.00';
+        $booking->exit_permit = $request->exit_permit ?? '0.00';
+        $booking->total_price = $totalPrice;
+        $booking->pickUpLocation = $request->pickUpLocation;
+        $booking->dropOffLocation = $request->dropOffLocation;
+        $booking->pickUpDate = \Carbon\Carbon::parse($request->pickUpDate);
+        $booking->pickUpTime = $request->pickUpTime;
+        $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
+        $booking->collectionTime = $request->collectionTime;
+        $booking->payment_type = $request->payment_type;
+        $booking->save();
 
-            // Handle validation errors
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'The given data was invalid.',
-                    'status_code' => 422,
-                    'errors' => $validator->errors(),
-                ], 422);
-            }
+        // Create the checkout
+        $checkout = new Checkout();
+        $checkout->booking_id = $booking->id;
+        $checkout->first_name = $request->first_name;
+        $checkout->last_name = $request->last_name;
+        $checkout->email = $request->email;
+        $checkout->phone = $request->phone;
+        $checkout->address_first = $request->address_first;
+        $checkout->address_last = $request->address_last;
+        $checkout->save();
 
-            // Calculate the total price
-            $totalPrice = $request->Dprice * $request->day_count +
-                        $request->wprice * $request->week_count +
-                        $request->mprice * $request->month_count +
-                        ($request->additional_driver ?? 0) +
-                        ($request->booster_seat ?? 0) +
-                        ($request->child_seat ?? 0) +
-                        ($request->exit_permit ?? 0);
-
-            // Create the booking
-            $booking = new Booking();
-            $booking->name = $request->vehicle_name;
-            $booking->Dprice = $request->Dprice ?? '0.00';
-            $booking->wprice = $request->wprice ?? '0.00';
-            $booking->mprice = $request->mprice ?? '0.00';
-            $booking->day_count = $request->day_count;
-            $booking->week_count = $request->week_count;
-            $booking->month_count = $request->month_count;
-            $booking->additional_driver = $request->additional_driver ?? '0.00';
-            $booking->booster_seat = $request->booster_seat ?? '0.00';
-            $booking->child_seat = $request->child_seat ?? '0.00';
-            $booking->exit_permit = $request->exit_permit ?? '0.00';
-            $booking->total_price = $totalPrice;
-            $booking->pickUpLocation = $request->pickUpLocation;
-            $booking->dropOffLocation = $request->dropOffLocation;
-            $booking->pickUpDate = \Carbon\Carbon::parse($request->pickUpDate);
-            $booking->pickUpTime = $request->pickUpTime;
-            $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
-            $booking->collectionTime = $request->collectionTime;
-            $booking->payment_type = $request->payment_type;
-            $booking->save();
-
-            // Create the checkout
-            $checkout = new Checkout();
-            $checkout->booking_id = $booking->id;
-            $checkout->first_name = $request->first_name;
-            $checkout->last_name = $request->last_name;
-            $checkout->email = $request->email;
-            $checkout->phone = $request->phone;
-            $checkout->address_first = $request->address_first;
-            $checkout->address_last = $request->address_last;
-            $checkout->save();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Contract created successfully.',
-                'price' => $booking->total_price,
-                'vehicle_name' => $booking->name,
-                'customer_email' => $checkout->email,
-                'booking_id' => $booking->id,
-                'payment_type' => $booking->payment_type,
-            ], 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Contract created successfully.',
+            'price' => $booking->total_price,
+            'vehicle_name' => $booking->name,
+            'customer_email' => $checkout->email,
+            'booking_id' => $booking->id,
+            'payment_type' => $booking->payment_type,
+        ], 201);
 
         } catch (\Illuminate\Auth\AuthenticationException $e) {
-            // Handle unauthenticated access
+        // Handle unauthenticated access
+        return response()->json([
+            'status' => false,
+            'message' => 'You are not authenticated. Please login and try again.',
+        ], 401);
+       } catch (\Exception $e) {
+        // Handle any other exceptions
+        return response()->json([
+            'status' => false,
+            'message' => 'An error occurred while creating the contract.',
+            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
+        ], 500);
+       }
+  }
+
+
+    public function getBookingHistory($email)
+    {
+     try {
+        // Retrieve checkouts based on the provided email from the checkout table, including the booking and transaction details
+        $checkouts = Checkout::where('email', $email)
+            ->with('booking.transaction')  // Eager load the booking and transaction data
+            ->get();
+
+        // Check if no checkouts are found
+        if ($checkouts->isEmpty()) {
             return response()->json([
                 'status' => false,
-                'message' => 'You are not authenticated. Please login and try again.',
-            ], 401);
-        } catch (\Exception $e) {
-            // Handle any other exceptions
-            return response()->json([
-                'status' => false,
-                'message' => 'An error occurred while creating the contract.',
-                'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
-            ], 500);
+                'message' => 'No booking history found for this email.',
+            ], 404);
         }
+
+        // Format the response to include booking details and statuses
+        $bookingHistory = $checkouts->map(function ($checkout) {
+            $booking = $checkout->booking;
+            $transaction = $booking->transaction;  // Get the related transaction details
+
+            // Handle null booking or transaction cases gracefully
+            if (!$booking) {
+                return [
+                    'booking_id' => null,
+                    'vehicle_name' => null,
+                    'total_price' => null,
+                    'status' => null,
+                    'pickUpLocation' => null,
+                    'dropOffLocation' => null,
+                    'pickUpDate' => null,
+                    'collectionDate' => null,
+                    'created_at' => $checkout->created_at,
+                    'status_description' => 'No booking data available',
+                    'transaction' => null,  // No transaction details if booking is missing
+                ];
+            }
+
+            return [
+                'booking_id' => $booking->id,
+                'vehicle_name' => $booking->name,
+                'total_price' => $booking->total_price,
+                'status' => $booking->status,
+                'pickUpLocation' => $booking->pickUpLocation,
+                'dropOffLocation' => $booking->dropOffLocation,
+                'pickUpDate' => $booking->pickUpDate,
+                'collectionDate' => $booking->collectionDate,
+                'created_at' => $checkout->created_at,
+                'status_description' => $this->getBookingStatusDescription($booking),
+                'transaction' => $transaction ? [
+                    'transaction_id' => $transaction->transaction_id,
+                    'amount' => $transaction->amount,
+                    'currency' => $transaction->currency,
+                    'payment_method' => $transaction->payment_method,
+                    'payment_status' => $transaction->payment_status,
+                    'date_time' => $transaction->date_time,
+                ] : null,  // Include transaction details if available
+            ];
+           });
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Booking history retrieved successfully.',
+            'data' => $bookingHistory,
+        ], 200);
+
+       }
+      catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => 'An error occurred while retrieving booking history.',
+            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
+        ], 500);
+      }
     }
+
+    private function getBookingStatusDescription($booking)
+    {
+      if ($booking->is_reject == 1) {
+          return 'Rejected';
+      }
+      if ($booking->is_view == 1) {
+          return 'Approved';
+      }
+      if ($booking->is_contract == 1) {
+          return 'Submit Check-in';
+      }
+      if ($booking->is_contract == 2) {
+          return 'Check-in Submitted';
+      }
+      if ($booking->is_confirm == 1) {
+          return 'Check-in Approved';
+      }
+      if ($booking->is_complete == 1) {
+          return 'Booking Completed';
+      }
+      return 'Pending';
+    }
+
 
     public function logout(Request $request)
     {
@@ -547,7 +802,7 @@ class ApiController extends Controller
         $user->currentAccessToken()->delete();
 
         // Set 'verified' to 0
-        $user->update(['verified' => 0]);
+        // $user->update(['verified' => 0]);
 
         return response()->json([
             'status' => true,
@@ -798,108 +1053,9 @@ class ApiController extends Controller
     }
     }
 
-    public function getBookingHistory($email)
+
+    public function contactus(Request $request)
     {
-    try {
-        // Retrieve checkouts based on the provided email from the checkout table, including the booking and transaction details
-        $checkouts = Checkout::where('email', $email)
-            ->with('booking.transaction')  // Eager load the booking and transaction data
-            ->get();
-
-        // Check if no checkouts are found
-        if ($checkouts->isEmpty()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'No booking history found for this email.',
-            ], 404);
-        }
-
-        // Format the response to include booking details and statuses
-        $bookingHistory = $checkouts->map(function ($checkout) {
-            $booking = $checkout->booking;
-            $transaction = $booking->transaction;  // Get the related transaction details
-
-            // Handle null booking or transaction cases gracefully
-            if (!$booking) {
-                return [
-                    'booking_id' => null,
-                    'vehicle_name' => null,
-                    'total_price' => null,
-                    'status' => null,
-                    'pickUpLocation' => null,
-                    'dropOffLocation' => null,
-                    'pickUpDate' => null,
-                    'collectionDate' => null,
-                    'created_at' => $checkout->created_at,
-                    'status_description' => 'No booking data available',
-                    'transaction' => null,  // No transaction details if booking is missing
-                ];
-            }
-
-            return [
-                'booking_id' => $booking->id,
-                'vehicle_name' => $booking->name,
-                'total_price' => $booking->total_price,
-                'status' => $booking->status,
-                'pickUpLocation' => $booking->pickUpLocation,
-                'dropOffLocation' => $booking->dropOffLocation,
-                'pickUpDate' => $booking->pickUpDate,
-                'collectionDate' => $booking->collectionDate,
-                'created_at' => $checkout->created_at,
-                'status_description' => $this->getBookingStatusDescription($booking),
-                'transaction' => $transaction ? [
-                    'transaction_id' => $transaction->transaction_id,
-                    'amount' => $transaction->amount,
-                    'currency' => $transaction->currency,
-                    'payment_method' => $transaction->payment_method,
-                    'payment_status' => $transaction->payment_status,
-                    'date_time' => $transaction->date_time,
-                ] : null,  // Include transaction details if available
-            ];
-        });
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Booking history retrieved successfully.',
-            'data' => $bookingHistory,
-        ], 200);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => false,
-            'message' => 'An error occurred while retrieving booking history.',
-            'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.',
-        ], 500);
-    }
-    }
-    private function getBookingStatusDescription($booking)
-    {
-      if ($booking->is_reject == 1) {
-          return 'Rejected';
-      }
-      if ($booking->is_view == 1) {
-          return 'Approved';
-      }
-      if ($booking->is_contract == 1) {
-          return 'Submit Check-in';
-      }
-      if ($booking->is_contract == 2) {
-          return 'Check-in Submitted';
-      }
-      if ($booking->is_confirm == 1) {
-          return 'Check-in Approved';
-      }
-      if ($booking->is_complete == 1) {
-          return 'Booking Completed';
-      }
-      return 'Pending';
-    }
-
-
-
-
-   public function contactus(Request $request)
-   {
        $request->validate([
            'name' => 'required',
            'email' => 'required|email',
@@ -930,7 +1086,8 @@ class ApiController extends Controller
            'status' => true,
            'message' => 'Message sent successfully!',
        ], 200);
-   }
+    }
+
 
 
 
