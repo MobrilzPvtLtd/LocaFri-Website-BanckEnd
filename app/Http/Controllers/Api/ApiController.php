@@ -633,7 +633,7 @@ class ApiController extends Controller
 
         // Create the booking
         $booking = new Booking();
-        $booking->user_id = $user->id;  // Store the authenticated user's ID
+        // $booking->user_id = $user->id;  // Store the authenticated user's ID
         $booking->name = $request->vehicle_name;
         $booking->Dprice = $request->Dprice ?? '0.00';
         $booking->wprice = $request->wprice ?? '0.00';
