@@ -55,9 +55,10 @@
                                     {{-- <input type="text" class="form-control" name="location"
                                         value="{{ $vehicle->location }}" placeholder=""> --}}
                                     <select name="location" id="location" class="form-control">
-                                        <option value="Switzerland"
-                                            {{ isset($vehicle) && $vehicle->location == 'Switzerland' ? 'selected' : '' }}>
-                                            Switzerland</option>
+                                        <option value="Romont Gare"
+                                            {{ isset($vehicle) && $vehicle->location == 'Romont Gare' ? 'selected' : '' }}>
+                                            Romont Gare</option>
+
                                     </select>
                                 </div>
 
@@ -98,27 +99,19 @@
                                         <option value="SUV" {{ $vehicle->body == 'SUV' ? 'selected' : '' }}>SUV</option>
                                     </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="seat">Seat</label>
-                                    <select class="form-control" name="seat">
-                                        <option value="" disabled {{ $vehicle->seat ? '' : 'selected' }}>Select
-                                            Number of Seats</option>
-                                        <option value="2 seats" {{ $vehicle->seat == '2 seats' ? 'selected' : '' }}>2 seats
-                                        </option>
-                                        <option value="4 seats" {{ $vehicle->seat == '4 seats' ? 'selected' : '' }}>4 seats
-                                        </option>
-                                        <option value="6 seats" {{ $vehicle->seat == '6 seats' ? 'selected' : '' }}>6 seats
-                                        </option>
-                                        <option value="6+ seats" {{ $vehicle->seat == '6+ seats' ? 'selected' : '' }}>6+
-                                            seats</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="seat" placeholder="Enter number of seats"
+                                        value="{{ old('seat', $vehicle->seat) }}">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Door</label>
-                                    <input type="text" class="form-control" name="door" value="{{ $vehicle->door }}"
-                                        placeholder="">
+                                    <label for="door">Door</label>
+                                    <input type="text" class="form-control" name="door" placeholder="Enter number of doors"
+                                        value="{{ old('door', $vehicle->door) }}">
                                 </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Luggage</label>
                                     <input type="text" class="form-control" name="luggage"
