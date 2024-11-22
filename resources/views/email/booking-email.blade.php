@@ -66,7 +66,7 @@
  <body>
     <section class="contact-main-div">
         <div class="contact-us-content">
-            <h2 style="text-align: center;font-weight: 400;">A New Request from
+            <h2 style="text-align: center;font-weight: 400;">A New Request for
                 {{ ucfirst($data['name']) }}
             </h2>
             <h3>You request has been processed and will be answered as soon as possible</h3>

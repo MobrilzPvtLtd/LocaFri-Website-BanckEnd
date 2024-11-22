@@ -63,21 +63,17 @@
     <section class="contact-main-div">
         <div class="contact-us-content">
             <h2 style="text-align: center; font-weight: 400;">Your contract has been successfully created, {{ ucfirst($data->name) }}</h2>
+            <h1>Now, Fill the CheckIn Details</h1>
             <table class="contact-table">
                 <tbody>
-                    <h1> You have been successfully created contract</h1>
                     <tr>
                         <td>User Name</td>
                         <td>{{ $data->name }}</td>
                     </tr>
-                    <tr>
-                        <td>User Email</td>
-                        <td>{{ $data->email }}</td>
-                    </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>Address (First)</td>
                         <td>{{ $data->address_first }}</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td>PickUp Location</td>
                         <td>{{ $data->pickUpLocation }}</td>
@@ -87,12 +83,56 @@
                         <td>{{ $data->dropOffLocation }}</td>
                     </tr>
                     <tr>
-                        <td>Total Amount</td>
-                        <td>${{ $data->total_price }}</td>
+                        <td>Collection Time</td>
+                        <td>{{ $data->collectionTime }}</td>
                     </tr>
                     <tr>
-                        <td>Amount Paid</td>
-                        <td>${{ $data->amount_paid }}</td>
+                        <td>Collection Date</td>
+                        <td>{{ \Carbon\Carbon::parse($data->collectionDate)->format('d-M-Y') }}</td>
+                    </tr>
+                    @if($data->day_price)
+                        <tr>
+                            <td>Day Price</td>
+                            <td>${{ $data->day_price }}</td>
+                        </tr>
+                    @elseif($data->week_price)
+                        <tr>
+                            <td>Week Price</td>
+                            <td>${{ $data->week_price }}</td>
+                        </tr>
+                    @elseif($data->month_price)
+                        <tr>
+                            <td>Month Price</td>
+                            <td>${{ $data->month_price }}</td>
+                        </tr>
+                    @endif
+                    @if($data->additional_driver)
+                        <tr>
+                            <td>Additional Driver</td>
+                            <td>${{ $data->additional_driver }}</td>
+                        </tr>
+                    @endif
+                    @if($data->booster_seat)
+                        <tr>
+                            <td>Booster Seat</td>
+                            <td>${{ $data->booster_seat }}</td>
+                        </tr>
+                    @endif
+                    @if($data->child_seat)
+                        <tr>
+                            <td>Child Seat</td>
+                            <td>${{ $data->child_seat }}</td>
+                        </tr>
+                    @endif
+                    @if($data->exit_permit)
+                        <tr>
+                            <td>Exit Permit</td>
+                            <td>${{ $data->exit_permit }}</td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <td>Total Amount</td>
+                        <td>${{ $data->total_price }}</td>
                     </tr>
                     @if($data->payment_type == "payment_partial")
                         <tr>
