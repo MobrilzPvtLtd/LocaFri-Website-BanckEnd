@@ -3,7 +3,8 @@ $notifications = optional(auth()->user())->unreadNotifications;
 $notifications_count = optional($notifications)->count();
 $notifications_latest = optional($notifications)->take(5);
 $total_contact = App\Models\Contact::where('is_view', 0)->count();
-$alert = App\Models\Alert::where('seen', 0)->count();
+$alertCount = App\Models\Alert::where('status', 'pending')->count();
+// $alert = App\Models\Alert::where('seen', 0)->count();
 // $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
 ?>
 
@@ -126,11 +127,11 @@ $alert = App\Models\Alert::where('seen', 0)->count();
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
                     <i class=" fa-solid fa-handshake nav-icon contract-icon "></i>&nbsp;@lang('Contract Handling')
-                    @if ($alert)
+                    {{-- @if ($alert)
                         <p class="notify001">
                             {{ $alert }}
                         </p>
-                    @endif
+                    @endif --}}
                 </a>
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
@@ -179,27 +180,60 @@ $alert = App\Models\Alert::where('seen', 0)->count();
                 </a>
             </li>
         @endcan --}}
-    @can('service_alert')
+    {{-- @can('service_alert')
         <li class="nav-group" aria-expanded="true">
             <a class="nav-link nav-group-toggle" href="#">
                 <i class="nav-icon fa-solid fa-triangle-exclamation me-2"></i>&nbsp;@lang('Service Alert')
+
+                @if ($alert)
+                    <p class="notify001">
+                        {{ $alert }}
+                    </p>
+                @endif
+
             </a>
 
             <ul class="nav-group-items compact" style="height: auto;">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('alert.index') }}">
                         <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert Setting
-                    </a>
-                    @if ($alert)
-                        <p class="notify001">
-                            {{ $alert }}
-                        </p>
-                    @endif
+                        @if ($alert)
+                            <p class="notify001">
+                                {{ $alert }}
+                            </p>
+                        @endif
                     </a>
                 </li>
             </ul>
         </li>
-    @endcan
+    @endcan --}}
+
+    @can('service_alert')
+    <li class="nav-group" aria-expanded="true">
+        <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon fa-solid fa-triangle-exclamation me-2"></i>&nbsp;@lang('Service Alert')
+
+            @if ($alertCount)
+                <p class="notify001">
+                    {{ $alertCount }}
+                </p>
+            @endif
+        </a>
+
+        <ul class="nav-group-items compact" style="height: auto;">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('alert.index') }}">
+                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert Setting
+                    @if ($alertCount)
+                        <p class="notify001">
+                            {{ $alertCount }}
+                        </p>
+                    @endif
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan
 
     {{-- @can('edit_settings')
             <li class="nav-item">

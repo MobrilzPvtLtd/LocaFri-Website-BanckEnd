@@ -11,23 +11,19 @@ class AlertController extends Controller
 {
     public function index()
     {
-        // $alerts = Alert::join('contract_outs', 'contract_outs.id', 'alerts.vehicle_id')
-        //         ->join('contract_ins', 'contract_ins.id', 'contract_outs.contract_id')
-        //         ->join('bookings', 'bookings.id', 'contract_ins.booking_id')
-        //         ->select('alerts.*','bookings.name as vehicle_name')
-        //         ->get();
-
+        // Fetch alerts with status 'pending' and mark them as seen
         $alerts = Alert::with(['ContractOut.ContractIn', 'ContractOut.booking'])
+            ->where('status', 'pending')  // Only include 'pending' status alerts
             ->select('alerts.*')
             ->get();
-        // dd($alerts);
-        //     ->map(function ($alert) {
-        //         $alert->vehicle_name = $alert->contractOut->booking->name ?? null;
-        //         // return $alert;
-        // });
 
+        // Mark all fetched alerts as seen
+        Alert::whereIn('id', $alerts->pluck('id'))->update(['seen' => 1]);
+
+        // Return alerts to the view
         return view('backend.alert.index', compact('alerts'));
     }
+
 
     public function create()
     {
