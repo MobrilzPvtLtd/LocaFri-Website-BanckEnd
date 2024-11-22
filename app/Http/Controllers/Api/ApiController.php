@@ -851,16 +851,16 @@ class ApiController extends Controller
     public function checkin(Request $request)
     {
       $validator = Validator::make($request->all(), [
-       'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+       'license_photo' => 'nullable|file|mimes:jpeg,png,jpg',
         'record_kilometers' => 'required|integer',
         'fuel_level' => 'nullable|string',
         'vehicle_images' => 'nullable|array',
-        'vehicle_images.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+        'vehicle_images.*' => 'file|mimes:jpeg,png,jpg',
         'vehicle_damage_comments' => 'nullable|string',
-        'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-        'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg',
+        'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg',
 
-                'name' => 'required|string|max:255',
+                'name' => 'required|string',
                 'email' => 'required|email|exists:checkouts,email',
             ], [
                 'name.required' => 'First name is required.',
