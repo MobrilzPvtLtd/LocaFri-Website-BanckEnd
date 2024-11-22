@@ -339,7 +339,7 @@
                                             <label>Month</label><br>
                                             <div class="d-flex gap-4">
                                                 {{-- <button id="minus2">-</button> --}}
-                                                <input type="text" id="counter003" name="month_count" value="0" class="form-control quantity-padding" style="width: 100%;">
+                                                <input type="text" id="counter003" name="month_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
                                                 {{-- <button id="plus2">+</button> --}}
                                             </div>
                                         {{-- </div> --}}
@@ -348,7 +348,7 @@
                                             <label>Week</label><br>
                                             <div class="d-flex gap-4">
                                                 {{-- <button id="minus1">-</button> --}}
-                                                <input type="text" id="counter002" name="week_count" value="0" class="form-control quantity-padding" style="width: 100%;">
+                                                <input type="text" id="counter002" name="week_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
                                                 {{-- <button id="plus1">+</button> --}}
                                             </div>
                                         {{-- </div> --}}
@@ -357,7 +357,7 @@
                                             <label>Days</label><br>
                                             <div class="d-flex gap-4">
                                                 {{-- <button id="minus">-</button> --}}
-                                                <input type="text" name="day_count" id="counter001" value="0" class="form-control quantity-padding" style="width: 100%;">
+                                                <input type="text" name="day_count" id="counter001" value="0" class="form-control quantity-padding"  readonly style="width: 100%; ">
                                                 {{-- <button id="plus">+</button> --}}
                                             </div>
                                         {{-- </div> --}}

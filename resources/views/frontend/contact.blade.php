@@ -103,8 +103,8 @@
                                 <span><i class="id-color fa fa-phone fa-lg"></i>+41 79 387 60 20</span>
                                 <span><i class="id-color fa fa-envelope-o fa-lg"></i><a
                                         href="mailto:contact@example.com">info@locafri.ch</a></span>
-                                <span><i class="id-color fa fa-file-pdf-o fa-lg"></i><a href="#">Download
-                                        Brochure</a></span>
+                                {{-- <span><i class="id-color fa fa-file-pdf-o fa-lg"></i><a href="#">Download
+                                        Brochure</a></span> --}}
                             </address>
                         </div>
 

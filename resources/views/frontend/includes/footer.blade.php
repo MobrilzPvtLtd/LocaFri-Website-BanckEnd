@@ -5,7 +5,7 @@
                 <div class="">
                     <h5>À PROPOS DE LOCAFRI</h5>
                     <p>
-                        <b>LocaFri : </b>079 387 60 20<br>
+                        <b>LocaFri : </b>+41 79 387 60 20<br>
                         <b>E-mail :</b> info@locafri.ch
                     <div class="col-lg-6">
                         <div class="widget">
@@ -25,7 +25,7 @@
                 <div class="widget">
                     <h5>RÈGLEMENTS</h5>
                     <address class="s1">
-                        <span>Conditions Générales</span>
+                        <span><a href="#">Conditions Générales</a> </span>
                         <!-- <span
                     ><i class="id-color fa fa-phone fa-lg"></i>+1 333 9296</span
                   > -->
@@ -46,7 +46,7 @@
             <div class="col-lg-3">
                 <h5>HEURES D'OUVERTURE</h5>
                 <address class="s1">
-                    <span><b>Lundi à Vendredi :</b><br>08:00 à 12 : 00-13 : 30 à 18:00<br><b>Samedi :</b><br>08:00 à
+                    <span><b>Lundi à Vendredi :</b><br>08:00 à 12:00 - 13:30 à 18:00<br><b>Samedi :</b><br>08:00 à
                         12:00
                         puis sur RDV <br><b>Dimanche :</b></br> Sur RDV </span>
                     <!-- <span

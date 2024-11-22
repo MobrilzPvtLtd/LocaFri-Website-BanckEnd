@@ -136,7 +136,7 @@
                     <div class="de_form">
                         <div class="de_checkbox">
                             <input id="car_seat_1" wire:model.live="seats2" type="checkbox" value="car_seat_1">
-                            <label for="car_seat_1">2 seats</label>
+                            <label for="car_seat_1">3 seats</label>
                         </div>
 
                         <div class="de_checkbox">
@@ -146,13 +146,13 @@
 
                         <div class="de_checkbox">
                             <input id="car_seat_3" wire:model.live="seats6" type="checkbox" value="car_seat_3">
-                            <label for="car_seat_3">6 seats</label>
+                            <label for="car_seat_3">5 seats</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_seat_4" wire:model.live="seats6plus" type="checkbox"
                                 value="car_seat_4">
-                            <label for="car_seat_4">6+ seats</label>
+                            <label for="car_seat_4">9 seats</label>
                         </div>
 
                     </div>

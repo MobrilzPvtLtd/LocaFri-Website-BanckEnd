@@ -170,6 +170,11 @@
                         <input type="text" name="address_last" class="form-control" id="address2"
                             placeholder="Apartment or suite">
                     </div>
+                    <div class="mb-3">
+                        <label for="zipcode">Zip Code <span class="text-muted"></span></label>
+                        <input type="text" name="zipcode" class="form-control" id="zipcode"
+                            placeholder="Zip Code">
+                    </div>
 
                     {{-- <div class="row">
                         <div class="col-md-5 mb-3">
@@ -259,7 +264,7 @@
                         <div class="custom-control custom-radio">
                             <input id="credit" name="payment_method" type="radio" class="custom-control-input"
                                 value="stripe" checked required>
-                            <label class="custom-control-label" for="credit">Stripe</label>
+                            <label class="custom-control-label" for="credit">VISA</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input id="debit" name="payment_method" type="radio" class="custom-control-input"
