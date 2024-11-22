@@ -258,7 +258,17 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_day">permitted kilometers Day</label>
+                                    <label for="city"> Kilometers</label>
+                                    <input type="number" class="form-control" name="mitter"
+                                        value="{{ old('mitter') }}" placeholder="">
+                                    @error('mitter')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group mb-2 col-4">
+                                    <label for="permitted_kilometers_day">Authorized kilometers Day</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_day"
                                         value="{{ old('permitted_kilometers_day') }}" placeholder="">
                                     @error('permitted_kilometers_day')
@@ -268,7 +278,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_week">Permitted kilometers Week</label>
+                                    <label for="permitted_kilometers_week">Authorized kilometers Week</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_week"
                                         value="{{ old('permitted_kilometers_week') }}" placeholder="">
                                     @error('permitted_kilometers_week')
@@ -277,7 +287,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_month">Permitted kilometers Month</label>
+                                    <label for="permitted_kilometers_month">Authorized kilometers Month</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_month"
                                         value="{{ old('permitted_kilometers_month') }}" placeholder="">
                                     @error('permitted_kilometers_month')
@@ -285,14 +295,6 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">Authorised Kilometers</label>
-                                    <input type="number" class="form-control" name="mitter"
-                                        value="{{ old('mitter') }}" placeholder="">
-                                    @error('mitter')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
 
 
                                 <div class="form-group mb-2 col-4">
