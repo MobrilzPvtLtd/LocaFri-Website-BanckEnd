@@ -67,11 +67,7 @@
                                     <input type="file" class="form-control" name="image[]" value="{{ $vehicle->image }}"
                                         placeholder="" multiple>
                                 </div>
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">Kilometers</label>
-                                    <input type="number" class="form-control" name="mitter"
-                                        value="{{ $vehicle->mitter }}" placeholder="">
-                                </div>
+
                                 <div class="form-group mb-2 col-4">
                                     <label for="body">Body</label>
                                     <select class="form-control" name="body">
@@ -102,14 +98,14 @@
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="seat">Seat</label>
-                                    <input type="text" class="form-control" name="seat" placeholder="Enter number of seats"
-                                        value="{{ old('seat', $vehicle->seat) }}">
+                                    <input type="text" class="form-control" name="seat"
+                                        placeholder="Enter number of seats" value="{{ old('seat', $vehicle->seat) }}">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="door">Door</label>
-                                    <input type="text" class="form-control" name="door" placeholder="Enter number of doors"
-                                        value="{{ old('door', $vehicle->door) }}">
+                                    <input type="text" class="form-control" name="door"
+                                        placeholder="Enter number of doors" value="{{ old('door', $vehicle->door) }}">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
@@ -119,8 +115,8 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Fuel</label>
-                                    <input type="text" class="form-control" name="fuel"
-                                        value="{{ $vehicle->fuel }}" placeholder="">
+                                    <input type="text" class="form-control" name="fuel" value="{{ $vehicle->fuel }}"
+                                        placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">Authorized</label>
@@ -135,7 +131,8 @@
                                 <div class="form-group mb-2 col-4">
                                     <label for="trans">Transmission</label>
                                     <select class="form-control" name="trans" id="trans">
-                                        <option value="Manual" {{ $vehicle->trans == 'Manual' ? 'selected' : '' }}>Manual</option>
+                                        <option value="Manual" {{ $vehicle->trans == 'Manual' ? 'selected' : '' }}>Manual
+                                        </option>
                                         {{-- <option value="Automatic" {{ $vehicle->trans == 'Automatic' ? 'selected' : '' }}>Automatic</option> --}}
                                         {{-- <option value="AMT" {{ $vehicle->trans == 'AMT' ? 'selected' : '' }}>AMT</option>
                                         <option value="CVT" {{ $vehicle->trans == 'CVT' ? 'selected' : '' }}>CVT</option>
@@ -170,23 +167,28 @@
                                     <input type="text" class="form-control" name="mprice"
                                         value="{{ $vehicle->mprice }}" placeholder="">
                                 </div>
+                                <div class="form-group mb-2 col-4">
+                                    <label for="city">Kilometers</label>
+                                    <input type="number" class="form-control" name="mitter"
+                                        value="{{ $vehicle->mitter }}" placeholder="">
+                                </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_day">Permitted kilometersd  Day</label>
+                                    <label for="permitted_kilometers_day">Authorized kilometersd Day</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_day"
-                                        value="{{ $vehicle->permitted_kilometers_day}}" placeholder="">
+                                        value="{{ $vehicle->permitted_kilometers_day }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_week">Permitted kilometers Week</label>
+                                    <label for="permitted_kilometers_week">Authorized kilometers Week</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_week"
-                                        value="{{ $vehicle->permitted_kilometers_week}}" placeholder="">
+                                        value="{{ $vehicle->permitted_kilometers_week }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_month">Permitted Kilometers Month</label>
+                                    <label for="permitted_kilometers_month">Authorized Kilometers Month</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_week"
-                                        value="{{ $vehicle->permitted_kilometers_month}}" placeholder="">
+                                        value="{{ $vehicle->permitted_kilometers_month }}" placeholder="">
                                 </div>
 
 
