@@ -362,10 +362,60 @@
                                             </div>
                                         {{-- </div> --}}
 
-                                        <div class="form-check form-switch d-flex gap-4 mt-4">
+                                        {{-- <div class="form-check form-switch d-flex gap-4 mt-4">
                                             <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox" name="additional_driver" value="20">
                                             <label class="form-check-label"  for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
+                                        </div> --}}
+                                        <div class="form-check form-switch d-flex gap-4 mt-4">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="additionalDriverCheckbox"
+                                                name="additional_driver"
+                                                value="20"
+                                                onchange="toggleAdditionalDriverFields()"
+                                            >
+                                            <label class="form-check-label" for="additionalDriverCheckbox">
+                                                Additional driver<br>(20.-/per month)
+                                            </label>
                                         </div>
+
+                                        <div id="additionalDriverFields" style="display: none;" class="mt-3">
+                                            <div class="mb-2">
+                                                <label for="additionalDriverName" class="form-label">Driver's First Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="additionalDriverName"
+                                                    name="additional_driver_first_name"
+                                                    placeholder="Enter first name"
+                                                >
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="additionalDriverSurname" class="form-label">Driver's Last Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="additionalDriverSurname"
+                                                    name="additional_driver_last_name"
+                                                    placeholder="Enter last name"
+                                                >
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            function toggleAdditionalDriverFields() {
+                                                const checkbox = document.getElementById('additionalDriverCheckbox');
+                                                const additionalDriverFields = document.getElementById('additionalDriverFields');
+
+                                                if (checkbox.checked) {
+                                                    additionalDriverFields.style.display = 'block';
+                                                } else {
+                                                    additionalDriverFields.style.display = 'none';
+                                                }
+                                            }
+                                        </script>
+
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
