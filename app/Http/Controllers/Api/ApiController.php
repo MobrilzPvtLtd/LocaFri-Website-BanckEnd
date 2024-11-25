@@ -28,6 +28,25 @@ use Illuminate\Support\Str;
 
 class ApiController extends Controller
 {
+
+    public function getTerms()
+    {
+        $termsContent = [
+            'title' => 'Terms and Conditions',
+            'general_conditions' => [
+                [
+                    'heading' => '1. Hirer\'s Responsibilities',
+                    'content' => 'The hirer is responsible for the rented vehicle (including all accessories) from the start of the rental period. The vehicle must be returned in its original condition (washed, vacuumed, and in working order)...',
+                ],
+
+            ],
+            'link' => url('/terms-and-conditions'),
+        ];
+
+        return response()->json($termsContent, 200);
+    }
+
+
     public function register(Request $request)
     {
         $request->validate([

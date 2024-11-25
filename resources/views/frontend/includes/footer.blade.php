@@ -21,11 +21,12 @@
                 </div>
             </div>
 
+
             <div class="col-lg-3">
                 <div class="widget">
                     <h5>RÈGLEMENTS</h5>
                     <address class="s1">
-                        <span><a href="#">Conditions Générales</a> </span>
+                        <span><a href="{{ route('terms-and-conditions') }}">Conditions Générales</a> </span>
                         <!-- <span
                     ><i class="id-color fa fa-phone fa-lg"></i>+1 333 9296</span
                   > -->

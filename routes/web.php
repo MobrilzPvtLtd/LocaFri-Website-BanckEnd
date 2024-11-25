@@ -24,7 +24,7 @@ use App\Http\Controllers\backend\CheckInController;
 use App\Http\Controllers\Backend\CompleteContractController;
 // use App\Http\Controllers\Backend\CompletedController;
 use App\Http\Controllers\Backend\CompletedController;
-
+use App\Livewire\TermsAndConditions;
 
 
 
@@ -143,6 +143,7 @@ Route::get('dashboard', 'App\Http\Controllers\Frontend\FrontendController@index'
 // pages
 Route::get('terms', Terms::class)->name('terms');
 Route::get('privacy', Privacy::class)->name('privacy');
+Route::get('/terms-and-conditions', TermsAndConditions::class)->name('terms-and-conditions');
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
     Route::get('/', 'FrontendController@index')->name('index');

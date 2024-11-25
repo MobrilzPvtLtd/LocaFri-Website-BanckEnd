@@ -6,6 +6,10 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Livewire\TermsAndConditions;
+
+Route::get('/terms-and-conditions', [ApiController::class, 'getTerms']);
+
 
 // is_contract route hit for admin dashboard //
 Route::post('accept', [ApiController::class, 'acceptBooking'])->name('booking.accept');
@@ -25,6 +29,10 @@ Route::post('contactus', [ApiController::class, 'contactus']);
 
 
 
+
+
+
+
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('logout', [ApiController::class, 'logout']);
     Route::put('updateProfile', [ApiController::class, 'updateProfile']);
@@ -32,6 +40,8 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('stripe-payment', [StripeWebhookController::class, 'stripePayment']);
     Route::post('checkin', [ApiController::class, 'checkin']);
     Route::post('checkout', [ApiController::class, 'checkout']);
+    Route::get('getPaymentStatus', [ApiController::class, 'getPaymentStatus']);
+
 });
 
 // task testing apis for fluter //
