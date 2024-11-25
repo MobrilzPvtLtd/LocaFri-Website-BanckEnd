@@ -62,7 +62,7 @@
                         <div class='col-md-12' style="margin-left:-10px;">
                             <div class='form-control total btn btn-primary'>
                                 Total:
-                                <span class='amount'>$300</span>
+                                <span class='amount'>CHF300</span>
                             </div>
                         </div>
                     </div>

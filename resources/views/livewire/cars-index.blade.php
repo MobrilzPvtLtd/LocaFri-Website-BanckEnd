@@ -16,7 +16,7 @@
                     }
                 @endphp
                 <div class="item_filter_group">
-                    <h4>Price ($)</h4>
+                    <h4>Price (CHF)</h4>
                     <div class="price-input">
                         <div class="field">
                             <span>Min</span>

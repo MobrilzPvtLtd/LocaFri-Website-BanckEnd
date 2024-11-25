@@ -58,7 +58,7 @@ class StripeWebhookController extends Controller
                             'name' => $request->vehicle_name,
                         ],
                         'unit_amount' => 100 * $amount,
-                        'currency' => 'USD',
+                        'currency' => 'CHF',
                     ],
                     'quantity' => 1,
                 ],

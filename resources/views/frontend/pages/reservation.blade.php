@@ -30,7 +30,7 @@
                                 <h6 class="my-0">Day</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
-                            <span class="text-muted">$ {{ $data['Dprice'] * $data['day_count'] }}</span>
+                            <span class="text-muted">CHF {{ $data['Dprice'] * $data['day_count'] }}</span>
                         </li>
                     @endif
 
@@ -40,7 +40,7 @@
                                 <h6 class="my-0">Week</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
-                            <span class="text-muted">$ {{ $data['wprice'] * $data['week_count'] }}</span>
+                            <span class="text-muted">CHF {{ $data['wprice'] * $data['week_count'] }}</span>
                         </li>
                     @endif
 
@@ -50,7 +50,7 @@
                                 <h6 class="my-0">Month</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
-                            <span class="text-muted">$ {{ $data['mprice'] * $data['month_count'] }}</span>
+                            <span class="text-muted">CHF {{ $data['mprice'] * $data['month_count'] }}</span>
                         </li>
                     @endif
                     @if (isset($data['additional_driver']))
@@ -59,7 +59,7 @@
                                 <h6 class="my-0">Additional driver</h6>
                                 <small class="text-muted">(20.-/per month)</small>
                             </div>
-                            <span class="text-muted">${{ $data['additional_driver'] }}</span>
+                            <span class="text-muted">CHF{{ $data['additional_driver'] }}</span>
                         </li>
                     @endif
                     @if (isset($data['booster_seat']))
@@ -68,7 +68,7 @@
                                 <h6 class="my-0">Child booster seat</h6>
                                 <small class="text-muted">(20.-/month)</small>
                             </div>
-                            <span class="text-muted">${{ $data['booster_seat'] }}</span>
+                            <span class="text-muted">CHF{{ $data['booster_seat'] }}</span>
                         </li>
                     @endif
                     @if (isset($data['child_seat']))
@@ -77,7 +77,7 @@
                                 <h6 class="my-0">Child seat</h6>
                                 <small class="text-muted">(30.-/month)</small>
                             </div>
-                            <span class="text-muted">${{ $data['child_seat'] }}</span>
+                            <span class="text-muted">CHF{{ $data['child_seat'] }}</span>
                         </li>
                     @endif
                     @if (isset($data['exit_permit']))
@@ -86,12 +86,12 @@
                                 <h6 class="my-0">Exit permit</h6>
                                 <small class="text-muted">(149.-/month)</small>
                             </div>
-                            <span class="text-muted">${{ $data['exit_permit'] }}</span>
+                            <span class="text-muted">CHF{{ $data['exit_permit'] }}</span>
                         </li>
                     @endif
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (USD)</span>
-                        <strong>${{ $data['total_price'] }}</strong>
+                        <strong>CHF{{ $data['total_price'] }}</strong>
                     </li>
                 </ul>
             </div>
@@ -226,10 +226,10 @@
                     <select class="form-select" style="width: 50%;" name="payment_type" id="payment_type"
                         {{-- onchange="updatePayment()" --}}
                     >
-                        <option value="payment_partial">PAY PARTIALLY 10% (10% of the ${{$remaining_amount}})
+                        <option value="payment_partial">PAY PARTIALLY 10% (10% of the CHF{{$remaining_amount}})
                             <span id="payment_10_percent"></span>
                         </option>
-                        <option value="payment_full">PAY FULL AMOUNT (${{$data['total_price']}})<span id="payment_full"></span></option>
+                        <option value="payment_full">PAY FULL AMOUNT (CHF{{$data['total_price']}})<span id="payment_full"></span></option>
                     </select>
 
                     {{-- <script>
