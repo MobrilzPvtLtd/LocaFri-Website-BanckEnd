@@ -12,7 +12,8 @@ return [
     |
     */
 
-    'failed' => 'مشخصات وارد شده با اطلاعات ما سازگار نیست.',
-    'throttle' => 'دفعات تلاش شما برای ورود بیش از حد مجاز است. لطفا پس از :seconds ثانیه مجددا تلاش فرمایید.',
-    'password' => 'رمز عبور شما معتبر نیست.',
+   'failed' => 'Les informations fournies ne correspondent pas à nos enregistrements.',
+   'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :seconds secondes.',
+'password' => 'Votre mot de passe n\'est pas valide.',
+
 ];
