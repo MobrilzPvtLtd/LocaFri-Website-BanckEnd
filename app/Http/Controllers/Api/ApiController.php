@@ -46,6 +46,28 @@ class ApiController extends Controller
         return response()->json($termsContent, 200);
     }
 
+    public function getPrivacy()
+    {
+        $privacyPolicy = [
+            'title' => 'Privacy Policy',
+            'company_name' => config('app.name'),
+            'app_url' => config('app.url'),
+            'app_email' => setting('email'),
+            'content' => [
+                'introduction' => "At " . config('app.name') . ", accessible at " . config('app.url') . ", one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by " . config('app.name') . " and how we use it.",
+
+                'log_files' => [
+                    'title' => 'Log Files',
+                    'description' => config('app.name') . " follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this as a part of hosting services' analytics. The information collected by log files includes IP addresses, browser type, ISP, date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.",
+                ],
+            ],
+        ];
+
+        return response()->json($privacyPolicy);
+    }
+
+
+
 
     public function register(Request $request)
     {

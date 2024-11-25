@@ -114,8 +114,8 @@
                             </a>
                         </div>
                         <ul class="menu-simple">
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="{{ route('terms-and-conditions') }}">Terms & Conditions</a></li>
+                            <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>

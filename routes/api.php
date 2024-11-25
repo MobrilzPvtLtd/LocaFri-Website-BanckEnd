@@ -9,6 +9,7 @@ use App\Http\Controllers\StripeWebhookController;
 use App\Http\Livewire\TermsAndConditions;
 
 Route::get('/terms-and-conditions', [ApiController::class, 'getTerms']);
+Route::get('/privacy-policy', [ApiController::class, 'getPrivacy']);
 
 
 // is_contract route hit for admin dashboard //
