@@ -33,4 +33,36 @@ return [
     'child_seat' => 'Child seat',
     'exit_permit' => 'Exit permit',
     'total_usd' => 'Total (USD)',
+
+    'working_hours' => 'Monday to Friday: 08:00 - 12:00 / 13:30 - 18:00 Saturday: 08:00 - 12:00 Sunday: By appointment',
+    'home' => 'Home',
+    'vehicles' => 'Vehicles',
+    'key_box' => 'Key Box',
+    'sign_in' => 'Sign in',
+    'profile' => 'Profile',
+    'logout' => 'Logout',
+    'terms_and_conditions' => 'Terms and Conditions',
+    'rules_and_regulations' => 'Rules and Regulations',
+    'opening_hours' => 'Opening Hours',
+    'monday_to_friday' => 'Monday to Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'by_appointment' => 'By Appointment',
+    'accepted_cards' => 'Accepted Cards',
+    'social_network' => 'Social Network',
+    'language' => 'Language',
+    'copyright' => 'Copyright',
+   'terms_conditions' => 'Terms & Conditions',
+   'privacy_policy' => 'Privacy Policy',
+   'about' => 'ABOUT LOCAFRI',
+
+
+
+
+
+
+
+
+
+
 ];

@@ -32,4 +32,35 @@ return [
     'child_seat' => 'Siège enfant',
     'exit_permit' => 'Autorisation de sortie',
     'total_usd' => 'Total (USD)',
+
+    'working_hours' => 'Lundi à Vendredi : 08:00 - 12:00 / 13:30 - 18:00 Samedi : 08:00 - 12:00 Dimanche : Sur RDV',
+    'home' => 'Accueil',
+    'vehicles' => 'Véhicules',
+    'key_box' => 'Boîte à clés',
+    'sign_in' => 'Se connecter',
+    'profile' => 'Profil',
+    'logout' => 'Se déconnecter',
+    'terms_and_conditions' => 'Conditions Générales',
+    'rules_and_regulations' => 'Règlements',
+    'opening_hours' => "HEURES D'OUVERTURE",
+    'monday_to_friday' => 'Lundi à Vendredi',
+    'saturday' => 'Samedi',
+    'sunday' => 'Dimanche',
+    'by_appointment' => 'Sur RDV',
+    'accepted_cards' => 'CARTES ACCEPTÉES',
+    'social_network' => 'Réseaux Sociaux',
+    'language' => 'Langue',
+    'copyright' => 'Droits d’auteur',
+    'terms_conditions' => 'Conditions Générales',
+     'privacy_policy' => 'Politique de Confidentialité',
+     'about' => 'À PROPOS DE LOCAFRI',
+
+
+
+
+
+
+
+
+
 ];

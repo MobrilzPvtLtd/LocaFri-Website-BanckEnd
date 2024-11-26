@@ -10,7 +10,8 @@
                         <a href="#"><i class="fa fa-envelope"></i>info@locafri.ch</a>
                     </div>
                     <div class="topbar-widget">
-                        <a href="#"><i class="fa fa-clock-o"></i>Lundi à Vendredi : 08:00 - 12:00 / 13:30 - 18:00 Samedi 08:00 - 12:00 Dimanche Sur RDV</a>
+                        <a href="#"><i class="fa fa-clock-o"></i>{{ __('messages.working_hours') }}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -48,15 +49,16 @@
                     <div class="de-flex-col header-col-mid">
                         <ul id="mainmenu">
                             <li>
-                                <a class="menu-item" href="/">Accueil</a>
+                                <a class="menu-item" href="/">{{ __('messages.home') }}
+                                </a>
 
                             </li>
                             <li>
-                                <a class="menu-item" href="{{ route('cars') }}">Véhicules</a>
+                                <a class="menu-item" href="{{ route('cars') }}">{{ __('messages.vehicles') }}</a>
 
                             </li>
                             <li>
-                                <a class="menu-item" href="/keybox">Key-Box</a>
+                                <a class="menu-item" href="/keybox">{{ __('messages.key_box') }}</a>
                             </li>
                             <li>
                                 <a class="menu-item" href="{{ route('contact') }}">Contact</a>
@@ -68,7 +70,8 @@
                     <div class="de-flex-col">
                         @guest
                             <div class="menu_side_area">
-                                <a href="{{ route('login') }}" class="btn-main">Sign In</a>
+                                <a href="{{ route('login') }}" class="btn-main">{{ __('messages.sign_in') }}
+                                </a>
                                 <span id="menu-btn"></span>
                             </div>
                         @endguest
@@ -127,13 +130,13 @@
                                             @endcan
                                             <li>
                                                 <a class="menu-item"
-                                                    href="{{ route('frontend.users.profile') }}">Profile</a>
+                                                    href="{{ route('frontend.users.profile') }}">{{ __('messages.profile') }}</a>
                                             </li>
                                             <li>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                     style="display: inline;">
                                                     {{ csrf_field() }}
-                                                    <button class="menu-item" type="submit" style="border: none;background: none;padding: 15px;">Logout</button>
+                                                    <button class="menu-item" type="submit" style="border: none;background: none;padding: 15px;"> {{ __('messages.logout') }}</button>
                                                 </form>
                                             </li>
                                         </ul>
