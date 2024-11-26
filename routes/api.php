@@ -25,7 +25,7 @@ Route::post('login', [ApiController::class, 'login']);
 Route::post('verify-otp', [ApiController::class, 'verifyOtp']);
 Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 
-Route::get('getBookingHistory/{email}', [ApiController::class, 'getBookingHistory']);
+Route::post('booking-history', [ApiController::class, 'bookingHistory']);
 Route::post('contactus', [ApiController::class, 'contactus']);
 
 
