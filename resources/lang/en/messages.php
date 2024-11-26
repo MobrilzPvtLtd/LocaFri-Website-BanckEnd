@@ -55,6 +55,34 @@ return [
    'terms_conditions' => 'Terms & Conditions',
    'privacy_policy' => 'Privacy Policy',
    'about' => 'ABOUT LOCAFRI',
+   'rent_a_car' => 'Louer une voiture',
+
+   'pick_up_location' => 'Pick Up Location',
+   'drop_off_location' => 'Drop Off Location',
+   'pick_up_date_time' => 'Pick Up Date & Time',
+   'select_pick_up' => 'Select your pickup location',
+   'select_drop_off' => 'Select your drop off location',
+   'looking_for_a' => 'Looking for a',
+   'you_re_at_the_right_place' => 'You are at right place',
+   'cars' => 'Cars',
+   'vehicle_fleet' => 'Vehicle Fleet',
+   'smart_keybox_description' => 'The Smart Keybox is an intelligent box that stores the car key for easy retrieval. <span class="id-color"> The renter can pick up and return the vehicle without the presence of a physical person. </span>Locafri will send you a message (WhatsApp or email) with the code to open the box. <span class="id-color"> Simple and easy to use, </span> it is a time-saver for both parties.',
+   'contact_us' => 'Contact Us',
+    'question' => 'Do you have any question?',
+    'your_name' => 'Your Name',
+    'your_email' => 'Your Email',
+    'your_message' => 'Your Message',
+    'send_message' => 'Send Message',
+    'office' => 'Office',
+
+
+
+
+
+
+
+
+
 
 
 

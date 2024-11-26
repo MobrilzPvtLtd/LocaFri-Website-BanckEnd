@@ -33,7 +33,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Contact Us</h1>
+                            <h1>{!! __('messages.contact_us') !!}</h1>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -49,7 +49,7 @@
 
                     <div class="col-lg-8 mb-sm-30">
 
-                        <h3>Do you have any question?</h3>
+                        <h3>{!! __('messages.question') !!}</h3>
 
                         <form name="contactForm" id="contact_form" class="form-border" method="post"
                             action="{{ route('contact.submit') }}">
@@ -59,13 +59,13 @@
                                 <div class="col-md-4 mb10">
                                     <div class="field-set">
                                         <input type="text" name="name" id="name" class="form-control"
-                                            placeholder="Your Name" required>
+                                            placeholder="{!! __('messages.your_name') !!}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb10">
                                     <div class="field-set">
                                         <input type="email" name="email" id="email" class="form-control"
-                                            placeholder="Your Email" required>
+                                            placeholder="{!! __('messages.your_email') !!}" required>
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-4 mb10">
@@ -77,11 +77,11 @@
                             </div>
 
                             <div class="field-set mb20">
-                                <textarea name="message" id="message" class="form-control" placeholder="Your Message" required></textarea>
+                                <textarea name="message" id="message" class="form-control" placeholder="{!! __('messages.your_message') !!}" required></textarea>
                             </div>
                             <div class="g-recaptcha" data-sitekey="copy-your-site-key-here"></div>
                             <div id='submit' class="mt20">
-                                <input type='submit' id='send_message' value='Send Message' class="btn-main">
+                                <input type='submit' id='send_message' value='{!! __('messages.send_message') !!}' class="btn-main">
                             </div>
 
                             <div id="success_message" class='success'>
@@ -97,7 +97,7 @@
                     <div class="col-lg-4">
 
                         <div class="de-box mb30">
-                            <h4>Office</h4>
+                            <h4>{!! __('messages.office') !!}</h4>
                             <address class="s1">
                                 <span><i class="id-color fa fa-map-marker fa-lg"></i>Romont Gare</span>
                                 <span><i class="id-color fa fa-phone fa-lg"></i>+41 79 387 60 20</span>

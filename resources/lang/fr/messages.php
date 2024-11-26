@@ -54,6 +54,30 @@ return [
     'terms_conditions' => 'Conditions Générales',
      'privacy_policy' => 'Politique de Confidentialité',
      'about' => 'À PROPOS DE LOCAFRI',
+     'rent_a_car' => 'Louer une voiture',
+
+     'pick_up_location' => 'Lieu de prise en charge',
+     'drop_off_location' => 'Lieu de dépose',
+    'pick_up_date_time' => 'Date et heure de prise en charge',
+    'select_pick_up' => 'Sélectionnez votre lieu de prise en charge',
+    'select_drop_off' => 'Sélectionnez votre lieu de dépose',
+    'looking_for_a' => 'Vous cherchez un',
+    'you_re_at_the_right_place' => 'Vous êtes au bon endroit.',
+    'cars' => 'Voitures',
+    'vehicle_fleet' => 'Flotte de véhicules',
+    'smart_keybox_description' => 'La Smart Keybox est une boîte intelligente qui stocke la clé de voiture pour les retrouver facilement. <span class="id-color"> Le locataire peut prendre et rendre le véhicule en l’absence d’une personne physique. </span>Locafri vous enverra un message (Whatsapp ou e-mail) avec le code pour ouvrir la box. <span class="id-color"> Simple et facile d’utilisation, </span> c’est un gain de temps pour les deux parties.',
+    'contact_us' => 'Contactez-nous',
+    'question' => 'Avez-vous des questions ?',
+    'your_name' => 'Votre nom',
+    'your_email' => 'Votre e-mail',
+    'your_message' => 'Votre message',
+    'send_message' => 'Envoyer le message',
+    'office' => 'Bureau',
+
+
+
+
+
 
 
 

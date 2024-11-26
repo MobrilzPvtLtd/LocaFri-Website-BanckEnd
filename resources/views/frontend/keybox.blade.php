@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Key Box</h1>
+                        <h1>{!! __('messages.key_box') !!}</h1>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -74,7 +74,7 @@
     <a href="#" id="back-to-top"></a>
 
     <!-- footer begin -->
-    
+
     <!-- footer close -->
 
 </div>

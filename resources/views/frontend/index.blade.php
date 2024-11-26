@@ -1,7 +1,7 @@
 @extends('frontend.layouts.loca')
 
 @section('title')
-    {{ app_name() }} - Rent a car
+    {{ app_name() }} - {{ __('messages.rent_a_car') }}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                         <div class="spacer-double "></div>
                         <div class="spacer-double"></div>
                         <h1 class="mb-2">
-                            Looking for a <span class="id-color">vehicle</span>? You're at
+                            Looking for a <span class="id-color">{{ __('messages.vehicles') }}</span>? You're at
                             the right place.
                         </h1>
                         <div class="spacer-single"></div>
@@ -31,10 +31,10 @@
                                 <div class="spacer-20"></div>
                                 <div class="row">
                                     <div class="col-lg-6 mb20">
-                                        <h5>Pick Up Location</h5>
+                                        <h5>{{ __('messages.pick_up_location') }}</h5>
                                         <div class="date-time-field">
                                             <select name="pickUpLocation" id="pick_up">
-                                                <option selected disabled value="Select pick_up">select your pickup location
+                                                <option selected disabled value="Select pick_up">{{ __('messages.select_pick_up') }}
                                                 </option>
                                                 @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
@@ -49,10 +49,10 @@
                                     </div>
 
                                     <div class="col-lg-6 mb20">
-                                        <h5>Drop Off Location</h5>
+                                        <h5>{{ __('messages.select_drop_off') }}</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off">
-                                                <option selected disabled value="Select drop_off">select your drop Off location</option>
+                                                <option selected disabled value="Select drop_off">{{ __('messages.drop_off_location') }}</option>
                                                     @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
                                                 @endforeach
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="col-lg-6 mb20">
-                                        <h5>Pick Up Date & Time</h5>
+                                        <h5>{{ __('messages.pick_up_date_time') }}</h5>
                                         <div class="date-time-field">
                                             {{-- <input type="text" id="date-picker" name="pickUpDate" value=""> --}}
                                             <input type="text" name="pickUpDate" value="" class="form-control" style="width: 100%;"/>

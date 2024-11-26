@@ -28,6 +28,7 @@ return [
         'Other' => 'Autre',
         'edit_profile' => 'Modifier le profil',
         'category_name' => 'Catégorie',
+
     ],
 
     'backend' => [

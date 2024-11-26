@@ -28,6 +28,7 @@ return [
         'Other' => 'Other',
         'edit_profile' => 'Edit Profile',
         'category_name' => 'Category',
+
     ],
     // __("labels.text.edit_profile")
 

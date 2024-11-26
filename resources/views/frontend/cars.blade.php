@@ -1,7 +1,7 @@
 @extends('frontend.layouts.loca')
 
 @section('title')
-    {{ app_name() }} - Cars
+    {{ app_name() }} - {{ __('messages.cars') }}
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center p-4">
-                        <h1>Véhicules</h1>
+                        <h1>{{ __('messages.vehicles') }}</h1>
                     </div>
                     <div class="clearfix"></div>
                 </div>
