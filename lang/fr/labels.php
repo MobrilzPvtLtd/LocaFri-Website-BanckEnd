@@ -67,6 +67,7 @@ return [
                 'username' => 'Nom d\'utilisateur',
                 'mobile' => 'Mobile',
                 'gender' => 'Genre',
+                'zip code'=>'code postal',
                 'date_of_birth' => 'Date de naissance',
                 'url_website' => 'Site web',
                 'url_facebook' => 'Facebook',

@@ -6,20 +6,20 @@
 @section('content')
     <div class="container ">
         <div class="py-5 text-center">
-            <h2 style="margin-top: 150px">Checkout form</h2>
+            <h2 style="margin-top: 150px">{{ __('messages.checkout_form') }}</h2>
             {{-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> --}}
         </div>
 
         <div class="row">
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">Your cart</span>
+                    <span class="text-muted">{{ __('messages.your_cart') }}</span>
                     <span class="badge badge-secondary badge-pill">3</span>
                 </h4>
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Vehicle name</h6>
+                            <h6 class="my-0">{{ __('messages.vehicle_name') }}</h6>
                             <small class="text-muted">{{ $data['name'] }}</small>
                         </div>
                         {{-- <span class="text-muted">$12</span> --}}
@@ -27,7 +27,7 @@
                     @if ($data['day_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Day</h6>
+                                <h6 class="my-0">{{ __('messages.day') }}</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">CHF {{ $data['Dprice'] * $data['day_count'] }}</span>
@@ -37,7 +37,7 @@
                     @if ($data['week_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Week</h6>
+                                <h6 class="my-0">{{ __('messages.week') }}</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">CHF {{ $data['wprice'] * $data['week_count'] }}</span>
@@ -47,7 +47,7 @@
                     @if ($data['month_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Month</h6>
+                                <h6 class="my-0">{{ __('messages.month') }}</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">CHF {{ $data['mprice'] * $data['month_count'] }}</span>
@@ -56,7 +56,7 @@
                     @if (isset($data['additional_driver']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Additional driver</h6>
+                                <h6 class="my-0">{{ __('messages.additional_driver') }}</h6>
                                 <small class="text-muted">(20.-/per month)</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['additional_driver'] }}</span>
@@ -65,7 +65,7 @@
                     @if (isset($data['booster_seat']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Child booster seat</h6>
+                                <h6 class="my-0">{{ __('messages.child_booster_seat')}}</h6>
                                 <small class="text-muted">(20.-/month)</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['booster_seat'] }}</span>
@@ -74,7 +74,7 @@
                     @if (isset($data['child_seat']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Child seat</h6>
+                                <h6 class="my-0">{{ __('messages.child_seat') }}</h6>
                                 <small class="text-muted">(30.-/month)</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['child_seat'] }}</span>
@@ -83,7 +83,7 @@
                     @if (isset($data['exit_permit']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Exit permit</h6>
+                                <h6 class="my-0">{{ __('messages.exit_permit') }}</h6>
                                 <small class="text-muted">(149.-/month)</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['exit_permit'] }}</span>
@@ -96,7 +96,7 @@
                 </ul>
             </div>
             <div class="col-md-8 order-md-1">
-                <h4 class="mb-3">Billing address</h4>
+                <h4 class="mb-3">{{ __('messages.billing_address') }}</h4>
                 <form class="needs-validation" action="{{ route('booking-checkout') }}" method="post" novalidate>
                     @csrf
                     {{-- <input type="hidden" value="{{ $data['targetDate'] }}" name="targetDate"> --}}
@@ -133,7 +133,8 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">First name <span class="text-danger">*</span></label>
+                            <label for="firstName">{{ __('messages.first_name') }} <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="first_name" id="firstName" placeholder=""
                                 required>
                             @error('first_name')
@@ -141,14 +142,15 @@
                             @enderror
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lastName">Last name <span class="text-danger">*</span></label>
+                            <label for="lastName">{{ __('messages.last_name') }}<span
+                                class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="last_name" id="lastName" placeholder=""
                                 required>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email">Email <span class="text-danger">*</span></label>
+                        <label for="email">{{ __('messages.email') }} <span class="text-danger">*</span></label>
                         <input type="email" name="email" class="form-control" id="email"
                             placeholder="you@example.com" required>
                         @error('email')
@@ -157,7 +159,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address">Address <span class="text-danger">*</span></label>
+                        <label for="address">{{ __('messages.adresse_1') }}<span
+                                class="text-danger">*</span></label>
                         <input type="text" name="address_first" class="form-control" id="address"
                             placeholder="1234 Main St">
                         <div class="invalid-feedback">
@@ -166,12 +169,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address2">Address 2 <span class="text-muted"></span></label>
+                        <label for="address2">{{ __('messages.adresse_1')}}<span
+                                class="text-muted"></span></label>
                         <input type="text" name="address_last" class="form-control" id="address2"
                             placeholder="Apartment or suite">
                     </div>
                     <div class="mb-3">
-                        <label for="zipcode">Zip Code <span class="text-muted"></span></label>
+                        <label for="zipcode">{{ __('messages.zip_code') }}<span
+                                class="text-muted"></span></label>
                         <input type="text" name="zipcode" class="form-control" id="zipcode"
                             placeholder="Zip Code">
                     </div>
@@ -209,27 +214,26 @@
 
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="same-address">
-                        <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                            address</label>
+                        <label class="custom-control-label" for="same-address">{{ __('messages.shipping_address_is_same_as_billing_address')}}</label>
                     </div>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="save-info">
-                        <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                        <label class="custom-control-label" for="save-info">{{ __('messages.save_this_information_for_next_time')}}</label>
                     </div>
                     <hr class="mb-4">
-                    <label class="custom-control-label mb-8" for="same-address">Choose Payment Type</label>
+                    <label class="custom-control-label mb-8" for="same-address">{{ __('messages.choose_payment_type')}}</label>
 
                     @php
-                        $remaining_amount = $data['total_price'] * 0.10;
+                        $remaining_amount = $data['total_price'] * 0.1;
                     @endphp
 
                     <select class="form-select" style="width: 50%;" name="payment_type" id="payment_type"
-                        {{-- onchange="updatePayment()" --}}
-                    >
-                        <option value="payment_partial">PAY PARTIALLY 10% (10% of the CHF{{$remaining_amount}})
+                        {{-- onchange="updatePayment()" --}}>
+                        <option value="payment_partial">{{ __('messages.pay_partially_10')}}(10% of the CHF{{ $remaining_amount }})
                             <span id="payment_10_percent"></span>
                         </option>
-                        <option value="payment_full">PAY FULL AMOUNT (CHF{{$data['total_price']}})<span id="payment_full"></span></option>
+                        <option value="payment_full">{{ __('messages.pay_full_amount')}}(CHF{{ $data['total_price'] }})<span
+                                id="payment_full"></span></option>
                     </select>
 
                     {{-- <script>
@@ -258,18 +262,18 @@
                         updatePayment();
                     </script> --}}
 
-                    <h4 class="mt-3">Payment Methods</h4>
+                    <h4 class="mt-3">{{ __('messages.payment_methods')}}</h4>
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
                             <input id="credit" name="payment_method" type="radio" class="custom-control-input"
                                 value="stripe" checked required>
-                            <label class="custom-control-label" for="credit">VISA</label>
+                            <label class="custom-control-label" for="credit">{{ __('messages.visa')}}</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input id="debit" name="payment_method" type="radio" class="custom-control-input"
                                 value="twint" required>
-                            <label class="custom-control-label" for="debit">Twint</label>
+                            <label class="custom-control-label" for="debit">{{ __('messages.twint')}}</label>
                         </div>
                     </div>
                     {{-- <div class="row">
@@ -312,7 +316,7 @@
                         <!-- Button trigger modal -->
                         <button type="button" class="btn-main" data-bs-toggle="modal"
                             data-bs-target="#scrollingLongContent">
-                            Continue to checkout
+                            {{ __('messages.continue_to_checkout')}}
                         </button>
 
                         <!-- Modal -->
@@ -360,8 +364,8 @@
                                             metus auctor fringilla.</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn-main" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn-main">Understood</button>
+                                        <button type="button" class="btn-main" data-bs-dismiss="modal">{{ __('messages.close')}}</button>
+                                        <button type="submit" class="btn-main">{{ __('messages.understood')}}</button>
                                     </div>
                                 </div>
                             </div>
