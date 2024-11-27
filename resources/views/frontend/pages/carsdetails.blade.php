@@ -65,52 +65,52 @@
 
                         <div class="spacer-10"></div>
 
-                        <h4>Specifications</h4>
+                        <h4>{!! __('messages.specifications') !!}</h4>
                         <div class="de-spec">
                             <div class="d-row">
-                                <span class="d-title">Body </span>
+                                <span class="d-title">{!! __('messages.body') !!}</span>
                                 <spam class="d-value">{{ $vehicles->body }}</spam>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Seat</span>
-                                <spam class="d-value">{{ $vehicles->seat }} seats</spam>
+                                <span class="d-title">{!! __('messages.seat') !!}</span>
+                                <spam class="d-value">{{ $vehicles->seat }}</spam>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Door</span>
-                                <spam class="d-value">{{ $vehicles->door }} doors</spam>
+                                <span class="d-title">{!! __('messages.door') !!}</span>
+                                <spam class="d-value">{{ $vehicles->door }}</spam>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Luggage</span>
+                                <span class="d-title">{!! __('messages.luggage') !!}</span>
                                 <spam class="d-value">{{ $vehicles->luggage }}</spam>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Fuel Type</span>
+                                <span class="d-title">{!! __('messages.fuel_type') !!}</span>
                                 <spam class="d-value">{{ $vehicles->fuel }}</spam>
                             </div>
                             <div class="d-row de-flex">
-                                <span class="d-title">Authorized kilometers</span>
+                                <span class="d-title">{!! __('messages.authorized_kilometers') !!}</span>
                                 <span class="d-value">{{ $vehicles->mitter }} kms / 1 month<br>
                                     {{-- 1000kms / 1 week<br>
                                     3000kms / 1 month --}}
                                 </span>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Transmission</span>
+                                <span class="d-title">{!! __('messages.transmission') !!}</span>
                                 <spam class="d-value">{{ $vehicles->trans }}</spam>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Exterior Color</span>
+                                <span class="d-title">{!! __('messages.exterior_color') !!}</span>
                                 <spam class="d-value">{{ $vehicles->exterior }}</spam>
                             </div>
                             <div class="d-row">
-                                <span class="d-title">Interior Color</span>
+                                <span class="d-title">{!! __('messages.interior_color') !!}</span>
                                 <spam class="d-value">{{ $vehicles->interior }}</spam>
                             </div>
                         </div>
 
                         <div class="spacer-single"></div>
 
-                        <h4>Features</h4>
+                        <h4>{!! __('messages.features') !!}</h4>
                         <ul class="ul-style-2">
 
                             @php
@@ -123,7 +123,7 @@
                                     @endforeach
                                 </ul>
                             @else
-                                <p>No features available</p>
+                                <p>{!! __('messages.no_features') !!}</p>
                             @endif
                         </ul>
                     </div>
@@ -143,13 +143,13 @@
                             <div class="spacer-30"></div>
                             <div class="de-box mb25">
                                 {{-- <form name="contactForm" id='contact_form' method="post"> --}}
-                                <h4>Booking this car</h4>
+                                <h4>{!! __('messages.booking_car') !!}</h4>
 
                                 <div class="spacer-20"></div>
 
                                 <div class="row">
                                     <div class="col-lg-12 mb20">
-                                        <h5>Pick Up Location</h5>
+                                        <h5>{!! __('messages.pick_up_location') !!}</h5>
                                         <div class="date-time-field">
 
                                             <select name="pickUpLocation" id="pick_up" required>
@@ -174,7 +174,7 @@
                                     </div>
 
                                     <div class="col-lg-12 mb20">
-                                        <h5>Drop Off Location</h5>
+                                        <h5>{!! __('messages.drop_off_location') !!}</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off" required>
                                                 {{-- @if(session()->has('dropOffLocation'))
@@ -198,7 +198,7 @@
                                     </div>
 
                                     <div class="col-lg-12 mb20">
-                                        <h5>Pick Up Date & Time</h5>
+                                        <h5>{!! __('messages.pick_up_date_time') !!}</h5>
                                         <div class="date-time-field">
                                             {{-- <input type="text" id="date-picker" name="pickUpDate"
                                                 value="{{ session()->get('pickUpDate') }}"> --}}
@@ -336,7 +336,7 @@
                                             </select>
                                         </div> --}}
                                         {{-- <div class="col-md-3 col-sm-3 search-col-padding month section"> --}}
-                                            <label>Month</label><br>
+                                            <label>{!! __('messages.month') !!}</label><br>
                                             <div class="d-flex gap-4">
                                                 {{-- <button id="minus2">-</button> --}}
                                                 <input type="text" id="counter003" name="month_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
@@ -345,7 +345,7 @@
                                         {{-- </div> --}}
 
                                         {{-- <div class="col-md-3 col-sm-3 search-col-padding week section"> --}}
-                                            <label>Week</label><br>
+                                            <label>{!! __('messages.week') !!}</label><br>
                                             <div class="d-flex gap-4">
                                                 {{-- <button id="minus1">-</button> --}}
                                                 <input type="text" id="counter002" name="week_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
@@ -354,7 +354,7 @@
                                         {{-- </div> --}}
 
                                         {{-- <div class="col-md-3 col-sm-3 search-col-padding day section"> --}}
-                                            <label>Days</label><br>
+                                            <label>{!! __('messages.day') !!}</label><br>
                                             <div class="d-flex gap-4">
                                                 {{-- <button id="minus">-</button> --}}
                                                 <input type="text" name="day_count" id="counter001" value="0" class="form-control quantity-padding"  readonly style="width: 100%; ">
@@ -376,7 +376,7 @@
                                                 onchange="toggleAdditionalDriverFields()"
                                             >
                                             <label class="form-check-label" for="additionalDriverCheckbox">
-                                                Additional driver<br>(20.-/per month)
+                                                {!! __('messages.additional_driver') !!}<br>(20.-/per month)
                                             </label>
                                         </div>
 
@@ -419,27 +419,27 @@
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
-                                            <label class="form-check-label" for="boosterSeatCheckbox">Child booster seat<br>(20.-/month)</label>
+                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.child_booster_seat') !!}<br>(20.-/month)</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="childSeatCheckbox" name="child_seat" value="30">
-                                            <label class="form-check-label" for="childSeatCheckbox">Child seat<br>(30.-/month)</label>
+                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30.-/month)</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="exitPermitCheckbox" name="exit_permit" value="149">
-                                            <label class="form-check-label" for="exitPermitCheckbox">Exit permit<br>(149.-/month)</label>
+                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}Exit permit<br>(149.-/month)</label>
                                         </div>
 
                                         <div class="form-floating">
                                             <textarea class="form-control"name="message" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                                            <label for="floatingTextarea2">Leave a comment here</label>
+                                            <label for="floatingTextarea2">{!! __('messages.leave_comment') !!}</label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <input type='submit' id='send_message' value='Book Now' class="btn-main btn-fullwidth">
+                                <input type='submit' id='send_message' value='{!! __('messages.book_now') !!}' class="btn-main btn-fullwidth">
 
                                 <div class="clearfix"></div>
                                 <div class="de-price text-center mt-2">
@@ -454,7 +454,7 @@
                     </div>
 
                     <div class="de-box">
-                        <h4>Share</h4>
+                        <h4>{!! __('messages.share') !!}</h4>
                         <div class="de-color-icons">
                             <span><i class="fa fa-twitter fa-lg"></i></span>
                             <span><i class="fa fa-facebook fa-lg"></i></span>
