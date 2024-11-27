@@ -135,6 +135,11 @@ return [
     'contact_us' => 'Contact Us',
     'adventure_begin' => 'Let\'s Your Adventure Begin',
     'first_class_services' => 'First Class Services',
+    'smart_keybox' => 'The Smart Keybox is an intelligent box that stores the car key for easy retrieval.',
+    'rent_return_vehicle' => 'The renter can pick up and return the vehicle without a physical person being present.',
+    'locafri_message' => 'Locafri will send you a message (Whatsapp or email) with the code to open the box.',
+    'simple_easy' => 'Simple and easy to use,',
+    'time_saver' => 'it saves time for both parties.',
 
 
 

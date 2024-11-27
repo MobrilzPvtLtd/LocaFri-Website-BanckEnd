@@ -29,11 +29,8 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInRight">
-                    <h2 class="k_text001">La Smart Keybox est une boîte intelligente qui stocke la clé de voiture pour
-                        les retrouver facilement. <span class="id-color"> Le locataire peut prendre et rendre le
-                            véhicule en l’absence d’une personne physique. </span>Locafri vous enverra un message
-                        (Whatsapp ou e-mail) avec le code pour ouvrir la box.<span class="id-color"> Simple et facile
-                            d’utilisation, </span>c’est un gain de temps pour les deux parties.</h2>
+                    <h2 class="k_text001">{!! __('messages.smart_keybox') !!} <span class="id-color">{!! __('messages.rent_return_vehicle') !!}</span>
+                        {!! __('messages.locafri_message') !!}<span class="id-color"> {!! __('messages.simple_easy') !!}</span> {!! __('messages.time_saver') !!}</h2>
                 </div>
                 <div class="col-lg-6 wow fadeInRight" data-wow-delay=".25s">
                     <img src="images/misc/5e40015a-1d75-46ef-b20d-acb5894177cc.jpg" alt=""

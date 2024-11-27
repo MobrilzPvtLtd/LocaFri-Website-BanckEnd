@@ -136,6 +136,12 @@ return [
     'adventure_begin' => 'Que l\'aventure commence',
     'first_class_services' => 'Services de première classe',
 
+    'smart_keybox' => 'La Smart Keybox est une boîte intelligente qui stocke la clé de voiture pour un accès facile.',
+    'rent_return_vehicle' => 'Le locataire peut prendre et rendre le véhicule sans la présence d\'une personne physique.',
+    'locafri_message' => 'Locafri vous enverra un message (WhatsApp ou email) avec le code pour ouvrir la box.',
+    'simple_easy' => 'Simple et facile à utiliser,',
+    'time_saver' => 'cela permet de gagner du temps pour les deux parties.',
+
 
 
 
