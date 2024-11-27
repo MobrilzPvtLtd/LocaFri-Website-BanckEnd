@@ -559,7 +559,7 @@ public function create_contract(Request $request)
         return response()->json([
             'status' => true,
             'message' => 'Contract created successfully.',
-            'price' => $booking->total_price,
+            'price' => (int) $booking->total_price,
             'vehicle_name' => $booking->name,
             'customer_email' => $checkout->email,
             'booking_id' => $booking->id,

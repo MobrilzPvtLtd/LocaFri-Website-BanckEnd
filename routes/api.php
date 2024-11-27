@@ -28,12 +28,6 @@ Route::post('resend-otp', [ApiController::class, 'resendOtp']);
 Route::post('booking-history', [ApiController::class, 'bookingHistory']);
 Route::post('contactus', [ApiController::class, 'contactus']);
 
-
-
-
-
-
-
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('logout', [ApiController::class, 'logout']);
     Route::put('updateProfile', [ApiController::class, 'updateProfile']);

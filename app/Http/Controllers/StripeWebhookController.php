@@ -21,13 +21,7 @@ class StripeWebhookController extends Controller
         $segments = explode('/', $currentUrl);
         $apiUrl = end($segments);
 
-        if($request->payment_type == "payment_partial"){
-            $amount = $request->price * 0.10;
-        }else{
-            $amount = $request->price;
-        }
-
-        $redirectUrl = route('stripe',['price' => $amount, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
+        $redirectUrl = route('stripe',['price' => $request->price, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
 
         return response()->json(['status' => true, 'redirectUrl' => $redirectUrl]);
     }
@@ -187,8 +181,4 @@ class StripeWebhookController extends Controller
 
         return redirect()->route('thank-you');
     }
-
-
-
-
 }
