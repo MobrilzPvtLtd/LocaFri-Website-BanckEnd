@@ -31,7 +31,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-4 offset-lg-4">
                             <div class="padding40 rounded-3 shadow-soft" data-bgcolor="#ffffff">
-                                <h4>Login</h4>
+                                <h4>{!! __('messages.login') !!}</h4>
                                 <?php if ($errors->has('email')): ?>
                                 <span class="error"><?php echo $errors->first('email'); ?></span>
                                 <?php endif; ?>
@@ -47,20 +47,20 @@
                                     </div>
                                     <div class="field-set">
                                         <input type="password" name="password" id="name" class="form-control"
-                                            placeholder="password " />
+                                            placeholder="{!! __('messages.password') !!} " />
                                     </div>
                                     <div id="submit">
-                                        <input type="submit" id="send_message" value="Sign In"
+                                        <input type="submit" id="send_message" value="{!! __('messages.sign_in') !!}"
                                             class="btn-main btn-fullwidth rounded-3" />
                                     </div>
                                 </form>
                                 <div class="mt-2">
-                                    <a href="{{ route('password.email') }}" style="    text-decoration-line: underline;">Forgot Your Password? </a>
+                                    <a href="{{ route('password.email') }}" style="    text-decoration-line: underline;">{!! __('messages.forgot_password') !!} </a>
                                 </div>
 
-                                <div class="text-center mt-3"><a class="res001" href="{{ route('register') }}">don't have an account?</a>
+                                <div class="text-center mt-3"><a class="res001" href="{{ route('register') }}">{!! __('messages.no_account') !!} </a>
                                 </div>
-                                <div class="title-line">Or&nbsp;</div>
+                                <div class="title-line">{!! __('messages.or') !!}&nbsp;</div>
                                 <div class="row g-2">
                                     <div class="col-lg-6">
                                         <a class="btn-sc btn-fullwidth mb10" href="#"><img

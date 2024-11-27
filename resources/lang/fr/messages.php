@@ -100,6 +100,12 @@ return [
     'book_now' => 'Réserver Maintenant',
     'leave_comment' => 'Laissez un commentaire ici',
     'share' => 'Partager',
+    'login' => 'Connexion',
+    'password' => 'Mot de passe',
+    'sign_in' => 'Se connecter',
+    'forgot_password' => 'Mot de passe oublié ?',
+    'no_account' => "Vous n'avez pas de compte ?",
+    'or' => 'ou',
 
 
 

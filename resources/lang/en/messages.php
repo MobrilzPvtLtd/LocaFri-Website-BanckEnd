@@ -100,7 +100,13 @@ return [
     'booking_car' => 'Booking this car',
     'book_now' => 'Book Now',
     'leave_comment' => 'leave a comment here',
-    'share' => 'Partager',
+    'share' => 'Share',
+    'login' => 'Login',
+    'password' => 'Enter Your Password',
+    'sign_in' => 'Sign In',
+    'forgot_password' => 'Forget Your Password ?',
+    'no_account' => "Don't have an account?",
+    'or' => 'Or',
 
 
 
