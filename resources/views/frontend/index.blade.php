@@ -15,8 +15,7 @@
                         <div class="spacer-double "></div>
                         <div class="spacer-double"></div>
                         <h1 class="mb-2">
-                            Looking for a <span class="id-color">{{ __('messages.vehicles') }}</span>? You're at
-                            the right place.
+                            {{ __('messages.looking_for_a') }} <span class="id-color">{{ __('messages.vehicles') }}</span>?{{ __('messages.you_re_at_the_right_place') }}
                         </h1>
                         <div class="spacer-single"></div>
                     </div>
@@ -186,7 +185,7 @@
                                     <div class="col-lg-6 mt30">
                                         {{-- <h5>Pick Up Date & Time</h5> --}}
                                         <div class="date-time-field">
-                                            <input type='submit' id='send_message' value='Find a Vehicle' class="btn-main pull-right">
+                                            <input type='submit' id='send_message' value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right">
                                         </div>
                                     </div>
                                 </div>
@@ -263,7 +262,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 offset-lg-3 text-center">
-                        <h2>Our Features</h2>
+                        <h2>{{ __('messages.our_features') }}</h2>
                         <!-- <p>
                                   Dolor esse sint officia est voluptate et qui deserunt et est
                                   eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
@@ -283,7 +282,7 @@
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
-                                <h4>24/7 road assistance</h4>
+                                <h4>{{ __('messages.assistance') }}</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
                                     duis consequat nostrud id -->
                             </div>
@@ -306,7 +305,7 @@
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
-                                <h4>Free Pick-Up & Drop-Off</h4>
+                                <h4>{{ __('messages.free_pick_drop') }}</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
                                     duis consequat nostrud id -->
                             </div>
@@ -320,12 +319,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3">
-                        <h1>Let's Your Adventure Begin</h1>
+                        <h1>{{ __('messages.adventure_begin') }}</h1>
                         <div class="spacer-20"></div>
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-trophy de-icon mb20"></i>
-                        <h4>First Class Services</h4>
+                        <h4>{{ __('messages.first_class_services') }}</h4>
                         <!-- <p>
                                   Aliquip consequat excepteur non dolor irure ad irure labore ex
                                   eiusmod est duis culpa ex ut minim ut ea.
@@ -341,7 +340,7 @@
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-map-pin de-icon mb20"></i>
-                        <h4>Free Pick-Up & Drop-Off</h4>
+                        <h4>{{ __('messages.free_pick_drop') }}</h4>
                         <!-- <p>
                                   Aliquip consequat excepteur non dolor irure ad irure labore ex
                                   eiusmod est duis culpa ex ut minim ut ea.
@@ -355,7 +354,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 offset-lg-3 text-center">
-                        <h2>Our Vehicle Fleet</h2>
+                        <h2>{{ __('messages.vechicle_fleet') }}</h2>
                         <div class="spacer-20"></div>
                     </div>
 
@@ -402,8 +401,7 @@
                                             </div>
                                             <div class="d-price">
                                                 Prix <span>35.- / 1 jour</span>
-                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">Rent
-                                                    Now</a>
+                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">{{ __('messages.rent_now') }}                                                   Now</a>
                                             </div>
                                         </div>
                                     </div>
@@ -578,18 +576,17 @@
                 <div class="row">
                     <div class="col-lg-6 offset-lg-1">
                         <h2 class="s2">
-                            Call us for further information. Rentaly customer care is here
-                            to help you anytime.
+                            {{ __('messages.call_us_for_info') }}
                         </h2>
                     </div>
 
                     <div class="col-lg-5 text-lg-center text-sm-center">
                         <div class="phone-num-big">
                             <i class="fa fa-phone"></i>
-                            <span class="pnb-text"> Call Us Now </span>
+                            <span class="pnb-text">{{ __('messages.call_us_now') }} </span>
                             <span class="pnb-num"> +41 79 387 60 20</span>
                         </div>
-                        <a href="/contact" class="btn-main">Contact Us</a>
+                        <a href="/contact" class="btn-main">{{ __('messages.contact_us') }}</a>
                     </div>
                 </div>
             </div>

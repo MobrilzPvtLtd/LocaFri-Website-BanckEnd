@@ -125,6 +125,16 @@ return [
     'thanks_message' => 'Thanks for getting in touch with us.',
     'response_message' => 'We will get back to you very soon.',
     'go_home' => 'Go Home',
+    'our_features'=>'Our Features',
+    'assistance'=>'24/7 road assistance',
+    'free_pick_drop'=>'Free Pick-Up & Drop-Off',
+    'vechicle_fleet'=>'Our Vehicle Fleet',
+    'rent_now'=>'Rent Now',
+    'call_us_for_info' => 'Call us for further information. Rentaly customer care is here to help you anytime.',
+    'call_us_now' => 'Call Us Now',
+    'contact_us' => 'Contact Us',
+    'adventure_begin' => 'Let\'s Your Adventure Begin',
+    'first_class_services' => 'First Class Services',
 
 
 

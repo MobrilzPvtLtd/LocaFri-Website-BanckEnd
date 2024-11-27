@@ -124,6 +124,18 @@ return [
     'thanks_message' => 'Merci de nous avoir contactés.',
     'response_message' => 'Nous reviendrons vers vous très bientôt.',
     'go_home' => "Retour à l'accueil",
+    'our_features'=>'Nos fonctionnalités',
+    'assistance'=>'Assistance routière 24h/24 et 7j/7',
+    'free_pick_drop'=>'Prise en charge et retour',
+    'vechicle_fleet'=>'Notre flotte de véhicules',
+    'rent_now'=>'louer maintenant',
+    'call_us_for_info' => 'Appelez-nous pour plus d\'informations. Le service client Rentaly est là pour vous aider à tout moment.',
+    'call_us_now' => 'Appelez-nous maintenant',
+    'contact_us' => 'Contactez-nous',
+
+    'adventure_begin' => 'Que l\'aventure commence',
+    'first_class_services' => 'Services de première classe',
+
 
 
 
