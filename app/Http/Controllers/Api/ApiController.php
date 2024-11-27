@@ -581,21 +581,68 @@ public function create_contract(Request $request)
         ], 500);
        }
   }
-public function bookingHistory(Request $request)
-   {
-      try {
-        $checkouts = [];
 
-        $checkouts = Checkout::with('booking.transaction')->where('email', $request->email)->get();
+public function bookingHistory(Request $request)
+{
+    try {
+        $checkouts = Checkout::with(['booking.transaction'])
+            ->where('email', $request->email)
+            ->get()
+            ->map(function ($checkout) {
+                $booking = $checkout->booking;
+
+                if (!$booking) {
+                    return null; // Skip if booking is missing
+                }
+
+                $totalAmount = $booking->total_price ?? 0;
+                $paidAmount = $booking->transaction->amount ?? 0;
+
+                // Calculate remaining amount using the updated logic
+                $remainingAmount = $totalAmount; // Start with the total amount
+                if ($booking->payment_type === 'payment_partial') {
+                    $remainingAmount -= $totalAmount * 0.10; // Subtract 10% for partial payment
+                } else {
+                    $remainingAmount -= $paidAmount; // Subtract the paid amount for full payment
+                }
+
+                $remainingAmount = max($remainingAmount, 0); // Ensure no negative value
+
+                // Generate payment reminder link if there's remaining amount
+                $paymentLink = $remainingAmount > 0 ? route('stripe', [
+                    'price' => $remainingAmount,
+                    'vehicle_name' => $booking->name,
+                    'customer_email' => $checkout->email,
+                    'booking_id' => $booking->id,
+                    'payment_type' => 'payment_full',
+                ]) : null;
+
+                // Define status
+                $status = $remainingAmount > 0 ? 'Pending' : 'Paid';
+
+                return [
+                    'checkout_id' => $checkout->id,
+                    'email' => $checkout->email,
+                    'total_amount' => $totalAmount,
+                    'paid_amount' => $paidAmount,
+                    'remaining_amount' => $remainingAmount,
+                    'payment_link' => $paymentLink,
+                    'status' => $status,
+                    'details' => $checkout,
+                ];
+            })->filter(); // Remove null entries for missing bookings
 
         return response()->json(['status' => true, 'data' => $checkouts], 200);
-        } catch (\Exception $e) {
+    } catch (\Exception $e) {
         return response()->json([
             'status' => false,
-            'error' => $e->getMessage()
+            'error' => $e->getMessage(),
         ], 500);
-       }
     }
+}
+
+
+
 public function logout(Request $request)
    {
         // Get the authenticated user
