@@ -121,6 +121,11 @@ return [
     'success_message' => 'Your message has been sent successfully.',
     'register_now' => 'Register Now',
 
+    'thank_you' => 'Thank you!',
+    'thanks_message' => 'Thanks for getting in touch with us.',
+    'response_message' => 'We will get back to you very soon.',
+    'go_home' => 'Go Home',
+
 
 
 

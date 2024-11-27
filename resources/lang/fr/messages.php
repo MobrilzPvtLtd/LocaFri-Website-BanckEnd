@@ -120,6 +120,11 @@ return [
     'success_message' => 'Votre message a été envoyé avec succès.',
     'register_now' => "inscrivez-vous maintenant",
 
+    'thank_you' => 'Merci !',
+    'thanks_message' => 'Merci de nous avoir contactés.',
+    'response_message' => 'Nous reviendrons vers vous très bientôt.',
+    'go_home' => "Retour à l'accueil",
+
 
 
 

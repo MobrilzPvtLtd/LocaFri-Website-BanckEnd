@@ -117,11 +117,11 @@
     <div class=content>
         <div class="wrapper-1">
             <div class="wrapper-2">
-                <h1>Thank you !</h1>
-                <p>Thanks for getting in touch with us. </p>
-                <p>We will get back to you very soon </p>
+                <h1>{!! __('messages.thank_you') !!}</h1>
+                <p>{!! __('messages.thanks_message') !!}</p>
+                <p>{!! __('messages.response_message') !!}</p>
                 <button class="go-home">
-                    <a href="/" style="color: #fff">go home</a>
+                    <a href="/" style="color: #fff">{!! __('messages.go_home') !!}</a>
                 </button>
             </div>
         </div>
