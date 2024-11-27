@@ -108,6 +108,19 @@ return [
     'no_account' => "Don't have an account?",
     'or' => 'Or',
 
+    'register_title' => 'Register',
+    'register_prompt' => "Don't have an account? Register now.",
+    'register_description' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+    'name' => 'Name:',
+    'email_address' => 'Email Address:',
+    'username' => 'Choose a Username:',
+    'phone' => 'Phone:',
+    're_password' => 'Re-enter Password:',
+    'already_have_account' => "Already have an account?",
+    'error_message' => 'Sorry, error occurred this time sending your message.',
+    'success_message' => 'Your message has been sent successfully.',
+    'register_now' => 'Register Now',
+
 
 
 
