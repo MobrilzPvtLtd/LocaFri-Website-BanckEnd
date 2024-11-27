@@ -16,7 +16,7 @@
                     }
                 @endphp
                 <div class="item_filter_group">
-                    <h4>Price (CHF)</h4>
+                    <h4>{!! __('messages.price') !!}(CHF)</h4>
                     <div class="price-input">
                         <div class="field">
                             <span>Min</span>
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="item_filter_group">
-                    <h4>Vehicle Type</h4>
+                    <h4>{!! __('messages.vehicle_type') !!}</h4>
                     <div class="de_form">
                         <div class="de_checkbox">
                             <input id="vehicle_type_1" wire:model.live="car" type="checkbox" value="type">
@@ -66,30 +66,30 @@
                 </div>
 
                 <div class="item_filter_group">
-                    <h4>Car Body Type</h4>
+                    <h4>{!! __('messages.car_body_type') !!}</h4>
                     <div class="de_form">
                         <div class="de_checkbox">
                             <input id="car_body_type_1" wire:model.live="convertible" type="checkbox"
                                 value="car_body_type_1">
-                            <label for="car_body_type_1">Convertible</label>
+                            <label for="car_body_type_1">{!! __('messages.convertible') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_body_type_2" wire:model.live="coupe" type="checkbox"
                                 value="car_body_type_2">
-                            <label for="car_body_type_2">Coupe</label>
+                            <label for="car_body_type_2">{!! __('messages.coupe') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_body_type_3" wire:model.live="exoticcars" type="checkbox"
                                 value="car_body_type_3">
-                            <label for="car_body_type_3">Exotic Cars</label>
+                            <label for="car_body_type_3">{!! __('messages.exotic_cars') !!}Exotic Cars</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_body_type_4" wire:model.live="hatchback" type="checkbox"
                                 value="car_body_type_4">
-                            <label for="car_body_type_4">Hatchback</label>
+                            <label for="car_body_type_4">{!! __('messages.hatchback') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
@@ -101,7 +101,7 @@
                         <div class="de_checkbox">
                             <input id="car_body_type_6" wire:model.live="pickuptruck" type="checkbox"
                                 value="car_body_type_6">
-                            <label for="car_body_type_6">Pickup Truck</label>
+                            <label for="car_body_type_6">{!! __('messages.pickup_truck') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
@@ -113,13 +113,13 @@
                         <div class="de_checkbox">
                             <input id="car_body_type_8" wire:model.live="sportscar" type="checkbox"
                                 value="car_body_type_8">
-                            <label for="car_body_type_8">Sports Car</label>
+                            <label for="car_body_type_8">{!! __('messages.sports_car') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_body_type_9"wire:model.live="stationwagon" type="checkbox"
                                 value="car_body_type_9">
-                            <label for="car_body_type_9">Station Wagon</label>
+                            <label for="car_body_type_9">{!! __('messages.station_wagon') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
@@ -136,23 +136,23 @@
                     <div class="de_form">
                         <div class="de_checkbox">
                             <input id="car_seat_1" wire:model.live="seats2" type="checkbox" value="car_seat_1">
-                            <label for="car_seat_1">3 seats</label>
+                            <label for="car_seat_1">3 {!! __('messages.seat') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_seat_2" wire:model.live="seats4" type="checkbox" value="car_seat_2">
-                            <label for="car_seat_2">4 seats</label>
+                            <label for="car_seat_2">4 {!! __('messages.seat') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_seat_3" wire:model.live="seats6" type="checkbox" value="car_seat_3">
-                            <label for="car_seat_3">5 seats</label>
+                            <label for="car_seat_3">5 {!! __('messages.seat') !!}</label>
                         </div>
 
                         <div class="de_checkbox">
                             <input id="car_seat_4" wire:model.live="seats6plus" type="checkbox"
                                 value="car_seat_4">
-                            <label for="car_seat_4">9 seats</label>
+                            <label for="car_seat_4">9 {!! __('messages.seat') !!}</label>
                         </div>
 
                     </div>
@@ -220,7 +220,7 @@
                                                 <input type="hidden" name="collectionTime"
                                                     value="{{ session()->get('collectionTime') }}">
                                                 <button type="submit" class="btn-main"
-                                                    href="{{ route('carsdetails-post') }}">Rent Now</button>
+                                                    href="{{ route('carsdetails-post') }}">{!! __('messages.rent_now') !!}</button>
                                             </form>
                                         </div>
                                     </div>

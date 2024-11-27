@@ -141,6 +141,19 @@ return [
     'locafri_message' => 'Locafri vous enverra un message (WhatsApp ou email) avec le code pour ouvrir la box.',
     'simple_easy' => 'Simple et facile à utiliser,',
     'time_saver' => 'cela permet de gagner du temps pour les deux parties.',
+    'price_chf' => 'Prix (CHF)',
+    'vehicle_type' => 'Type de véhicule',
+
+    'car_body_type' => 'Type de carrosserie',
+    'convertible' => 'Cabriolet',
+    'coupe' => 'Coupé',
+    'exotic_cars' => 'Voitures exotiques',
+    'hatchback' => 'Hayon',
+    'pickup_truck' => 'Camion Pickup',
+    'sedan' => 'Berline',
+    'sports_car' => 'Voiture de sport',
+    'station_wagon' => 'Break',
+    
 
 
 
