@@ -573,13 +573,14 @@ class ApiController extends Controller
         ->whereHas('booking.checkout', function ($query) use ($request) {
             $query->where('email', $request->email);
         })
-        ->latest()
+        // ->latest()
         ->get();
 
         $transactionData = [];
 
         foreach ($transactions as $transaction) {
             $booking = $transaction->booking->checkout ?? null;
+            $bookings = $transaction->booking ?? null;
 
             $apiUrl = basename(request()->url());
 
@@ -595,14 +596,15 @@ class ApiController extends Controller
                 : null;
 
             $transactionData[] = [
-                'first_name' => $transaction->booking->checkout->first_name,
-                'last_name' => $transaction->booking->checkout->last_name,
-                'email' => $transaction->booking->checkout->email,
+                // 'first_name' => $transaction->booking->checkout->first_name,
+                // 'last_name' => $transaction->booking->checkout->last_name,
+                // 'email' => $transaction->booking->checkout->email,
                 'booking_id' => $transaction->booking->id ?? null,
                 'total_amount' => $transaction->booking->total_price ?? null,
                 'amount_paid' => $transaction->amount ?? null,
                 'remaining_amount' => $transaction->remaining_amount ?? null,
                 'payment_link' => $payment_link,
+                'bookings' => $bookings,
             ];
         }
 
