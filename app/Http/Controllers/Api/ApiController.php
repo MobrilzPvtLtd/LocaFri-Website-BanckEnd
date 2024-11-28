@@ -575,37 +575,42 @@ class ApiController extends Controller
         })
         // ->latest()
         ->get();
+        // dd($transactions);
 
         $transactionData = [];
 
         foreach ($transactions as $transaction) {
             $booking = $transaction->booking->checkout ?? null;
             $bookings = $transaction->booking ?? null;
+            // $booking_total_price = $transaction->booking->total_price ?? null;
 
-            $apiUrl = basename(request()->url());
+            if($transaction->full_payment_paid == 0) {
+                // dd($booking_total_price);
+                $apiUrl = basename(request()->url());
 
-            $payment_link = $transaction && $transaction->remaining_amount > 0
-                ? route('stripe', [
-                    'price' => $transaction->remaining_amount,
-                    'vehicle_name' => $transaction->booking->name ?? 'N/A',
-                    'customer_email' => $transaction->booking->checkout->email,
-                    'booking_id' => $transaction->booking->id ?? 'N/A',
-                    'payment_type' => 'payment_full',
-                    'apiUrl' => $apiUrl,
-                ])
-                : null;
+                $payment_link = $transaction && $transaction->remaining_amount > 0
+                    ? route('stripe', [
+                        'price' => $transaction->remaining_amount,
+                        'vehicle_name' => $transaction->booking->name ?? 'N/A',
+                        'customer_email' => $transaction->booking->checkout->email,
+                        'booking_id' => $transaction->booking->id ?? 'N/A',
+                        'payment_type' => 'payment_full',
+                        'apiUrl' => $apiUrl,
+                    ])
+                    : null;
 
-            $transactionData[] = [
-                // 'first_name' => $transaction->booking->checkout->first_name,
-                // 'last_name' => $transaction->booking->checkout->last_name,
-                // 'email' => $transaction->booking->checkout->email,
-                'booking_id' => $transaction->booking->id ?? null,
-                'total_amount' => $transaction->booking->total_price ?? null,
-                'amount_paid' => $transaction->amount ?? null,
-                'remaining_amount' => $transaction->remaining_amount ?? null,
-                'payment_link' => $payment_link,
-                'bookings' => $bookings,
-            ];
+                $transactionData[] = [
+                    // 'first_name' => $transaction->booking->checkout->first_name,
+                    // 'last_name' => $transaction->booking->checkout->last_name,
+                    // 'email' => $transaction->booking->checkout->email,
+                    'booking_id' => $transaction->booking->id ?? null,
+                    'total_amount' => $transaction->booking->total_price ?? null,
+                    'amount_paid' => $transaction->amount ?? null,
+                    'remaining_amount' => $transaction->remaining_amount ?? null,
+                    'payment_link' => $payment_link,
+                    'bookings' => $bookings,
+                ];
+            }
         }
 
         return response()->json([

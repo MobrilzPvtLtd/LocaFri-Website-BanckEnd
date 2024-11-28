@@ -77,6 +77,7 @@ class StripeWebhookController extends Controller
         if ($response->metadata->apiUrl && Transaction::where('transaction_id', $response->id)->exists()) {
             return response()->json(['status' => false, 'error' => "The selected session_id already used."]);
         }
+
         $booking_old = Booking::where('id', $response->metadata->booking_id)->first();
 
         $remaining_amount = $booking_old->total_price;
@@ -103,6 +104,10 @@ class StripeWebhookController extends Controller
         $booking = Booking::find($response->metadata->booking_id);
         $booking->payment_type = $response->metadata->payment_type == "payment_full" ? "payment_full" : "payment_partial";
         $booking->save();
+
+        $tr = Transaction::where('order_id', $booking->id)->where('payment_status', '!=', 'complete')->latest()->first();
+        $tr->full_payment_paid = 1;
+        $tr->save();
 
         $checkout = Checkout::where('booking_id', $transaction->order_id)->first();
 
