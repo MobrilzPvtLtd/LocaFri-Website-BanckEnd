@@ -135,7 +135,7 @@ return [
     'contact_us' => 'Contact Us',
     'adventure_begin' => 'Let\'s Your Adventure Begin',
     'first_class_services' => 'First Class Services',
-    
+
     'smart_keybox' => 'The Smart Keybox is an intelligent box that stores the car key for easy retrieval.',
     'rent_return_vehicle' => 'The renter can pick up and return the vehicle without a physical person being present.',
     'locafri_message' => 'Locafri will send you a message (Whatsapp or email) with the code to open the box.',
@@ -177,6 +177,28 @@ return [
     'reservation_management'=>'Reservation Management',
     'reservation'=>'Reservations',
     'reject_reservation'=>'Rejected Reservations',
+    'contract_handling' => 'Contract Handling',
+    'create_contract' => 'Create Contract',
+    'complete_contract' => 'Complete Contract',
+    'completed_contract' => 'Completed Contract',
+    'service_alert' => 'Service Alert',
+    'alert_setting' => 'Alert Setting',
+    'user_create' => 'Users',
+
+    'admin_dashboard' => 'Admin Dashboard',
+    'total_vehicles' => 'Total Vehicles',
+    'total_bookings' => 'Total Bookings',
+    'total_contact_inquiries' => 'Total Contact Inquiries',
+    'accepted_bookings' => 'Accepted Bookings',
+    'rejected_bookings' => 'Rejected Bookings',
+    'total_contracts' => 'Total Contracts',
+
+    'contact_inquiries_details' => 'Contact Inquiries Details',
+    'message' => 'Message',
+    'date_time' => 'Date and Time',
+    'action' => 'Action',
+    'open' => 'Open',
+    'close' => 'Close',
 
 
 

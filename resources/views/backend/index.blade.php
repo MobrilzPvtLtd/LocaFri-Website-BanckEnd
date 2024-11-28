@@ -2,7 +2,7 @@
 @extends('backend.layouts.app')
 
 @section('title')
-    @lang('Dashboard')
+{{ __('messages.admin_dashboard') }}
 @endsection
 
 @section('breadcrumbs')
@@ -30,7 +30,7 @@
     <div class="card mb-4">
         <div class="card-body">
             <x-backend.section-header>
-                @lang('Admin Dashboard')
+                {{ __('messages.admin_dashboard') }}
 
                 <x-slot name="toolbar">
                     <button class="btn btn-outline-primary mb-1" type="button" data-toggle="tooltip"
@@ -48,7 +48,7 @@
                                 <i class="fa-solid fa-car" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-info">{{ $vehicles ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Total Vehicles</p>
+                            <p class="text-muted mb-0">{{ __('messages.total_vehicles') }}</p>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                                 <i class="fa-solid fa-ticket ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-danger">{{ $bookings ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Total Bookings</p>
+                            <p class="text-muted mb-0">{{ __('messages.total_bookings') }}</p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                                 <i class="fa-solid fa-address-book ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-success">{{ $contacts ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Total Contact Inqueries</p>
+                            <p class="text-muted mb-0">{{ __('messages.total_contact_inquiries') }}</p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                                 <i class="fa fa-cab ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-warning">{{ $acceptedBookingsCount ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Accepted Bookings</p>
+                            <p class="text-muted mb-0">{{ __('messages.accepted_bookings') }}</p>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                                 <i class="fa fa-ship ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-info">{{ $rejectedBookings ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Rejected Bookings</p>
+                            <p class="text-muted mb-0">{{ __('messages.rejected_bookings') }}</p>
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                                 <i class="fa fa-home ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-danger">{{ $contracts ?? 0 }}</h3>
-                            <p class="text-muted mb-0">Total Contracts</p>
+                            <p class="text-muted mb-0">{{ __('messages.total_contracts') }}</p>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                                 <i class="fa fa-users ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-danger">{{ $completeContracts ?? '-' }}</h3>
-                            <p class="text-muted mb-0">Complete Contracts</p>
+                            <p class="text-muted mb-0">{{ __('messages.complete_contract') }}</p>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                                 <i class="fab fa-first-order ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-success">{{ $completedContracts ?? '-' }}</h3>
-                            <p class="text-muted mb-0">Completed Contracts</p>
+                            <p class="text-muted mb-0">{{ __('messages.completed_contract') }}</p>
                         </div>
                     </div>
                 </div>

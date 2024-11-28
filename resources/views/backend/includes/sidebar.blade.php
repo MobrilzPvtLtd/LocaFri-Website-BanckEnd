@@ -126,7 +126,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
-                    <i class=" fa-solid fa-handshake nav-icon contract-icon "></i>&nbsp;@lang('Contract Handling')
+                    <i class=" fa-solid fa-handshake nav-icon contract-icon "></i>&nbsp;{{ __('messages.contract_handling') }}
                     {{-- @if ($alert)
                         <p class="notify001">
                             {{ $alert }}
@@ -136,13 +136,13 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('customercontact.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Create Contract
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>{{ __('messages.create_contract') }}
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('completecontract.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Complete Contract
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>{{ __('messages.complete_contract') }}
                         </a>
                     </li>
                     {{-- <li class="nav-item">
@@ -157,7 +157,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
                         </a> --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('completedcontract.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Completed Contract
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>{{ __('messages.completed_contract') }}
                         </a>
                     </li>
             </li>
@@ -211,7 +211,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
     @can('service_alert')
     <li class="nav-group" aria-expanded="true">
         <a class="nav-link nav-group-toggle" href="#">
-            <i class="nav-icon fa-solid fa-triangle-exclamation me-2"></i>&nbsp;@lang('Service Alert')
+            <i class="nav-icon fa-solid fa-triangle-exclamation me-2"></i>&nbsp;{{ __('messages.service_alert') }}
 
             @if ($alertCount)
                 <p class="notify001">
@@ -223,7 +223,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
         <ul class="nav-group-items compact" style="height: auto;">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('alert.index') }}">
-                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Alert Setting
+                    <span class="nav-icon"><span class="nav-icon-bullet"></span></span> {{ __('messages.alert_setting') }}
                     @if ($alertCount)
                         <p class="notify001">
                             {{ $alertCount }}
@@ -254,7 +254,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
     @can('view_users')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.users.index') }}">
-                <i class="nav-icon fa-solid fa-user-group"></i>&nbsp;@lang('Users')
+                <i class="nav-icon fa-solid fa-user-group"></i>&nbsp;{{ __('messages.user_create') }}
             </a>
         </li>
     @endcan

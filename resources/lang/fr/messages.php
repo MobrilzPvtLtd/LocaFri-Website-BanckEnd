@@ -10,7 +10,7 @@ return [
     'adresse_2' => 'Adresse 2',
     'zip_code' => 'Code postal',
 
-     'your_cart' => 'Votre Panier',
+    'your_cart' => 'Votre Panier',
     'shipping_address_is_same_as_billing_address' => 'L’adresse de livraison est identique à l’adresse de facturation.',
     'save_this_information_for_next_time' => 'Enregistrer ces informations pour la prochaine fois.',
     'choose_payment_type' => 'Choisissez le type de paiement',
@@ -167,8 +167,8 @@ return [
     'fuel_return' => 'Le véhicule doit être restitué avec le même niveau de carburant.',
     'fuel_penalty' => 'En cas de non-respect, une majoration de **20.00 CHF** est ajoutée au coût du carburant manquant.',
 
-    
-    //backend 
+
+    //backend
     'dashboard'=>'Tableau De Bord',
     'inqueries'=>'Requêtes',
     'contact_inqueries'=>'Requêtes de contact',
@@ -177,8 +177,31 @@ return [
     'reservation_management'=>'Gestion des réservations',
     'reservation'=>'Réservations',
     'reject_reservation'=>'Rejeter les réservations',
+    'contract_handling' => 'Gestion des contrats',
+    'create_contract' => 'Créer un contrat',
+    'complete_contract' => 'Contrat complet',
+    'completed_contract' => 'Contrat terminé',
+    'service_alert' => 'Alerte de service',
+    'alert_setting' => 'Paramètre d\'alerte',
+    'user_create' => 'Utilisateur',
 
-    
+    'admin_dashboard' => 'Tableau de bord administrateur',
+    'total_vehicles' => 'Total des véhicules',
+    'total_bookings' => 'Total des réservations',
+    'total_contact_inquiries' => 'Total des demandes de contact',
+    'accepted_bookings' => 'Réservations Acceptées',
+    'rejected_bookings' => 'Réservations Rejetées',
+    'total_contracts' => 'Total des contrats',
+
+    'contact_inquiries_details' => 'Détails des demandes de contact',
+    'message' => 'Message',
+    'date_time' => 'Date et heure',
+    'action' => 'Action',
+    'open' => 'Ouvrir',
+    'close' => 'Fermer',
+
+
+
 
 
 

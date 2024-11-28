@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Contact Enqueries Details</h4>
+                <h4>{{ __('messages.contact_inquiries_details') }}</h4>
             </div>
             <div class="card-body">
                 {{-- <div class="pull-right mb-2">
@@ -18,12 +18,12 @@
                                     <tr>
                                         {{-- <th scope="col">Id</th> --}}
 
-                                        <th scope="col">Name</th>
+                                        <th scope="col">{{ __('messages.name') }}</th>
                                         <th scope="col">Email</th>
                                         {{-- <th scope="col">Phone</th>
                                     <th scope="col">Subject</th> --}}
-                                        <th scope="col">Message</th>
-                                        <th scope="col">Date and Time</th>
+                                        <th scope="col">{{ __('messages.message') }}</th>
+                                        <th scope="col">{{ __('messages.date_time') }}</th>
                                         <th scope="col">Action</th>
 
                                     </tr>
@@ -64,9 +64,9 @@
                                                         class="form-select text-white {{ $contact->status == 'open' ? 'bg-danger' : ($contact->status == 'close' ? 'bg-success' : '') }}"
                                                         style="width: 120px;" onchange="this.form.submit()">
                                                         <option value="open"
-                                                            {{ $contact->status == 'open' ? 'selected' : '' }}>Open</option>
+                                                            {{ $contact->status == 'open' ? 'selected' : '' }}>{{ __('messages.open') }}</option>
                                                         <option value="close"
-                                                            {{ $contact->status == 'close' ? 'selected' : '' }}>Close
+                                                            {{ $contact->status == 'close' ? 'selected' : '' }}>{{ __('messages.close') }}
                                                         </option>
                                                     </select>
                                                 </form>
