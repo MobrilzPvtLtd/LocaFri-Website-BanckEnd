@@ -30,8 +30,7 @@ use Illuminate\Support\Facades\Request as UrlRequest;
 class ApiController extends Controller
 {
 
-    public function getTerms()
-    {
+    public function getTerms() {
         $termsContent = [
             'title' => 'Terms and Conditions',
             'general_conditions' => [
@@ -47,8 +46,7 @@ class ApiController extends Controller
         return response()->json($termsContent, 200);
     }
 
-    public function getPrivacy()
-    {
+    public function getPrivacy() {
         $privacyPolicy = [
             'title' => 'Privacy Policy',
             'company_name' => config('app.name'),
@@ -67,11 +65,7 @@ class ApiController extends Controller
         return response()->json($privacyPolicy);
     }
 
-
-
-
-    public function register(Request $request)
-    {
+    public function register(Request $request) {
         $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|email|max:150',
@@ -101,8 +95,7 @@ class ApiController extends Controller
         ]);
     }
 
-    public function avalibalcars(Request $request)
-    {
+    public function avalibalcars(Request $request) {
         $validator = Validator::make($request->all(), [
             // 'location' => 'required',
             'available_time' => 'required',
@@ -180,8 +173,7 @@ class ApiController extends Controller
         ]);
     }
 
-    public function cardetails($id)
-    {
+    public function cardetails($id) {
         $vehicle = Vehicle::find($id);
 
         if (!$vehicle) {
@@ -249,8 +241,7 @@ class ApiController extends Controller
         ]);
     }
 
-    public function cars()
-    {
+    public function cars() {
         try {
             $vehicles = Vehicle::where('status', 1)->get();
 
@@ -318,8 +309,7 @@ class ApiController extends Controller
         }
     }
 
-    public function acceptBooking(Request $request)
-    {
+    public function acceptBooking(Request $request) {
         // Retrieve the booking ID from the request
         $bookingId = $request->input('booking_id');
 
@@ -355,8 +345,7 @@ class ApiController extends Controller
         }
     }
 
-    public function contract(Request $request)
-    {
+    public function contract(Request $request) {
         try {
             $bookings = Booking::where('is_viewbooking', '!=', 0)->get();
             $booking = Booking::where('id', $request->booking_id)->first();
@@ -380,8 +369,7 @@ class ApiController extends Controller
         }
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -404,8 +392,7 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function resendOtp(Request $request)
-    {
+    public function resendOtp(Request $request) {
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -430,51 +417,49 @@ class ApiController extends Controller
         ]);
     }
 
-  public function verifyOtp(Request $request)
-  {
-    $request->validate(['email' => 'required|email', 'otp' => 'required']);
+    public function verifyOtp(Request $request) {
+        $request->validate(['email' => 'required|email', 'otp' => 'required']);
 
-    // Find user by email
-    $user = User::where('email', $request->email)->first();
+        // Find user by email
+        $user = User::where('email', $request->email)->first();
 
-    // Check if the user exists
-    if (!$user) {
-        return response()->json(['status' => false, 'message' => 'User not found.'], 404);
-    }
+        // Check if the user exists
+        if (!$user) {
+            return response()->json(['status' => false, 'message' => 'User not found.'], 404);
+        }
 
-    // Check if the OTP matches
-    if ($user->otp !== $request->otp) {
-        return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
-    }
+        // Check if the OTP matches
+        if ($user->otp !== $request->otp) {
+            return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
+        }
 
-    // If the OTP is correct, and the user hasn't been verified yet, mark them as verified
-    if ($user->verified == 0) {
-        $user->update(['otp' => null,]);
-    }
+        // If the OTP is correct, and the user hasn't been verified yet, mark them as verified
+        if ($user->verified == 0) {
+            $user->update(['otp' => null,]);
+        }
 
-    // Generate a token (even if the user has already verified the OTP)
-    $token = $user->createToken('auth_token', ['*'])->plainTextToken;
+        // Generate a token (even if the user has already verified the OTP)
+        $token = $user->createToken('auth_token', ['*'])->plainTextToken;
 
-    // Set the expiration time for the token (optional, e.g., 1 day)
-    $expiresAt = Carbon::now()->addDay(1);
+        // Set the expiration time for the token (optional, e.g., 1 day)
+        $expiresAt = Carbon::now()->addDay(1);
 
-    // Return the response with token and expiration time
-    return response()->json([
-        'status' => true,
-        'message' => 'Your email is verified. You are now logged in.',
-        'token' => $token,
-        'expires_at' => $expiresAt->toDateTimeString(), // Optionally return the expiration time
-    ]);
-}
-
-public function create_contract(Request $request)
-  {
-    if (!Auth::check()) {
+        // Return the response with token and expiration time
         return response()->json([
-            'status' => false,
-            'message' => 'Unauthenticated. Please login to continue.',
-        ], 401);
-      }
+            'status' => true,
+            'message' => 'Your email is verified. You are now logged in.',
+            'token' => $token,
+            'expires_at' => $expiresAt->toDateTimeString(), // Optionally return the expiration time
+        ]);
+    }
+
+    public function create_contract(Request $request) {
+        if (!Auth::check()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated. Please login to continue.',
+            ], 401);
+        }
 
       try {
         $user = Auth::user();
@@ -580,91 +565,80 @@ public function create_contract(Request $request)
             'error' => env('APP_DEBUG') ? $e->getMessage() : 'Please contact support.', // Hide detailed errors in production
         ], 500);
        }
-  }
-
-public function bookingHistory(Request $request)
-{
-    $checkouts = Checkout::with(['booking'])->where('email', $request->email)->get();
-    return response()->json(['status' => true, 'data' => $checkouts], 200);
-}
-
-public function bookingHistoryDetails($id) {
-    try {
-        $transaction = Transaction::where('order_id', $id)->latest()->first();
-        if (!$transaction) {
-            return response()->json(['status' => false, 'error' => 'Transaction not found.'], 404);
-        }
-
-        $booking = Booking::with(['checkout'])->where('id', $transaction->order_id)->first();
-        if (!$booking) {
-            return response()->json(['status' => false, 'error' => 'Booking not found.'], 404);
-        }
-
-        $totalAmount = $booking->total_price ?? 0;
-        $paidAmount = $transaction->amount ?? 0;
-        $remainingAmount = $transaction->remaining_amount ?? 0;
-
-        $currentUrl = UrlRequest::url();
-        $apiUrl = basename($currentUrl); // Simplified getting the last segment of URL
-
-        $redirectUrl = $remainingAmount > 0 ? route('stripe', [
-            'price' => $remainingAmount,
-            'vehicle_name' => $booking->name,
-            'customer_email' => $booking->checkout->email,
-            'booking_id' => $booking->id,
-            'payment_type' => 'payment_full',
-            'apiUrl' => $apiUrl
-        ]) : null;
-
-        return response()->json([
-            'status' => true,
-            'data' => [
-                'total_amount' => $totalAmount,
-                'paid_amount' => $paidAmount,
-                'remaining_amount' => $remainingAmount,
-                'payment_link' => $redirectUrl,
-                'transaction_details' => $transaction
-            ]
-        ], 200);
-
-    } catch (\Exception $e) {
-        return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
     }
-}
 
+    public function bookingHistory(Request $request) {
+        $checkouts = Checkout::with(['booking'])->where('email', $request->email)->get();
+        return response()->json(['status' => true, 'data' => $checkouts], 200);
+    }
 
-public function logout(Request $request)
-   {
-        // Get the authenticated user
+    public function bookingHistoryDetails($id) {
+        try {
+            $transaction = Transaction::where('order_id', $id)->latest()->first();
+            if (!$transaction) {
+                return response()->json(['status' => false, 'error' => 'Transaction not found.'], 404);
+            }
+
+            $booking = Booking::with(['checkout'])->where('id', $transaction->order_id)->first();
+            if (!$booking) {
+                return response()->json(['status' => false, 'error' => 'Booking not found.'], 404);
+            }
+
+            $totalAmount = $booking->total_price ?? 0;
+            $paidAmount = $transaction->amount ?? 0;
+            $remainingAmount = $transaction->remaining_amount ?? 0;
+
+            $currentUrl = UrlRequest::url();
+            $apiUrl = basename($currentUrl); // Simplified getting the last segment of URL
+
+            $redirectUrl = $remainingAmount > 0 ? route('stripe', [
+                'price' => $remainingAmount,
+                'vehicle_name' => $booking->name,
+                'customer_email' => $booking->checkout->email,
+                'booking_id' => $booking->id,
+                'payment_type' => 'payment_full',
+                'apiUrl' => $apiUrl
+            ]) : null;
+
+            return response()->json([
+                'status' => true,
+                'data' => [
+                    'total_amount' => $totalAmount,
+                    'paid_amount' => $paidAmount,
+                    'remaining_amount' => $remainingAmount,
+                    'payment_link' => $redirectUrl,
+                    'transaction_details' => $transaction
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function logout(Request $request) {
         $user = $request->user();
 
-        // Revoke the token that was used to authenticate the current request
         $user->currentAccessToken()->delete();
-
-        // Set 'verified' to 0
-        // $user->update(['verified' => 0]);
 
         return response()->json([
             'status' => true,
             'message' => 'Logout successful. Your token has been invalidated, and verified status has been reset.',
         ], 200);
-   }
+    }
 
-    public function updateProfile(Request $request)
-    {
-        // Get the authenticated user
+    public function updateProfile(Request $request) {
         $user = $request->user();
 
-        // Validate the request input
         $request->validate([
             'first_name' => 'string|max:255|nullable',
             'last_name' => 'string|max:255|nullable',
             'email' => 'email|unique:users,email,' . $user->id . '|nullable',
             'mobile' => 'string|max:15|nullable|unique:users,mobile,' . $user->id,
-            'password' => 'string|min:8|nullable', // Password is optional and only validated if provided
+            'password' => 'string|min:8|nullable',
         ], [
             'email.unique' => 'The email address is already taken.',
-            'password.min' => 'The password must be at least 8 characters.', // Only shows if password is provided
+            'password.min' => 'The password must be at least 8 characters.',
             'mobile.unique' => 'The mobile number is already taken.',
         ]);
 
@@ -687,12 +661,9 @@ public function logout(Request $request)
         ], 200);
     }
 
-
-    public function checkin(Request $request)
-    {
-        // Validate input
+    public function checkin(Request $request) {
         $validator = Validator::make($request->all(), [
-            'booking_id' => 'required|exists:checkouts,booking_id',  // Validate booking_id
+            'booking_id' => 'required|exists:checkouts,booking_id',
             'license_photo' => 'nullable|file|mimes:jpeg,png,jpg',
             'record_kilometers' => 'required|integer',
             'fuel_level' => 'nullable|string',
@@ -702,7 +673,7 @@ public function logout(Request $request)
             'customer_signature' => 'nullable|file|mimes:jpeg,png,jpg',
             'fuel_image' => 'nullable|file|mimes:jpeg,png,jpg',
             'name' => 'required|string',
-            'email' => 'required|email|exists:checkouts,email',  // Validate the email
+            'email' => 'required|email|exists:checkouts,email',
         ], [
             'name.required' => 'First name is required.',
             'email.required' => 'Email address is required.',
@@ -797,9 +768,7 @@ public function logout(Request $request)
         }
     }
 
-
-    public function checkout(Request $request)
-    {
+    public function checkout(Request $request) {
        $validator = Validator::make($request->all(), [
         'license_photo' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
         'record_kilometers' => 'required|integer',
@@ -913,15 +882,14 @@ public function logout(Request $request)
         return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
        }
     }
-public function contactus(Request $request)
-    {
+
+    public function contactus(Request $request) {
        $request->validate([
            'name' => 'required',
            'email' => 'required|email',
            'message' => 'required',
        ]);
 
-       // Save form data to the database
        $contact = new Contact();
        $contact->name = $request->name;
        $contact->email = $request->email;
@@ -946,9 +914,5 @@ public function contactus(Request $request)
            'message' => 'Message sent successfully!',
        ], 200);
     }
-
-
-
-
 }
 
