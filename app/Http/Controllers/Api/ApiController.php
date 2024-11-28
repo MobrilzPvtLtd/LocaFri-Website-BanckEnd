@@ -569,9 +569,14 @@ class ApiController extends Controller
 
     public function bookingHistory(Request $request)
     {
-        $transactions = Transaction::with(['booking.checkout'])->latest()->get();
+        $transactions = Transaction::with(['booking.checkout'])
+        ->whereHas('booking.checkout', function ($query) use ($request) {
+            $query->where('email', $request->email);
+        })
+        ->latest()
+        ->get();
 
-        $checkoutData = [];
+        $transactionData = [];
 
         foreach ($transactions as $transaction) {
             $booking = $transaction->booking->checkout ?? null;
