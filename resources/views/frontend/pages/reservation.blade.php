@@ -330,7 +330,22 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+                                        <h4>{{ __('messages.responsibilities_title') }}</h4>
+                                       <p>{{ __('messages.responsibilities_details') }}</p>
+
+                                    <ul>
+                                      <li>{{ __('messages.insurance') }}</li>
+                                      <li>{{ __('messages.late_return') }}</li>
+                                      <li>{{ __('messages.fuel_policy') }}</li>
+                                      <li>{{ __('messages.contraventions') }}</li>
+                                      <li>{{ __('messages.contraventions_fees') }}</li>
+                                      <li>{{ __('messages.accidents_procedure') }}</li>
+                                      <li>{{ __('messages.usage_restrictions') }}</li>
+                                      <li>{{ __('messages.fuel_return') }}</li>
+                                      <li>{{ __('messages.fuel_penalty') }}</li>
+                                    </ul>
+
+                                        {{-- <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
                                             facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac,
                                             vestibulum at eros.</p>
 
@@ -361,7 +376,7 @@
 
                                         <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
                                             scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non
-                                            metus auctor fringilla.</p>
+                                            metus auctor fringilla.</p> --}}
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn-main" data-bs-dismiss="modal">{{ __('messages.close')}}</button>

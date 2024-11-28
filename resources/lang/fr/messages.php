@@ -153,6 +153,31 @@ return [
     'sedan' => 'Berline',
     'sports_car' => 'Voiture de sport',
     'station_wagon' => 'Break',
+    'status'=>'statut',
+    'roles'=>'rôles',
+    'responsibilities_title' => 'Responsabilités du Locataire',
+    'responsibilities_details' => 'Dès le début de la location, le locataire est responsable du véhicule dont il est en possession (y compris tous les accessoires mis à disposition), qui doit être restitué dans l\'état initial (lavé, aspiré et en état de marche). En cas de refus de prise en charge du dommage par l\'assurance, le dommage doit être supporté par le locataire.',
+    'insurance' => 'La franchise de l\'assurance de **1000.00 CHF** est toujours à la charge du locataire, sauf s’il opte pour une assurance réduite, qui est de **300.00 CHF**.',
+    'late_return' => 'En cas de retard, des dommages-intérêts pour exécution tardive peuvent être exigés.',
+    'fuel_policy' => 'Les frais de remplissage et de carburant sont à la charge du locataire s’il ne restitue pas le véhicule avec le réservoir plein.',
+    'contraventions' => 'Le locataire est entièrement responsable des infractions et contraventions.',
+    'contraventions_fees' => 'Chaque contravention entraîne des frais administratifs de **20.00 CHF** (plus frais postaux).',
+    'accidents_procedure' => 'En cas d’accident, de vol, de perte, d’incendie ou de dommages divers, le locataire doit immédiatement contacter la police pour établir un rapport et informer le loueur dès que possible.',
+    'usage_restrictions' => 'Le véhicule est limité à un usage sur le territoire suisse.',
+    'fuel_return' => 'Le véhicule doit être restitué avec le même niveau de carburant.',
+    'fuel_penalty' => 'En cas de non-respect, une majoration de **20.00 CHF** est ajoutée au coût du carburant manquant.',
+
+    
+    //backend 
+    'dashboard'=>'Tableau De Bord',
+    'inqueries'=>'Requêtes',
+    'contact_inqueries'=>'Requêtes de contact',
+    'vehicle_management'=>'Gestion des véhicules',
+    'vehicle_status'=>'État du véhicule',
+    'reservation_management'=>'Gestion des réservations',
+    'reservation'=>'Réservations',
+    'reject_reservation'=>'Rejeter les réservations',
+
     
 
 

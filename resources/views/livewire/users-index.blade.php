@@ -7,14 +7,14 @@
                 <table class="table table-hover table-responsive-sm" wire:loading.class="table-secondary">
                     <thead>
                         <tr>
-                            <th>{{ __('labels.backend.users.fields.name') }}</th>
-                            <th>{{ __('labels.backend.users.fields.email') }}</th>
-                            <th>{{ __('labels.backend.users.fields.status') }}</th>
-                            <th>{{ __('labels.backend.users.fields.roles') }}</th>
-                            <th>{{ __('labels.backend.users.fields.permissions') }}</th>
-                            <th>{{ __('labels.backend.users.fields.social') }}</th>
+                            <th>{{ __('messages.name') }}</th>
+                            <th>{{ __('messages.email') }}</th>
+                            <th>{{ __('messages.status') }}</th>
+                            <th>{{ __('messages.roles') }}</th>
+                            <th>Permissions</th>
+                            <th>Social</th>
 
-                            <th class="text-end">{{ __('labels.backend.action') }}</th>
+                            <th class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

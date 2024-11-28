@@ -23,13 +23,13 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.dashboard') }}">
-                <i class="nav-icon fa-solid fa-cubes"></i>&nbsp;@lang('Dashboard')
+                <i class="nav-icon fa-solid fa-cubes"></i>&nbsp;{{ __('messages.dashboard') }}
             </a>
         </li>
         @can('Inqueries')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="">
-                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;@lang('Inqueries')
+                    <i class="nav-icon fa-solid fa-list-ul"></i>&nbsp;{{ __('messages.inqueries') }}
                     @if ($total_contact)
                         <p class="notify001">
                             {{ $total_contact }}
@@ -40,7 +40,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact.index') }}">
                             <span class="nav-icon"><span class="nav-icon-bullet"></span>
-                            </span><span id="is_view">Contact Inqueries</span>
+                            </span><span id="is_view">{{ __('messages.contact_inqueries') }}</span>
                             @if ($total_contact)
                                 <p class="notify001">
                                     {{ $total_contact }}
@@ -80,12 +80,12 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
-                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;@lang('Vehicle Management')
+                    <i class="nav-icon fa-solid fa-car"></i>&nbsp;{{ __('messages.vehicle_management') }}
                 </a>
                 <ul class="nav-group-items" style=" height: auto; "> <!-- Added list-style and padding-left for bullets -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('vehicle.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicles
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>{{ __('messages.vehicles') }}
                         </a>
                     </li>
 
@@ -97,7 +97,7 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('vehiclestatus.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Vehicle Status
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> {{ __('messages.vehicle_status') }}
                         </a>
                     </li>
                 </ul>
@@ -106,18 +106,18 @@ $alertCount = App\Models\Alert::where('status', 'pending')->count();
         @can('view_logs')
             <li class="nav-group" aria-expanded="true">
                 <a class="nav-link nav-group-toggle" href="#">
-                    <i class=" nav-icon fa-solid fa-hotel"></i></i>&nbsp;@lang('Reservation Management')
+                    <i class=" nav-icon fa-solid fa-hotel"></i></i>&nbsp;{{ __('messages.reservation_management') }}
                 </a>
 
                 <ul class="nav-group-items compact" style="height: auto;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('reservation.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span> Reservations
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>{{ __('messages.reservation') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('reject.index') }}">
-                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>Reject Reservations
+                            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>{{ __('messages.reject_reservation') }}
                         </a>
                     </li>
                 </ul>

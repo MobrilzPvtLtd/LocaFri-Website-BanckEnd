@@ -153,6 +153,31 @@ return [
     'sedan' => 'Sedan',
     'sports_car' => 'Sports Car',
     'station_wagon' => 'Station Wagon',
+    'responsibilities_title' => 'Hirer\'s Responsibilities',
+    'responsibilities_details' => 'From the start of the rental, the hirer is responsible for the vehicle in their possession (including all accessories provided), which must be returned in its original condition (washed, vacuumed, and operational).',
+    'insurance' => 'The insurance excess of **CHF 1,000.00** is always payable by the hirer unless they opt for reduced excess insurance, which costs **CHF 300.00**.',
+    'late_return' => 'Late returns may incur penalties for delayed performance.',
+    'fuel_policy' => 'Refueling costs are borne by the hirer if the vehicle is not returned with a full tank.',
+    'contraventions' => 'The hirer is fully responsible for any infractions or fines.',
+    'contraventions_fees' => 'Each fine incurs an administrative fee of **CHF 20.00** (plus postage costs).',
+    'accidents_procedure' => 'In case of an accident, theft, loss, fire, or other damages, the hirer must immediately contact the police to file a report and inform the lessor as soon as possible.',
+    'usage_restrictions' => 'The vehicle is restricted to use within Swiss territory.',
+    'fuel_return' => 'The vehicle must be returned with the same fuel level as provided.',
+    'fuel_penalty' => 'Failure to comply will result in an additional charge of **CHF 20.00** plus the cost of the missing fuel.',
+
+
+
+    'status'=>'Status',
+    'roles'=>'Role',
+    'dashboard'=>'Dasboard',
+    'inqueries'=>'Inqueries',
+    'contact_inqueries'=>'Contact Inqueries',
+    'vehicle_management'=>'Vehicle Management',
+    'vehicle_status'=>'Vehicle Status',
+    'reservation_management'=>'Reservation Management',
+    'reservation'=>'Reservations',
+    'reject_reservation'=>'Rejected Reservations',
+
 
 
 
