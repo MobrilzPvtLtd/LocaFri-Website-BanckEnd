@@ -567,53 +567,44 @@ class ApiController extends Controller
        }
     }
 
-    public function bookingHistory(Request $request) {
-        $checkouts = Checkout::with(['booking'])->where('email', $request->email)->get();
-        return response()->json(['status' => true, 'data' => $checkouts], 200);
-    }
+    public function bookingHistory(Request $request)
+    {
+        $transactions = Transaction::with(['booking.checkout'])->latest()->get();
 
-    public function bookingHistoryDetails($id) {
-        try {
-            $transaction = Transaction::where('order_id', $id)->latest()->first();
-            if (!$transaction) {
-                return response()->json(['status' => false, 'error' => 'Transaction not found.'], 404);
-            }
+        $checkoutData = [];
 
-            $booking = Booking::with(['checkout'])->where('id', $transaction->order_id)->first();
-            if (!$booking) {
-                return response()->json(['status' => false, 'error' => 'Booking not found.'], 404);
-            }
+        foreach ($transactions as $transaction) {
+            $booking = $transaction->booking->checkout ?? null;
 
-            $totalAmount = $booking->total_price ?? 0;
-            $paidAmount = $transaction->amount ?? 0;
-            $remainingAmount = $transaction->remaining_amount ?? 0;
+            $apiUrl = basename(request()->url());
 
-            $currentUrl = UrlRequest::url();
-            $apiUrl = basename($currentUrl); // Simplified getting the last segment of URL
+            $payment_link = $transaction && $transaction->remaining_amount > 0
+                ? route('stripe', [
+                    'price' => $transaction->remaining_amount,
+                    'vehicle_name' => $transaction->booking->name ?? 'N/A',
+                    'customer_email' => $transaction->booking->checkout->email,
+                    'booking_id' => $transaction->booking->id ?? 'N/A',
+                    'payment_type' => 'payment_full',
+                    'apiUrl' => $apiUrl,
+                ])
+                : null;
 
-            $redirectUrl = $remainingAmount > 0 ? route('stripe', [
-                'price' => $remainingAmount,
-                'vehicle_name' => $booking->name,
-                'customer_email' => $booking->checkout->email,
-                'booking_id' => $booking->id,
-                'payment_type' => 'payment_full',
-                'apiUrl' => $apiUrl
-            ]) : null;
-
-            return response()->json([
-                'status' => true,
-                'data' => [
-                    'total_amount' => $totalAmount,
-                    'paid_amount' => $paidAmount,
-                    'remaining_amount' => $remainingAmount,
-                    'payment_link' => $redirectUrl,
-                    'transaction_details' => $transaction
-                ]
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            $transactionData[] = [
+                'first_name' => $transaction->booking->checkout->first_name,
+                'last_name' => $transaction->booking->checkout->last_name,
+                'email' => $transaction->booking->checkout->email,
+                'booking_id' => $transaction->booking->id ?? null,
+                'total_amount' => $transaction->booking->total_price ?? null,
+                'amount_paid' => $transaction->amount ?? null,
+                'remaining_amount' => $transaction->remaining_amount ?? null,
+                'payment_link' => $payment_link,
+            ];
         }
+
+        return response()->json([
+            'status' => true,
+            'data' => $transactionData,
+        ]);
     }
 
     public function logout(Request $request) {
