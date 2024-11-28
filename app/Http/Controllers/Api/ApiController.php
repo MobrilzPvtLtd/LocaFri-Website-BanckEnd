@@ -567,57 +567,57 @@ class ApiController extends Controller
        }
     }
 
+
     public function bookingHistory(Request $request)
-    {
-        $transactions = Transaction::with(['booking.checkout'])
+{
+    $transactions = Transaction::with(['booking.checkout']) // Eager load related data
         ->whereHas('booking.checkout', function ($query) use ($request) {
             $query->where('email', $request->email);
         })
-        // ->latest()
         ->get();
-        // dd($transactions);
 
-        $transactionData = [];
+    $transactionData = [];
 
-        foreach ($transactions as $transaction) {
-            $booking = $transaction->booking->checkout ?? null;
-            $bookings = $transaction->booking ?? null;
-            // $booking_total_price = $transaction->booking->total_price ?? null;
+    foreach ($transactions as $transaction) {
+        $booking = $transaction->booking->checkout ?? null;
+        $bookings = $transaction->booking ?? null;
 
-            if($transaction->full_payment_paid == 0) {
-                // dd($booking_total_price);
-                $apiUrl = basename(request()->url());
+        // Correctly retrieve the latest contract using booking_id from Transaction's booking
+        $contract = ContractIn::where('booking_id', $transaction->booking->id ?? null)->latest()->first();
+        $contract_id = $contract ? $contract->id : null;
 
-                $payment_link = $transaction && $transaction->remaining_amount > 0
-                    ? route('stripe', [
-                        'price' => $transaction->remaining_amount,
-                        'vehicle_name' => $transaction->booking->name ?? 'N/A',
-                        'customer_email' => $transaction->booking->checkout->email,
-                        'booking_id' => $transaction->booking->id ?? 'N/A',
-                        'payment_type' => 'payment_full',
-                        'apiUrl' => $apiUrl,
-                    ])
-                    : null;
+        if ($transaction->full_payment_paid == 0) {
+            $apiUrl = basename(request()->url());
 
-                $transactionData[] = [
-                    // 'first_name' => $transaction->booking->checkout->first_name,
-                    // 'last_name' => $transaction->booking->checkout->last_name,
-                    // 'email' => $transaction->booking->checkout->email,
-                    'booking_id' => $transaction->booking->id ?? null,
-                    'total_amount' => $transaction->booking->total_price ?? null,
-                    'amount_paid' => $transaction->amount ?? null,
-                    'remaining_amount' => $transaction->remaining_amount ?? null,
-                    'payment_link' => $payment_link,
-                    'bookings' => $bookings,
-                ];
-            }
+            $payment_link = $transaction && $transaction->remaining_amount > 0
+                ? route('stripe', [
+                    'price' => $transaction->remaining_amount,
+                    'vehicle_name' => $transaction->booking->name ?? 'N/A',
+                    'customer_email' => $transaction->booking->checkout->email,
+                    'booking_id' => $transaction->booking->id ?? 'N/A',
+                    'payment_type' => 'payment_full',
+                    'apiUrl' => $apiUrl,
+                ])
+                : null;
+
+            $transactionData[] = [
+                'contract_id' => $contract_id, // Include the correct contract ID
+                'booking_id' => $transaction->booking->id ?? null,
+                'total_amount' => $transaction->booking->total_price ?? null,
+                'amount_paid' => $transaction->amount ?? null,
+                'remaining_amount' => $transaction->remaining_amount ?? null,
+                'payment_link' => $payment_link,
+                'bookings' => $bookings,
+            ];
         }
-
-        return response()->json([
-            'status' => true,
-            'data' => $transactionData,
-        ]);
     }
+
+    return response()->json([
+        'status' => true,
+        'data' => $transactionData,
+    ]);
+}
+
 
     public function logout(Request $request) {
         $user = $request->user();

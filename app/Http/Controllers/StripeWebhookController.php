@@ -80,18 +80,19 @@ class StripeWebhookController extends Controller
 
         $booking_old = Booking::where('id', $response->metadata->booking_id)->first();
 
-        $tr = Transaction::where('order_id', $booking_old->id)
-            ->where('payment_status', '!=', 'complete')
-            ->latest()
-            ->first();
+        if ($booking_old) {
+            $tr = Transaction::where('order_id', $booking_old->id)
+                ->where('payment_status', '!=', 'complete')
+                ->latest()
+                ->first();
 
-        if ($tr) {
-            $tr->full_payment_paid = 1;
-            $tr->save();
+            if ($tr) {
+                $tr->full_payment_paid = 1;
+                $tr->save();
+            }
+            $remaining_amount = $booking_old->total_price;
         }
 
-
-        $remaining_amount = $booking_old->total_price;
 
         if ($response->metadata->payment_type == "payment_partial") {
             $remaining_amount -= $booking_old->total_price * 0.10;
@@ -113,8 +114,10 @@ class StripeWebhookController extends Controller
         $transaction->save();
 
         $booking = Booking::find($response->metadata->booking_id);
-        $booking->payment_type = $response->metadata->payment_type == "payment_full" ? "payment_full" : "payment_partial";
-        $booking->save();
+        if ($booking) {
+            $booking->payment_type = $response->metadata->payment_type == "payment_full" ? "payment_full" : "payment_partial";
+            $booking->save();
+        }
 
         $checkout = Checkout::where('booking_id', $transaction->order_id)->first();
 
