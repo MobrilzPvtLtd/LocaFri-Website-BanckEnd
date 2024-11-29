@@ -815,6 +815,11 @@ class ApiController extends Controller
             return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
         }
 
+        $transaction = Transaction::where('order_id', $booking->id)->first();
+        if (!$transaction || $transaction->full_payment_paid == 0) {
+            return response()->json(['error' => 'Checkout cannot proceed. Full payment is not completed.'], 403);
+        }
+
         $contractOut = ContractOut::where('contract_id', $contract->id)->first();
 
         // Process vehicle images
