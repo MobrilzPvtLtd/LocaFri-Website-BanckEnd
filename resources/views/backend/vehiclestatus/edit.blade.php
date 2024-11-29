@@ -23,7 +23,7 @@
                                 @method('PUT')
                                 <div class="row mb-3">
                                     <div class="form-group col-md-4">
-                                        <label for="vehicle_id">Vehicle Name</label>
+                                        <label for="vehicle_id">{{ __('messages.vehicle_name')}}</label>
                                         <select name="vehicle_id" class="form-control" required>
                                             <option value="" disabled>Select Vehicle</option>
                                             @foreach ($vehicles as $vehicle)
@@ -42,16 +42,16 @@
                                             value="{{ $vehiclestatus->kilometer }}" placeholder="">
                                     </div>
                                     <div class="form-group mb-2 col-4">
-                                        <label for="city">Fuel Level</label>
+                                        <label for="city">{{ __('messages.fuel_level')}}</label>
                                         <input type="Number" class="form-control" name="fule"
                                             value="{{ $vehiclestatus->fule }}" placeholder="">
                                     </div>
                                     <div class="form-group mb-2 col-4">
-                                        <label for="city">Damage Records</label>
+                                        <label for="city">{{ __('messages.damage_records')}}</label>
                                         <textarea type="text" class="form-control" name="damage" value="" placeholder="">{{ $vehiclestatus->damage }}</textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">{{ __('messages.submit')}}</button>
                             </form>
                         </div>
                     </div>

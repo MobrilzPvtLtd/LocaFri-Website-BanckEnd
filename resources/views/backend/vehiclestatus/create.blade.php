@@ -4,7 +4,7 @@
         <div class="card-body">
 
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('vehiclestatus.index') }}">vehiclestatus</a>
+                <a class="btn btn-success" href="{{ route('vehiclestatus.index') }}">{{ __('messages.vehicle_status')}}</a>
             </div>
             <div class="row mt-4">
                 <div class="col">
@@ -14,7 +14,7 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group mb-4 col-8">
-                                    <label for="city">Vehicle Name</label>
+                                    <label for="city">{{ __('messages.vehicle_name')}}</label>
                                     <select name="vehicle_id" class="form-control" required>
                                         <option value="" disabled selected>Select Vehicle</option>
                                         @foreach ($vehicles as $vehicle)
@@ -29,17 +29,17 @@
                                             placeholder="">
                                     </div>
                                     <div class="form-group mb-4 col-8">
-                                        <label for="city">Fuel Level</label>
+                                        <label for="city">{{ __('messages.fuel_level')}}</label>
                                         <input type="Number" class="form-control" name="fule" value=""
                                             placeholder="">
                                     </div>
                                     <div class="form-group mb-4 col-8">
-                                        <label for="city">Damage Records</label>
+                                        <label for="city">{{ __('messages.damage_records')}}</label>
                                         <textarea class="form-control" name="damage" placeholder=""></textarea>
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mb-0 col-1">Submit</button>
+                                <button type="submit" class="btn btn-primary mb-0 col-1">{{ __('messages.submit')}}</button>
                         </form>
                     </div>
                 </div>

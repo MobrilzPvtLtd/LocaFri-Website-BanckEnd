@@ -3,11 +3,11 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>Vehicle Status Details</h4>
+            <h4>{{ __('messages.vehicle_status_details')}}</h4>
         </div>
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('vehiclestatus.create') }}">Create Vehicle Status</a>
+                <a class="btn btn-success" href="{{ route('vehiclestatus.create') }}">{{ __('messages.create_vehicle_status')}}</a>
             </div>
             <div class="row mt-4">
                 <div class="col">

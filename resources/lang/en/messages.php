@@ -237,6 +237,8 @@ return [
     'monthly' => 'Monthly',
     'fuel_level' => 'Fuel Level',
     'damage_records' => 'Damaged Records',
+    'vehicle_status_details' => 'Vehicle Status Details',
+    'create_vehicle_status' => 'Create Vehicle Status',
 
 
 

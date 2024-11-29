@@ -238,6 +238,8 @@ return [
     'monthly' => 'Mensuel',
     'fuel_level' => 'Niveau de Carburant',
     'damage_records' => 'Dommages Enregistrés',
+    'vehicle_status_details' => 'Détails de l\'état du véhicule',
+    'create_vehicle_status' => 'Créer un état du véhicule',
 
 
 
