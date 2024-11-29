@@ -26,7 +26,7 @@ public function index()
 
 public function show($id)
 {
-    $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn'])
+    $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn','transaction'])
                       ->findOrFail($id);
      return view('backend.completedcontract.view', compact('booking'));
 }

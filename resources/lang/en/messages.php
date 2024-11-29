@@ -111,7 +111,7 @@ return [
     'register_title' => 'Register',
     'register_prompt' => "Don't have an account? Register now.",
     'register_description' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-    'name' => 'Name:',
+    'name' => 'Name',
     'email_address' => 'Email Address:',
     'username' => 'Choose a Username:',
     'phone' => 'Phone:',
@@ -245,6 +245,18 @@ return [
     'plates_check' => 'Plates Check',
     'brakes_check' => 'Brakes Check',
     'alerts'=>'Alerts',
+    'payment' => 'Payment',
+    'reservation' => 'Reservation',
+    'no_completed_contract'=>'No Completed Contract Found',
+    'user_name'=>'Username',
+    'list_rejected_reservation' => 'List of Rejected Reservations',
+    'list_reservation' => 'List of Reservations',
+    'addBack' => 'Addback',
+    'unpaid' => 'Unpaid',
+    'accepted_reservation_list'=> 'Accepted Reservation List',
+
+
+
 
 
 

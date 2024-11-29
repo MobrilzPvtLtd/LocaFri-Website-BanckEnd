@@ -1,20 +1,21 @@
 @extends('backend.layouts.app')
 
 @section('content')
-    <h4>Completed Contracts</h4>
+    <h4>{{ __('messages.completed_contract')}}</h4>
 
     @if ($bookings->isEmpty())
-        <p>No completed contracts found.</p>
+        <p>{{ __('messages.no_completed_contract')}}</p>
     @else
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Total Price</th>
-                    <th>Pick Up Location</th>
-                    <th>Drop Off Location</th>
-                    <th>Status</th>
-                    <th>Payment Method</th>
+                    <th>Total {{ __('messages.price')}}</th>
+                    <th>{{ __('messages.pick_up_location')}}</th>
+                    <th>{{ __('messages.drop_off_location')}}</th>
+                    <th>{{ __('messages.reservation')}} {{ __('messages.status')}}</th>
+                    <th>{{ __('messages.payment')}} {{ __('messages.status')}}</th>
+                    <th>{{ __('messages.payment_methods')}}</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                         <td>{{ $booking->pickUpLocation }}</td>
                         <td>{{ $booking->dropOffLocation }}</td>
                         <td>{{ ucwords($booking->status) }}</td>
+                        <td>{{ ($tran->payment_status) }}</td>
                         <td>
                             @if (isset($tran->payment_method))
                                 <span style="background-color: #b1d994;padding: 5px;">
@@ -43,7 +45,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('completedcontract.show', $booking->id) }}" class="btn btn-primary">Show</a>
+                            <a href="{{ route('completedcontract.show', $booking->id) }}" class="btn btn-primary">{{ __('messages.view')}}</a>
                         </td>
                     </tr>
                 @endforeach

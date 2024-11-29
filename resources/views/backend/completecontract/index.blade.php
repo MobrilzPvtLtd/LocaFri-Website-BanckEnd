@@ -19,17 +19,19 @@
                                     <th scope="col">Drop Off Location</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Payment Method</th>
+                                    <th scope="col">Payment Status</th>
                                     {{-- <th scope="col">Contract Status</th>
                                     <th scope="col">Checkout Info</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @php
+
+                                @foreach ($bookings as $booking)
+                                @php
                                 $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
                                 // dd($tran->payment_method);
-                            @endphp --}}
-                                @foreach ($bookings as $booking)
+                            @endphp
                                     {{-- <tr> --}}
                                         <tr class="{{ $loop->first ? 'table-primary' : '' }}">
                                         <td>{{ $booking->id }}</td>
@@ -38,6 +40,7 @@
                                         <td>{{ $booking->pickUpLocation }}</td>
                                         <td>{{ $booking->dropOffLocation }}</td>
                                         <td>{{ ucwords($booking->status) }}</td>
+
                                         <td>
                                             @if (isset($tran->payment_method))
                                                 <span style="background-color: #b1d994;padding: 5px;">
@@ -49,6 +52,7 @@
                                                 </span>
                                             @endif
                                         </td>
+                                        <td>{{ $tran->payment_status}}</td>
 
                                         <td>
                                             @if($booking->is_confirm == 2)

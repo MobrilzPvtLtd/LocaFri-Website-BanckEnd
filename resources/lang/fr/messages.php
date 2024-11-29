@@ -110,7 +110,7 @@ return [
     'register_title' => 'Inscription',
     'register_prompt' => "Vous n'avez pas de compte? Inscrivez-vous maintenant.",
     'register_description' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-    'name' => 'Nom :',
+    'name' => 'Nom',
     'email_address' => 'Adresse électronique :',
     'username' => 'Choisissez un nom d’utilisateur :',
     'phone' => 'Téléphone :',
@@ -246,7 +246,15 @@ return [
     'plates_check' => 'Vérification des plaques',
     'brakes_check' => 'Vérification des freins',
     'alerts'=>'Alertes',
-
+    'payment' => 'Paiement',
+    'reservation' => 'Réservation',
+    'no_completed_contract'=>'Aucun contrat terminé trouvé.',
+    'user_name'=>'Nom d'.'utilisateur',
+    'list_rejected_reservation' => 'Liste des réservations rejetées',
+    'list_reservation' => 'Liste des réservations',
+    'addBack' => 'Réintégrer',
+    'unpaid' => 'Non payé',
+    'accepted_reservation_list'=> 'Liste des réservations acceptées',
 
 
 

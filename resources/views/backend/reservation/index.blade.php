@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>Reservation Details</h4>
+            <h4>{{ __('messages.list_reservation')}}</h4>
         </div>
         <div class="card-body">
             <div id="success-message" class="alert alert-success d-none"></div>
@@ -15,14 +15,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col">User Name</th>
-                                    <th scope="col">Vehicle Name</th>
+                                    <th scope="col">{{ __('messages.user_name')}}</th>
+                                    <th scope="col">{{ __('messages.vehicle_name')}}</th>
                                     {{-- <th scope="col">Dprice</th>
                                     <th scope="col">Wprice</th>
                                     <th scope="col">Mprice</th> --}}
-                                    <th scope="col">Pick Up Location</th>
-                                    <th scope="col">Drop Off Location</th>
-                                    <th scope="col">Total Price</th>
+                                    <th scope="col">{{ __('messages.pick_up_location')}}</th>
+                                    <th scope="col">{{ __('messages.drop_off_location')}}</th>
+                                    <th scope="col">Total {{ __('messages.price')}}</th>
                                     {{-- <th scope="col">Days</th>
                                     <th scope="col">Weeks</th> --}}
                                     {{-- <th scope="col">Months</th> --}}
@@ -32,13 +32,18 @@
                                     {{-- <th scope="col">Exit Permit</th> --}}
                                     {{-- <th scope="col">Pick Up Time</th> --}}
                                     {{-- <th scope="col">Collection Time</th> --}}
-                                    <th scope="col">Payment Method</th>
-                                    <th scope="col">Date and Time</th>
+                                    <th scope="col">{{ __('messages.payment_methods')}}</th>
+                                    {{-- <th scope="col">Payment Status</th> --}}
+                                    <th scope="col">{{ __('messages.date_time')}}</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($bookings as $booking)
+                                @php
+                                $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
+                                // dd($tran->payment_method);
+                            @endphp
                                     {{-- <tr class="table-primary"> --}}
                                     <tr class="{{ $loop->first ? 'table-primary' : '' }}">
                                         {{-- <tr class="{{ $booking->id === $maxBookingId ? 'table-primary' : '' }}"> --}}
@@ -71,6 +76,7 @@
                                                 <span style="background-color: #e8857d;padding: 5px;">Unpaid</span>
                                             @endif
                                         </td>
+                                        {{-- <td>{{ ($tran->payment_status?? 'N/A') }}</td> --}}
                                         <td>{{ $booking->created_at->format('d M Y (h:i a)') }}</td>
                     </div>
                     <td>

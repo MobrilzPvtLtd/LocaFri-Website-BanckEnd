@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h4>Accepted Reservations List</h4>
+        <h4>{{ __('messages.accepted_reservation_list')}}</h4>
     </div>
         <div class="card-body">
             <div class="row mt-4">
@@ -13,12 +13,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col">Car Name</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Pick Up Location</th>
-                                    <th scope="col">Drop Off Location</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Payment Method</th>
+                                    <th scope="col">{{ __('messages.name')}}</th>
+                                    <th scope="col">Total {{ __('messages.price')}}</th>
+                                    <th scope="col">{{ __('messages.pick_up_location')}}</th>
+                                    <th scope="col">{{ __('messages.drop_off_location')}}</th>
+                                    <th scope="col">{{ __('messages.status')}}</th>
+                                    <th scope="col">{{ __('messages.payment_methods')}}</th>
                                     {{-- <th scope="col">Contract Details</th>
                                     <th scope="col">Checkout Details</th>   --}}
                                     <th scope="col">Action</th>
@@ -45,7 +45,7 @@
                                             </span>
                                             @else
                                             <span style="background-color: #e8857d;padding: 5px;">
-                                                Unpaid
+                                                {{ __('messages.unpaid')}}
                                             </span>
                                             @endif
                                         </td>
