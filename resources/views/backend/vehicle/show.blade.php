@@ -4,14 +4,14 @@
 <div class="card">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>Vehicle Details</h4>
+            <h4>{{ __('messages.vehicle_detail')}}</h4>
             <a href="{{ route('vehicle.index') }}" class="btn btn-warning btn-sm">
                 <i class="fas fa-reply"></i>
             </a>
         </div>
     <div class="card-body">
         <div class="pull-right mb-2">
-            <a class="btn btn-success" href="{{ route('vehicle.index') }}">Back to Vehicle List</a>
+            <a class="btn btn-success" href="{{ route('vehicle.index') }}">{{ __('messages.back')}}</a>
         </div>
         <h2 class="card-title">{{ $vehicle->name }}</h2>
 
@@ -25,13 +25,13 @@
             </div>
             <div class="col-md-8">
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Model:</strong> {{ $vehicle->model }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.model')}}:</strong> {{ $vehicle->model }}</li>
                     <li class="list-group-item"><strong>Type:</strong> {{ $vehicle->type }}</li>
-                    <li class="list-group-item"><strong>Description:</strong> {{ $vehicle->desc }}</li>
-                    <li class="list-group-item"><strong>Location:</strong> {{ $vehicle->location }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.description')}}:</strong> {{ $vehicle->desc }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.location')}}:</strong> {{ $vehicle->location }}</li>
                     <li class="list-group-item"><strong>Mileage:</strong> {{ number_format($vehicle->mitter, 2) }} km</li>
-                    <li class="list-group-item"><strong>Body:</strong> {{ $vehicle->body }}</li>
-                    <li class="list-group-item"><strong>Seats:</strong> {{ $vehicle->seat }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.seats')}}:</strong> {{ $vehicle->seat }}</li>
                     <li class="list-group-item"><strong>Doors:</strong> {{ $vehicle->door }}</li>
                     <li class="list-group-item"><strong>Luggage Capacity:</strong> {{ $vehicle->luggage }}</li>
                     <li class="list-group-item"><strong>Fuel Type:</strong> {{ $vehicle->fuel }}</li>

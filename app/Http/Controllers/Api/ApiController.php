@@ -544,7 +544,7 @@ class ApiController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Contract created successfully.',
-            'price' => (int) $booking->total_price,
+            'price' => (string) $booking->total_price,
             'vehicle_name' => $booking->name,
             'customer_email' => $checkout->email,
             'booking_id' => $booking->id,

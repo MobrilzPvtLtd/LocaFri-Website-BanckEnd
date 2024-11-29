@@ -4,14 +4,14 @@
     <div class="card">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Vehicle Lists</h4>
+                <h4>{{ __('messages.vehicle_list')}}</h4>
                 {{-- <a href="{{ route('reject.index') }}" class="btn btn-warning btn-sm">
                     <i class="fas fa-reply"></i>
                 </a> --}}
             </div>
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('vehicle.create') }}"> Create Vehicle</a>
+                <a class="btn btn-success" href="{{ route('vehicle.create') }}">{{ __('messages.create_vehicle')}}</a>
             </div>
             <div class="row mt-4">
 
@@ -22,13 +22,13 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">Company</th>
-                                    <th scope="col">Model</th>
+                                    <th scope="col">{{ __('messages.company')}}</th>
+                                    <th scope="col">{{ __('messages.model')}}</th>
                                     <th scope="col">Type</th>
                                     {{-- <th scope="col">Description</th> --}}
-                                    <th scope="col">Location</th>
+                                    <th scope="col">{{ __('messages.location')}}</th>
 
-                                    <th scope="col">Kilometers</th>
+                                    <th scope="col">{{ __('messages.kilometers')}}</th>
                                     {{-- <th scope="col">Body</th> --}}
                                     {{-- <th scope="col">Seat</th> --}}
                                     {{-- <th scope="col">Door</th> --}}
@@ -39,7 +39,7 @@
                                     <th scope="col">Exterior Color</th>
                                     <th scope="col">Interior Color</th>--}}
                                     {{-- <th scope="col">features</th> --}}
-                                    <th scope="col">Status</th>
+                                    <th scope="col">{{ __('messages.status')}}</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -100,20 +100,20 @@
 
                                         <td>
                                             @if ($vehicle->status == 1)
-                                                Active
+                                            {{ __('messages.active')}}
                                             @else
-                                                Inactive
+                                            {{ __('messages.inactive')}}
                                             @endif
                                         </td>
                                         <td>
                                             <form action="{{ route('vehicle.destroy', $vehicle->id) }}" method="Post">
                                                    <a class="btn btn-primary btn-sm"
-                                                    href="{{ route('vehicle.edit', $vehicle->id) }}">Edit</a>
+                                                    href="{{ route('vehicle.edit', $vehicle->id) }}">{{ __('messages.edit')}}</a>
                                                     <a class="btn btn-info  btn-sm"
-                                                    href="{{ route('vehicle.show', $vehicle->id) }}">View</a>
+                                                    href="{{ route('vehicle.show', $vehicle->id) }}">{{ __('messages.view')}}</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">{{ __('messages.delete')}}</button>
                                             </form>
                                         </td>
                                     </tr>
