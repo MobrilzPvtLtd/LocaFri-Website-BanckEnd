@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Edit Alert</h4>
+                <h4>{{ __('messages.edit')}} {{ __('messages.alerts')}}</h4>
                 <a href="{{ route('alert.index') }}" class="btn btn-warning btn-sm">
                     <i class="fas fa-reply"></i>
                 </a>
@@ -23,7 +23,7 @@
                             @method('PUT')
                             <div class="row">
                                 <div class="form-group mb-2 col-4">
-                                    <label for="vehicle_id">Vehicle</label>
+                                    <label for="vehicle_id">{{ __('messages.vehicle_name')}}</label>
                                     <select class="form-control" name="vehicle_id" required>
                                         <option value="">Select Vehicle</option>
                                         @foreach ($vehicles as $vehicle)
@@ -38,19 +38,19 @@
                                     <input type="number" class="form-control" name="kilometer" value="{{ $alert->kilometer }}" required>
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="servicing">Servicing</label>
+                                    <label for="servicing">{{ __('messages.servicing')}}</label>
                                     {{-- <input type="text" class="form-control" name="servicing" value="{{ $alert->servicing }}" required> --}}
                                     <select class="form-control" name="servicing" required>
-                                        <option value="service" {{ $alert->servicing == 'service' ? 'selected' : '' }}>servicing</option>
-                                        <option value="platesCheck" {{ $alert->servicing == 'platesCheck' ? 'selected' : '' }}>Plates Check</option>
-                                        <option value="breakesCheck" {{ $alert->servicing == 'breakesCheck' ? 'selected' : '' }}>Brakes Check</option>
+                                        <option value="service" {{ $alert->servicing == 'service' ? 'selected' : '' }}>{{ __('messages.servicing')}}</option>
+                                        <option value="platesCheck" {{ $alert->servicing == 'platesCheck' ? 'selected' : '' }}>{{ __('messages.plates_check')}}</option>
+                                        <option value="breakesCheck" {{ $alert->servicing == 'breakesCheck' ? 'selected' : '' }}>{{ __('messages.brakes_check')}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="status">Status</label>
                                     <select class="form-control" name="status" required>
-                                        <option value="pending" {{ $alert->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="completed" {{ $alert->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                                        <option value="pending" {{ $alert->status == 'pending' ? 'selected' : '' }}>{{ __('messages.pending')}}</option>
+                                        <option value="completed" {{ $alert->status == 'completed' ? 'selected' : '' }}>{{ __('messages.completed')}}</option>
                                     </select>
                                 </div>
                             </div>

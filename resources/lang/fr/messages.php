@@ -240,6 +240,12 @@ return [
     'damage_records' => 'Dommages Enregistrés',
     'vehicle_status_details' => 'Détails de l\'état du véhicule',
     'create_vehicle_status' => 'Créer un état du véhicule',
+    'pending' => 'En attente',
+    'completed' => 'Terminé',
+    'servicing' => 'Entretien',
+    'plates_check' => 'Vérification des plaques',
+    'brakes_check' => 'Vérification des freins',
+    'alerts'=>'Alertes',
 
 
 

@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('alert.index') }}">Alerts</a>
+                <a class="btn btn-success" href="{{ route('alert.index') }}">{{ __('messages.alerts')}}</a>
             </div>
             <div class="row mt-4">
                 <div class="col">
@@ -17,7 +17,7 @@
                             <div class="row">
                                 {{-- Vehicle Selection --}}
                                 <div class="form-group mb-2 col-4">
-                                    <label for="vehicle_id">Vehicle</label>
+                                    <label for="vehicle_id">{{ __('messages.vehicle_name')}}</label>
                                     <select class="form-control" name="vehicle_id" required>
                                         <option value="">Select Vehicle</option>
                                         @foreach ($vehicles as $vehicle)
@@ -44,9 +44,9 @@
                                 <div class="form-group mb-2 col-4">
                                     <label for="servicing">Servicing</label>
                                     <select class="form-control" name="servicing" required>
-                                        <option value="service" {{ old('servicing', 'service') == 'service' ? 'selected' : '' }}>Servicing</option>
-                                        <option value="platesCheck" {{ old('servicing') == 'platesCheck' ? 'selected' : '' }}>Plates Check</option>
-                                        <option value="breakesCheck" {{ old('servicing') == 'breakesCheck' ? 'selected' : '' }}>Brakes Check</option>
+                                        <option value="service" {{ old('servicing', 'service') == 'service' ? 'selected' : '' }}>{{ __('messages.servicing')}}</option>
+                                        <option value="platesCheck" {{ old('servicing') == 'platesCheck' ? 'selected' : '' }}>{{ __('messages.plates_check')}}</option>
+                                        <option value="breakesCheck" {{ old('servicing') == 'breakesCheck' ? 'selected' : '' }}>{{ __('messages.brakes_check')}}</option>
                                     </select>
 
                                     {{-- <input type="text" class="form-control" name="servicing" value="{{ old('servicing') }}" placeholder="Enter servicing details" required> --}}
@@ -57,10 +57,10 @@
 
                                 {{-- Status Input --}}
                                 <div class="form-group mb-2 col-4">
-                                    <label for="status">Status</label>
+                                    <label for="status">{{ __('messages.status')}}</label>
                                     <select class="form-control" name="status" required>
-                                        <option value="pending" {{ old('status', 'pending') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                                        <option value="pending" {{ old('status', 'pending') == 'pending' ? 'selected' : '' }}>{{ __('messages.pending')}}</option>
+                                        <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>{{ __('messages.completed')}}</option>
                                     </select>
                                     @error('status')
                                         <small class="text-danger">{{ $message }}</small>
@@ -69,7 +69,7 @@
                             </div>
 
                             {{-- Submit Button --}}
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">{{ __('messages.submit')}}</button>
                         </form>
                     </div>
                 </div>

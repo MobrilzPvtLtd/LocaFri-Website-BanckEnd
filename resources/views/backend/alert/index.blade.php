@@ -13,10 +13,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Vehicle</th>
+                                    <th scope="col">{{ __('messages.vehicle_name')}}</th>
                                     <th scope="col">Kilometer</th>
                                     <th scope="col">Service</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">{{ __('messages.status')}}</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -34,10 +34,10 @@
                                         </td>
                                         <td>
                                             <form action="{{ route('alert.destroy', $alert->id) }}" method="POST">
-                                                <a class="btn btn-primary btn-sm" href="{{ route('alert.edit', $alert->id) }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('alert.edit', $alert->id) }}">{{ __('messages.edit')}}</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">{{ __('messages.delete')}}</button>
                                             </form>
                                         </td>
                                     </tr>

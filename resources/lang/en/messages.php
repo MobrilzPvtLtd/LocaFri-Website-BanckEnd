@@ -239,6 +239,12 @@ return [
     'damage_records' => 'Damaged Records',
     'vehicle_status_details' => 'Vehicle Status Details',
     'create_vehicle_status' => 'Create Vehicle Status',
+    'pending' => 'Pending',
+    'completed' => 'Completed',
+    'servicing' => 'Servicing',
+    'plates_check' => 'Plates Check',
+    'brakes_check' => 'Brakes Check',
+    'alerts'=>'Alerts',
 
 
 
