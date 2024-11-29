@@ -229,7 +229,15 @@ return [
     'permitted_kilometers_week' => 'Authorized Killometer Per Week',
     'permitted_kilometers_month' => 'Authorized Killometer Per Month',
     'featured' => 'Featured',
-    'vehicle_detail' => 'Edit Vehicle Details',
+    'vehicle_detail' => 'Vehicle Details',
+    'authentication' => 'Authentication',
+    'additional_information' => 'Additional Information',
+    'daily' => 'Daily',
+    'weekly' => 'Weekly',
+    'monthly' => 'Monthly',
+    'fuel_level' => 'Fuel Level',
+    'damage_records' => 'Damaged Records',
+
 
 
 

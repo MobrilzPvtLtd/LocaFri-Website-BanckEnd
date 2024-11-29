@@ -32,33 +32,33 @@
                     <li class="list-group-item"><strong>Mileage:</strong> {{ number_format($vehicle->mitter, 2) }} km</li>
                     <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.seats')}}:</strong> {{ $vehicle->seat }}</li>
-                    <li class="list-group-item"><strong>Doors:</strong> {{ $vehicle->door }}</li>
-                    <li class="list-group-item"><strong>Luggage Capacity:</strong> {{ $vehicle->luggage }}</li>
-                    <li class="list-group-item"><strong>Fuel Type:</strong> {{ $vehicle->fuel }}</li>
-                    <li class="list-group-item"><strong>Price (Daily):</strong> ${{ number_format($vehicle->Dprice, 2) }}</li>
-                    <li class="list-group-item"><strong>Price (Weekly):</strong> ${{ number_format($vehicle->wprice, 2) }}</li>
-                    <li class="list-group-item"><strong>Price (Monthly):</strong> ${{ number_format($vehicle->mprice, 2) }}</li>
-                    <li class="list-group-item"><strong>Permitted Kilometer (Daily):</strong> Kms {{ number_format($vehicle->permitted_kilometers_day) }}</li>
-                    <li class="list-group-item"><strong>Permitted Kilometer (Weekly):</strong>Kms {{ number_format($vehicle->permitted_kilometers_week) }}</li>
-                    <li class="list-group-item"><strong>Permitted Kilometer (Monthly):</strong> kms {{ number_format($vehicle->permitted_kilometers_month) }}</li>
-                    <li class="list-group-item"><strong>Status:</strong> {{ $vehicle->status ? 'Available' : 'Not Available' }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.doors')}}:</strong> {{ $vehicle->door }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.luggage')}}:</strong> {{ $vehicle->luggage }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.fuel')}} Type:</strong> {{ $vehicle->fuel }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.price')}} ({{ __('messages.daily')}}):</strong> CHF {{ number_format($vehicle->Dprice, 2) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.price')}} ({{ __('messages.weekly')}}):</strong> CHF {{ number_format($vehicle->wprice, 2) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.price')}}   ({{ __('messages.monthly')}}):</strong> CHF {{ number_format($vehicle->mprice, 2) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_day')}} ({{ __('messages.daily')}}):</strong> Kms {{ number_format($vehicle->permitted_kilometers_day) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_week')}} ({{ __('messages.weekly')}}):</strong>Kms {{ number_format($vehicle->permitted_kilometers_week) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_month')}} ({{ __('messages.monthly')}}):</strong> kms {{ number_format($vehicle->permitted_kilometers_month) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.status')}}:</strong> {{ $vehicle->status ? 'Available' : 'Not Available' }}</li>
 
                 </ul>
             </div>
         </div>
 
         <div class="mt-4">
-            <h4>Features</h4>
+            <h4>{{ __('messages.features')}}</h4>
             <p>{{ $vehicle->features }}</p>
         </div>
 
         <div class="mt-4">
-            <h4>Additional Information</h4>
+            <h4>{{ __('messages.additional_information')}}</h4>
             <ul class="list-group">
-                <li class="list-group-item"><strong>Exterior Color:</strong> {{ $vehicle->exterior }}</li>
-                <li class="list-group-item"><strong>Interior Color:</strong> {{ $vehicle->interior }}</li>
+                <li class="list-group-item"><strong>{{ __('messages.exterior_color')}}:</strong> {{ $vehicle->exterior }}</li>
+                <li class="list-group-item"><strong>{{ __('messages.interior_color')}}:</strong> {{ $vehicle->interior }}</li>
                 <li class="list-group-item"><strong>Transmission:</strong> {{ $vehicle->trans }}</li>
-                <li class="list-group-item"><strong>Authentication:</strong> {{ $vehicle->auth }}</li>
+                <li class="list-group-item"><strong> {{ __('messages.authentication')}}:</strong> {{ $vehicle->auth }}</li>
             </ul>
         </div>
     </div>

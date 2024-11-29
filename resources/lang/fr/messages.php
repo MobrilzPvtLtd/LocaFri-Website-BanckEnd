@@ -231,6 +231,13 @@ return [
     'features' => 'Caractéristiques',
     'submit' => 'Soumettre',
     'vehicle_detail' => 'Modifier les détails du véhicule',
+    'authentication' => 'Authentification',
+    'additional_information' => 'Informations supplémentaires',
+    'daily' => 'Quotidien',
+    'weekly' => 'Hebdomadaire',
+    'monthly' => 'Mensuel',
+    'fuel_level' => 'Niveau de Carburant',
+    'damage_records' => 'Dommages Enregistrés',
 
 
 

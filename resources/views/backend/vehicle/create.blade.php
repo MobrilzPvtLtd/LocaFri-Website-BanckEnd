@@ -4,7 +4,7 @@
         <div class="card-body">
 
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('vehicle.index') }}">Vehicle</a>
+                <a class="btn btn-success" href="{{ route('vehicle.index') }}">{{ __('messages.vehicles')}}</a>
             </div>
             <div class="row mt-4">
                 <div class="col">
@@ -14,7 +14,7 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group mb-2 col-4">
-                                    <label for="name">Company</label>
+                                    <label for="name">{{ __('messages.company')}}</label>
                                     <input type="text" class="form-control" name="name" value="{{ old('name') }}"
                                         placeholder="" required>
                                     @error('name')
@@ -23,7 +23,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="model">Model</label>
+                                    <label for="model">{{ __('messages.model')}}</label>
                                     <input type="text" class="form-control" name="model" value="{{ old('model') }}"
                                         placeholder="" required>
                                     @error('model')
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="desc">Description</label>
+                                    <label for="desc">{{ __('messages.description')}}</label>
                                     <textarea class="form-control" name="desc" placeholder="" required>{{ old('desc') }}</textarea>
                                     @error('desc')
                                         <div class="text-danger">{{ $message }}</div>
@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="location">Location</label>
+                                    <label for="location">{{ __('messages.location')}}</label>
                                     <select name="location" id="location" class="form-control">
                                         <option value="Romont Gare"
                                             {{ old('location') == 'Romont Gare' ? 'selected' : '' }}>Romont Gare</option>
@@ -76,7 +76,7 @@
                                 </div> --}}
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="image">Brand Image</label>
+                                    <label for="image">{{ __('messages.brand_image')}}</label>
                                     <input type="file" class="form-control" name="image[]" multiple required>
 
                                     @if (isset($uploadedImages) && count($uploadedImages) > 0)
@@ -100,28 +100,28 @@
 
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="body">Body</label>
+                                    <label for="body">{{ __('messages.body')}}</label>
                                     <select class="form-control" name="body" required>
                                         <option value="" disabled {{ old('body') ? '' : 'selected' }}>Select Body
                                             Type</option>
                                         <option value="Convertible" {{ old('body') == 'Convertible' ? 'selected' : '' }}>
-                                            Convertible</option>
-                                        <option value="Coupe" {{ old('body') == 'Coupe' ? 'selected' : '' }}>Coupe
+                                            {{ __('messages.convertible')}}</option>
+                                        <option value="Coupe" {{ old('body') == 'Coupe' ? 'selected' : '' }}>{{ __('messages.coupe')}}
                                         </option>
                                         <option value="Exotic Cars" {{ old('body') == 'Exotic Cars' ? 'selected' : '' }}>
-                                            Exotic Cars</option>
+                                            {{ __('messages.exotic_cars')}}</option>
                                         <option value="Hatchback" {{ old('body') == 'Hatchback' ? 'selected' : '' }}>
-                                            Hatchback</option>
+                                            {{ __('messages.hatchback')}}</option>
                                         <option value="Minivan" {{ old('body') == 'Minivan' ? 'selected' : '' }}>Minivan
                                         </option>
                                         <option value="Pickup Truck" {{ old('body') == 'Pickup Truck' ? 'selected' : '' }}>
-                                            Pickup Truck</option>
+                                            {{ __('messages.pickup_truck')}}</option>
                                         <option value="Sedan" {{ old('body') == 'Sedan' ? 'selected' : '' }}>Sedan
                                         </option>
                                         <option value="Sports car" {{ old('body') == 'Sports car' ? 'selected' : '' }}>
-                                            Sports car</option>
+                                            {{ __('messages.sports_car')}}</option>
                                         <option value="Station wagon"
-                                            {{ old('body') == 'Station wagon' ? 'selected' : '' }}>Station wagon</option>
+                                            {{ old('body') == 'Station wagon' ? 'selected' : '' }}>{{ __('messages.station_wagon')}}</option>
                                         <option value="SUV" {{ old('body') == 'SUV' ? 'selected' : '' }}>SUV</option>
                                     </select>
                                     @error('body')
@@ -131,7 +131,7 @@
 
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="seat">Seat</label>
+                                    <label for="seat">{{ __('messages.seat')}}</label>
                                     <input type="text" class="form-control" name="seat" value="" placeholder=" "
                                         value="{{ old('seat') }}">
                                     {{-- <select class="form-control" name="seat">
@@ -145,7 +145,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Door</label>
+                                    <label for="city">{{ __('messages.door')}}</label>
                                     <input type="text" class="form-control" name="door" value="" placeholder=""
                                         value="{{ old('door') }}">
 
@@ -163,7 +163,7 @@
                                 </div> --}}
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Luggage</label>
+                                    <label for="city">{{ __('messages.luggage')}}</label>
                                     <input type="text" class="form-control" name="luggage"
                                         value="{{ old('luggage') }}"placeholder="">
                                     @error('luggage')
@@ -172,7 +172,7 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Fuel</label>
+                                    <label for="city">{{ __('messages.fuel')}}</label>
                                     <input type="text" class="form-control" name="fuel" placeholder=""
                                         value="{{ old('fuel') }}">
                                     @error('fuel')
@@ -181,7 +181,7 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Authorized</label>
+                                    <label for="city">{{ __('messages.authorized')}}</label>
                                     <input type="text" class="form-control" name="auth"
                                         value="{{ old('auth') }}" placeholder="">
                                     @error('auth')
@@ -212,7 +212,7 @@
 
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Exterior Color</label>
+                                    <label for="city">{{ __('messages.exterior_color')}}</label>
                                     <input type="text" class="form-control" name="exterior"
                                         value="{{ old('exterior') }}" placeholder="">
                                     @error('exterior')
@@ -221,7 +221,7 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Interior Color</label>
+                                    <label for="city">{{ __('messages.interior_color')}}</label>
                                     <input type="text" class="form-control" name="interior"
                                         value="{{ old('interior') }}" placeholder="">
                                     @error('interior')
@@ -230,7 +230,7 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Day Price</label>
+                                    <label for="city">{{ __('messages.day')}} {{ __('messages.price')}}</label>
                                     <input type="text" class="form-control" name="Dprice"
                                         value="{{ old('Dprice') }}" placeholder="">
                                     @error('Dprice')
@@ -239,7 +239,7 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Week Price</label>
+                                    <label for="city">{{ __('messages.week')}} {{ __('messages.price')}}</label>
                                     <input type="text" class="form-control" name="wprice"
                                         value="{{ old('wprice') }}" placeholder="">
                                     @error('wprice')
@@ -248,7 +248,7 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">Month Price</label>
+                                    <label for="city">{{ __('messages.month')}} {{ __('messages.price')}}</label>
                                     <input type="text" class="form-control" name="mprice"
                                         value="{{ old('mprice') }}" placeholder="">
                                     @error('mprice')
@@ -268,7 +268,7 @@
 
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_day">Authorized kilometers Day</label>
+                                    <label for="permitted_kilometers_day">{{ __('messages.permitted_kilometers_day')}}</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_day"
                                         value="{{ old('permitted_kilometers_day') }}" placeholder="">
                                     @error('permitted_kilometers_day')
@@ -278,7 +278,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_week">Authorized kilometers Week</label>
+                                    <label for="permitted_kilometers_week">{{ __('messages.permitted_kilometers_week')}}</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_week"
                                         value="{{ old('permitted_kilometers_week') }}" placeholder="">
                                     @error('permitted_kilometers_week')
@@ -287,7 +287,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_month">Authorized kilometers Month</label>
+                                    <label for="permitted_kilometers_month">{{ __('messages.permitted_kilometers_month')}}</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_month"
                                         value="{{ old('permitted_kilometers_month') }}" placeholder="">
                                     @error('permitted_kilometers_month')
@@ -307,13 +307,13 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="status">Status</label>
+                                    <label for="status">{{ __('messages.status')}}</label>
                                     <select class="form-control" name="status" id="status" required>
                                         <option value="" disabled {{ old('status') === null ? 'selected' : '' }}>
                                             Select Status</option>
-                                        <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active
+                                        <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>{{ __('messages.active')}}
                                         </option>
-                                        <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive
+                                        <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>{{ __('messages.inactive')}}
                                         </option>
                                     </select>
                                     @error('status')
@@ -323,7 +323,7 @@
 
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="featured">Featured</label>
+                                    <label for="featured">{{ __('messages.featured')}}</label>
                                     <input type="checkbox" name="featured" value="1"
                                         {{ old('featured') ? 'checked' : '' }}>
                                     @error('featured')
@@ -332,7 +332,7 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="features">Features</label><br>
+                                    <label for="features">{{ __('messages.features')}}</label><br>
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
@@ -382,7 +382,7 @@
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">{{ __('messages.submit')}}</button>
                         </form>
                     </div>
                 </div>
