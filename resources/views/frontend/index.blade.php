@@ -4,6 +4,11 @@
     {{ app_name() }} - {{ __('messages.rent_a_car') }}
 @endsection
 
+ <!-- WhatsApp Chat Button -->
+ <a href="https://wa.me/15551234567" target="_blank" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+</a>
+
 @section('content')
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
@@ -19,13 +24,10 @@
                         </h1>
                         <div class="spacer-single"></div>
                     </div>
-
-                    <div class="col-lg-6">
+                     <div class="col-lg-6">
                         <div class="spacer-single sm-hide"></div>
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
-
-
-                            <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form'  method="post">
+                           <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form'  method="post">
                                 @csrf
                                 <div class="spacer-20"></div>
                                 <div class="row">
@@ -348,6 +350,8 @@
                     </div>
                 </div>
             </div>
+           
+
         </section>
 
         <section id="section-cars">
