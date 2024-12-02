@@ -69,10 +69,19 @@
 
                 <div class="col-md-6">
                     <h5>{{ __('messages.additional_booking_information')}}</h5>
-                    <p><strong>{{ __('messages.pick_up_date')}}:</strong> {{ $booking->pickUpDate }}</p>
-                    <p><strong>{{ __('messages.pick_up_time')}}:</strong> {{ $booking->pickUpTime }}</p>
-                    <p><strong>{{ __('messages.collection_date')}}:</strong> {{ $booking->collectionDate }}</p>
-                    <p><strong>{{ __('messages.collection_time')}}:</strong> {{ $booking->collectionTime }}</p>
+                    <p><strong>{{ __('messages.pick_up_date') }}:</strong>
+                        {{ \Carbon\Carbon::parse($booking->pickUpDate)->format('d M Y') }}
+                    </p>
+                    <p><strong>{{ __('messages.pick_up_time') }}:</strong>
+                        {{ \Carbon\Carbon::parse($booking->pickUpTime)->format('h:i A') }}
+                    </p>
+                    <p><strong>{{ __('messages.collection_date') }}:</strong>
+                        {{ \Carbon\Carbon::parse($booking->collectionDate)->format('d M Y') }}
+                    </p>
+                    <p><strong>{{ __('messages.collection_time') }}:</strong>
+                        {{ \Carbon\Carbon::parse($booking->collectionTime)->format('h:i A') }}
+                    </p>
+    
                     <p><strong>{{ __('messages.additional_driver')}}:</strong> {{ $booking->additional_driver }}</p>
                     <p><strong>{{ __('messages.booster_seat')}}:</strong> {{ $booking->booster_seat }}</p>
                     <p><strong>{{ __('messages.child_seat')}}:</strong> {{ $booking->child_seat }}</p>

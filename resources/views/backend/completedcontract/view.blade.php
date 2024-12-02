@@ -68,6 +68,19 @@
                         {{ $booking->transaction->full_payment_paid ? '0.00' : number_format($booking->transaction->remaining_amount, 2) }}
                     </p>
                 @endif
+                <p><strong>{{ __('messages.pick_up_date') }}:</strong>
+                    {{ \Carbon\Carbon::parse($booking->pickUpDate)->format('d M Y') }}
+                </p>
+                <p><strong>{{ __('messages.pick_up_time') }}:</strong>
+                    {{ \Carbon\Carbon::parse($booking->pickUpTime)->format('h:i A') }}
+                </p>
+                <p><strong>{{ __('messages.collection_date') }}:</strong>
+                    {{ \Carbon\Carbon::parse($booking->collectionDate)->format('d M Y') }}
+                </p>
+                <p><strong>{{ __('messages.collection_time') }}:</strong>
+                    {{ \Carbon\Carbon::parse($booking->collectionTime)->format('h:i A') }}
+                </p>
+
 
                 <p><strong>{{ __('messages.additional_driver') }}:</strong> CHF {{ $booking->additional_driver }}
                 </p>
@@ -104,19 +117,20 @@
                 @else
                     <p>{{ __('messages.no_contract_details_available') }}</p>
                 @endif
+                
                 <h5 class="mt-4"><strong>{{ __('messages.contract_out') }} {{ __('messages.details') }}</strong></h5>
-                @if ($booking->contractOut)
-                    <p><strong>{{ __('messages.contract_out_id') }}:</strong> {{ $booking->contractOut->id }}</p>
-                    <p><strong>Email:</strong> {{ $booking->contractOut->email }}</p>
-                    <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $booking->contractOut->fuel_level }}</p>
-                    <p><strong>Kilometers:</strong> {{ $booking->contractOut->record_kilometers }}</p>
-                    <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $booking->contractOut->vehicle_damage_comments }}
+                @if ($booking->ContractOut)
+                <p><strong>{{ __('messages.contract_out_id') }}:</strong> {{ $booking->ContractOut->id }}</p>
+                    <p><strong>Email:</strong> {{ $booking->ContractOut->email }}</p>
+                    <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $booking->ContractOut->fuel_level }}</p>
+                    <p><strong>Kilometers:</strong> {{ $booking->ContractOut->record_kilometers }}</p>
+                    <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $booking->ContractOut->vehicle_damage_comments }}
                     </p>
                     <p><strong>{{ __('messages.customer_signature') }}:</strong> <img
-                            src="{{ asset('storage/' . $booking->contractOut->customer_signature) }}"
+                            src="{{ asset('storage/' . $booking->ContractOut->customer_signature) }}"
                             alt="Customer Signature" style="max-width: 100px;"></p>
                     <p><strong>{{ __('messages.odometer_image') }}:</strong> <img
-                            src="{{ asset('storage/' . $booking->contractOut->odometer_image) }}" alt="Odometer Image"
+                            src="{{ asset('storage/' . $booking->ContractOut->odometer_image) }}" alt="Odometer Image"
                             style="max-width: 100px;"></p>
                 @else
                     <p><strong>{{ __('messages.no_contract_out_details') }}</strong></p>
