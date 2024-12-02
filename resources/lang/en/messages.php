@@ -254,6 +254,59 @@ return [
     'addBack' => 'Addback',
     'unpaid' => 'Unpaid',
     'accepted_reservation_list'=> 'Accepted Reservation List',
+    'contract_created' => 'Contract Created',
+    'confirm' => 'Confirm',
+    'make_contract' => 'Make Contract',
+    'view_details' => 'View Details',
+    'accept'=>'Accept',
+    'reject'=>'Reject',
+    'full_paid'=>'Full Paid',
+    'partial_paid'=>'Partial Paid',
+    'amount_paid' => 'Amount Paid',
+    'remaining_amount' => 'Remaining Amount',
+    'pick_up_date' => 'Pick Up Date',
+    'pick_up_time' => 'Pick Up Time',
+    'collection_date' => 'Collection Date',
+    'collection_time' => 'Collection Time',
+    'booster_seat' => 'Booster Seat',
+    'days_count' => 'Day Count',
+    'weeks_count' => 'Week Count',
+    'months_count' => 'Month Count',
+    'booking_information' => 'Booking Information',
+    'create_contract_details_not_available' => 'Create Contract Details are not Available',
+    'additional_booking_information' => 'Additional Booking Information',
+    'rejected' => 'Rejected',
+    'pending' => 'Pending',
+    'submit_check_in' => 'Submit Check-in',
+    'check_in_submitted' => 'Check-in Submitted',
+    'check_in_accepted' => 'Check-in Accepted',
+    'checkout_submitted' => 'Checkout Submitted',
+
+    'contract_details' => 'Contract Details',
+    'postal_code' => 'Postal Code',
+    'license_photo' => 'License Photo',
+    'record_kilometers' => 'Record Kilometers',
+    'fuel_level' => 'Fuel Level',
+    'vehicle_damage_comments' => 'Vehicle Damage Comments',
+    'customer_signature' => 'Customer Signature',
+    'no_contract_details_available' => 'No contract details available.',
+    'complete' => 'Complete',
+    'details' => 'Details',
+    'success' => 'Success',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

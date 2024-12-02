@@ -11,58 +11,81 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <h5>Booking Information</h5>
+                    <h5>{{ __('messages.booking_information') }}</h5>
                     @php
                         // Fetch the transaction linked to the booking
                         $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
                     @endphp
 
                     @if ($booking->checkout)
-                        <p><strong>First Name:</strong> {{ $booking->checkout->first_name }}</p>
-                        <p><strong>Last Name:</strong> {{ $booking->checkout->last_name }}</p>
+                        <p><strong>{{ __('messages.first_name') }}:</strong> {{ $booking->checkout->first_name }}</p>
+                        <p><strong>{{ __('messages.last_name') }}:</strong> {{ $booking->checkout->last_name }}</p>
                         <p><strong>Email:</strong> {{ $booking->checkout->email }}</p>
-                        <p><strong>Address Line 1:</strong> {{ $booking->checkout->address_first }}</p>
-                        <p><strong>Address Line 2:</strong> {{ $booking->checkout->address_last }}</p>
+                        <p><strong>{{ __('messages.adresse_1') }}:</strong> {{ $booking->checkout->address_first }}</p>
+                        <p><strong>{{ __('messages.adresse_1') }}:</strong> {{ $booking->checkout->address_last }}</p>
                     @else
-                        <h5>Create Contract Details are not Available</h5>
+                        <h5>{{ __('messages.create_contract_details_not_available') }}</h5>
                     @endif
 
                     {{-- <p><strong>Booking ID:</strong> {{ $booking->id }}</p> --}}
-                    <p><strong>Vehicle Name:</strong> {{ $booking->name }}</p>
-                    <p><strong>Pick Up Location:</strong> {{ $booking->pickUpLocation }}</p>
-                    <p><strong>Drop Off Location:</strong> {{ $booking->dropOffLocation }}</p>
-                    <p><strong>Total Price:</strong> {{ $booking->total_price }}</p>
-                    <p><strong>Status:</strong> {{ ucwords($booking->status) }}</p>
-                    <p><strong>Payment Method:</strong>
+                    <p><strong>{{ __('messages.vehicle_name') }}:</strong> {{ $booking->name }}</p>
+                    <p><strong>{{ __('messages.pick_up_location') }}:</strong> {{ $booking->pickUpLocation }}</p>
+                    <p><strong>{{ __('messages.drop_off_location') }}:</strong> {{ $booking->dropOffLocation }}</p>
+                    <p><strong>{{ __('messages.reservation') }} {{ __('messages.status') }}:</strong> {{ ucwords($booking->status) }}</p>
+                    <p><strong>Total Price:</strong> CHF {{ $booking->total_price }}</p>
+
+                    <p><strong>{{ __('messages.payment_methods') }}:</strong>
                         @if (isset($tran->payment_method))
                             <span style="background-color: #b1d994; padding: 5px;">
                                 {{ ucwords($tran->payment_method) }}
                             </span>
                         @else
                             <span style="background-color: #e8857d; padding: 5px;">
-                                Unpaid
+                                {{ __('messages.unpaid') }}
                             </span>
                         @endif
                     </p>
+                    @if ($booking->transaction)
+                        <p><strong>{{ __('messages.payment')}} {{ __('messages.status')}}:</strong>
+                            @if ($booking->transaction->full_payment_paid)
+                                <span class="">{{ __('messages.full_paid')}}</span>
+                            @else
+                                <span class="">{{ __('messages.partial_paid')}}</span>
+                            @endif
+                        </p>
+
+                        <p><strong>{{ __('messages.amount_paid')}}:</strong>
+                            CHF
+                            {{ number_format($booking->transaction->full_payment_paid ? $booking->total_price : $booking->transaction->amount, 2) }}
+                        </p>
+
+                        <p><strong>{{ __('messages.remaining_amount')}}:</strong>
+                            CHF
+                            {{ $booking->transaction->full_payment_paid ? '0.00' : number_format($booking->transaction->remaining_amount, 2) }}
+                        </p>
+                    @endif
+
                 </div>
 
                 <div class="col-md-6">
-                    <h5>Additional Booking Information</h5>
-                    <p><strong>Pick Up Date:</strong> {{ $booking->pickUpDate }}</p>
-                    <p><strong>Pick Up Time:</strong> {{ $booking->pickUpTime }}</p>
-                    <p><strong>Collection Date:</strong> {{ $booking->collectionDate }}</p>
-                    <p><strong>Collection Time:</strong> {{ $booking->collectionTime }}</p>
-                    <p><strong>Additional Driver:</strong> {{ $booking->additional_driver }}</p>
-                    <p><strong>Booster Seat:</strong> {{ $booking->booster_seat }}</p>
-                    <p><strong>Child Seat:</strong> {{ $booking->child_seat }}</p>
-                    <p><strong>Exit Permit:</strong> {{ $booking->exit_permit }}</p>
-                    <p><strong>Daily Price:</strong> {{ $booking->Dprice }}</p>
-                    <p><strong>Weekly Price:</strong> {{ $booking->wprice }}</p>
-                    <p><strong>Monthly Price:</strong> {{ $booking->mprice }}</p>
-                    <p><strong>Days Count:</strong> {{ $booking->day_count }}</p>
-                    <p><strong>Weeks Count:</strong> {{ $booking->week_count }}</p>
-                    <p><strong>Months Count:</strong> {{ $booking->month_count }}</p>
+                    <h5>{{ __('messages.additional_booking_information')}}</h5>
+                    <p><strong>{{ __('messages.pick_up_date')}}:</strong> {{ $booking->pickUpDate }}</p>
+                    <p><strong>{{ __('messages.pick_up_time')}}:</strong> {{ $booking->pickUpTime }}</p>
+                    <p><strong>{{ __('messages.collection_date')}}:</strong> {{ $booking->collectionDate }}</p>
+                    <p><strong>{{ __('messages.collection_time')}}:</strong> {{ $booking->collectionTime }}</p>
+                    <p><strong>{{ __('messages.additional_driver')}}:</strong> {{ $booking->additional_driver }}</p>
+                    <p><strong>{{ __('messages.booster_seat')}}:</strong> {{ $booking->booster_seat }}</p>
+                    <p><strong>{{ __('messages.child_seat')}}:</strong> {{ $booking->child_seat }}</p>
+                    <p><strong>{{ __('messages.exit_permit')}}:</strong> {{ $booking->exit_permit }}</p>
+                    <p><strong>{{ __('messages.daily')}} {{ __('messages.price')}}:</strong> CHF {{ $booking->Dprice }}</p>
+                    <p><strong>{{ __('messages.weekly')}} {{ __('messages.price')}}:</strong>CHF {{ $booking->wprice }}</p>
+                    <p><strong>{{ __('messages.monthly')}} {{ __('messages.price')}}:</strong>CHF {{ $booking->mprice }}</p>
+                    <p><strong>{{ __('messages.days_count')}}:</strong> {{ $booking->day_count }}</p>
+                    <p><strong>{{ __('messages.weeks_count')}}:</strong> {{ $booking->week_count }}</p>
+                    <p><strong>{{ __('messages.months_count')}}:</strong> {{ $booking->month_count }}</p>
                 </div>
+
+
             </div>
             {{-- <div class="mt-4">
                 <a href="{{ route('reservation.index') }}" class="btn btn-secondary">Back to List</a>

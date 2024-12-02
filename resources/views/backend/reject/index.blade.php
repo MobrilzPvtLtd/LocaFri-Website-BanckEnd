@@ -14,7 +14,7 @@
                     <table id="datatable" class="table table-hover">
                         <thead>
                             <tr>
-                                {{-- <th scope="col">Id</th> --}}
+                                <th scope="col">Id</th>
                                 <th scope="col">{{ __('messages.user_name') }}</th>
                                 <th scope="col">{{ __('messages.vehicle_name') }}</th>
                                 {{-- <th scope="col">Dprice</th>
@@ -35,7 +35,7 @@
                                 {{-- <th scope="col">Collection Time</th> --}}
                                 {{-- <th scope="col">Collection Date</th> --}}
                                 {{-- <th scope="col">Target Date</th> --}}
-                                 <th scope="col">{{ __('messages.status') }}</th>
+                                 <th scope="col">{{ __('messages.reservation') }} {{ __('messages.status') }}</th>
                                 <th scope="col">{{ __('messages.payment_methods') }}</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -48,7 +48,7 @@
                                 @endphp
                                 {{-- <tr> --}}
                                 <tr class="{{ $loop->first ? 'table-primary' : '' }}">
-                                    {{-- <td>{{ $booking->id }}</td> --}}
+                                    <td>{{ $booking->id }}</td>
                                     <td>{{ $booking->checkout->first_name ?? 'N/A' }}
                                         {{ $booking->checkout->last_name ?? '' }}</td>
                                     <td>{{ $booking->name }}</td>
@@ -71,7 +71,16 @@
                                     {{-- <td>{{ $booking->collectionTime }}</td> --}}
                                     {{-- <td>{{ $booking->collectionDate }}</td> --}}
                                     {{-- <td>{{ $booking->targetDate }}</td> --}}
-                                    <td>{{ ucwords($booking->status) }}</td>
+                                    <td>
+                                        {{-- <p><strong>Reservation Status:</strong> --}}
+                                            @if ($booking->is_rejected == 1)
+                                            {{ __('messages.rejected') }}
+                                            @else
+                                            {{ __('messages.pending') }}
+                                            @endif
+                                        </p>
+
+                                    </td>
                                     <td>
                                         @if (isset($tran->payment_method))
                                             <span style="background-color: #b1d994;padding: 5px;">

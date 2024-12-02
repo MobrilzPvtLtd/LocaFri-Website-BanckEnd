@@ -27,8 +27,13 @@ class ContractOut extends Model
     {
         return $this->belongsTo(ContractIn::class, 'contract_id');
     }
+    // public function booking()
+    // {
+    //     return $this->belongsTo(Booking::class, 'booking_id');
+    // }
     public function booking()
-    {
-        return $this->belongsTo(Booking::class, 'booking_id');
-    }
+{
+    return $this->belongsTo(Booking::class, 'booking_id', 'id');
+}
+
 }

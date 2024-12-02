@@ -67,7 +67,7 @@ class CompleteContractController extends Controller
     public function show(string $id)
     {
          // Retrieve the booking by its ID with related contract and checkout details
-         $booking = Booking::with(['ContractIn', 'checkout'])->findOrFail($id);
+         $booking = Booking::with(['ContractIn', 'checkout','transaction'])->findOrFail($id);
 
          // Pass the booking data to the view
          return view('backend.completecontract.show', compact('booking'));

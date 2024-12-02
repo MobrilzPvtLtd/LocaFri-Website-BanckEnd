@@ -23,13 +23,19 @@ public function index()
     return view('backend.completedcontract.index', compact('bookings'));
 }
 
-
 public function show($id)
 {
-    $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn','transaction'])
+    $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn', 'transaction'])
                       ->findOrFail($id);
-     return view('backend.completedcontract.view', compact('booking'));
+    return view('backend.completedcontract.view', compact('booking'));
 }
+
+// public function show($id)
+// {
+//     $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn','transaction'])
+//                       ->findOrFail($id);
+//      return view('backend.completedcontract.view', compact('booking'));
+// }
 
 
 

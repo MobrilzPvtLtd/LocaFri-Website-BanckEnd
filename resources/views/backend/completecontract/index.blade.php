@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('alert.create') }}">Complete Contract</a>
+                <a class="btn btn-success" href="{{ route('alert.create') }}">{{ __('messages.complete_contract')}}</a>
             </div>
             <div class="row mt-4">
                 <div class="col">
@@ -12,14 +12,15 @@
                         <table id="datatable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Total Price</th>
-                                    <th scope="col">Pick Up Location</th>
-                                    <th scope="col">Drop Off Location</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Payment Method</th>
-                                    <th scope="col">Payment Status</th>
+                                    <th>ID</th>
+                                    <th scope="col">{{ __('messages.vehicle_name') }}</th>
+                                    <th>Total {{ __('messages.price') }}</th>
+                                    <th>{{ __('messages.pick_up_location') }}</th>
+                                    <th>{{ __('messages.drop_off_location') }}</th>
+                                    <th>{{ __('messages.reservation') }} {{ __('messages.status') }}</th>
+                                    <th>{{ __('messages.payment') }} {{ __('messages.status') }}</th>
+                                    <th>{{ __('messages.payment_methods') }}</th>
+                                    {{-- <th scope="col">{{ __('messages.complete_contract')}}Payment Status</th> --}}
                                     {{-- <th scope="col">Contract Status</th>
                                     <th scope="col">Checkout Info</th> --}}
                                     <th scope="col">Action</th>
@@ -39,7 +40,14 @@
                                         <td>{{ $booking->total_price }}</td>
                                         <td>{{ $booking->pickUpLocation }}</td>
                                         <td>{{ $booking->dropOffLocation }}</td>
-                                        <td>{{ ucwords($booking->status) }}</td>
+                                        <td>
+                                        @if ($booking->is_confirm == 1)
+                                            {{ __('messages.check_in_accepted') }}
+                                        @elseif ($booking->is_confirm == 2)
+                                            {{ __('messages.checkout_submitted') }}
+                                        @else
+                                        {{ __('messages.pending') }}
+                                        @endif</td>
 
                                         <td>
                                             @if (isset($tran->payment_method))
@@ -48,22 +56,22 @@
                                                 </span>
                                             @else
                                                 <span style="background-color: #e8857d;padding: 5px;">
-                                                    Unpaid
+                                                    {{ __('messages.unpaid') }}
                                                 </span>
                                             @endif
                                         </td>
-                                        <td>{{ $tran->payment_status}}</td>
+                                        {{-- <td>{{ $tran->payment_status}}</td> --}}
 
                                         <td>
                                             @if($booking->is_confirm == 2)
                                                 <button type="button" class="btn btn-success text-white complete-contract-btn" data-booking-id="{{ $booking->id }}" value="complete">
-                                                    Complete
+                                                    {{ __('messages.complete') }}
                                                 </button>
                                             @endif
                                             <a class="btn btn-info btn-md"
-                                                href="{{ route('completecontract.show', $booking->id) }}">View Details</a>
-                                            <a class="btn btn-primary btn-md"
-                                                href="{{ route('completecontract.edit', $booking->id) }}">Edit Details</a>
+                                                href="{{ route('completecontract.show', $booking->id) }}"> {{ __('messages.view_details') }}</a>
+                                            {{-- <a class="btn btn-primary btn-md"
+                                                href="{{ route('completecontract.edit', $booking->id) }}">Edit Details</a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

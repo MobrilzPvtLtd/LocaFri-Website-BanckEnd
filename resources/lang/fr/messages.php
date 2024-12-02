@@ -29,6 +29,7 @@ return [
     'month' => 'Mois',
     'additional_driver' => 'Conducteur supplémentaire',
     'child_booster_seat' => 'Siège rehausseur pour enfant',
+    'booster_seat' => 'Siège rehausseur',
     'child_seat' => 'Siège enfant',
     'exit_permit' => 'Autorisation de sortie',
     'total_usd' => 'Total (USD)',
@@ -255,6 +256,58 @@ return [
     'addBack' => 'Réintégrer',
     'unpaid' => 'Non payé',
     'accepted_reservation_list'=> 'Liste des réservations acceptées',
+    'contract_created' => 'Contrat créé',
+    'confirm' => 'Confirmer',
+    'make_contract' => 'Créer un contrat',
+    'view_details' => 'Voir les détails',
+    'accept'=>'Accepter',
+    'reject'=>'Rejeter',
+    'full_paid'=>'Payé en totalité',
+    'partial_paid'=>'Paiement partiel',
+    'amount_paid' => 'Montant payé',
+    'remaining_amount' => 'Montant restant',
+    'pick_up_date' => 'Date de prise en charge',
+    'pick_up_time' => 'Heure de prise en charge',
+    'collection_date' => 'Date de restitution',
+    'collection_time' => 'Heure de restitution',
+    'booster_seat' => 'Siège rehausseur',
+    'days_count' => 'Nombre de jours',
+    'weeks_count' => 'Nombre de semaines',
+    'months_count' => 'Nombre de mois',
+    'booking_information' => 'Informations sur la réservation',
+    'create_contract_details_not_available' => 'Les détails du contrat créé ne sont pas disponibles',
+    'additional_booking_information' => 'Informations supplémentaires sur la réservation',
+    'rejected' => 'Rejeté',
+    'pending' => 'En attente',
+    'submit_check_in' => 'Soumettre l\'enregistrement',
+    'check_in_submitted' => 'Enregistrement soumis',
+    'check_in_accepted' => 'Enregistrement accepté',
+    'checkout_submitted' => 'Sortie soumise',
+
+    'contract_details' => 'Détails du contrat',
+    'postal_code' => 'Code postal',
+    'license_photo' => 'Photo du permis',
+    'record_kilometers' => 'Kilomètres enregistrés',
+    'fuel_level' => 'Niveau de carburant',
+    'vehicle_damage_comments' => 'Commentaires sur les dommages au véhicule',
+    'customer_signature' => 'Signature du client',
+    'no_contract_details_available' => 'Aucun détail du contrat disponible.',
+    'complete' => 'Complet',
+    'details' => 'Détails',
+    'success' => 'Success',
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

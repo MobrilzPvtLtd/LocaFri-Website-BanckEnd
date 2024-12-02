@@ -101,7 +101,7 @@ class ReservationController extends Controller
     }
     public function show($id)
 {
-    $booking = Booking::with(['checkout','ContractIn'])->findOrFail($id);
+    $booking = Booking::with(['checkout','ContractIn','transaction'])->findOrFail($id);
     if ($booking->seen !== 1) {
         $booking->seen = 1;
         $booking->save();

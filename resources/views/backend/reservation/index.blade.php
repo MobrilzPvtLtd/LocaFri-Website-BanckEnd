@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>{{ __('messages.list_reservation')}}</h4>
+            <h4>{{ __('messages.list_reservation') }}</h4>
         </div>
         <div class="card-body">
             <div id="success-message" class="alert alert-success d-none"></div>
@@ -15,14 +15,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col">{{ __('messages.user_name')}}</th>
-                                    <th scope="col">{{ __('messages.vehicle_name')}}</th>
+                                    <th scope="col">{{ __('messages.user_name') }}</th>
+                                    <th scope="col">{{ __('messages.vehicle_name') }}</th>
                                     {{-- <th scope="col">Dprice</th>
                                     <th scope="col">Wprice</th>
                                     <th scope="col">Mprice</th> --}}
-                                    <th scope="col">{{ __('messages.pick_up_location')}}</th>
-                                    <th scope="col">{{ __('messages.drop_off_location')}}</th>
-                                    <th scope="col">Total {{ __('messages.price')}}</th>
+                                    <th scope="col">{{ __('messages.pick_up_location') }}</th>
+                                    <th scope="col">{{ __('messages.drop_off_location') }}</th>
+                                    <th scope="col">Total {{ __('messages.price') }}</th>
                                     {{-- <th scope="col">Days</th>
                                     <th scope="col">Weeks</th> --}}
                                     {{-- <th scope="col">Months</th> --}}
@@ -32,18 +32,19 @@
                                     {{-- <th scope="col">Exit Permit</th> --}}
                                     {{-- <th scope="col">Pick Up Time</th> --}}
                                     {{-- <th scope="col">Collection Time</th> --}}
-                                    <th scope="col">{{ __('messages.payment_methods')}}</th>
-                                    {{-- <th scope="col">Payment Status</th> --}}
-                                    <th scope="col">{{ __('messages.date_time')}}</th>
+                                    <th scope="col">{{ __('messages.payment_methods') }}</th>
+                                    {{-- <th scope="col">{{ __('messages.payment_methods')}}</th> --}}
+                                    {{-- <th scope="col">Reservation Status</th> --}}
+                                    <th scope="col">{{ __('messages.date_time') }}</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($bookings as $booking)
-                                @php
-                                $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
-                                // dd($tran->payment_method);
-                            @endphp
+                                    @php
+                                        $tran = App\Models\Transaction::where('order_id', $booking->id)->first();
+                                        // dd($tran->payment_method);
+                                    @endphp
                                     {{-- <tr class="table-primary"> --}}
                                     <tr class="{{ $loop->first ? 'table-primary' : '' }}">
                                         {{-- <tr class="{{ $booking->id === $maxBookingId ? 'table-primary' : '' }}"> --}}
@@ -73,21 +74,21 @@
                                                 <span
                                                     style="background-color: #b1d994;padding: 5px;">{{ ucwords($tran->payment_method) }}</span>
                                             @else
-                                                <span style="background-color: #e8857d;padding: 5px;">Unpaid</span>
+                                                <span style="background-color: #e8857d;padding: 5px;">{{ __('messages.unpaid') }}</span>
                                             @endif
                                         </td>
-                                        {{-- <td>{{ ($tran->payment_status?? 'N/A') }}</td> --}}
+                                        {{-- <td>{{ $booking->status }}</td> --}}
                                         <td>{{ $booking->created_at->format('d M Y (h:i a)') }}</td>
                     </div>
                     <td>
                         <div class="d-flex flex-column flex-md-row justify-content-between">
                             <button type="button" class="btn btn-success btn-sm bookingAccept"
-                                data-booking-id="{{ $booking->id }}">Accept</button>
+                                data-booking-id="{{ $booking->id }}">{{ __('messages.accept') }}</button>
                             <a class="btn btn-info btn-sm view" data-booking-id="{{ $booking->id }}"
-                                href="{{ route('reservation.show', $booking->id) }}">View</a>
+                                href="{{ route('reservation.show', $booking->id) }}">{{ __('messages.view') }}</a>
 
                             <button type="button" class="btn btn-danger btn-sm reject"
-                                data-booking-id="{{ $booking->id }}">Reject</button>
+                                data-booking-id="{{ $booking->id }}">{{ __('messages.reject') }}</button>
                         </div>
                     </td>
                     </tr>
