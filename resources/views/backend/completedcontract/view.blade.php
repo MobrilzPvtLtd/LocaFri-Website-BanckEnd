@@ -104,48 +104,23 @@
                 @else
                     <p>{{ __('messages.no_contract_details_available') }}</p>
                 @endif
-                    <h5 class="mt-4"><strong>ContractOut Details</strong></h5>
-                    @if ($booking->ContractOut)
-                        <div class="row">
-                            <div class="col-md-6">
-                                <strong>ContractOut ID:</strong> {{ $booking->ContractOut->id ?? 'N/A' }}
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Email:</strong> {{ $booking->ContractOut->email ?? 'N/A' }}
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Fuel Level:</strong> {{ $booking->ContractOut->fuel_level ?? 'N/A' }}
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Kilometers:</strong> {{ $booking->ContractOut->record_kilometers ?? 'N/A' }}
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Vehicle Damage Comments:</strong>
-                                {{ $booking->ContractOut->vehicle_damage_comments ?? 'N/A' }}
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Customer Signature:</strong>
-                                @if (!empty($booking->ContractOut->customer_signature))
-                                    <img src="{{ asset('storage/' . $booking->ContractOut->customer_signature) }}"
-                                        alt="Customer Signature" style="max-width: 100px;">
-                                @else
-                                    No signature available
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Fuel Image:</strong>
-                                @if (!empty($booking->ContractOut->fuel_image))
-                                    <img src="{{ asset('storage/' . $booking->ContractOut->fuel_image) }}" alt="Fuel Image"
-                                        style="max-width: 100px;">
-                                @else
-                                    No fuel image available
-                                @endif
-                            </div>
-                        </div>
-                    @else
-                        <p>No ContractOut Details Available</p>
-                    @endif
-
+                <h5 class="mt-4"><strong>{{ __('messages.contract_out') }} {{ __('messages.details') }}</strong></h5>
+                @if ($booking->contractOut)
+                    <p><strong>{{ __('messages.contract_out_id') }}:</strong> {{ $booking->contractOut->id }}</p>
+                    <p><strong>Email:</strong> {{ $booking->contractOut->email }}</p>
+                    <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $booking->contractOut->fuel_level }}</p>
+                    <p><strong>Kilometers:</strong> {{ $booking->contractOut->record_kilometers }}</p>
+                    <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $booking->contractOut->vehicle_damage_comments }}
+                    </p>
+                    <p><strong>{{ __('messages.customer_signature') }}:</strong> <img
+                            src="{{ asset('storage/' . $booking->contractOut->customer_signature) }}"
+                            alt="Customer Signature" style="max-width: 100px;"></p>
+                    <p><strong>{{ __('messages.odometer_image') }}:</strong> <img
+                            src="{{ asset('storage/' . $booking->contractOut->odometer_image) }}" alt="Odometer Image"
+                            style="max-width: 100px;"></p>
+                @else
+                    <p><strong>{{ __('messages.no_contract_out_details') }}</strong></p>
+                @endif
 
                 </div>
             </div>

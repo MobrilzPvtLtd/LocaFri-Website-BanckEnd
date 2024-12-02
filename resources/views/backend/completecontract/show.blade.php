@@ -128,21 +128,22 @@
                 @endif
 
                     {{-- ContractOut Details --}}
+                    <h5 class="mt-4"><strong>{{ __('messages.contract_out') }} {{ __('messages.details') }}</strong></h5>
                     @if ($booking->contractOut)
-                        <p><strong>ContractOut ID:</strong> {{ $booking->contractOut->id }}</p>
+                        <p><strong>{{ __('messages.contract_out_id') }}:</strong> {{ $booking->contractOut->id }}</p>
                         <p><strong>Email:</strong> {{ $booking->contractOut->email }}</p>
-                        <p><strong>Fuel Level:</strong> {{ $booking->contractOut->fuel_level }}</p>
+                        <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $booking->contractOut->fuel_level }}</p>
                         <p><strong>Kilometers:</strong> {{ $booking->contractOut->record_kilometers }}</p>
-                        <p><strong>Vehicle Damage Comments:</strong> {{ $booking->contractOut->vehicle_damage_comments }}
+                        <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $booking->contractOut->vehicle_damage_comments }}
                         </p>
-                        <p><strong>Customer Signature:</strong> <img
+                        <p><strong>{{ __('messages.customer_signature') }}:</strong> <img
                                 src="{{ asset('storage/' . $booking->contractOut->customer_signature) }}"
                                 alt="Customer Signature" style="max-width: 100px;"></p>
-                        <p><strong>Odometer Image:</strong> <img
+                        <p><strong>{{ __('messages.odometer_image') }}:</strong> <img
                                 src="{{ asset('storage/' . $booking->contractOut->odometer_image) }}" alt="Odometer Image"
                                 style="max-width: 100px;"></p>
                     @else
-                        <p><strong>No ContractOut Details Available</strong></p>
+                        <p><strong>{{ __('messages.no_contract_out_details') }}</strong></p>
                     @endif
                 </div>
             </div>

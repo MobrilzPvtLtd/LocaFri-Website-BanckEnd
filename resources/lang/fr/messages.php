@@ -284,7 +284,7 @@ return [
     'check_in_accepted' => 'Enregistrement accepté',
     'checkout_submitted' => 'Sortie soumise',
 
-    'contract_details' => 'Détails du contrat',
+    'contract_details' => 'Détails du Enregistrement',
     'postal_code' => 'Code postal',
     'license_photo' => 'Photo du permis',
     'record_kilometers' => 'Kilomètres enregistrés',
@@ -295,6 +295,13 @@ return [
     'complete' => 'Complet',
     'details' => 'Détails',
     'success' => 'Success',
+
+    'odometer_image' => 'Image du compteur kilométrique',
+    'no_contract_out_details' => 'Aucun détail de ContractOut disponible',
+    'contract_out_id' => 'ID de ContractOut',
+    'contract_out' => 'Sortie',
+
+
 
 
 

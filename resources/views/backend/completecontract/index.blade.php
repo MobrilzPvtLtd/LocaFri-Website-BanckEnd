@@ -18,7 +18,7 @@
                                     <th>{{ __('messages.pick_up_location') }}</th>
                                     <th>{{ __('messages.drop_off_location') }}</th>
                                     <th>{{ __('messages.reservation') }} {{ __('messages.status') }}</th>
-                                    <th>{{ __('messages.payment') }} {{ __('messages.status') }}</th>
+                                    {{-- <th>{{ __('messages.payment') }} {{ __('messages.status') }}</th> --}}
                                     <th>{{ __('messages.payment_methods') }}</th>
                                     {{-- <th scope="col">{{ __('messages.complete_contract')}}Payment Status</th> --}}
                                     {{-- <th scope="col">Contract Status</th>

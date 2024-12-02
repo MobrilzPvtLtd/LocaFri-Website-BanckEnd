@@ -282,7 +282,7 @@ return [
     'check_in_accepted' => 'Check-in Accepted',
     'checkout_submitted' => 'Checkout Submitted',
 
-    'contract_details' => 'Contract Details',
+    'contract_details' => 'Checkin Details',
     'postal_code' => 'Postal Code',
     'license_photo' => 'License Photo',
     'record_kilometers' => 'Record Kilometers',
@@ -293,6 +293,12 @@ return [
     'complete' => 'Complete',
     'details' => 'Details',
     'success' => 'Success',
+    'odometer_image' => 'Odometer Image',
+    'no_contract_out_details' => 'No Contract Out Details Available',
+    'contract_out_id' => 'ID de ContractOut',
+    'contract_out' => 'Checkout',
+
+
 
 
 
