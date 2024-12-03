@@ -71,9 +71,7 @@
                 <p style="text-align: center; font-size: 16px; color: #555;">
                     Your booking has been successfully accepted! To complete the process, please fill out the check-in form.
                 </p>
-                <p style="text-align: center; font-size: 16px; color: #555;">
-                    This step is important to ensure a smooth experience for your upcoming reservation.
-                </p>
+
                 <table class="contact-table">
                     <tbody>
                         <tr>
@@ -160,6 +158,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <p style="text-align: center; font-size: 16px; color: #555;">
+                    This step is important to ensure a smooth experience for your upcoming reservation.
+                </p>
             </div>
         </section>
     </body>

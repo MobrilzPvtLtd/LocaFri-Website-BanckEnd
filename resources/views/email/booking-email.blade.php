@@ -166,7 +166,7 @@
                                 Day Price
                             </td>
                             <td>
-                                ${{ $data['day_price'] }}
+                                CHF {{ $data['day_price'] }}
                             </td>
                         </tr>
                     @elseif($data['week_price'])
@@ -175,7 +175,7 @@
                                 Week Price
                             </td>
                             <td>
-                                ${{ $data['week_price'] }}
+                                CHF {{ $data['week_price'] }}
                             </td>
                         </tr>
                     @elseif($data['month_price'])
@@ -184,7 +184,7 @@
                                 Month Price
                             </td>
                             <td>
-                                ${{ $data['month_price'] }}
+                                CHF {{ $data['month_price'] }}
                             </td>
                         </tr>
                     @endif
@@ -194,7 +194,7 @@
                                 Additional Driver
                             </td>
                             <td>
-                                ${{ $data['additional_driver'] }}
+                                CHF {{ $data['additional_driver'] }}
                             </td>
                         </tr>
                     @endif
@@ -204,7 +204,7 @@
                                 Booster Seat
                             </td>
                             <td>
-                                ${{ $data['booster_seat'] }}
+                                CHF {{ $data['booster_seat'] }}
                             </td>
                         </tr>
                     @endif
@@ -214,7 +214,7 @@
                                 Child Seat
                             </td>
                             <td>
-                                ${{ $data['child_seat'] }}
+                                CHF {{ $data['child_seat'] }}
                             </td>
                         </tr>
                     @endif
@@ -224,22 +224,22 @@
                                 Exit Permit
                             </td>
                             <td>
-                                ${{ $data['exit_permit'] }}
+                                CHF {{ $data['exit_permit'] }}
                             </td>
                         </tr>
                     @endif
                     <tr>
                         <td>Total Amount</td>
-                        <td>${{ $data['total_price'] }}</td>
+                        <td>CHF {{ $data['total_price'] }}</td>
                     </tr>
                     <tr>
                         <td>Amount Paid</td>
-                        <td>${{ $data['amount_paid'] }}</td>
+                        <td>CHF {{ $data['amount_paid'] }}</td>
                     </tr>
                     @if($data['payment_type'] == "payment_partial")
                         <tr>
                             <td>Remaining Amount</td>
-                            <td>${{ $data['remaining_amount'] }}</td>
+                            <td> CHF {{ $data['remaining_amount'] }}</td>
                         </tr>
                     @endif
                     <tr>
