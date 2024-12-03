@@ -79,15 +79,15 @@
                         </tr> --}}
                         <tr>
                             <td>Total Amount</td>
-                            <td>${{ number_format($data['total_price'], 2) }}</td>
+                            <td> CHF {{ number_format($data['total_price'], 2) }}</td>
                         </tr>
                         <tr>
                             <td>Amount Paid</td>
-                            <td>${{ number_format($data['amount_paid'], 2) }}</td>
+                            <td> CHF {{ number_format($data['amount_paid'], 2) }}</td>
                         </tr>
                         <tr>
                             <td>Remaining Amount</td>
-                            <td>${{ number_format($data['remaining_amount'], 2) }}</td>
+                            <td> CHF {{ number_format($data['remaining_amount'], 2) }}</td>
                         </tr>
                         <tr>
                             <td>Payment Link</td>
