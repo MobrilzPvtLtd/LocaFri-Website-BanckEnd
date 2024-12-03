@@ -1478,16 +1478,12 @@ section#shadow-host-companion {
         padding: 50px 0em 0 0 !important;
     }
 
-img.logo-1 {
-    width: 4vw !important;
+img.logo-1, img.logo-2 {
+    width: 20vw;
     /* background-color: red; */
     padding: 5px 0px !important;
 }
-img.logo-2 {
-    width: 13vw !important;
-    /* background-color: red; */
-    padding: 5px 0px !important;
-}
+
 
 header.side-header {
     border-bottom: none;
