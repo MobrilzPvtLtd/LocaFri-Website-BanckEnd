@@ -84,6 +84,8 @@
                                 <i class="fa fa-cab ml-3" style="font-size: 20px"></i>
                             </div>
                             <h3 class="font-size-20 mt-0 pt-1 text-warning">{{ $acceptedBookingsCount ?? 0 }}</h3>
+
+                        
                             <p class="text-muted mb-0">{{ __('messages.accepted_bookings') }}</p>
                         </div>
                     </div>
@@ -114,26 +116,25 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-3 col-md-6">
                     <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-danger">
                         <div class="card-body">
                             <div class="float-right">
                                 <i class="fa fa-users ml-3" style="font-size: 20px"></i>
                             </div>
-                            <h3 class="font-size-20 mt-0 pt-1 text-danger">{{ $completeContracts ?? '-' }}</h3>
+                            
+                            <h3 class="font-size-20 mt-0 pt-1 text-danger">{{ $completeContracts ?? 0 }}</h3>
                             <p class="text-muted mb-0">{{ __('messages.complete_contract') }}</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-3 col-md-6">
+               <div class="col-xl-3 col-md-6">
                     <div class="card radius-10 border-start border-end border-top border-bottom border-0 border-1 border-success">
                         <div class="card-body">
                             <div class="float-right">
                                 <i class="fab fa-first-order ml-3" style="font-size: 20px"></i>
                             </div>
-                            <h3 class="font-size-20 mt-0 pt-1 text-success">{{ $completedContracts ?? '-' }}</h3>
+                            <h3 class="font-size-20 mt-0 pt-1 text-success">{{ $completedContracts ?? 0 }}</h3>
                             <p class="text-muted mb-0">{{ __('messages.completed_contract') }}</p>
                         </div>
                     </div>

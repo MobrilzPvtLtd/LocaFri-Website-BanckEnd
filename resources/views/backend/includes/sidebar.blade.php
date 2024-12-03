@@ -4,6 +4,8 @@ $notifications_count = optional($notifications)->count();
 $notifications_latest = optional($notifications)->take(5);
 $total_contact = App\Models\Contact::where('is_view', 0)->count();
 $alertCount = App\Models\Alert::where('status', 'pending')->count();
+$total_complete_Contracts = App\Models\Booking::where('is_contract', 2)->count();
+$total_completed_Contracts = App\Models\Booking::where('is_complete', 1)->count();
 // $alert = App\Models\Alert::where('seen', 0)->count();
 // $total_booking = App\Models\Booking::where('is_viewbooking', 0)->count();
 ?>

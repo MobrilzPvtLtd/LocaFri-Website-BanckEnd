@@ -23,6 +23,14 @@ class BackendController extends Controller
         $acceptedBookingsCount = Booking::where('is_viewbooking', '!=', 0)->count();
         $rejectedBookings = Booking::where('is_rejected', '!=', 0)->count();
         $contracts = Booking::where('is_contract', '!=', 0)->count();
-        return view('backend.index',compact('vehicles','bookings','contacts', 'acceptedBookingsCount','rejectedBookings','contracts'));
+
+        $completeContracts = Booking::where('is_viewbooking', '!=', 0)
+        ->where('is_confirm', '!=', 0)
+        ->where('is_complete', '!=', 1)
+        ->count();
+        $completedContracts = Booking::where('is_complete', 1)->count();
+
+        return view('backend.index',compact('vehicles','bookings','contacts', 'acceptedBookingsCount','rejectedBookings','contracts',  'completeContracts',
+        'completedContracts'));
     }
 }

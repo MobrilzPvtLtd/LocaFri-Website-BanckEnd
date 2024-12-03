@@ -20,6 +20,10 @@ use App\Models\ContractIn;
 use App\Models\ContractOut;
 use App\Models\Contact;
 use App\Mail\ContactMail;
+use App\Mail\BookingMail;
+use App\Mail\ProcessedBookingMail;
+
+
 use App\Models\Alert;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Validator;
@@ -540,6 +544,11 @@ class ApiController extends Controller
         $checkout->address_first = $request->address_first;
         $checkout->address_last = $request->address_last;
         $checkout->save();
+       
+        $message = "Your request has been processed and will be answered soon.";
+        Mail::to($request->email)->send(new ProcessedBookingMail($booking, $message, $checkout));
+
+        
 
         return response()->json([
             'status' => true,
