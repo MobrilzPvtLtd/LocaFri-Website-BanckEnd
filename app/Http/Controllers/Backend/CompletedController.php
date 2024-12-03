@@ -15,24 +15,24 @@ class CompletedController extends Controller
 {
 public function index()
 {
-    $bookings = Booking::with(['ContractOut', 'checkout', 'ContractIn'])
+    $bookings = Booking::with(['checkout', 'ContractIn'])
             ->where('is_complete', 1)
             ->orderBy('created_at', 'desc')
             ->get();
-
     return view('backend.completedcontract.index', compact('bookings'));
 }
 
 public function show($id)
 {
-    $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn', 'transaction'])
+    $booking = Booking::with(['checkout', 'ContractIn', 'transaction'])
                       ->findOrFail($id);
+    // dd($booking);
     return view('backend.completedcontract.view', compact('booking'));
 }
 
 // public function show($id)
 // {
-//     $booking = Booking::with(['ContractOut', 'checkout', 'ContractIn','transaction'])
+//     $booking = Booking::with([ 'checkout', 'ContractIn','transaction'])
 //                       ->findOrFail($id);
 //      return view('backend.completedcontract.view', compact('booking'));
 // }

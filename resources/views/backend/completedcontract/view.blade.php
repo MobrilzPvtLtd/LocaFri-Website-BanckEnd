@@ -98,7 +98,7 @@
                 <p><strong>{{ __('messages.months_count') }}:</strong> {{ $booking->month_count }}</p>
             </div>
         </div>
-
+        
         <div class="col-md-6">
             <div class="card-body">
                 <h5>{{ __('messages.contract_details') }}</h5>
@@ -118,19 +118,26 @@
                     <p>{{ __('messages.no_contract_details_available') }}</p>
                 @endif
                 
-                <h5 class="mt-4"><strong>{{ __('messages.contract_out') }} {{ __('messages.details') }}</strong></h5>
-                @if ($booking->ContractOut)
-                <p><strong>{{ __('messages.contract_out_id') }}:</strong> {{ $booking->ContractOut->id }}</p>
-                    <p><strong>Email:</strong> {{ $booking->ContractOut->email }}</p>
-                    <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $booking->ContractOut->fuel_level }}</p>
-                    <p><strong>Kilometers:</strong> {{ $booking->ContractOut->record_kilometers }}</p>
-                    <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $booking->ContractOut->vehicle_damage_comments }}
+                @php
+                $checkin = $booking->ContractIn;
+                $checkout = App\Models\ContractOut::where('contract_id', $checkin->id)->first();
+                @endphp
+                <h5 class="mt-4">{{ __('messages.contract_out') }} {{ __('messages.details') }}</h5>
+                @if ($checkout)
+                <p>
+                    {{-- <strong>{{ __('messages.contract_out_id') }}:</strong> {{ $checkout->id }} --}}
+                </p>
+                    <p><strong>Email:</strong> {{ $checkout->email }}</p>
+                    {{-- <p><strong>{{ __('messages.license_photo') }}:</strong> {{ $checkout->license_photo }}</p> --}}
+                    <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $checkout->fuel_level }}</p>
+                    <p><strong>Kilometers:</strong> {{ $checkout->record_kilometers }}</p>
+                    <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $checkout->vehicle_damage_comments }}
                     </p>
                     <p><strong>{{ __('messages.customer_signature') }}:</strong> <img
-                            src="{{ asset('storage/' . $booking->ContractOut->customer_signature) }}"
+                            src="{{ asset('storage/' . $checkout->customer_signature) }}"
                             alt="Customer Signature" style="max-width: 100px;"></p>
                     <p><strong>{{ __('messages.odometer_image') }}:</strong> <img
-                            src="{{ asset('storage/' . $booking->ContractOut->odometer_image) }}" alt="Odometer Image"
+                            src="{{ asset('storage/' . $checkout->odometer_image) }}" alt="Odometer Image"
                             style="max-width: 100px;"></p>
                 @else
                     <p><strong>{{ __('messages.no_contract_out_details') }}</strong></p>

@@ -20,7 +20,7 @@ class CompleteContractController extends Controller
        $bookings = Booking::where('is_viewbooking', '!=', 0)
             ->where('is_confirm', '!=', 0)
             ->where('is_complete', '!=', 1)
-            ->with(['ContractIn','ContractOut', 'checkout'])
+            ->with(['ContractIn', 'checkout'])
             ->orderBy('created_at', 'desc')
             ->get();
         // dd($bookings);

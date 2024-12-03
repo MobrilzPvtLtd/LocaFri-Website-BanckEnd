@@ -23,17 +23,9 @@ class ContractOut extends Model
         'fuel_image'
     ];
 
-    public function ContractIn()
+    public function contractIn()
     {
-        return $this->belongsTo(ContractIn::class, 'contract_id');
+        return $this->hasOne(ContractIn::class, 'contract_id', 'id');
     }
-    // public function booking()
-    // {
-    //     return $this->belongsTo(Booking::class, 'booking_id');
-    // }
-    public function booking()
-{
-    return $this->belongsTo(Booking::class, 'booking_id', 'id');
-}
 
 }

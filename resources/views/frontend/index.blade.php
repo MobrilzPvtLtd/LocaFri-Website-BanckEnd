@@ -3,12 +3,10 @@
 @section('title')
     {{ app_name() }} - {{ __('messages.rent_a_car') }}
 @endsection
-
- <!-- WhatsApp Chat Button -->
+<!-- WhatsApp Chat Button -->
  <a href="https://wa.me/15551234567" target="_blank" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
 </a>
-
 @section('content')
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
@@ -48,7 +46,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.select_drop_off') }}</h5>
                                         <div class="date-time-field">
@@ -59,17 +56,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
                                         <div class="jls-address-preview jls-address-preview--hidden">
                                             <div class="jls-address-preview__header">
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.pick_up_date_time') }}</h5>
                                         <div class="date-time-field">
-                                            {{-- <input type="text" id="date-picker" name="pickUpDate" value=""> --}}
+                                            {{-- <input type="text" id="date-picker" name="pickUpDate" value="" style="width: 100%;"> --}}
                                             <input type="text" name="pickUpDate" value="" class="form-control" style="width: 100%;"/>
 
                                             {{-- <select name="pickUpTime" id="pickup-time">
@@ -125,7 +120,6 @@
                                             </select> --}}
                                         </div>
                                     </div>
-
                                     {{-- <div class="col-lg-6 mb20">
                                         <h5>Return Date & Time</h5>
                                         <div class="date-time-field">
@@ -192,14 +186,10 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-
                             </form>
                         </div>
                     </div>
-
-                    <div class="spacer-double"></div>
-
-
+                  <div class="spacer-double"></div>
                 </div>
             </div>
         </section>
