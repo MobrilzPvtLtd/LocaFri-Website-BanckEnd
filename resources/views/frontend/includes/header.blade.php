@@ -39,7 +39,7 @@
                             <!-- logo begin -->
                             <div id="logo">
                                 <a href="/">
-                                    <img class="logo-1" src="{{ asset('images/locafri.png') }}" alt="" />
+                                    <img class="logo-1" src="{{ asset('images/locafri_logo.png') }}" alt="" />
                                     <img class="logo-2" src="{{ asset('images/locafri-admin.png') }}" alt="" />
                                 </a>
                             </div>

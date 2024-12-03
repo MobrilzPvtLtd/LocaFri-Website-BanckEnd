@@ -1478,8 +1478,13 @@ section#shadow-host-companion {
         padding: 50px 0em 0 0 !important;
     }
 
-img.logo-1, img.logo-2 {
-    width: 20vw;
+img.logo-1 {
+    width: 4vw !important;
+    /* background-color: red; */
+    padding: 5px 0px !important;
+}
+img.logo-2 {
+    width: 13vw !important;
     /* background-color: red; */
     padding: 5px 0px !important;
 }
@@ -2716,6 +2721,14 @@ input[type="checkbox"] {
     #contact_form input[type="radio"] + label,
     #contact_form input[type="checkbox"] + label {
         margin-right: 10px;
+        font-size: 14px;
+    }
+    @media screen and (max-width:320px) {
+        #contact_form input[type="checkbox"] + label {
+            margin-right: 10px;
+            font-size: 10px;
+        }
+
     }
 
     #contact_form .radio-img input[type="radio"] + label,
@@ -11854,10 +11867,41 @@ input[type="range"]::-moz-range-thumb {
     font-size: 14px;
 }
 .de-item .d-price span{
-    font-size: 26px;
+    font-size: 18px;
     font-weight: bold;
     display: block;
     color:#000000;
+
+}
+@media screen and (max-width:430px) {
+
+    .de-item .d-price span{
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        color:#000000;
+    }
+    .de-item .d-price .btn-main{
+        position: absolute;
+        right:0;
+        bottom: 5px;
+        padding: 2px 15px;
+        /* width: 50%; */
+        font-size: 10px;
+        margin-right: -25px;
+    }
+}
+@media screen and (max-width:425px) {
+
+
+    /* .de-item .d-price .btn-main{
+        position: absolute;
+        right:0;
+        bottom: 5px;
+        padding: 2px 15px;
+        width: 50%;
+        font-size: 9px;
+    } */
 }
 
 .de-item .d-price .btn-main{
