@@ -23,8 +23,11 @@
                             <tbody>
                                 @foreach ($alerts as $alert)
                                     <tr>
+                                        @php
+                                            ($alert->vahicleName);
+                                        @endphp
                                         <td>{{ $alert->id }}</td>
-                                        <td>{{ $alert->ContractOut->ContractIn->booking->name ?? 'No vehicle' }}</td>
+                                        <td>{{ $alert->vahicleName->name ?? 'No vehicle' }}</td>
                                         <td>{{ $alert->kilometer }}</td>
                                         <td>{{ $alert->servicing }}</td>
                                         <td>

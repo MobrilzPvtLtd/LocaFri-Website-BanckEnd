@@ -183,7 +183,7 @@
                     <div class="mb-3">
                         <label for="city">{{ __('messages.city') }}<span
                                 class="text-muted"></span></label>
-                        <input type="text" name="city" class="form-control" id="zipcode"
+                        <input type="text" name="city" class="form-control" id="city"
                             placeholder="{{ __('messages.city') }}">
                     </div>
 

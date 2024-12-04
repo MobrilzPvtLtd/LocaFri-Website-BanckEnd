@@ -11,16 +11,11 @@ class AlertController extends Controller
 {
     public function index()
     {
-        // Fetch alerts with status 'pending' and mark them as seen
-        $alerts = Alert::with(['ContractOut.ContractIn', 'ContractOut.booking'])
-            ->where('status', 'pending')  // Only include 'pending' status alerts
+        $alerts = Alert::with(['vahicleName'])
+            ->where('status', 'pending')
             ->select('alerts.*')
             ->get();
-
-        // Mark all fetched alerts as seen
         Alert::whereIn('id', $alerts->pluck('id'))->update(['seen' => 1]);
-
-        // Return alerts to the view
         return view('backend.alert.index', compact('alerts'));
     }
 

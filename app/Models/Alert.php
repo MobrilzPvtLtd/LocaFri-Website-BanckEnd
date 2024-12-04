@@ -15,12 +15,7 @@ class Alert extends Model
         'status',
         'seen',
     ];
-    // public function vehicle()
-    // {
-    //     return $this->belongsTo(Vehicle::class);
-    // }
-
-    public function ContractOut() {
-        return $this->belongsTo(ContractOut::class, 'vehicle_id');
+   public function vahicleName() {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
 }
