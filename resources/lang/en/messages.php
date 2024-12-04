@@ -36,7 +36,7 @@ return [
 
     'working_hours' => 'Monday to Friday: 08:00 - 12:00 / 13:30 - 18:00 Saturday: 08:00 - 12:00 Sunday: By appointment',
     'home' => 'Home',
-    'vehicles' => 'Vehicles',
+    'vehicles' => 'Vehicle',
     'key_box' => 'Key Box',
     'sign_in' => 'Sign in',
     'profile' => 'Profile',
@@ -60,8 +60,8 @@ return [
    'pick_up_location' => 'Pick Up Location',
    'drop_off_location' => 'Drop Off Location',
    'pick_up_date_time' => 'Pick Up Date & Time',
-   'select_pick_up' => 'Select your pickup location',
-   'select_drop_off' => 'Select your drop off location',
+   'select_pick_up' => 'Pickup location',
+   'select_drop_off' => 'Drop off location',
    'looking_for_a' => 'Looking for a',
    'you_re_at_the_right_place' => 'You are at right place',
    'cars' => 'Cars',
@@ -130,7 +130,7 @@ return [
     'free_pick_drop'=>'Free Pick-Up & Drop-Off',
     'vechicle_fleet'=>'Our Vehicle Fleet',
     'rent_now'=>'Rent Now',
-    'call_us_for_info' => 'Call us for further information. Rentaly customer care is here to help you anytime.',
+    'call_us_for_info' => 'Call us for further information. Customer care is here to help you anytime.',
     'call_us_now' => 'Call Us Now',
     'contact_us' => 'Contact Us',
     'adventure_begin' => 'Let\'s Your Adventure Begin',
@@ -297,6 +297,9 @@ return [
     'no_contract_out_details' => 'No Contract Out Details Available',
     'contract_out_id' => 'ID de ContractOut',
     'contract_out' => 'Checkout',
+    'city' => "City",
+    'driver_first_name' => "Driver's First Name",
+    'driver_last_name' => "Driver's Last Name",
 
 
 

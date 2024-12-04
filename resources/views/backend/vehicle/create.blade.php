@@ -99,35 +99,6 @@
                                 </div>
 
 
-                                <div class="form-group mb-2 col-4">
-                                    <label for="body">{{ __('messages.body')}}</label>
-                                    <select class="form-control" name="body" required>
-                                        <option value="" disabled {{ old('body') ? '' : 'selected' }}>Select Body
-                                            Type</option>
-                                        <option value="Convertible" {{ old('body') == 'Convertible' ? 'selected' : '' }}>
-                                            {{ __('messages.convertible')}}</option>
-                                        <option value="Coupe" {{ old('body') == 'Coupe' ? 'selected' : '' }}>{{ __('messages.coupe')}}
-                                        </option>
-                                        <option value="Exotic Cars" {{ old('body') == 'Exotic Cars' ? 'selected' : '' }}>
-                                            {{ __('messages.exotic_cars')}}</option>
-                                        <option value="Hatchback" {{ old('body') == 'Hatchback' ? 'selected' : '' }}>
-                                            {{ __('messages.hatchback')}}</option>
-                                        <option value="Minivan" {{ old('body') == 'Minivan' ? 'selected' : '' }}>Minivan
-                                        </option>
-                                        <option value="Pickup Truck" {{ old('body') == 'Pickup Truck' ? 'selected' : '' }}>
-                                            {{ __('messages.pickup_truck')}}</option>
-                                        <option value="Sedan" {{ old('body') == 'Sedan' ? 'selected' : '' }}>Sedan
-                                        </option>
-                                        <option value="Sports car" {{ old('body') == 'Sports car' ? 'selected' : '' }}>
-                                            {{ __('messages.sports_car')}}</option>
-                                        <option value="Station wagon"
-                                            {{ old('body') == 'Station wagon' ? 'selected' : '' }}>{{ __('messages.station_wagon')}}</option>
-                                        <option value="SUV" {{ old('body') == 'SUV' ? 'selected' : '' }}>SUV</option>
-                                    </select>
-                                    @error('body')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
 
                                 <div class="form-group mb-2 col-4">
@@ -180,7 +151,7 @@
                                     @enderror
 
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">{{ __('messages.authorized')}}</label>
                                     <input type="text" class="form-control" name="auth"
                                         value="{{ old('auth') }}" placeholder="">
@@ -188,7 +159,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
 
-                                </div>
+                                </div> --}}
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">Transmission</label>
                                     <input type="text" class="form-control" name="trans" value=""
@@ -340,6 +311,37 @@
                                             {{ in_array('Bluetooth', old('features', [])) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="feature_bluetooth">Bluetooth</label>
                                     </div>
+
+                                    <div class="form-group mb-2 col-4">
+                                        {{-- <label for="body">{{ __('messages.body')}}</label>
+                                        <select class="form-control" name="body" required>
+                                            <option value="" disabled {{ old('body') ? '' : 'selected' }}>Select Body
+                                                Type</option>
+                                            <option value="Convertible" {{ old('body') == 'Convertible' ? 'selected' : '' }}>
+                                                {{ __('messages.convertible')}}</option>
+                                            <option value="Coupe" {{ old('body') == 'Coupe' ? 'selected' : '' }}>{{ __('messages.coupe')}}
+                                            </option>
+                                            <option value="Exotic Cars" {{ old('body') == 'Exotic Cars' ? 'selected' : '' }}>
+                                                {{ __('messages.exotic_cars')}}</option>
+                                            <option value="Hatchback" {{ old('body') == 'Hatchback' ? 'selected' : '' }}>
+                                                {{ __('messages.hatchback')}}</option>
+                                            <option value="Minivan" {{ old('body') == 'Minivan' ? 'selected' : '' }}>Minivan
+                                            </option>
+                                            <option value="Pickup Truck" {{ old('body') == 'Pickup Truck' ? 'selected' : '' }}>
+                                                {{ __('messages.pickup_truck')}}</option>
+                                            <option value="Sedan" {{ old('body') == 'Sedan' ? 'selected' : '' }}>Sedan
+                                            </option>
+                                            <option value="Sports car" {{ old('body') == 'Sports car' ? 'selected' : '' }}>
+                                                {{ __('messages.sports_car')}}</option>
+                                            <option value="Station wagon"
+                                                {{ old('body') == 'Station wagon' ? 'selected' : '' }}>{{ __('messages.station_wagon')}}</option>
+                                            <option value="SUV" {{ old('body') == 'SUV' ? 'selected' : '' }}>SUV</option>
+                                        </select>
+                                        @error('body')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror --}}
+                                    </div>
+
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"

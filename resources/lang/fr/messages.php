@@ -32,11 +32,11 @@ return [
     'booster_seat' => 'Siège rehausseur',
     'child_seat' => 'Siège enfant',
     'exit_permit' => 'Autorisation de sortie',
-    'total_usd' => 'Total (USD)',
+    'total_usd' => 'Total (CHF)',
 
     'working_hours' => 'Lundi à Vendredi : 08:00 - 12:00 / 13:30 - 18:00 Samedi : 08:00 - 12:00 Dimanche : Sur RDV',
     'home' => 'Accueil',
-    'vehicles' => 'Véhicules',
+    'vehicles' => 'Véhicule',
     'key_box' => 'Boîte à clés',
     'sign_in' => 'Se connecter',
     'profile' => 'Profil',
@@ -130,7 +130,7 @@ return [
     'free_pick_drop'=>'Prise en charge et retour',
     'vechicle_fleet'=>'Notre flotte de véhicules',
     'rent_now'=>'louer maintenant',
-    'call_us_for_info' => 'Appelez-nous pour plus d\'informations. Le service client Rentaly est là pour vous aider à tout moment.',
+    'call_us_for_info' => 'Appelez-nous pour plus d\'informations. Le service client est là pour vous aider à tout moment.',
     'call_us_now' => 'Appelez-nous maintenant',
     'contact_us' => 'Contactez-nous',
 
@@ -300,6 +300,9 @@ return [
     'no_contract_out_details' => 'Aucun détail de ContractOut disponible',
     'contract_out_id' => 'ID de ContractOut',
     'contract_out' => 'Sortie',
+    'driver_first_name' => 'Prénom du conducteur',
+    'driver_last_name' => 'Nom de famille du conducteur',
+    'city' => "Ville",
 
 
 

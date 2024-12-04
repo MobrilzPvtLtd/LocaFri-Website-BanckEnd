@@ -57,7 +57,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.additional_driver') }}</h6>
-                                <small class="text-muted">(20.-/per month)</small>
+                                <small class="text-muted">(20 /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['additional_driver'] }}</span>
                         </li>
@@ -65,8 +65,8 @@
                     @if (isset($data['booster_seat']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{ __('messages.child_booster_seat')}}</h6>
-                                <small class="text-muted">(20.-/month)</small>
+                                <h6 class="my-0">{{ __('messages.booster_seat')}}</h6>
+                                <small class="text-muted">(20 /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['booster_seat'] }}</span>
                         </li>
@@ -75,7 +75,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.child_seat') }}</h6>
-                                <small class="text-muted">(30.-/month)</small>
+                                <small class="text-muted">(30 /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['child_seat'] }}</span>
                         </li>
@@ -84,13 +84,13 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.exit_permit') }}</h6>
-                                <small class="text-muted">(149.-/month)</small>
+                                <small class="text-muted">(149 /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['exit_permit'] }}</span>
                         </li>
                     @endif
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
+                        <span>Total (CHF)</span>
                         <strong>CHF{{ $data['total_price'] }}</strong>
                     </li>
                 </ul>
@@ -179,6 +179,12 @@
                                 class="text-muted"></span></label>
                         <input type="text" name="zipcode" class="form-control" id="zipcode"
                             placeholder="Zip Code">
+                    </div>
+                    <div class="mb-3">
+                        <label for="city">{{ __('messages.city') }}<span
+                                class="text-muted"></span></label>
+                        <input type="text" name="city" class="form-control" id="zipcode"
+                            placeholder="{{ __('messages.city') }}">
                     </div>
 
                     {{-- <div class="row">

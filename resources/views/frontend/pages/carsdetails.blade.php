@@ -68,9 +68,13 @@
                         <h4>{!! __('messages.specifications') !!}</h4>
                         <div class="de-spec">
                             <div class="d-row">
+                                <span class="d-title">{!! __('messages.model') !!}</span>
+                                <spam class="d-value">{{ $vehicles->model }}</spam>
+                            </div>
+                            {{-- <div class="d-row">
                                 <span class="d-title">{!! __('messages.body') !!}</span>
                                 <spam class="d-value">{{ $vehicles->body }}</spam>
-                            </div>
+                            </div> --}}
                             <div class="d-row">
                                 <span class="d-title">{!! __('messages.seat') !!}</span>
                                 <spam class="d-value">{{ $vehicles->seat }}</spam>
@@ -89,7 +93,7 @@
                             </div>
                             <div class="d-row de-flex">
                                 <span class="d-title">{!! __('messages.authorized_kilometers') !!}</span>
-                                <span class="d-value">{{ $vehicles->mitter }} kms / 1 month<br>
+                                <span class="d-value">{{ $vehicles->mitter }} <br>
                                     {{-- 1000kms / 1 week<br>
                                     3000kms / 1 month --}}
                                 </span>
@@ -135,9 +139,9 @@
                             <div class="de-price text-center">
                                 Prix
                                 <h4>
-                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}.- / 1 jour<br>
-                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}.- / 1 semaine<br>
-                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }}.- / 1 mois
+                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}/ 1 jour<br>
+                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}/ 1 semaine<br>
+                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }} / 1 mois
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>
@@ -376,29 +380,29 @@
                                                 onchange="toggleAdditionalDriverFields()"
                                             >
                                             <label class="form-check-label" for="additionalDriverCheckbox">
-                                                {!! __('messages.additional_driver') !!}<br>(20.-/per month)
+                                                {!! __('messages.additional_driver') !!}<br> 20 {!! __('messages.month') !!}
                                             </label>
                                         </div>
 
                                         <div id="additionalDriverFields" style="display: none;" class="mt-3">
                                             <div class="mb-2">
-                                                <label for="additionalDriverName" class="form-label">Driver's First Name</label>
+                                                <label for="additionalDriverName" class="form-label">{!! __('messages.driver_first_name') !!}</label>
                                                 <input
                                                     type="text"
                                                     class="form-control"
                                                     id="additionalDriverName"
                                                     name="additional_driver_first_name"
-                                                    placeholder="Enter first name"
+                                                    placeholder="{!! __('messages.first_name') !!}"
                                                 >
                                             </div>
                                             <div class="mb-2">
-                                                <label for="additionalDriverSurname" class="form-label">Driver's Last Name</label>
+                                                <label for="additionalDriverSurname" class="form-label">{!! __('messages.driver_last_name') !!}</label>
                                                 <input
                                                     type="text"
                                                     class="form-control"
                                                     id="additionalDriverSurname"
                                                     name="additional_driver_last_name"
-                                                    placeholder="Enter last name"
+                                                    placeholder="{!! __('messages.last_name') !!}"
                                                 >
                                             </div>
                                         </div>
@@ -419,17 +423,17 @@
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
-                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.child_booster_seat') !!}<br>(20.-/month)</label>
+                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.booster_seat') !!}<br>(20/month)</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="childSeatCheckbox" name="child_seat" value="30">
-                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30.-/month)</label>
+                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30/month)</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="exitPermitCheckbox" name="exit_permit" value="149">
-                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}Exit permit<br>(149.-/month)</label>
+                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}<br>(149/month)</label>
                                         </div>
 
                                         <div class="form-floating">

@@ -3,17 +3,17 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>{{ __('messages.edit_vehicle_detail')}}</h4>
+            <h4>{{ __('messages.edit_vehicle_detail') }}</h4>
             <a href="{{ route('vehicle.index') }}" class="btn btn-warning btn-sm">
                 <i class="fas fa-reply"></i>
             </a>
         </div>
 
         <div class="card-body">
-            <div class="pull-right">
+            {{-- <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('vehicle.index') }}" enctype="multipart/form-data">
-                    {{ __('messages.back')}}</a>
-            </div>
+                    {{ __('messages.back') }}</a>
+            </div> --}}
             <div class="row mt-4">
                 <div class="col">
                     <div class="container mt-5">
@@ -23,12 +23,12 @@
                             @method('PUT')
                             <div class="row">
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.company')}}</label>
+                                    <label for="city">{{ __('messages.company') }}</label>
                                     <input type="text" class="form-control" name="name" value="{{ $vehicle->name }}"
                                         placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.model')}}</label>
+                                    <label for="city">{{ __('messages.model') }}</label>
                                     <input type="text" class="form-control" name="model" value="{{ $vehicle->model }}"
                                         placeholder="">
                                 </div>
@@ -47,11 +47,11 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="desc">{{ __('messages.description')}}</label>
+                                    <label for="desc">{{ __('messages.description') }}</label>
                                     <textarea class="form-control" name="desc" placeholder="">{{ $vehicle->desc }}</textarea>
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.location')}}</label>
+                                    <label for="city">{{ __('messages.location') }}</label>
                                     {{-- <input type="text" class="form-control" name="location"
                                         value="{{ $vehicle->location }}" placeholder=""> --}}
                                     <select name="location" id="location" class="form-control">
@@ -61,14 +61,30 @@
 
                                     </select>
                                 </div>
-
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.brand_image')}}</label>
-                                    <input type="file" class="form-control" name="image[]" value="{{ $vehicle->image }}"
-                                        placeholder="" multiple>
+                                    <label for="image">{{ __('messages.brand_image') }}</label>
+                                    <input type="file" class="form-control" name="image[]" id="image" multiple>
+
+
+                                    @error('image')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
+                                    <label for="image">{{ __('messages.brand_image') }}</label>
+                                    <input type="file" class="form-control" name="image[]" id="image" multiple>
+                                    @error('image')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div> --}}
+
+                                {{-- <div class="form-group mb-2 col-4">
+                                    <label for="city">{{ __('messages.brand_image') }}</label>
+                                    <input type="file" class="form-control" name="image[]" value="{{ $vehicle->image }}"
+                                        placeholder="" multiple>
+                                </div> --}}
+                              {{-- <div class="form-group mb-2 col-4">
                                     <label for="body">{{ __('messages.body')}}</label>
                                     <select class="form-control" name="body">
                                         <option value="" disabled {{ $vehicle->body ? '' : 'selected' }}>
@@ -94,35 +110,35 @@
                                         </option>
                                         <option value="SUV" {{ $vehicle->body == 'SUV' ? 'selected' : '' }}>SUV</option>
                                     </select>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="seat">{{ __('messages.seat')}}</label>
+                                    <label for="seat">{{ __('messages.seat') }}</label>
                                     <input type="text" class="form-control" name="seat"
                                         placeholder="Enter number of seats" value="{{ old('seat', $vehicle->seat) }}">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="door">{{ __('messages.door')}}</label>
+                                    <label for="door">{{ __('messages.door') }}</label>
                                     <input type="text" class="form-control" name="door"
                                         placeholder="Enter number of doors" value="{{ old('door', $vehicle->door) }}">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.luggage')}}</label>
+                                    <label for="city">{{ __('messages.luggage') }}</label>
                                     <input type="text" class="form-control" name="luggage"
                                         value="{{ $vehicle->luggage }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.fuel')}}</label>
+                                    <label for="city">{{ __('messages.fuel') }}</label>
                                     <input type="text" class="form-control" name="fuel" value="{{ $vehicle->fuel }}"
                                         placeholder="">
                                 </div>
-                                <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.authorized')}}</label>
-                                    <input type="text" class="form-control" name="auth"
-                                        value="{{ $vehicle->auth }}" placeholder="">
-                                </div>
+                                {{-- <div class="form-group mb-2 col-4">
+                                    <label for="city">{{ __('messages.authorized') }}</label>
+                                    <input type="text" class="form-control" name="auth" value="{{ $vehicle->auth }}"
+                                        placeholder="">
+                                </div> --}}
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">Transmission</label>
                                     <input type="text" class="form-control" name="trans"
@@ -143,83 +159,83 @@
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.exterior_color')}}</label>
+                                    <label for="city">{{ __('messages.exterior_color') }}</label>
                                     <input type="text" class="form-control" name="exterior"
                                         value="{{ $vehicle->exterior }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.interior_color')}}</label>
+                                    <label for="city">{{ __('messages.interior_color') }}</label>
                                     <input type="text" class="form-control" name="interior"
                                         value="{{ $vehicle->interior }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.day_price')}}</label>
+                                    <label for="city">{{ __('messages.day_price') }}</label>
                                     <input type="text" class="form-control" name="Dprice"
                                         value="{{ $vehicle->Dprice }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.week_price')}}</label>
+                                    <label for="city">{{ __('messages.week_price') }}</label>
                                     <input type="text" class="form-control" name="wprice"
                                         value="{{ $vehicle->wprice }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.month_price')}}</label>
+                                    <label for="city">{{ __('messages.month_price') }}</label>
                                     <input type="text" class="form-control" name="mprice"
                                         value="{{ $vehicle->mprice }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.kilometers')}}</label>
+                                    <label for="city">{{ __('messages.kilometers') }}</label>
                                     <input type="number" class="form-control" name="mitter"
                                         value="{{ $vehicle->mitter }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_day">{{ __('messages.permitted_kilometers_day')}}</label>
+                                    <label
+                                        for="permitted_kilometers_day">{{ __('messages.permitted_kilometers_day') }}</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_day"
                                         value="{{ $vehicle->permitted_kilometers_day }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_week">{{ __('messages.permitted_kilometers_week')}}</label>
+                                    <label
+                                        for="permitted_kilometers_week">{{ __('messages.permitted_kilometers_week') }}</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_week"
                                         value="{{ $vehicle->permitted_kilometers_week }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="permitted_kilometers_month">{{ __('messages.permitted_kilometers_month')}}</label>
+                                    <label
+                                        for="permitted_kilometers_month">{{ __('messages.permitted_kilometers_month') }}</label>
                                     <input type="text" class="form-control" name="permitted_kilometers_week"
                                         value="{{ $vehicle->permitted_kilometers_month }}" placeholder="">
                                 </div>
-
-
-
-
-
-                                {{-- <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-4">
                                     <label for="available">Available Time</label>
                                     <input type="time" class="form-control" name="available"
                                         value="{{ $vehicle->available_time ? \Carbon\Carbon::parse($vehicle->available_time)->format('H:i') : '' }}"
                                         placeholder="">
-                                </div> --}}
+                                </div>
 
                                 <div class="form-group mb-2 col-4">
-                                    <label for="status">{{ __('messages.status')}}</label>
+                                    <label for="status">{{ __('messages.status') }}</label>
                                     <select class="form-control" name="status" id="status">
                                         <option value="" disabled selected>Select Status</option>
-                                        <option value="1" {{ $vehicle->status == 1 ? 'selected' : '' }}>{{ __('messages.active')}}
+                                        <option value="1" {{ $vehicle->status == 1 ? 'selected' : '' }}>
+                                            {{ __('messages.active') }}
                                         </option>
-                                        <option value="0" {{ $vehicle->status == 0 ? 'selected' : '' }}>{{ __('messages.inactive')}}
+                                        <option value="0" {{ $vehicle->status == 0 ? 'selected' : '' }}>
+                                            {{ __('messages.inactive') }}
                                         </option>
                                     </select>
                                 </div>
                                 <br>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="featured">{{ __('messages.featured')}}</label>
+                                    <label for="featured">{{ __('messages.featured') }}</label>
                                     <input type="checkbox" name="featured" value="1"
                                         {{ $vehicle->featured ? 'checked' : '' }}>
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="interior">{{ __('messages.features')}}</label><br>
+                                    <label for="interior">{{ __('messages.features') }}</label><br>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
                                             value="bluetooth" id="interior_bluetooth"
@@ -248,7 +264,7 @@
 
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">{{ __('messages.submit')}}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>
                         </form>
                     </div>
                 </div>

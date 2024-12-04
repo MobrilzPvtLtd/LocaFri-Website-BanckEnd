@@ -30,7 +30,7 @@
                     <li class="list-group-item"><strong>{{ __('messages.description')}}:</strong> {{ $vehicle->desc }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.location')}}:</strong> {{ $vehicle->location }}</li>
                     <li class="list-group-item"><strong>Mileage:</strong> {{ number_format($vehicle->mitter, 2) }} km</li>
-                    <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li>
+                    {{-- <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li> --}}
                     <li class="list-group-item"><strong>{{ __('messages.seats')}}:</strong> {{ $vehicle->seat }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.doors')}}:</strong> {{ $vehicle->door }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.luggage')}}:</strong> {{ $vehicle->luggage }}</li>
@@ -58,7 +58,7 @@
                 <li class="list-group-item"><strong>{{ __('messages.exterior_color')}}:</strong> {{ $vehicle->exterior }}</li>
                 <li class="list-group-item"><strong>{{ __('messages.interior_color')}}:</strong> {{ $vehicle->interior }}</li>
                 <li class="list-group-item"><strong>Transmission:</strong> {{ $vehicle->trans }}</li>
-                <li class="list-group-item"><strong> {{ __('messages.authentication')}}:</strong> {{ $vehicle->auth }}</li>
+                {{-- <li class="list-group-item"><strong> {{ __('messages.authentication')}}:</strong> {{ $vehicle->auth }}</li> --}}
             </ul>
         </div>
     </div>
