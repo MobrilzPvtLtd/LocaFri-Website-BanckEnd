@@ -127,7 +127,7 @@ class CarsIndex extends Component
             });
         });
 
-        $vehicles = $vehicles->paginate(6);
+        $vehicles  = Vehicle::where('status', 1)->paginate(6);
         // dd($vehicles);
         return view('livewire.cars-index', compact('vehicles'));
     }
