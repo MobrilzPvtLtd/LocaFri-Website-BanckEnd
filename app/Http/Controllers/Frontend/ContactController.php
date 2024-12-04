@@ -26,11 +26,19 @@ class ContactController extends Controller
         $contact->message = $request->message;
         $contact->save();
 
-        $admin = User::where('id', 1)->first();
+        // $admin = User::where('id', 1)->first();
 
-        // Send email
-        Mail::to($contact->email)->send(new ContactMail($contact));
-        Mail::to($admin->email)->send(new ContactMail($contact));
+        // // Send email
+        // Mail::to($contact->email)->send(new ContactMail($contact));
+        // Mail::to($admin->email)->send(new ContactMail($contact));
+
+
+        $adminEmail = User::where('id', 1)->value('email');
+        $infoEmail = 'info@locafri.ch';
+
+
+    Mail::to($contact->email)->send(new ContactMail($contact));
+    Mail::to([$adminEmail, $infoEmail])->send(new ContactMail($contact));
 
         return redirect()->back()->with('success', 'Message sent successfully!');
     }

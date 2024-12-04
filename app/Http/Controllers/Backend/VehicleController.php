@@ -29,20 +29,21 @@ public function store(Request $request)
         'type' => 'required',
         'desc' => 'required',
         'mitter' => 'required',
-        'body' => 'required',
+        // 'body' => 'required',
         // 'seat' => 'required',
         // 'door' => 'required',
         'luggage' => 'required',
         'fuel' => 'required',
-        'auth' => 'required',
+        // 'auth' => 'required',
         'trans' => 'required',
         'exterior' => 'required',
         'interior' => 'required',
-        'features' => 'required|array',
+        // 'features' => 'required|array',
         'Dprice' => 'required',
         'wprice' => 'required',
         'mprice' => 'required',
-        'available' => 'required|date_format:H:i', // Validate the time format
+        'available' => 'required|date_format:H:i',
+        // Validate the time format
     ]);
 
     $imagePaths = [];
@@ -98,24 +99,24 @@ public function store(Request $request)
   public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'model' => 'required',
-            'type' => 'required',
-            'desc' => 'required',
-            'mitter' => 'required',
-            'body' => 'required',
-            'seat' => 'required',
-            'door' => 'required',
-            'luggage' => 'required',
-            'fuel' => 'required',
-            'auth' => 'required',
-            'trans' => 'required',
-            'exterior' => 'required',
-            'interior' => 'required',
-            'features' => 'array',
-            'Dprice' => 'required',
-            'wprice' => 'required',
-            'mprice' => 'required',
+            // 'name' => 'required',
+            // 'model' => 'required',
+            // 'type' => 'required',
+            // 'desc' => 'required',
+            // 'mitter' => 'required',
+            // 'body' => 'required',
+            // 'seat' => 'required',
+            // 'door' => 'required',
+            // 'luggage' => 'required',
+            // 'fuel' => 'required',
+            // 'auth' => 'required',
+            // 'trans' => 'required',
+            // 'exterior' => 'required',
+            // 'interior' => 'required',
+            // 'features' => 'array',
+            // 'Dprice' => 'required',
+            // 'wprice' => 'required',
+            // 'mprice' => 'required',
             // 'available' => 'date_format:H:i', // Validate the time format
         ]);
 
