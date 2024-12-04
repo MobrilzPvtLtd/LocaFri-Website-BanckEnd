@@ -294,7 +294,7 @@ class ApiController extends Controller
                     'Dprice' => $vehicle->Dprice,
                     'wprice' => $vehicle->wprice,
                     'mprice' => $vehicle->mprice,
-                    'available_time' => $vehicle->available_time,
+                    // 'available_time' => $vehicle->available_time,
                     'status' => $vehicle->status,
                     'ratings' => $vehicle->ratings,//added
                     'created_at' => $vehicle->created_at,
@@ -544,11 +544,11 @@ class ApiController extends Controller
         $checkout->address_first = $request->address_first;
         $checkout->address_last = $request->address_last;
         $checkout->save();
-       
+
         $message = "Your request has been processed and will be answered soon.";
         Mail::to($request->email)->send(new ProcessedBookingMail($booking, $message, $checkout));
 
-        
+
 
         return response()->json([
             'status' => true,

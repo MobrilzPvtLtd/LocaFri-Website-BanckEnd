@@ -14,11 +14,11 @@ class CheckoutController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required |email',
+            'email' => 'required|email',
             'address_first' => 'required',
-            'address_last' => 'required | address',
-            'zipcode' => 'required | zipcode',
-            'city' => 'required | city',
+            'address_last' => 'required',
+            'zipcode' => 'required',
+            'city' => 'required',
         ]);
 
         $checkout = new Checkout();
@@ -30,6 +30,9 @@ class CheckoutController extends Controller
         $checkout->address_last = $validatedData['address_last'];
         $checkout->zipcode = $validatedData['zipcode'];
         $checkout->city = $validatedData['city'];
+
+        dd($checkout);
+
         $checkout->save();
 
         return redirect()->back()->with('success', 'Data saved successfully!');

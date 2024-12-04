@@ -268,14 +268,14 @@
 
 
 
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">Available Time</label>
                                     <input type="time" class="form-control" name="available"
                                         value="{{ old('available') }}" placeholder="">
                                     @error('available')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="status">{{ __('messages.status')}}</label>

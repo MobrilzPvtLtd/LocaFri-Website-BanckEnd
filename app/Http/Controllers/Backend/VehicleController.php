@@ -42,7 +42,7 @@ public function store(Request $request)
         'Dprice' => 'required',
         'wprice' => 'required',
         'mprice' => 'required',
-        'available' => 'required|date_format:H:i',
+        // 'available' => 'required|date_format:H:i',
         // Validate the time format
     ]);
 
@@ -57,7 +57,7 @@ public function store(Request $request)
 
 
     $currentDate = Carbon::now()->toDateString();
-    $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
+    // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
 
 
     $vehicleData = $request->except('image', 'featured', 'features', 'available');
@@ -70,7 +70,7 @@ public function store(Request $request)
         $vehicleData['features'] = json_encode($request->features);
     }
 
-    $vehicleData['available_time'] = $availableDatetime;
+    // $vehicleData['available_time'] = $availableDatetime;
     $vehicleData['featured'] = $request->has('featured');
 
 

@@ -41,7 +41,7 @@
                     <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_day')}} ({{ __('messages.daily')}}):</strong> Kms {{ number_format($vehicle->permitted_kilometers_day) }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_week')}} ({{ __('messages.weekly')}}):</strong>Kms {{ number_format($vehicle->permitted_kilometers_week) }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_month')}} ({{ __('messages.monthly')}}):</strong> kms {{ number_format($vehicle->permitted_kilometers_month) }}</li>
-                    <li class="list-group-item"><strong>{{ __('messages.status')}}:</strong> {{ $vehicle->status ? 'Available' : 'Not Available' }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.status')}}:</strong> {{ $vehicle->status ? 'Active' : 'Inactive' }}</li>
 
                 </ul>
             </div>
