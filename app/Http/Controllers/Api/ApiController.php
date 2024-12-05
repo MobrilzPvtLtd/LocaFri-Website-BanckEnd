@@ -294,7 +294,7 @@ class ApiController extends Controller
                     'Dprice' => $vehicle->Dprice,
                     'wprice' => $vehicle->wprice,
                     'mprice' => $vehicle->mprice,
-                    // 'available_time' => $vehicle->available_time,
+                    'available_time' => $vehicle->available_time,
                     'status' => $vehicle->status,
                     'ratings' => $vehicle->ratings,//added
                     'created_at' => $vehicle->created_at,

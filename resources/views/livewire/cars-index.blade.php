@@ -240,7 +240,9 @@
                                                     alt="">{{ $vehicle->trans }}</span>
                                         </div>
                                         <div class="d-price">
-                                            Prix <span>35.-/1 jour</span>
+                                            {{-- Prix <span>35.-/1 jour</span> --}}
+                                            <span class="d-atr"><img src=" "
+                                                alt="">{{ $vehicle->Dprice }}/ 1 {!! __('messages.day') !!} </span>
                                             <form action="{{ route('carsdetails-post') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="slug"

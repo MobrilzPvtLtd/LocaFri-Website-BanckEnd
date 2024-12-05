@@ -30,7 +30,7 @@
                     <li class="list-group-item"><strong>{{ __('messages.description')}}:</strong> {{ $vehicle->desc }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.location')}}:</strong> {{ $vehicle->location }}</li>
                     <li class="list-group-item"><strong>Mileage:</strong> {{ number_format($vehicle->mitter, 2) }} km</li>
-                    {{-- <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li> --}}
+                    <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.seats')}}:</strong> {{ $vehicle->seat }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.doors')}}:</strong> {{ $vehicle->door }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.luggage')}}:</strong> {{ $vehicle->luggage }}</li>
@@ -38,6 +38,7 @@
                     <li class="list-group-item"><strong>{{ __('messages.price')}} ({{ __('messages.daily')}}):</strong> CHF {{ number_format($vehicle->Dprice, 2) }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.price')}} ({{ __('messages.weekly')}}):</strong> CHF {{ number_format($vehicle->wprice, 2) }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.price')}}   ({{ __('messages.monthly')}}):</strong> CHF {{ number_format($vehicle->mprice, 2) }}</li>
+                    <li class="list-group-item"><strong>{{ __('messages.available_time')}} Avalable Time:</strong> {{ $vehicle->available_time }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_day')}} ({{ __('messages.daily')}}):</strong> Kms {{ number_format($vehicle->permitted_kilometers_day) }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_week')}} ({{ __('messages.weekly')}}):</strong>Kms {{ number_format($vehicle->permitted_kilometers_week) }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.permitted_kilometers_month')}} ({{ __('messages.monthly')}}):</strong> kms {{ number_format($vehicle->permitted_kilometers_month) }}</li>

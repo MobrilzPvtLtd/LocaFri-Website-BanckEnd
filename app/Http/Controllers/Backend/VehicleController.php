@@ -42,7 +42,7 @@ public function store(Request $request)
         'Dprice' => 'required',
         'wprice' => 'required',
         'mprice' => 'required',
-        // 'available' => 'required|date_format:H:i',
+        'available' => 'required|date_format:H:i',
         // Validate the time format
     ]);
 
