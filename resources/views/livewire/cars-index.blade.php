@@ -67,42 +67,8 @@
 
                 <div class="item_filter_group">
                     <h4>{!! __('messages.car_body_type') !!}</h4>
-                  <div class="d-flex justify-content-between mb-2">
-                    <label> <b>Automatic :</b> </label>
-                    <select name="" id="">
-                        <option value="">Select Automatic</option>
 
-                        <option id="car_body_type_1" wire:model.live="convertible" type="checkbox"
-                        value="car_body_type_1"> <label for="car_body_type_1">{!! __('messages.convertible') !!}</label></option>
-                        <option  id="car_body_type_2" wire:model.live="coupe" type="checkbox"
-                        value="car_body_type_2"> <label for="car_body_type_2">{!! __('messages.coupe') !!}</label></option>
-                        <option  id="car_body_type_3" wire:model.live="exoticcars" type="checkbox"
-                        value="car_body_type_3"><label for="car_body_type_3">{!! __('messages.exotic_cars') !!}Exotic Cars</label></option>
-                        <option id="car_body_type_4" wire:model.live="hatchback" type="checkbox"
-                        value="car_body_type_4"> <label for="car_body_type_4">{!! __('messages.hatchback') !!}</label></option>
-                        <option  id="car_body_type_9"wire:model.live="stationwagon" type="checkbox"
-                        value="car_body_type_9"> <label for="car_body_type_9">{!! __('messages.station_wagon') !!}</label></option>
-                    </select>
-                </div>
-                       <div  class="d-flex justify-content-between">
-                     <label> <b>Manual : </b> </label>
-                     <select name="" id="" class="px-4">
-                        <option value="" >Select Manual</option>
-                        <option id="car_body_type_5" wire:model.live="minivan" type="checkbox"
-                        value="car_body_type_5"><label for="car_body_type_5">Minivan</label></option>
-                        <optionid="car_body_type_6" wire:model.live="pickuptruck" type="checkbox"
-                        value="car_body_type_6"><label for="car_body_type_6">{!! __('messages.pickup_truck') !!}</label></option>
-                        <option id="car_body_type_7" wire:model.live="sedan" type="checkbox"
-                        value="car_body_type_7"> <label for="car_body_type_7">Sedan</label></option>
-                        <option id="car_body_type_8" wire:model.live="sportscar" type="checkbox"
-                        value="car_body_type_8"><label for="car_body_type_8">{!! __('messages.sports_car') !!}</label></option>
-                        <option id="car_body_type_8" wire:model.live="sportscar" type="checkbox"
-                        value="car_body_type_8"><label for="car_body_type_8">{!! __('messages.sports_car') !!}</label></option>
-                        <option id="car_body_type_10" wire:model.live="suv" type="checkbox"
-                        value="car_body_type_10"> <label for="car_body_type_10">SUV</label></option>
-                     </select>
-                    </div>
-                    {{-- <div class="de_form">
+                    <div class="de_form">
 
 
 
@@ -166,7 +132,28 @@
                             <label for="car_body_type_10">SUV</label>
                         </div>
 
-                    </div> --}}
+                    </div>
+                </div>
+
+                <div class="item_filter_group">
+                    <h4>Transmission</h4>
+                    <div class="de_form">
+
+
+
+
+                        <div class="de_checkbox">
+                            <input id="car_seat_1" wire:model.live="seats2" type="checkbox" value="car_seat_1">
+                            <label for="car_seat_1">Automatic</label>
+                        </div>
+
+                        <div class="de_checkbox">
+                            <input id="car_seat_2" wire:model.live="seats4" type="checkbox" value="car_seat_2">
+                            <label for="car_seat_2">Manual</label>
+                        </div>
+
+
+                    </div>
                 </div>
 
                 <div class="item_filter_group">
@@ -201,6 +188,8 @@
                 </div>
             </div>
 
+
+
             <div class="col-lg-9">
                 <div class="row">
                     @foreach ($vehicles as $vehicle)
@@ -215,7 +204,13 @@
                                             class="img-fluid w-100">
                                     @else
                                         <p>No images available</p>
-                                    @endif --}}
+                                    @endif
+
+
+
+
+
+                                    --}}
                                     @if($vehicle->image)
                                         @php
                                             $images = json_decode($vehicle->image);
