@@ -180,15 +180,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="zipcode">{{ __('messages.zip_code') }}<span
-                                class="text-muted"></span></label>
+                                class="text-danger">*</span></label>
                         <input type="text" name="zipcode" class="form-control" id="zipcode"
-                            placeholder="Zip Code">
+                            required placeholder="Zip Code">
                     </div>
                     <div class="mb-3">
                         <label for="city">{{ __('messages.city') }}<span
-                                class="text-muted"></span></label>
+                                class="text-danger">*</span></label>
                         <input type="text" name="city" class="form-control" id="city"
-                            placeholder="{{ __('messages.city') }}">
+                           required placeholder="{{ __('messages.city') }}">
                     </div>
 
                     {{-- <div class="row">

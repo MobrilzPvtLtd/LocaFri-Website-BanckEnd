@@ -394,7 +394,7 @@
                                                         alt="" />{{ $vehicle->trans }}</span>
                                             </div>
                                             <div class="d-price">
-                                                Prix <span>35.- / 1 jour</span>
+                                                Prix <span> {{ $vehicle->Dprice }} /1{!! __('messages.price') !!}</span>
                                                 <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">{{ __('messages.rent_now') }}                                                   Now</a>
                                             </div>
                                         </div>

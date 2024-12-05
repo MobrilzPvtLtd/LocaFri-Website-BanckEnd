@@ -239,7 +239,9 @@
                                                     alt="">{{ $vehicle->trans }}</span>
                                         </div>
                                         <div class="d-price">
-                                            Prix <span>35.-/1 jour</span>
+                                            Prix <span>
+                                          {{ $vehicle->Dprice }}/1{!! __('messages.price') !!}
+                                            </span>
                                             <form action="{{ route('carsdetails-post') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="slug"
