@@ -80,6 +80,8 @@ class BookingController extends Controller
         $checkout->email = $request->email;
         $checkout->address_first = $request->address_first;
         $checkout->address_last = $request->address_last;
+        $checkout->zipcode = $request->zipcode;
+        $checkout->city = $request->city;
         $checkout->save();
         if($request->payment_method == "twint"){
             return redirect()->back();

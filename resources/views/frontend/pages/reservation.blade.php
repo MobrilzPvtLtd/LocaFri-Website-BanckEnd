@@ -61,7 +61,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.additional_driver') }}</h6>
-                                <small class="text-muted">(20 /{{ __('messages.month') }})</small>
+                                <small class="text-muted">(20 CHF /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['additional_driver'] }}</span>
                         </li>
@@ -70,7 +70,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.booster_seat')}}</h6>
-                                <small class="text-muted">(20 /{{ __('messages.month') }})</small>
+                                <small class="text-muted">(20 CHF /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['booster_seat'] }}</span>
                         </li>
@@ -79,7 +79,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.child_seat') }}</h6>
-                                <small class="text-muted">(30 /{{ __('messages.month') }})</small>
+                                <small class="text-muted">(30 CHF/{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['child_seat'] }}</span>
                         </li>
@@ -88,7 +88,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">{{ __('messages.exit_permit') }}</h6>
-                                <small class="text-muted">(149 /{{ __('messages.month') }})</small>
+                                <small class="text-muted">(149 CHF/{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['exit_permit'] }}</span>
                         </li>

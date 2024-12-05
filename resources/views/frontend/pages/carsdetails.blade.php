@@ -384,7 +384,7 @@
                                                 onchange="toggleAdditionalDriverFields()"
                                             >
                                             <label class="form-check-label" for="additionalDriverCheckbox">
-                                                {!! __('messages.additional_driver') !!}<br> 20 {!! __('messages.month') !!}
+                                                {!! __('messages.additional_driver') !!}<br> 20 CHF/1 {!! __('messages.month') !!}
                                             </label>
                                         </div>
 
@@ -427,17 +427,17 @@
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
-                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.booster_seat') !!}<br>(20/month)</label>
+                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.booster_seat') !!}<br>(20 CHF/1 month)</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="childSeatCheckbox" name="child_seat" value="30">
-                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30/month)</label>
+                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30 CHF/1month)</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="exitPermitCheckbox" name="exit_permit" value="149">
-                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}<br>(149/month)</label>
+                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}<br>(149 CHF/1 month)</label>
                                         </div>
 
                                         <div class="form-floating">
