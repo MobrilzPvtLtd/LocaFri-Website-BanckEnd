@@ -103,7 +103,7 @@
                         <div class="de-box mb30">
                             <h4>{!! __('messages.office') !!}</h4>
                             <address class="s1">
-                                <span><i class="id-color fa fa-map-marker fa-lg"></i>Romont Gare</span>
+                                <span><i class="id-color fa fa-map-marker fa-lg"></i>  <a href="https://maps.app.goo.gl/3CvkUDD8Emxwv2wQA"> Romont Gare</a></span>
                                 <span><i class="id-color fa fa-phone fa-lg"></i>+41 79 387 60 20</span>
                                 <span><i class="id-color fa fa-envelope-o fa-lg"></i><a
                                         href="mailto:contact@example.com">info@locafri.ch</a></span>
