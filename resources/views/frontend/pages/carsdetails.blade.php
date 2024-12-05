@@ -143,9 +143,9 @@
                             <div class="de-price text-center">
                                 Prix
                                 <h4>
-                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }}/ 1 jour<br>
-                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }}/ 1 semaine<br>
-                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }} / 1 mois
+                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }} CHF / 1 jour<br>
+                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }} CHF/ 1 semaine<br>
+                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }} CHF / 1 mois
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>

@@ -67,7 +67,7 @@
                                                 src="images/svg/google_icon.svg" alt="">Google</a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a class="btn-sc btn-fullwidth mb10" href="#"><img
+                                        <a class="btn-sc btn-fullwidth mb10" href="https://www.facebook.com/p/LocaFri-LocaFri-100086161718048/"><img
                                                 src="images/svg/facebook_icon.svg" alt="">Facebook</a>
                                     </div>
                                 </div>

@@ -186,6 +186,10 @@
                             <input id="car_seat_3" wire:model.live="seats6" type="checkbox" value="car_seat_3">
                             <label for="car_seat_3">5 {!! __('messages.seat') !!}</label>
                         </div>
+                        <div class="de_checkbox">
+                            <input id="car_seat_3" wire:model.live="seats6" type="checkbox" value="car_seat_3">
+                            <label for="car_seat_3">7 {!! __('messages.seat') !!}</label>
+                        </div>
 
                         <div class="de_checkbox">
                             <input id="car_seat_4" wire:model.live="seats6plus" type="checkbox"
@@ -240,9 +244,7 @@
                                                     alt="">{{ $vehicle->trans }}</span>
                                         </div>
                                         <div class="d-price">
-                                            {{-- Prix <span>35.-/1 jour</span> --}}
-                                            <span class="d-atr"><img src=" "
-                                                alt="">{{ $vehicle->Dprice }}/ 1 {!! __('messages.day') !!} </span>
+                                            Prix <span>35.-/1 jour</span>
                                             <form action="{{ route('carsdetails-post') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="slug"
