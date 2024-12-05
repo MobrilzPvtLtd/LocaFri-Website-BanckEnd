@@ -1,7 +1,7 @@
 <header class="transparent scroll-light has-topbar">
     <div id="topbar" class="topbar-dark text-light">
         <div class="container">
-            <div class="topbar-left xs-hide">
+            {{-- <div class="topbar-left xs-hide">
                 <div class="topbar-widget">
                     <div class="topbar-widget">
                         <a href="#"><i class="fa fa-phone"></i>+41 79 387 60 20</a>
@@ -14,7 +14,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="topbar-right">
                 <div class="social-icons">
