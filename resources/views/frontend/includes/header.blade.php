@@ -15,18 +15,19 @@
                     </div>
                 </div>
             </div> --}}
-
             <div class="topbar-right">
                 <div class="social-icons">
-                    <a href="https://www.facebook.com/p/LocaFri-LocaFri-100086161718048/"><i
-                            class="fa fa-facebook fa-lg"></i></a>
+                    {{-- <a href="https://www.facebook.com/p/LocaFri-LocaFri-100086161718048/"><i
+                            class="fa fa-facebook fa-lg"></i></a> --}}
                     <!-- <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
                 <a href="#"><i class="fa fa-youtube fa-lg"></i></a>
                 <a href="#"><i class="fa fa-pinterest fa-lg"></i></a> -->
-                    <a href="https://www.instagram.com/locafri.ch/"><i class="fa fa-instagram fa-lg"></i></a>
+                    {{-- <a href="https://www.instagram.com/locafri.ch/"><i class="fa fa-instagram fa-lg"></i></a> --}}
                     <!-- <a href="#"><i class="fa fa-linkedin fa-lg"></i></a> -->
                 </div>
             </div>
+
+
             <div class="clearfix"></div>
         </div>
     </div>
@@ -115,6 +116,17 @@
                                 </li>
                                 </li>
                         </div> --}}
+                        <div class="topbar-right">
+                            <div class="social-icons">
+                                <a href="https://www.facebook.com/p/LocaFri-LocaFri-100086161718048/"><i
+                                        class="fa fa-facebook fa-lg"></i></a>
+                                <!-- <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-youtube fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-pinterest fa-lg"></i></a> -->
+                                <a href="https://www.instagram.com/locafri.ch/"><i class="fa fa-instagram fa-lg"></i></a>
+                                <!-- <a href="#"><i class="fa fa-linkedin fa-lg"></i></a> -->
+                            </div>
+                        </div>
 
                         @auth
                             <div class="de-flex-col header-col-mid">

@@ -2070,7 +2070,7 @@
 
       // Scrolling down
       if (new_scroll_position < last_scroll_position && last_scroll_position > 80) {
-        // header.removeClass('slideDown').addClass('nav-up');
+        header.removeClass('slideDown').addClass('nav-up');
         header.addClass("scroll-down");
         header.removeClass("nav-up");
 

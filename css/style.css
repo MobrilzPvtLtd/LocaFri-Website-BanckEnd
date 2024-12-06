@@ -301,7 +301,7 @@ header.smaller {
 
 
 .scroll-down {
-    margin-top: -115px;
+    /* margin-top: -115px; */
 }
 
 .scroll-up {
@@ -327,6 +327,7 @@ header.s2 div#logo {}
 
 header.smaller.scroll-light {
     background: #ffffff;
+    padding-top: 3rem;
 }
 
 header.smaller .logo-init{
@@ -2718,6 +2719,7 @@ input[type="checkbox"] {
     #contact_form input[type="checkbox"] + label {
         margin-right: 10px;
         font-size: 14px;
+        width: 1rem;
     }
     @media screen and (max-width:320px) {
         #contact_form input[type="checkbox"] + label {
