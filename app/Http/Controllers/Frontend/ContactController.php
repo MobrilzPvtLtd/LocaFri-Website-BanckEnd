@@ -52,4 +52,15 @@ class ContactController extends Controller
     return redirect()->back()->with('success', 'Contact status updated successfully.');
 }
 
+// public function trash($id)
+// {
+//     $contact = Contact::findOrFail($id);
+//     $contact->delete(); // Moves to soft delete (trash)
+//     return redirect()->route('contacts.trash')->with('success', 'Contact moved to trash.');
+// }
+
+
+
+
+
 }

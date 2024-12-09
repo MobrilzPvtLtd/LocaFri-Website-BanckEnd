@@ -9,6 +9,8 @@ return [
     'adresse_1' => 'Adresse 1',
     'adresse_2' => 'Adresse 2',
     'zip_code' => 'Code postal',
+    'available_time' => 'Heure de disponibilité',
+
 
     'your_cart' => 'Votre Panier',
     'shipping_address_is_same_as_billing_address' => 'L’adresse de livraison est identique à l’adresse de facturation.',
@@ -27,6 +29,9 @@ return [
     'day' => 'Jour',
     'week' => 'Semaine',
     'month' => 'Mois',
+    'per_day' => 'Par Jour',
+    'per_week' => 'Par Semaine',
+    'per_month' => 'Par Mois',
     'additional_driver' => 'Conducteur supplémentaire',
     'child_booster_seat' => 'Siège rehausseur pour enfant',
     'booster_seat' => 'Siège rehausseur',

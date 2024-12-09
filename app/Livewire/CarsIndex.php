@@ -3,132 +3,96 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request;
 use Livewire\WithPagination;
 use App\Models\Vehicle;
-use Modules\Car\Models\Car;
 
 class CarsIndex extends Component
 {
+    use WithPagination;
 
-    public $car = '';
-    public $van = '';
-    public $minibus = '';
-    public $prestige = '';
-    public $convertible = '';
-    public $coupe = '';
-    public $exoticcars = '';
-    public $hatchback = '';
-    public $minivan = '';
-    public $pickuptruck = '';
-    public $sedan = '';
-    public $sportscar = '';
-    public $stationwagon = '';
-    public $suv = '';
-
-    public $seats2 = '';
-    public $seats4 = '';
-    public $seats6 = '';
-    public $seats6plus = '';
-
-    public $price = '';
+    public $car, $van, $minibus, $prestige;
+    public $convertible, $coupe, $exoticcars, $hatchback, $minivan;
+    public $pickuptruck, $sedan, $sportscar, $stationwagon, $suv;
+    public $selectedSeats = []; // Dynamic Seat Filter
+    public $trans1, $trans2;
+    public $price;
 
     protected $paginationTheme = 'bootstrap';
 
     public function updateSearchPrice($val)
     {
         $this->price = intval($val);
-        // dd($this->price);
     }
 
     public function render()
     {
-        $vehicles = Vehicle::orderBy('id', 'desc');
+        // Fetch unique seat counts dynamically from the Vehicle table
+        $availableSeats = Vehicle::where('status', 1)
+            ->select('seat')
+            ->distinct()
+            ->pluck('seat')
+            ->sort();
 
-        $vehicles->when($this->price, function ($query) {
-            $query->where(function ($subQuery) {
+        // Initialize query
+        $query = Vehicle::query()->where('status', 1)->orderBy('id', 'desc');
+
+        // Filter by Price
+        $query->when($this->price, function ($q) {
+            $q->where(function ($subQuery) {
                 $subQuery->where('Dprice', '<=', $this->price)
-                         ->orWhere('wprice', '<=', $this->price)
-                         ->orWhere('mprice', '<=', $this->price);
+                    ->orWhere('wprice', '<=', $this->price)
+                    ->orWhere('mprice', '<=', $this->price);
             });
         });
 
-        //car type
-        $hasTypeFilter = $this->car || $this->van || $this->minibus || $this->prestige;
-        $vehicles->when($hasTypeFilter, function ($query) {
-            return $query->where(function ($subQuery) {
-                if ($this->car) {
-                    $subQuery->orWhere('type', 'Car');
-                }
-                if ($this->van) {
-                    $subQuery->orWhere('type', 'Van');
-                }
-                if ($this->minibus) {
-                    $subQuery->orWhere('type', 'Minibus');
-                }
-                if ($this->prestige) {
-                    $subQuery->orWhere('type', 'Prestige');
-                }
-            });
-        });
-        //car body type
-        $hasTypeFilter = $this->convertible || $this->coupe || $this->exoticcars || $this->hatchback || $this->minivan || $this->pickuptruck || $this->sedan || $this->sportscar || $this->stationwagon || $this->suv;
-        $vehicles->when($hasTypeFilter, function ($query) {
-            return $query->where(function ($subQuery) {
-                if ($this->convertible) {
-                    $subQuery->orWhere('body', 'Convertible');
-                }
-                if ($this->coupe) {
-                    $subQuery->orWhere('body', 'Coupe');
-                }
-                if ($this->exoticcars) {
-                    $subQuery->orWhere('body', 'Exoticcars');
-                }
-                if ($this->hatchback) {
-                    $subQuery->orWhere('body', 'Hatchback');
-                }
-                if ($this->minivan) {
-                    $subQuery->orWhere('body', 'Minivan');
-                }
-                if ($this->pickuptruck) {
-                    $subQuery->orWhere('body', 'Pickuptruck');
-                }
-                if ($this->sedan) {
-                    $subQuery->orWhere('body', 'Sedan');
-                }
-                if ($this->sportscar) {
-                    $subQuery->orWhere('body', 'Sportscar');
-                }
-                if ($this->stationwagon) {
-                    $subQuery->orWhere('body', 'Stationwagon');
-                }
-                if ($this->suv) {
-                    $subQuery->orWhere('body', 'Suv');
-                }
-            });
-        });
-        // cars seates
-        $hasTypeFilter = $this->seats2 || $this->seats4 || $this->seats6 || $this->seats6plus;
-        $vehicles->when($hasTypeFilter, function ($query) {
-            return $query->where(function ($subQuery) {
-                if ($this->seats2) {
-                    $subQuery->orWhere('seat', '2 seats');
-                }
-                if ($this->seats4) {
-                    $subQuery->orWhere('seat', '4 seats');
-                }
-                if ($this->seats6) {
-                    $subQuery->orWhere('seat', '6 seats');
-                }
-                if ($this->seats6plus) {
-                    $subQuery->orWhere('seat', '6+ seats');
-                }
-            });
+        // Filter by Vehicle Type
+        $vehicleTypes = [
+            'Car' => $this->car, 'Van' => $this->van,
+            'Minibus' => $this->minibus, 'Prestige' => $this->prestige
+        ];
+        $query->when(array_filter($vehicleTypes), function ($q) use ($vehicleTypes) {
+            $q->whereIn('type', array_keys(array_filter($vehicleTypes)));
         });
 
-        $vehicles  = Vehicle::where('status', 1)->paginate(6);
-        // dd($vehicles);
-        return view('livewire.cars-index', compact('vehicles'));
+        // Filter by Body Type
+        $bodyTypes = [
+            'Convertible' => $this->convertible, 'Coupe' => $this->coupe,
+            'Exoticcars' => $this->exoticcars, 'Hatchback' => $this->hatchback,
+            'Minivan' => $this->minivan, 'Pickuptruck' => $this->pickuptruck,
+            'Sedan' => $this->sedan, 'Sportscar' => $this->sportscar,
+            'Stationwagon' => $this->stationwagon, 'Suv' => $this->suv,
+        ];
+        $query->when(array_filter($bodyTypes), function ($q) use ($bodyTypes) {
+            $q->whereIn('body', array_keys(array_filter($bodyTypes)));
+        });
+
+        // Filter by Seats
+        $query->when(!empty($this->selectedSeats), function ($q) {
+            $q->whereIn('seat', $this->selectedSeats);
+        });
+
+        // Filter by Transmission
+        $transmissions = [];
+        if ($this->trans1) $transmissions[] = 'Automatic';
+        if ($this->trans2) $transmissions[] = 'Manual';
+
+        $query->when(!empty($transmissions), function ($q) use ($transmissions) {
+            $q->whereIn('trans', $transmissions);
+        });
+
+        // Paginate Results
+        $vehicles = $query->paginate(6);
+
+        return view('livewire.cars-index', [
+            'vehicles' => $vehicles,
+            'availableSeats' => $availableSeats,
+        ]);
+
+        // Paginate Results
+        $vehicles = $query->paginate(6);
+
+        return view('livewire.cars-index', ['vehicles' => $vehicles]);
+
     }
 }
+

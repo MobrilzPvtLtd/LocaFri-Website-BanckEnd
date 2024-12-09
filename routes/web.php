@@ -53,14 +53,39 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => ['auth']], function () {
     // vehicle
     Route::resource('admin/vehicle', VehicleController::class);
+    Route::delete('/vehicle/{vehicle}/remove-image', [VehicleController::class, 'removeImage'])->name('vehicle.removeImage');
+
     // vehiclestatus
     Route::resource('admin/vehiclestatus', VehiclestatusController::class);
     // alert
     Route::resource('admin/alert', AlertController::class);
 
     // contact
-    Route::resource('admin/contact', ContactsController::class);
-    Route::patch('contacts/{id}', [ContactController::class, 'update'])->name('contacts.update');
+//     Route::resource('admin/contact', ContactsController::class);
+//     Route::patch('contacts/{id}', [ContactController::class, 'update'])->name('contacts.update');
+//     Route::get('/contact/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
+
+// // Route to restore a trashed contact
+// Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contacts.restore');
+
+// // Route to permanently delete a trashed contact
+// Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contacts.destroy');
+
+// // Route to move a contact to trash
+// Route::delete('/contacts/{id}/trash', [ContactsController::class, 'trash'])->name('contacts.moveToTrash');
+
+
+Route::resource('admin/contact', ContactsController::class);
+Route::patch('/contacts/{id}', [ContactsController::class, 'update'])->name('contact.update');
+Route::get('/contacts/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
+Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contact.restore');
+Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contact.destroy');
+
+
+
+
+
+
 
     Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
     Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');

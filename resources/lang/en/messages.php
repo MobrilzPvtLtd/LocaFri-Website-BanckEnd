@@ -10,6 +10,7 @@ return [
     'adresse_1' => 'Adress 1',
     'adresse_2' => 'Adress 2',
     'zip_code' => 'Zip Code',
+    'available_time'=>'Available Time',
 
 
     'shipping_address_is_same_as_billing_address' => 'Shipping address is the same as my billing address.',
@@ -235,6 +236,9 @@ return [
     'daily' => 'Daily',
     'weekly' => 'Weekly',
     'monthly' => 'Monthly',
+    'per_day' => 'Per Day',
+    'per_week' => 'Per  Week',
+    'per_month' => 'Per Month',
     'fuel_level' => 'Fuel Level',
     'damage_records' => 'Damaged Records',
     'vehicle_status_details' => 'Vehicle Status Details',
