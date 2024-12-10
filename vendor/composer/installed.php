@@ -524,9 +524,9 @@
             'dev_requirement' => false,
         ),
         'laravel/socialite' => array(
-            'pretty_version' => 'v5.12.1',
-            'version' => '5.12.1.0',
-            'reference' => '7dae1b072573809f32ab6dcf4aebb57c8b3e8acf',
+            'pretty_version' => 'v5.16.0',
+            'version' => '5.16.0.0',
+            'reference' => '40a2dc98c53d9dc6d55eadb0d490d3d72b73f1bf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/socialite',
             'aliases' => array(),

@@ -63,11 +63,11 @@
                                 <div class="title-line">{!! __('messages.or') !!}&nbsp;</div>
                                 <div class="row g-2">
                                     <div class="col-lg-6">
-                                        <a class="btn-sc btn-fullwidth mb10" href="#"><img
+                                        <a class="btn-sc btn-fullwidth mb10" href="{{ route('login.google') }}"><img
                                                 src="images/svg/google_icon.svg" alt="">Google</a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a class="btn-sc btn-fullwidth mb10" href="https://www.facebook.com/p/LocaFri-LocaFri-100086161718048/"><img
+                                        <a class="btn-sc btn-fullwidth mb10" href="{{ route('login.facebook') }}"><img
                                                 src="images/svg/facebook_icon.svg" alt="">Facebook</a>
                                     </div>
                                 </div>

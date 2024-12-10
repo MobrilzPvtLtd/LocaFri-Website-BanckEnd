@@ -131,6 +131,16 @@ Route::post('/carsdetails-post', [FrontendController::class, 'carsdetailsPost'])
 Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->name('carsdetails');
 // login
 Route::get('/login', [FrontendController::class, 'login'])->name('login');
+
+
+Route::get('/login/google', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleGoogleCallback']);
+//Facebook
+Route::get('/login/facebook', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('/login/facebook/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleFacebookCallback']);
+
+
+
 // Register
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
 
