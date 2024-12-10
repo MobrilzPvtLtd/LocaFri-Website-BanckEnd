@@ -8,11 +8,11 @@
     <div class="profile-container">
         @include('frontend.includes.messages')
         <div class="header">
-            <h4>There is no doubt that</h4>
-            <p>Use the following form to change your account password!</p>
+            {{-- <h4>There is no doubt that</h4> --}}
+            <p>{{ __('messages.change_password') }}</p>
             <a href="{{ route('frontend.users.profile') }}">
                 <div class="view-profile-button">
-                    View Profile
+                    {{ __('messages.view_profile') }}
                 </div>
             </a>
         </div>
@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <?php
                                 $field_name = 'password';
-                                $field_lable = __('labels.backend.users.fields.' . $field_name);
+                                $field_lable = __('messages.change_password');
                                 $field_placeholder = $field_lable;
                                 $required = 'required';
                                 ?>
@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <?php
                                 $field_name = 'password_confirmation';
-                                $field_lable = __('labels.backend.users.fields.' . $field_name);
+                                $field_lable = __('messages.re_password');
                                 $field_placeholder = $field_lable;
                                 $required = 'required';
                                 ?>
@@ -52,15 +52,15 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="submit-button">Update Password</button>
+                <button type="submit" class="submit-button">{{ __('messages.update_password') }}</button>
             </form>
         </div>
         <div class="header">
-            <h4>Edit Profile</h4>
-            <p>Update account information.</p>
+            <h4>{{ __('messages.edit_profile') }}</h4>
+            <p>{{ __('messages.update_account_info') }}</p>
             <a href="{{ route('frontend.users.profileEdit') }}">
                 <div class="view-profile-button">
-                    Edit Profile
+                    {{ __('messages.edit_profile') }}
                 </div>
             </a>
         </div>

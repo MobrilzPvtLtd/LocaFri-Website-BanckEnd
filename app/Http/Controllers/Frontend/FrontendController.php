@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class FrontendController extends Controller
 {
@@ -95,7 +100,29 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.register');
     }
-    public function contact()
+
+    public function registerSubmit(Request $request)
+{
+    $request->validate([
+        'first_name' => 'required|string|max:255',
+        'name' => 'required|string|max:255|unique:users',
+        'email' => 'required|email|unique:users',
+        'mobile' => 'required|numeric',
+        'password' => 'required|min:6|confirmed',
+    ]);
+
+    User::create([
+        'first_name' => $request->first_name,
+        'name' => $request->name,
+        'email' => $request->email,
+        'mobile' => $request->mobile,
+        'password' => Hash::make($request->password),
+    ]);
+
+    return redirect()->route('register')->with('success', 'Registration successful!');
+}
+
+public function contact()
     {
         return view('frontend.contact');
     }

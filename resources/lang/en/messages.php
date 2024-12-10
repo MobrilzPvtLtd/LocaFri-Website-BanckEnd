@@ -104,6 +104,7 @@ return [
     'share' => 'Share',
     'login' => 'Login',
     'password' => 'Enter Your Password',
+    'new_password' => 'New Password',
     'sign_in' => 'Sign In',
     'forgot_password' => 'Forget Your Password ?',
     'no_account' => "Don't have an account?",
@@ -116,7 +117,7 @@ return [
     'email_address' => 'Email Address:',
     'username' => 'Choose a Username:',
     'phone' => 'Phone:',
-    're_password' => 'Re-enter Password:',
+    're_password' => 'Re-type Password!',
     'already_have_account' => "Already have an account?",
     'error_message' => 'Sorry, error occurred this time sending your message.',
     'success_message' => 'Your message has been sent successfully.',
@@ -304,6 +305,12 @@ return [
     'city' => "City",
     'driver_first_name' => "Driver's First Name",
     'driver_last_name' => "Driver's Last Name",
+
+    'change_password'=>"Change Your Password !",
+    'update_password' => "Update Password ",
+    'edit_profile' => "Edit Profile",
+    'update_account_info' => "Update Account Information",
+    'view_profile' => "View Profile",
 
 
 

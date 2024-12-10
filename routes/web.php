@@ -60,34 +60,12 @@ Route::group(['middleware' => ['auth']], function () {
     // alert
     Route::resource('admin/alert', AlertController::class);
 
-    // contact
-//     Route::resource('admin/contact', ContactsController::class);
-//     Route::patch('contacts/{id}', [ContactController::class, 'update'])->name('contacts.update');
-//     Route::get('/contact/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
-
-// // Route to restore a trashed contact
-// Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contacts.restore');
-
-// // Route to permanently delete a trashed contact
-// Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contacts.destroy');
-
-// // Route to move a contact to trash
-// Route::delete('/contacts/{id}/trash', [ContactsController::class, 'trash'])->name('contacts.moveToTrash');
-
-
-Route::resource('admin/contact', ContactsController::class);
-Route::patch('/contacts/{id}', [ContactsController::class, 'update'])->name('contact.update');
-Route::get('/contacts/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
-Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contact.restore');
-Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contact.destroy');
-
-
-
-
-
-
-
-    Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
+   Route::resource('admin/contact', ContactsController::class);
+   Route::patch('/contacts/{id}', [ContactsController::class, 'update'])->name('contact.update');
+   Route::get('/contacts/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
+   Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contact.restore');
+   Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contact.destroy');
+   Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
     Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
     Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
     Route::post('is_contract', [ReservationController::class, 'is_contract'])->name('is_contract');
@@ -155,11 +133,14 @@ Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->nam
 Route::get('/login', [FrontendController::class, 'login'])->name('login');
 // Register
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
+
 Route::get('contact', [FrontendController::class, 'contact'])->name('contact');
 
+Route::get('/register', [FrontendController::class, 'register'])->name('register');
+Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
+
+
 Route::view('/keybox', 'frontend.keybox');
-
-
 // Language Switch
 Route::get('language/{language}', [LanguageController::class, 'switch'])->name('language.switch');
 

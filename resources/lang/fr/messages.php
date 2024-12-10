@@ -65,7 +65,7 @@ return [
      'pick_up_location' => 'Lieu de prise en charge',
      'drop_off_location' => 'Lieu de dépose',
     'pick_up_date_time' => 'Date et heure de prise en charge',
-    'select_pick_up' => 'Sélectionnez lieu prise en charge',
+    'select_pick_up' => 'lieu prise en charge',
     'select_drop_off' => 'Sélectionnez lieu  dépose',
     'looking_for_a' => 'Vous cherchez un',
     'you_re_at_the_right_place' => 'Vous êtes au bon endroit.',
@@ -108,6 +108,11 @@ return [
     'share' => 'Partager',
     'login' => 'Connexion',
     'password' => 'Mot de passe',
+    'new_password' => 'Mot de passe',
+    'change_password' => "Changez votre mot de passe !",
+    'update_password' => "Mettre à jour le mot de passe",
+    'edit_profile' => "Modifier le profil",
+    'update_account_info' => "Mettre à jour les informations du compte",
     'sign_in' => 'Se connecter',
     'forgot_password' => 'Mot de passe oublié ?',
     'no_account' => "Vous n'avez pas de compte ?",
@@ -120,7 +125,7 @@ return [
     'email_address' => 'Adresse électronique :',
     'username' => 'Choisissez un nom d’utilisateur :',
     'phone' => 'Téléphone :',
-    're_password' => 'Ressaisir le mot de passe :',
+    're_password' => 'Ressaisir le mot de passe !',
     'already_have_account' => 'Vous avez déjà un compte?',
     'error_message' => 'Désolé, une erreur s’est produite lors de l’envoi de votre message.',
     'success_message' => 'Votre message a été envoyé avec succès.',
@@ -308,6 +313,8 @@ return [
     'driver_first_name' => 'Prénom du conducteur',
     'driver_last_name' => 'Nom de famille du conducteur',
     'city' => "Ville",
+    'view_profile' => "Voir le profil",
+
 
 
 

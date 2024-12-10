@@ -88,9 +88,9 @@ class UserController extends Controller
      *
      * @throws ModelNotFoundException If the user profile is not found.
      */
-    public function profile(Request $request, $username = null)
+    public function profile(Request $request, $id = null)
     {
-        $username = ($username == null) ? auth()->user()->username : $username;
+        $id = ($id == null) ? auth()->user()->id : $id;
 
         $module_title = $this->module_title;
         $module_name = $this->module_name;
@@ -100,7 +100,7 @@ class UserController extends Controller
         $module_name_singular = Str::singular($module_name);
         $module_action = 'Profile';
 
-        $$module_name_singular = $module_model::whereUsername($username)->first();
+        $$module_name_singular = $module_model::find($id);
 
         $body_class = 'profile-page';
 
