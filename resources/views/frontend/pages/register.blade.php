@@ -102,7 +102,7 @@
                                 <div class="col-md-12">
                                     <button type="submit" class="btn-main color-2">{!! __('messages.register_now') !!}</button>
                                     <div class="text-center mt-3">
-                                        <a href="{{ route('login') }}">{!! __('messages.no_account') !!}</a>
+                                        <a href="{{ route('login') }}">{!! __('messages.already_have_account') !!}</a>
                                     </div>
                                 </div>
                             </div>
