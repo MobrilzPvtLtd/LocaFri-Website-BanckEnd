@@ -26,14 +26,14 @@
             width: 20px;
             height: 20px;
             text-align: center;
-            line-height: 20px; /* This ensures the '×' is vertically centered */
+            line-height: 20px;
+            /* This ensures the '×' is vertically centered */
             cursor: pointer;
         }
 
         .close-btn:hover {
             background: red;
         }
-
     </style>
 @endpush
 
@@ -95,9 +95,9 @@
                                         <option value="Romont Gare"
                                             {{ isset($vehicle) && $vehicle->location == 'Romont Gare' ? 'selected' : '' }}>
                                             Romont Gare</option>
-
                                     </select>
                                 </div>
+
                                 <div class="form-group mb-2 col-6">
                                     <label for="image">{{ __('messages.brand_image') }}</label>
                                     <input type="file" class="form-control" name="image[]" id="imageUpload" multiple>
@@ -112,8 +112,9 @@
                                                 @foreach ($uploadedImages as $image)
                                                     <div class="uploaded-image">
                                                         <div class="img-preview">
-                                                            <img src="{{ asset('public/storage/' . $image) }}" alt="Brand Image"
-                                                                width="100" class="img-thumbnail preview-img">
+                                                            <img src="{{ asset('public/storage/' . $image) }}"
+                                                                alt="Brand Image" width="100"
+                                                                class="img-thumbnail preview-img">
                                                             <button class="close-btn">×</button>
                                                         </div>
                                                     </div>
@@ -127,20 +128,8 @@
                                     @enderror
                                 </div>
 
-                                {{-- <div class="form-group mb-2 col-4">
-                                    <label for="image">{{ __('messages.brand_image') }}</label>
-                                    <input type="file" class="form-control" name="image[]" id="image" multiple>
-                                    @error('image')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div> --}}
 
                                 {{-- <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.brand_image') }}</label>
-                                    <input type="file" class="form-control" name="image[]" value="{{ $vehicle->image }}"
-                                        placeholder="" multiple>
-                                </div> --}}
-                              {{-- <div class="form-group mb-2 col-4">
                                     <label for="body">{{ __('messages.body')}}</label>
                                     <select class="form-control" name="body">
                                         <option value="" disabled {{ $vehicle->body ? '' : 'selected' }}>
@@ -362,7 +351,7 @@
 
                     let reader = new FileReader();
 
-                    reader.onload = function (e) {
+                    reader.onload = function(e) {
                         let imgDiv = document.createElement('div');
                         imgDiv.classList.add('img-preview');
 
@@ -393,6 +382,5 @@
                 $(this).closest('.img-preview').remove();
             });
         });
-
     </script>
 @endpush

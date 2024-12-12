@@ -100,24 +100,34 @@ public function show($id) {
             // 'wprice' => 'required',
             // 'mprice' => 'required',
             // 'available' => 'date_format:H:i', // Validate the time format
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $vehicle = Vehicle::findOrFail($id);
 
-        $oldImagePath = $vehicle->image;
-        $imagePaths = [];
+        $imagePaths = $vehicle->image ? json_decode($vehicle->image, true) : [];
 
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
                 $imagePath = $file->store('upload', 'public');
                 $imagePaths[] = $imagePath;
             }
-            if ($oldImagePath) {
-                $oldImages = json_decode($oldImagePath, true);
-                foreach ($oldImages as $image) {
-                    Storage::disk('public')->delete($image); // Delete old images
-                }
-            }
         }
+
+        // $oldImagePath = $vehicle->image;
+        // $imagePaths = [];
+
+        // if ($request->hasFile('image')) {
+        //     foreach ($request->file('image') as $file) {
+        //         $imagePath = $file->store('upload', 'public');
+        //         $imagePaths[] = $imagePath;
+        //     }
+        //     if ($oldImagePath) {
+        //         $oldImages = json_decode($oldImagePath, true);
+        //         foreach ($oldImages as $image) {
+        //             Storage::disk('public')->delete($image); // Delete old images
+        //         }
+        //     }
+        // }
         // $currentDate = Carbon::now()->toDateString();
         // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input(''))->toDateTimeString();
 
@@ -140,6 +150,7 @@ public function show($id) {
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been updated successfully.');
     }
+
     public function destroy(Vehicle $vehicle)
     {
         $vehicle->delete();
