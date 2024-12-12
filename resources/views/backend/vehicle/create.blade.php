@@ -1,4 +1,42 @@
 @extends ('backend.layouts.app')
+
+@push('after-styles')
+    <style>
+        .img-preview {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .preview-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px; /* This ensures the '×' is vertically centered */
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: red;
+        }
+
+    </style>
+@endpush
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -48,7 +86,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-12">
                                     <label for="desc">{{ __('messages.description') }}</label>
                                     <textarea class="form-control" name="desc" placeholder="" required>{{ old('desc') }}</textarea>
                                     @error('desc')
@@ -56,7 +94,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-6">
                                     <label for="location">{{ __('messages.location') }}</label>
                                     <select name="location" id="location" class="form-control">
                                         <option value="Romont Gare"
@@ -75,35 +113,18 @@
                                     @enderror
                                 </div> --}}
 
-                                <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-6">
                                     <label for="image">{{ __('messages.brand_image') }}</label>
-                                    <input type="file" class="form-control" name="image[]" multiple required>
-
-                                    @if (isset($uploadedImages) && count($uploadedImages) > 0)
-                                        <div class="mt-2">
-                                            <label>Uploaded Images:</label>
-                                            <div class="d-flex flex-wrap gap-2">
-                                                @foreach ($uploadedImages as $image)
-                                                    <div class="uploaded-image">
-                                                        <img src="{{ asset('storage/' . $image) }}" alt="Brand Image"
-                                                            width="100" class="img-thumbnail">
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
-
+                                    <input type="file" class="form-control" name="image[]" multiple required id="imageUpload">
+                                    <div id="imagePreview" class="mt-2"></div>
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-
-
-
                                 <div class="form-group mb-2 col-4">
                                     <label for="seat">{{ __('messages.seat') }}</label>
-                                    <input type="text" class="form-control" name="seat" value="" placeholder=" "
+                                    <input type="number" class="form-control" name="seat" value="" placeholder=" "
                                         value="{{ old('seat') }}">
                                     {{-- <select class="form-control" name="seat">
                                         <option value="" disabled selected>Select Number of Seats</option>
@@ -117,7 +138,7 @@
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="city">{{ __('messages.door') }}</label>
-                                    <input type="text" class="form-control" name="door" value="" placeholder=""
+                                    <input type="number" class="form-control" name="door" value="" placeholder=""
                                         value="{{ old('door') }}">
 
                                 </div>
@@ -236,7 +257,7 @@
                                 <div class="form-group mb-2 col-4">
                                     <label
                                         for="permitted_kilometers_day">{{ __('messages.permitted_kilometers_day') }}</label>
-                                    <input type="text" class="form-control" name="permitted_kilometers_day"
+                                    <input type="number" class="form-control" name="permitted_kilometers_day"
                                         value="{{ old('permitted_kilometers_day') }}" placeholder="">
                                     @error('permitted_kilometers_day')
                                         <span class="text-danger">{{ $message }}</span>
@@ -246,7 +267,7 @@
                                 <div class="form-group mb-2 col-4">
                                     <label
                                         for="permitted_kilometers_week">{{ __('messages.permitted_kilometers_week') }}</label>
-                                    <input type="text" class="form-control" name="permitted_kilometers_week"
+                                    <input type="number" class="form-control" name="permitted_kilometers_week"
                                         value="{{ old('permitted_kilometers_week') }}" placeholder="">
                                     @error('permitted_kilometers_week')
                                         <span class="text-danger">{{ $message }}</span>
@@ -255,20 +276,20 @@
                                 <div class="form-group mb-2 col-4">
                                     <label
                                         for="permitted_kilometers_month">{{ __('messages.permitted_kilometers_month') }}</label>
-                                    <input type="text" class="form-control" name="permitted_kilometers_month"
+                                    <input type="number" class="form-control" name="permitted_kilometers_month"
                                         value="{{ old('permitted_kilometers_month') }}" placeholder="">
                                     @error('permitted_kilometers_month')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">{{ __('messages.available_time') }}</label>
                                     <input type="time" class="form-control" name="available"
                                         value="{{ old('available') }}" placeholder="">
                                     @error('available')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="status">{{ __('messages.status') }}</label>
@@ -398,4 +419,48 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('imageUpload').addEventListener('change', function (event) {
+            let files = event.target.files;
+            let previewContainer = document.getElementById('imagePreview');
+
+            // Clear any existing previews
+            previewContainer.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+
+                // Only process image files
+                if (!file.type.startsWith('image/')) {
+                    continue;
+                }
+
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let imgDiv = document.createElement('div');
+                    imgDiv.classList.add('img-preview');
+
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('img-fluid', 'preview-img');
+
+                    let closeBtn = document.createElement('button');
+                    closeBtn.innerText = '×';
+                    closeBtn.classList.add('close-btn');
+
+                    // Append close button functionality
+                    closeBtn.onclick = function() {
+                        imgDiv.remove();
+                    };
+
+                    imgDiv.appendChild(img);
+                    imgDiv.appendChild(closeBtn);
+                    previewContainer.appendChild(imgDiv);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 @endsection

@@ -1,5 +1,42 @@
 @extends('backend.layouts.app')
 
+@push('after-styles')
+    <style>
+        .img-preview {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .preview-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px; /* This ensures the '×' is vertically centered */
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: red;
+        }
+
+    </style>
+@endpush
+
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
@@ -46,11 +83,11 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-12">
                                     <label for="desc">{{ __('messages.description') }}</label>
                                     <textarea class="form-control" name="desc" placeholder="">{{ $vehicle->desc }}</textarea>
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-6">
                                     <label for="city">{{ __('messages.location') }}</label>
                                     {{-- <input type="text" class="form-control" name="location"
                                         value="{{ $vehicle->location }}" placeholder=""> --}}
@@ -61,10 +98,29 @@
 
                                     </select>
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                <div class="form-group mb-2 col-6">
                                     <label for="image">{{ __('messages.brand_image') }}</label>
-                                    <input type="file" class="form-control" name="image[]" id="image" multiple>
+                                    <input type="file" class="form-control" name="image[]" id="imageUpload" multiple>
+                                    <div id="imagePreview" class="mt-2"></div>
 
+                                    @php
+                                        $uploadedImages = json_decode($vehicle->image);
+                                    @endphp
+                                    @if (isset($uploadedImages) && count($uploadedImages) > 0)
+                                        <div class="mt-2">
+                                            <div class="d-flex flex-wrap gap-2" id="existingImages">
+                                                @foreach ($uploadedImages as $image)
+                                                    <div class="uploaded-image">
+                                                        <div class="img-preview">
+                                                            <img src="{{ asset('public/storage/' . $image) }}" alt="Brand Image"
+                                                                width="100" class="img-thumbnail preview-img">
+                                                            <button class="close-btn">×</button>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     @error('image')
                                         <small class="text-danger">{{ $message }}</small>
@@ -114,13 +170,13 @@
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="seat">{{ __('messages.seat') }}</label>
-                                    <input type="text" class="form-control" name="seat"
+                                    <input type="number" class="form-control" name="seat"
                                         placeholder="Enter number of seats" value="{{ old('seat', $vehicle->seat) }}">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="door">{{ __('messages.door') }}</label>
-                                    <input type="text" class="form-control" name="door"
+                                    <input type="number" class="form-control" name="door"
                                         placeholder="Enter number of doors" value="{{ old('door', $vehicle->door) }}">
                                 </div>
 
@@ -192,29 +248,29 @@
                                 <div class="form-group mb-2 col-4">
                                     <label
                                         for="permitted_kilometers_day">{{ __('messages.permitted_kilometers_day') }}</label>
-                                    <input type="text" class="form-control" name="permitted_kilometers_day"
+                                    <input type="number" class="form-control" name="permitted_kilometers_day"
                                         value="{{ $vehicle->permitted_kilometers_day }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
                                     <label
                                         for="permitted_kilometers_week">{{ __('messages.permitted_kilometers_week') }}</label>
-                                    <input type="text" class="form-control" name="permitted_kilometers_week"
+                                    <input type="number" class="form-control" name="permitted_kilometers_week"
                                         value="{{ $vehicle->permitted_kilometers_week }}" placeholder="">
                                 </div>
 
                                 <div class="form-group mb-2 col-4">
                                     <label
                                         for="permitted_kilometers_month">{{ __('messages.permitted_kilometers_month') }}</label>
-                                    <input type="text" class="form-control" name="permitted_kilometers_week"
+                                    <input type="number" class="form-control" name="permitted_kilometers_week"
                                         value="{{ $vehicle->permitted_kilometers_month }}" placeholder="">
                                 </div>
-                                <div class="form-group mb-2 col-4">
+                                {{-- <div class="form-group mb-2 col-4">
                                     <label for="available">Available Time</label>
                                     <input type="time" class="form-control" name="available"
                                         value="{{ $vehicle->available_time ? \Carbon\Carbon::parse($vehicle->available_time)->format('H:i') : '' }}"
                                         placeholder="">
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mb-2 col-4">
                                     <label for="status">{{ __('messages.status') }}</label>
@@ -279,10 +335,64 @@
                 </div>
                 <div class="col-5">
                     <div class="float-end">
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('after-scripts')
+    <script>
+        $(document).ready(function() {
+            // Handle new image selection
+            $("#imageUpload").change(function(event) {
+                let files = event.target.files;
+                let previewContainer = document.getElementById('imagePreview');
+
+                // Clear any existing previews
+                previewContainer.innerHTML = '';
+
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
+
+                    // Only process image files
+                    if (!file.type.startsWith('image/')) {
+                        continue;
+                    }
+
+                    let reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        let imgDiv = document.createElement('div');
+                        imgDiv.classList.add('img-preview');
+
+                        let img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('img-fluid', 'preview-img');
+
+                        let closeBtn = document.createElement('button');
+                        closeBtn.innerText = '×';
+                        closeBtn.classList.add('close-btn');
+
+                        // Append close button functionality for new images
+                        closeBtn.onclick = function() {
+                            imgDiv.remove();
+                        };
+
+                        imgDiv.appendChild(img);
+                        imgDiv.appendChild(closeBtn);
+                        previewContainer.appendChild(imgDiv);
+                    }
+
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle close button for already uploaded images
+            $('#existingImages').on('click', '.close-btn', function() {
+                $(this).closest('.img-preview').remove();
+            });
+        });
+
+    </script>
+@endpush

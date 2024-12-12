@@ -21,8 +21,7 @@ class VehicleController extends Controller
         return view('backend.vehicle.create');
     }
 
-public function store(Request $request)
-{
+public function store(Request $request) {
     $request->validate([
         'name' => 'required',
         'model' => 'required',
@@ -42,7 +41,7 @@ public function store(Request $request)
         'Dprice' => 'required',
         'wprice' => 'required',
         'mprice' => 'required',
-        'available' => 'required|date_format:H:i',
+        // 'available' => 'required|date_format:H:i',
         // Validate the time format
     ]);
 
@@ -60,7 +59,7 @@ public function store(Request $request)
     // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
 
 
-    $vehicleData = $request->except('image', 'featured', 'features', 'available');
+    $vehicleData = $request->except('image', 'featured', 'features');
 
     if (!empty($imagePaths)) {
         $vehicleData['image'] = json_encode($imagePaths);
@@ -77,10 +76,9 @@ public function store(Request $request)
     Vehicle::create($vehicleData);
 
     return redirect()->route('vehicle.index')->with('success', 'Vehicle has been created successfully.');
-   }
+}
 
-   public function show($id)
-{
+public function show($id) {
     $vehicle = Vehicle::findOrFail($id);
     return view('backend.vehicle.show', compact('vehicle'));
 }
