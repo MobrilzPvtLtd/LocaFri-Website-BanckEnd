@@ -78,11 +78,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="item_filter_group">
+                {{-- <div class="item_filter_group">
                     <h4>Car Seats</h4>
                     <div class="de_form">
                         @foreach ($availableSeats as $seat)
                             <div class="de_checkbox">
+                                if(seat.count=0)
                                 <input id="seat_{{ $seat }}" wire:model.live="selectedSeats" type="checkbox"
                                     value="{{ $seat }}">
                                 <label for="seat_{{ $seat }}">{{ $seat }}
@@ -90,7 +91,21 @@
                             </div>
                         @endforeach
                     </div>
+                </div> --}}
+                <div class="item_filter_group">
+                    <h4>Car Seats</h4>
+                    <div class="de_form">
+                        @foreach ($availableSeats as $seat)
+                            @if($seat != 0)
+                                <div class="de_checkbox">
+                                    <input id="seat_{{ $seat }}" wire:model.live="selectedSeats" type="checkbox" value="{{ $seat }}">
+                                    <label for="seat_{{ $seat }}">{{ $seat }} {!! __('messages.seat') !!}</label>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
+
         </div>
             <div class="col-lg-9">
                 <div class="row">
