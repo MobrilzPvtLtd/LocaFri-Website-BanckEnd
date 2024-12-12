@@ -15,18 +15,16 @@ class VehicleController extends Controller
         $vehicles = Vehicle::all();
         return view('backend.vehicle.index', compact('vehicles'));
     }
-
     public function create()
     {
         return view('backend.vehicle.create');
     }
-
-public function store(Request $request) {
+    public function store(Request $request) {
     $request->validate([
         'name' => 'required',
         'model' => 'required',
         'type' => 'required',
-        'desc' => 'required',
+        // 'desc' => 'required',
         'mitter' => 'required',
         // 'body' => 'required',
         // 'seat' => 'required',
@@ -41,49 +39,36 @@ public function store(Request $request) {
         'Dprice' => 'required',
         'wprice' => 'required',
         'mprice' => 'required',
+        'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         // 'available' => 'required|date_format:H:i',
         // Validate the time format
     ]);
-
     $imagePaths = [];
-
     if ($request->hasFile('image')) {
         foreach ($request->file('image') as $file) {
             $imagePath = $file->store('upload', 'public');
             $imagePaths[] = $imagePath;
         }
     }
-
-
     $currentDate = Carbon::now()->toDateString();
     // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
-
-
     $vehicleData = $request->except('image', 'featured', 'features');
-
     if (!empty($imagePaths)) {
         $vehicleData['image'] = json_encode($imagePaths);
     }
-
     if (!empty($request->features)) {
         $vehicleData['features'] = json_encode($request->features);
     }
-
     // $vehicleData['available_time'] = $availableDatetime;
     $vehicleData['featured'] = $request->has('featured');
-
-
     Vehicle::create($vehicleData);
-
     return redirect()->route('vehicle.index')->with('success', 'Vehicle has been created successfully.');
-}
-
+ }
 public function show($id) {
     $vehicle = Vehicle::findOrFail($id);
     return view('backend.vehicle.show', compact('vehicle'));
-}
-
-    public function edit($id)
+   }
+   public function edit($id)
     {
         $vehicle = Vehicle::findOrFail($id);
         $featuresArray = json_decode($vehicle->features, true);
@@ -93,8 +78,7 @@ public function show($id) {
         // }
         return view('backend.vehicle.edit', compact('vehicle', 'featuresArray'));
     }
-
-  public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             // 'name' => 'required',
@@ -117,7 +101,6 @@ public function show($id) {
             // 'mprice' => 'required',
             // 'available' => 'date_format:H:i', // Validate the time format
         ]);
-
         $vehicle = Vehicle::findOrFail($id);
 
         $oldImagePath = $vehicle->image;
@@ -136,10 +119,10 @@ public function show($id) {
             }
         }
         // $currentDate = Carbon::now()->toDateString();
-        // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input('available'))->toDateTimeString();
+        // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input(''))->toDateTimeString();
 
         // Prepare vehicle data for updating
-        $vehicleData = $request->except('image', 'featured', 'features', 'available');
+        $vehicleData = $request->except('image', 'featured', 'features');
 
         if (!empty($imagePaths)) {
             $vehicleData['image'] = json_encode($imagePaths);
