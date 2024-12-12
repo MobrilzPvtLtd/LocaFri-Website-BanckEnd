@@ -5,7 +5,6 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4>{{ __('messages.contact_inquiries_details') }}</h4>
-
                 <a href="{{ route('contact.trash') }}" class="btn btn-warning">
                     <i class="fas fa-share fa-fw"></i> View Archives
                 </a>
@@ -23,11 +22,9 @@
                                         {{-- <th scope="col">Phone</th>
                                         <th scope="col">Subject</th> --}}
                                         <th scope="col">{{ __('messages.message') }}</th>
-
                                         <th scope="col">{{ __('messages.date_time') }}</th>
                                         <th scope="col">{{ __('messages.status') }}</th>
-                                        {{-- <th scope="col"> Actions</th> --}}
-
+                                        <th scope="col"> Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,14 +54,14 @@
                                                     </select>
                                                 </form>
                                             </td>
-                                            {{-- <td>
+                                            <td>
                                                 <div class="card-footer text-end">
 
                                                     <a class="btn btn-info btn-sm "
                                                         href="{{ route('contact.view', $contact->id) }}">{{ __('messages.view') }}
                                                     </a>
                                                 </div>
-                                            </td> --}}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -61,7 +61,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/alert', AlertController::class);
 
    Route::resource('admin/contact', ContactsController::class);
+//
    Route::patch('/contacts/{id}', [ContactsController::class, 'update'])->name('contact.update');
+   Route::get('/contacts/{id}/view', [ContactsController::class, 'view'])->name('contact.view');
+
    Route::get('/contacts/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
    Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contact.restore');
    Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contact.destroy');
@@ -145,6 +148,7 @@ Route::get('/login/facebook/callback', [App\Http\Controllers\Auth\SocialLoginCon
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
 
 Route::get('contact', [FrontendController::class, 'contact'])->name('contact');
+
 
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
 Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');

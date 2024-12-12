@@ -86,4 +86,10 @@ class ContactsController extends Controller
         $contact->forceDelete();
         return redirect()->route('contact.trash')->with('success', __('Contact permanently deleted.'));
     }
+
+    public function view($id)
+{
+    $contact = Contact::findOrFail($id);
+    return view('backend.contact.view', compact('contact'));
+}
 }
