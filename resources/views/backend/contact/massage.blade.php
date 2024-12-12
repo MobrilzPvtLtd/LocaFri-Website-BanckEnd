@@ -23,6 +23,7 @@
                                         {{-- <th scope="col">Phone</th>
                                         <th scope="col">Subject</th> --}}
                                         <th scope="col">{{ __('messages.message') }}</th>
+
                                         <th scope="col">{{ __('messages.date_time') }}</th>
                                         <th scope="col">{{ __('messages.status') }}</th>
                                         {{-- <th scope="col"> Actions</th> --}}
@@ -37,8 +38,8 @@
                                             <td>{{ $contact->email }}</td>
                                             {{-- <td>{{ $contact->phone }}</td>
                                             <td>{{ $contact->sub }}</td> --}}
-                                            <td>{{ $contact->message }}</td>
-
+                                            {{-- <td>{{ $contact->message }}</td> --}}
+                                            <td class="text-truncate" style="max-width: 300px;">{{ $contact->message }}</td>
                                             <td>{{ $contact->created_at->format('d M Y (h:i a)') }}</td>
                                             <td>
                                                 <form action="{{ route('contact.update', $contact->id) }}" method="POST">
@@ -56,7 +57,14 @@
                                                     </select>
                                                 </form>
                                             </td>
+                                            {{-- <td>
+                                                <div class="card-footer text-end">
 
+                                                    <a class="btn btn-info btn-sm "
+                                                        href="{{ route('contact.view', $contact->id) }}">{{ __('messages.view') }}
+                                                    </a>
+                                                </div>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
