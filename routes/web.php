@@ -56,16 +56,20 @@ Route::get('/register', [FrontendController::class, 'register'])->name('register
 Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 
 // login
-Route::get('/login', [FrontendController::class, 'login'])->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [FrontendController::class, 'login'])->name('login');
+});
 
-//Google
-Route::get('/login/google', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('/login/google/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleGoogleCallback']);
+Route::group(['namespace' => 'Auth', 'middleware' => 'guest'], function () {
+    //Google
+    Route::get('/login/google', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleGoogleCallback']);
 
-//Facebook
-Route::get('/login/facebook', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
-Route::get('/login/facebook/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleFacebookCallback']);
+    //Facebook
+    Route::get('/login/facebook', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
+    Route::get('/login/facebook/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleFacebookCallback']);
 
+});
 
 Route::group(['middleware' => ['auth']], function () {
     // vehicle
