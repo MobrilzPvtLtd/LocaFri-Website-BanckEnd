@@ -132,7 +132,7 @@
                                 <ul id="mainmenu">
                                     <li>
                                         <a class="menu-item" href="#"><i class="fa fa-user"
-                                                aria-hidden="true"></i>&nbsp;&nbsp;{{ Auth::user()->first_name }}{{ Auth::user()->last_name }}</a>
+                                                aria-hidden="true"></i>&nbsp;&nbsp;{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
                                         <ul>
                                             @can('view_backend')
                                                 <li>
