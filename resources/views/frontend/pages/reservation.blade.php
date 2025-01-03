@@ -183,12 +183,18 @@
                                 class="text-danger">*</span></label>
                         <input type="text" name="zipcode" class="form-control" id="zipcode"
                             required placeholder="Zip Code">
+                            @error('zipcode')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="city">{{ __('messages.city') }}<span
                                 class="text-danger">*</span></label>
                         <input type="text" name="city" class="form-control" id="city"
                            required placeholder="{{ __('messages.city') }}">
+                           @error('city')
+                           <div class="text-danger">{{ $message }}</div>
+                       @enderror
                     </div>
 
                     {{-- <div class="row">
@@ -239,10 +245,10 @@
 
                     <select class="form-select" style="width: 50%;" name="payment_type" id="payment_type"
                         {{-- onchange="updatePayment()" --}}>
-                        <option value="payment_partial">{{ __('messages.pay_partially_10')}}(10% of the CHF{{ $remaining_amount }})
+                        <option value="payment_partial">{{ __('messages.pay_partially_10')}}(10% of the CHF {{ $remaining_amount }})
                             <span id="payment_10_percent"></span>
                         </option>
-                        <option value="payment_full">{{ __('messages.pay_full_amount')}}(CHF{{ $data['total_price'] }})<span
+                        <option value="payment_full">{{ __('messages.pay_full_amount')}}(CHF {{ $data['total_price'] }})<span
                                 id="payment_full"></span></option>
                     </select>
 
@@ -280,11 +286,11 @@
                                 value="stripe" checked required>
                             <label class="custom-control-label" for="credit">{{ __('messages.visa')}}</label>
                         </div>
-                        <div class="custom-control custom-radio">
+                        {{-- <div class="custom-control custom-radio">
                             <input id="debit" name="payment_method" type="radio" class="custom-control-input"
                                 value="twint" required>
                             <label class="custom-control-label" for="debit">{{ __('messages.twint')}}</label>
-                        </div>
+                        </div> --}}
                     </div>
                     {{-- <div class="row">
                         <div class="col-md-6 mb-3">
