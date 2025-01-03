@@ -35,9 +35,12 @@
                                             <select name="pickUpLocation" id="pick_up">
                                                 <option selected disabled value="Select pick_up">{{ __('messages.select_pick_up') }}
                                                 </option>
-                                                @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
+                                                {{-- @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
-                                                @endforeach
+                                                @endforeach --}}
+                                                @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
+                                                <option value="{{ $location }}">{{ $location }}</option>
+                                            @endforeach
                                             </select>
                                         </div>
 
@@ -51,9 +54,9 @@
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off">
                                                 <option selected disabled value="Select drop_off">{{ __('messages.drop_off_location') }}</option>
-                                                    @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
-                                                    <option value="{{ $location->location }}">{{ $location->location }}</option>
-                                                @endforeach
+                                                @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
+                                                <option value="{{ $location }}">{{ $location }}</option>
+                                            @endforeach
                                             </select>
                                         </div>
                                         <div class="jls-address-preview jls-address-preview--hidden">

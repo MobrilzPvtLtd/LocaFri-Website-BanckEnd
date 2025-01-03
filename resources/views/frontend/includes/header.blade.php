@@ -137,7 +137,7 @@
                                         <ul>
                                             @can('view_backend')
                                                 <li>
-                                                    <a class="menu-item" href="">Admin</a>
+                                                    <a class="menu-item" href="{{ route('backend.dashboard') }}">Admin</a>
                                                 </li>
                                             @endcan
                                             <li>
