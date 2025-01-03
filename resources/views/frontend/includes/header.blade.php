@@ -127,13 +127,12 @@
                                 <!-- <a href="#"><i class="fa fa-linkedin fa-lg"></i></a> -->
                             </div>
                         </div>
-
                         @auth
                             <div class="de-flex-col header-col-mid">
                                 <ul id="mainmenu">
                                     <li>
                                         <a class="menu-item" href="#"><i class="fa fa-user"
-                                                aria-hidden="true"></i>&nbsp;&nbsp;User {{ Auth::user()->last_name }}</a>
+                                                aria-hidden="true"></i>&nbsp;&nbsp;{{ Auth::user()->first_name }}{{ Auth::user()->last_name }}</a>
                                         <ul>
                                             @can('view_backend')
                                                 <li>
