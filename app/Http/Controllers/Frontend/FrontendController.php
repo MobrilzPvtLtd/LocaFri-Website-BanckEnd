@@ -119,7 +119,7 @@ class FrontendController extends Controller
         'password' => Hash::make($request->password),
     ]);
 
-    return redirect()->route('register')->with('success', 'Registration successful!');
+    return redirect()->route('login')->with('success', 'Registration successful!');
 }
 
 public function contact()
