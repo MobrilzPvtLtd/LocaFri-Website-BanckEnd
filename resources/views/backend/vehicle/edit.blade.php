@@ -97,12 +97,10 @@
                                             Romont Gare</option>
                                     </select>
                                 </div>
-
-                                <div class="form-group mb-2 col-6">
+                                {{-- <div class="form-group mb-2 col-6">
                                     <label for="image">{{ __('messages.brand_image') }}</label>
                                     <input type="file" class="form-control" name="image[]" id="imageUpload" multiple>
                                     <div id="imagePreview" class="mt-2"></div>
-
                                     @php
                                         $uploadedImages = json_decode($vehicle->image);
                                     @endphp
@@ -126,8 +124,67 @@
                                     @error('image')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
+                                </div> --}}
+                                 <div class="form-group mb-2 col-6">
+                                    <label for="image">{{ __('messages.brand_image') }}</label>
+                                    <input type="file" class="form-control" name="image[]" id="imageUpload" multiple>
+                                    <div id="imagePreview" class="mt-2"></div>
+                                @php
+                                        $uploadedImages = json_decode($vehicle->image);
+                                    @endphp
+                                    @if (isset($uploadedImages) && count($uploadedImages) > 0)
+                                        <div class="mt-2">
+                                            <div class="d-flex flex-wrap gap-2" id="existingImages">
+                                                @foreach ($uploadedImages as $image)
+                                                    <div class="uploaded-image" data-image="{{ $image }}">
+                                                        <div class="img-preview">
+                                                            <img src="{{ asset('public/storage/' . $image) }}"
+                                                            alt="Brand Image" width="100"
+                                                            class="img-thumbnail preview-img">
+                                                            <button class="close-btn btn btn-danger btn-sm">×</button>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                              </div>
+                                        </div>
+                                    @endif
+                                @error('image')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
-
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const existingImagesContainer = document.getElementById('existingImages');
+                                        if (existingImagesContainer) {
+                                            existingImagesContainer.addEventListener('click', function (event) {
+                                                if (event.target.classList.contains('close-btn')) {
+                                                    const uploadedImage = event.target.closest('.uploaded-image');
+                                                    const imageName = uploadedImage.dataset.image;
+                                                     if (confirm('Are you sure you want to delete this image?')) {
+                                                        fetch('{{ route("vehicle.deleteImage") }}', {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                            },
+                                                            body: JSON.stringify({ image: imageName })
+                                                        })
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            if (data.success) {
+                                                                uploadedImage.remove();
+                                                            } else {
+                                                                alert('Failed to delete the image.');
+                                                            }
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
+                                
 
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="body">{{ __('messages.body')}}</label>

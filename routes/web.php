@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
     // vehicle
     Route::resource('admin/vehicle', VehicleController::class);
     Route::delete('/vehicle/{vehicle}/remove-image', [VehicleController::class, 'removeImage'])->name('vehicle.removeImage');
+    Route::post('/vehicle/delete-image', [VehicleController::class, 'deleteImage'])->name('vehicle.deleteImage');
     Route::resource('admin/vehiclestatus', VehiclestatusController::class);
 
     // alert

@@ -141,11 +141,7 @@ public function show($id) {
         if (!empty($request->features)) {
             $vehicleData['features'] = json_encode($request->features);
         }
-
-        // $vehicleData['available_time'] = $availableDatetime;
         $vehicleData['featured'] = $request->has('featured');
-
-        // Update the vehicle record
         $vehicle->update($vehicleData);
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle has been updated successfully.');
@@ -156,4 +152,31 @@ public function show($id) {
         $vehicle->delete();
         return redirect()->route('vehicle.index');
     }
+ 
+
+    public function deleteImage(Request $request)
+{
+    $request->validate([
+        'image' => 'required|string',
+    ]);
+
+    $imageName = $request->input('image');
+    $vehicle = Vehicle::whereJsonContains('image', $imageName)->first();
+
+    if ($vehicle) {
+        Storage::disk('public')->delete($imageName);
+        $images = json_decode($vehicle->image, true);
+        $updatedImages = array_filter($images, fn($image) => $image !== $imageName);
+        $vehicle->image = json_encode(array_values($updatedImages));
+        $vehicle->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false], 404);
+}
+
+
+
+
 }
