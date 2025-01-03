@@ -50,25 +50,40 @@ require __DIR__.'/auth.php';
 // return view('email.booking-email');
 // });
 
+
+// Register
+Route::get('/register', [FrontendController::class, 'register'])->name('register');
+Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
+
+// login
+Route::get('/login', [FrontendController::class, 'login'])->name('login');
+
+//Google
+Route::get('/login/google', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleGoogleCallback']);
+
+//Facebook
+Route::get('/login/facebook', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('/login/facebook/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleFacebookCallback']);
+
+
 Route::group(['middleware' => ['auth']], function () {
     // vehicle
     Route::resource('admin/vehicle', VehicleController::class);
     Route::delete('/vehicle/{vehicle}/remove-image', [VehicleController::class, 'removeImage'])->name('vehicle.removeImage');
-
-    // vehiclestatus
     Route::resource('admin/vehiclestatus', VehiclestatusController::class);
+
     // alert
     Route::resource('admin/alert', AlertController::class);
 
-   Route::resource('admin/contact', ContactsController::class);
-//
-   Route::patch('/contacts/{id}', [ContactsController::class, 'update'])->name('contact.update');
-   Route::get('/contacts/{id}/view', [ContactsController::class, 'view'])->name('contact.view');
+    Route::resource('admin/contact', ContactsController::class);
+    Route::patch('/contacts/{id}', [ContactsController::class, 'update'])->name('contact.update');
+    Route::get('/contacts/{id}/view', [ContactsController::class, 'view'])->name('contact.view');
+    Route::get('/contacts/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
+    Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contact.restore');
+    Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contact.destroy');
+    Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
 
-   Route::get('/contacts/trash', [ContactsController::class, 'viewTrash'])->name('contact.trash');
-   Route::patch('/contacts/{id}/restore', [ContactsController::class, 'restore'])->name('contact.restore');
-   Route::delete('/contacts/{id}/destroy', [ContactsController::class, 'destroy'])->name('contact.destroy');
-   Route::post('is_view', [ContactsController::class, 'is_view'])->name('is_view');
     Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
     Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
     Route::post('is_contract', [ReservationController::class, 'is_contract'])->name('is_contract');
@@ -77,10 +92,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/reject', RejectController::class);
     // Route::post('reject/addBack/{id}', [RejectController::class, 'addBack'])->name('reject.addBack');
 
-
     Route::post('admin/customercontact/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
     Route::post('/confirm-contract', [CompleteContractController::class, 'confirmContract'])->name('confirm.contract');
-
 
     // contact
     Route::resource('admin/enquiry', EnquiryController::class);
@@ -94,9 +107,6 @@ Route::group(['middleware' => ['auth']], function () {
     //CompleteContract
     Route::resource('admin/completecontract', CompleteContractController::class);
     Route::resource('admin/completedcontract', CompletedController::class);
-
-
-    Route::get('backend/checkin', [CheckInContrapoller::class, 'index'])->name('checkin.index');
 });
 
 // payment getwey
@@ -109,22 +119,18 @@ Route::post('twint/payment', [TwintController::class, 'processPayment'])->name('
 Route::get('twint/success', [TwintController::class, 'success'])->name('twint.success');
 Route::get('twint/failure', [TwintController::class, 'failure'])->name('twint.failure');
 
-
 //frontend routes
-
 Route::get('reservation', [FrontendController::class, 'reservation'])->name('reservation');
 Route::post('booking-checkout', [BookingController::class, 'bookingCheckout'])->name('booking-checkout');
 
-// Route::post('reservation', [FrontendController::class, 'save'])->name('reservation.save');
-
 // contact
-Route::get('booking', [BookingController::class, 'booking'])->name('booking');
-
-// contact
+Route::get('contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('contact', [ContactController::class, 'submit'])->name('contact.submit');
+
 // home route
-Route::get('thank-you', [FrontendController::class, 'thank_you'])->name('thank-you');
 Route::get('home', [FrontendController::class, 'index'])->name('home');
+Route::get('thank-you', [FrontendController::class, 'thank_you'])->name('thank-you');
+
 // cars
 Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
 Route::post('/cars-post', [FrontendController::class, 'carsPost'])->name('cars-post');
@@ -132,33 +138,11 @@ Route::post('/cars-post', [FrontendController::class, 'carsPost'])->name('cars-p
 // cardetails
 Route::post('/carsdetails-post', [FrontendController::class, 'carsdetailsPost'])->name('carsdetails-post');
 Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->name('carsdetails');
-// login
-Route::get('/login', [FrontendController::class, 'login'])->name('login');
-
-
-Route::get('/login/google', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('/login/google/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleGoogleCallback']);
-//Facebook
-Route::get('/login/facebook', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
-Route::get('/login/facebook/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'handleFacebookCallback']);
-
-
-
-// Register
-Route::get('/register', [FrontendController::class, 'register'])->name('register');
-
-Route::get('contact', [FrontendController::class, 'contact'])->name('contact');
-
-
-Route::get('/register', [FrontendController::class, 'register'])->name('register');
-Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
-
 
 Route::view('/keybox', 'frontend.keybox');
+
 // Language Switch
 Route::get('language/{language}', [LanguageController::class, 'switch'])->name('language.switch');
-
-Route::get('dashboard', 'App\Http\Controllers\Frontend\FrontendController@index')->name('dashboard');
 
 // pages
 Route::get('terms', Terms::class)->name('terms');
