@@ -44,10 +44,12 @@
                                     <div class="field-set">
                                         <input type="email" name="email" id="name" class="form-control"
                                             placeholder="Email" />
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
                                     <div class="field-set">
                                         <input type="password" name="password" id="name" class="form-control"
                                             placeholder="{!! __('messages.password') !!} " />
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                                     <div id="submit">
                                         <input type="submit" id="send_message" value="{!! __('messages.sign_in') !!}"

@@ -105,7 +105,7 @@ class FrontendController extends Controller
 {
     $request->validate([
         'first_name' => 'required|string|max:255',
-        'name' => 'required|string|max:255|unique:users',
+        // 'name' => 'required|string|max:255|unique:users',
         'email' => 'required|email|unique:users',
         'mobile' => 'required|numeric',
         'password' => 'required|min:6|confirmed',
@@ -113,7 +113,7 @@ class FrontendController extends Controller
 
     User::create([
         'first_name' => $request->first_name,
-        'name' => $request->name,
+        'last_name' => $request->last_name,
         'email' => $request->email,
         'mobile' => $request->mobile,
         'password' => Hash::make($request->password),

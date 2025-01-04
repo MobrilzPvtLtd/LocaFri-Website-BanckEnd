@@ -51,52 +51,40 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>{!! __('messages.name') !!}</label>
+                                    <label>{!! __('messages.first_name') !!}</label>
                                     <input type="text" name="first_name" class="form-control"
                                         value="{{ old('first_name') }}" required>
-                                    @error('first_name')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label>{!! __('messages.username') !!}</label>
-                                    <input type="text" name="name" class="form-control" value="{{ old('name') }}"
-                                        required>
-                                    @error('name')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    <label>{!! __('messages.last_name') !!}</label>
+                                    <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>{!! __('messages.email_address') !!}</label>
-                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}"
-                                        required>
-                                    @error('email')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>{!! __('messages.phone') !!}</label>
                                     <input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}"
                                         required>
-                                    @error('mobile')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>{!! __('messages.password') !!}</label>
                                     <input type="password" name="password" class="form-control" required>
-                                    @error('password')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>{!! __('messages.re_password') !!}</label>
                                     <input type="password" name="password_confirmation" class="form-control" required>
+                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                 </div>
 
                                 <div class="col-md-12">
