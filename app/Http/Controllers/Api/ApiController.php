@@ -390,7 +390,6 @@ class ApiController extends Controller
             ]);
         }
 
-        $user->password = bcrypt($request->password);
         $user->otp = $otp;
         $user->save();
 
