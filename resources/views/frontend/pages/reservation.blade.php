@@ -167,9 +167,9 @@
                                 class="text-danger">*</span></label>
                         <input type="text" name="address_first" class="form-control" id="address"
                             placeholder="1234 Main St">
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
+                        @error('address_first')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
@@ -183,7 +183,7 @@
                                 class="text-danger">*</span></label>
                         <input type="text" name="zipcode" class="form-control" id="zipcode"
                             required placeholder="Zip Code">
-                            @error('zipcode')
+                        @error('zipcode')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -192,9 +192,9 @@
                                 class="text-danger">*</span></label>
                         <input type="text" name="city" class="form-control" id="city"
                            required placeholder="{{ __('messages.city') }}">
-                           @error('city')
+                        @error('city')
                            <div class="text-danger">{{ $message }}</div>
-                       @enderror
+                        @enderror
                     </div>
 
                     {{-- <div class="row">
@@ -229,12 +229,18 @@
                     <hr class="mb-4">
 
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="same-address">
+                        <input type="checkbox" class="custom-control-input" id="same-address" name="billing_address">
                         <label class="custom-control-label" for="same-address">{{ __('messages.shipping_address_is_same_as_billing_address')}}</label>
+                        @error('billing_address')
+                           <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="save-info">
+                        <input type="checkbox" class="custom-control-input" id="save-info" name="next_time">
                         <label class="custom-control-label" for="save-info">{{ __('messages.save_this_information_for_next_time')}}</label>
+                        @error('next_time')
+                           <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <hr class="mb-4">
                     <label class="custom-control-label mb-8" for="same-address">{{ __('messages.choose_payment_type')}}</label>
