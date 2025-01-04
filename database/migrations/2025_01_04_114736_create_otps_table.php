@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->nullable();
             $table->string('otp')->nullable();
-            $table->boolean('expired')->default(0);
+            $table->boolean('verified')->default(0);
             $table->timestamps();
         });
     }

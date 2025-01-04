@@ -25,6 +25,7 @@ use App\Mail\ProcessedBookingMail;
 
 
 use App\Models\Alert;
+use App\Models\Otp;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -376,24 +377,32 @@ class ApiController extends Controller
     public function login(Request $request) {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
         ]);
 
-        $otp = mt_rand(100000, 999999);
+        $otp_code = mt_rand(100000, 999999);
 
-        $user = User::where('email', $request->email)->first();
+        // $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            $user = User::create([
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
+        // if (!$user) {
+        //     $user = User::create([
+        //         'email' => $request->email,
+        //         'password' => bcrypt($request->password),
+        //     ]);
+        // }
+
+        // $user->otp = $otp;
+        // $user->save();
+
+        $otp = Otp::where('email', $request->email)->first();
+        if(!$otp){
+            $otp = new Otp();
+            $otp->email = $request->email;
         }
+        $otp->otp = $otp_code;
+        $otp->verified = 0;
+        $otp->save();
 
-        $user->otp = $otp;
-        $user->save();
-
-        Mail::to($user->email)->send(new SendOtpMail($otp));
+        Mail::to($otp->email)->send(new SendOtpMail($otp->otp));
 
         return response()->json([
             'status' => true,
@@ -406,73 +415,60 @@ class ApiController extends Controller
             'email' => 'required|email',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $otp = Otp::where('email', $request->email)->first();
 
-        if (!$user) {
-            return response()->json(['status' => false,'message' => 'User not found.'], 404);
+        if (!$otp) {
+            return response()->json(['status' => false,'message' => 'The OTP provided is invalid.'], 404);
         }
 
-        $otp = mt_rand(100000, 999999);
+        $otp_code = mt_rand(100000, 999999);
 
-        $user->otp = $otp;
-        $user->verified = 0;
-        $user->save();
+        $otp->otp = $otp_code;
+        $otp->verified = 0;
+        $otp->save();
 
-        Mail::to($user->email)->send(new SendOtpMail($otp));
+        Mail::to($otp->email)->send(new SendOtpMail($otp->otp));
 
         return response()->json([
             'status' => true,
-            'message' => 'A new OTP has been sent to your email.',
+            'message' => 'An OTP has been resent to your email. Please check for the 6-digit code.',
         ]);
     }
 
     public function verifyOtp(Request $request) {
-        $request->validate(['email' => 'required|email', 'otp' => 'required']);
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required'
+        ]);
 
-        // Find user by email
-        $user = User::where('email', $request->email)->first();
-
-        // Check if the user exists
-        if (!$user) {
-            return response()->json(['status' => false, 'message' => 'User not found.'], 404);
+        $otp = Otp::where('email', $request->email)
+              ->where('otp', $request->otp)
+              ->first();
+        if (!$otp) {
+            return response()->json(['status' => false, 'message' => 'The OTP provided is invalid.'], 422);
         }
 
-        // Check if the OTP matches
-        if ($user->otp !== $request->otp) {
-            return response()->json(['status' => false, 'message' => 'Invalid OTP.'], 401);
+        if ($otp->verified) {
+            return response()->json(['status' => false, 'message' => 'The OTP has already been verified.'], 422);
         }
 
-        // If the OTP is correct, and the user hasn't been verified yet, mark them as verified
-        if ($user->verified == 0) {
-            $user->update(['otp' => null,]);
-        }
+        $otp->where('verified', 0)->update(['verified' => 1]);
 
-        // Generate a token (even if the user has already verified the OTP)
-        $token = $user->createToken('auth_token', ['*'])->plainTextToken;
+        $token = $otp->createToken('auth_token', ['myToken'])->plainTextToken;
 
-        // Set the expiration time for the token (optional, e.g., 1 day)
         $expiresAt = Carbon::now()->addDay(1);
 
-        // Return the response with token and expiration time
         return response()->json([
             'status' => true,
-            'message' => 'Your email is verified. You are now logged in.',
+            'message' => 'Your email address has been successfully verified.',
+            'expires_at' => $expiresAt->toDateTimeString(),
             'token' => $token,
-            'expires_at' => $expiresAt->toDateTimeString(), // Optionally return the expiration time
         ]);
     }
 
     public function create_contract(Request $request) {
-        if (!Auth::check()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Unauthenticated. Please login to continue.',
-            ], 401);
-        }
-
       try {
         $user = Auth::user();
-
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'vehicle_name' => 'required|string|max:255',
@@ -583,55 +579,54 @@ class ApiController extends Controller
 
 
     public function bookingHistory(Request $request)
-{
-    $transactions = Transaction::with(['booking.checkout']) // Eager load related data
-        ->whereHas('booking.checkout', function ($query) use ($request) {
-            $query->where('email', $request->email);
-        })
-        ->get();
+    {
+        $transactions = Transaction::with(['booking.checkout']) // Eager load related data
+            ->whereHas('booking.checkout', function ($query) use ($request) {
+                $query->where('email', $request->email);
+            })
+            ->get();
 
-    $transactionData = [];
+        $transactionData = [];
 
-    foreach ($transactions as $transaction) {
-        $booking = $transaction->booking->checkout ?? null;
-        $bookings = $transaction->booking ?? null;
+        foreach ($transactions as $transaction) {
+            $booking = $transaction->booking->checkout ?? null;
+            $bookings = $transaction->booking ?? null;
 
-        // Correctly retrieve the latest contract using booking_id from Transaction's booking
-        $contract = ContractIn::where('booking_id', $transaction->booking->id ?? null)->latest()->first();
-        $contract_id = $contract ? $contract->id : null;
+            // Correctly retrieve the latest contract using booking_id from Transaction's booking
+            $contract = ContractIn::where('booking_id', $transaction->booking->id ?? null)->latest()->first();
+            $contract_id = $contract ? $contract->id : null;
 
-        if ($transaction->full_payment_paid == 0) {
-            $apiUrl = basename(request()->url());
+            if ($transaction->full_payment_paid == 0) {
+                $apiUrl = basename(request()->url());
 
-            $payment_link = $transaction && $transaction->remaining_amount > 0
-                ? route('stripe', [
-                    'price' => $transaction->remaining_amount,
-                    'vehicle_name' => $transaction->booking->name ?? 'N/A',
-                    'customer_email' => $transaction->booking->checkout->email,
-                    'booking_id' => $transaction->booking->id ?? 'N/A',
-                    'payment_type' => 'payment_full',
-                    'apiUrl' => $apiUrl,
-                ])
-                : null;
+                $payment_link = $transaction && $transaction->remaining_amount > 0
+                    ? route('stripe', [
+                        'price' => $transaction->remaining_amount,
+                        'vehicle_name' => $transaction->booking->name ?? 'N/A',
+                        'customer_email' => $transaction->booking->checkout->email,
+                        'booking_id' => $transaction->booking->id ?? 'N/A',
+                        'payment_type' => 'payment_full',
+                        'apiUrl' => $apiUrl,
+                    ])
+                    : null;
 
-            $transactionData[] = [
-                'contract_id' => $contract_id, // Include the correct contract ID
-                'booking_id' => $transaction->booking->id ?? null,
-                'total_amount' => $transaction->booking->total_price ?? null,
-                'amount_paid' => $transaction->amount ?? null,
-                'remaining_amount' => $transaction->remaining_amount ?? null,
-                'payment_link' => $payment_link,
-                'bookings' => $bookings,
-            ];
+                $transactionData[] = [
+                    'contract_id' => $contract_id, // Include the correct contract ID
+                    'booking_id' => $transaction->booking->id ?? null,
+                    'total_amount' => $transaction->booking->total_price ?? null,
+                    'amount_paid' => $transaction->amount ?? null,
+                    'remaining_amount' => $transaction->remaining_amount ?? null,
+                    'payment_link' => $payment_link,
+                    'bookings' => $bookings,
+                ];
+            }
         }
+
+        return response()->json([
+            'status' => true,
+            'data' => $transactionData,
+        ]);
     }
-
-    return response()->json([
-        'status' => true,
-        'data' => $transactionData,
-    ]);
-}
-
 
     public function logout(Request $request) {
         $user = $request->user();
@@ -821,17 +816,17 @@ class ApiController extends Controller
             ->first();
 
         if (!$contract) {
-            return response()->json(['error' => 'Contract ID is invalid for this email.'], 403);
+            return response()->json(['status' => false,'error' => 'Contract ID is invalid for this email.'], 403);
         }
 
         $booking = Booking::where('id', $contract->booking_id)->first();
         if (!$booking || $booking->is_confirm != 1) {
-            return response()->json(['error' => 'Booking is not confirmed or does not exist.'], 403);
+            return response()->json(['status' => false, 'error' => 'Booking is not confirmed or does not exist.'], 403);
         }
 
         $transaction = Transaction::where('order_id', $booking->id)->first();
         if (!$transaction || $transaction->full_payment_paid == 0) {
-            return response()->json(['error' => 'Checkout cannot proceed. Full payment is not completed.'], 403);
+            return response()->json(['status' => false,'error' => 'Checkout cannot proceed. Full payment is not completed.'], 403);
         }
 
         $contractOut = ContractOut::where('contract_id', $contract->id)->first();

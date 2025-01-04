@@ -21,6 +21,13 @@ class StripeWebhookController extends Controller
         $segments = explode('/', $currentUrl);
         $apiUrl = end($segments);
 
+        $payment_full = 'payment_full';
+        $payment_partial = 'payment_partial';
+
+        if ($request->payment_type != $payment_full && $request->payment_type != $payment_partial) {
+            return response()->json(['status' => false, 'error' => 'The provided payment_type is invalid.']);
+        }
+
         $redirectUrl = route('stripe',['price' => $request->price, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
 
         return response()->json(['status' => true, 'redirectUrl' => $redirectUrl]);
@@ -65,7 +72,6 @@ class StripeWebhookController extends Controller
                 'apiUrl' => $request->apiUrl ?? '',
             ],
         ]);
-
         return redirect($response['url']);
     }
 
@@ -146,6 +152,7 @@ class StripeWebhookController extends Controller
             'collectionDate' => $booking->collectionDate,
             'targetDate' => $booking->targetDate,
             'status' => $booking->status,
+            'strip_payment_status' => $response->status,
             'payment_type' => $booking->payment_type,
             'payment_method' => $transaction->payment_method,
             'payment_status' => $transaction->payment_status,
