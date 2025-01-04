@@ -376,18 +376,24 @@ class ApiController extends Controller
     public function login(Request $request) {
         $request->validate([
             'email' => 'required|email',
+            'password' => 'required',
         ]);
+
+        $otp = mt_rand(100000, 999999);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             $user = User::create([
                 'email' => $request->email,
+                'password' => bcrypt($request->password),
             ]);
         }
-        $otp = mt_rand(100000, 999999);
+
+        $user->password = bcrypt($request->password);
         $user->otp = $otp;
         $user->save();
+
         Mail::to($user->email)->send(new SendOtpMail($otp));
 
         return response()->json([
