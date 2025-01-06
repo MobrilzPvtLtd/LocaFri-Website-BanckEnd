@@ -30,8 +30,9 @@ class StripeWebhookController extends Controller
 
         $redirectUrl = route('stripe',['price' => $request->price, 'vehicle_name' => $request->vehicle_name, 'customer_email' => $request->customer_email,'booking_id' => $request->booking_id,'payment_type' => $request->payment_type, 'apiUrl' => $apiUrl]);
 
-        return response()->json(['status' => true, 'redirectUrl' => $redirectUrl]);
+        return response()->json(['status' => true,'booking_id' => $request->booking_id, 'redirectUrl' => $redirectUrl]);
     }
+
     public function stripe(Request $request){
         if($request->payment_type == "payment_partial"){
             // $amount = $request->price;
@@ -117,6 +118,7 @@ class StripeWebhookController extends Controller
         $transaction->payment_method = "stripe";
         $transaction->date_time = \Carbon\Carbon::now();
         $transaction->payment_status = $response->metadata->payment_type == "payment_full" ? $response->status : "payment_partial";
+        $transaction->payment_paid = $response->status;
         $transaction->save();
 
         $booking = Booking::find($response->metadata->booking_id);
@@ -183,6 +185,30 @@ class StripeWebhookController extends Controller
         } else {
             return redirect()->route('thank-you');
         }
+    }
+
+    public function transactionResponse(Request $request){
+        $transaction = Transaction::where('order_id',$request->booking_id)->latest()->first();
+
+        if (!$transaction) {
+            return response()->json(['status' => false, 'error' => 'The provided booking_id is invalid.']);
+        }
+
+        $booking = Booking::find($transaction->order_id);
+
+        $data = [
+            'booking_status' => $booking->status,
+            'payment_paid' => $transaction->payment_paid,
+            'payment_type' => $booking->payment_type,
+            'payment_method' => $transaction->payment_method,
+            // 'payment_status' => $transaction->payment_status,
+            'total_price' => $booking->total_price,
+            'amount_paid' => $transaction->amount,
+            'remaining_amount' => $transaction->remaining_amount,
+        ];
+        // dd($transaction);
+
+        return response()->json(['status' => true, 'data' => $data]);
     }
 
     public function stripeCheckoutCancel(Request $request){

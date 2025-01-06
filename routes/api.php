@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::put('updateProfile', [ApiController::class, 'updateProfile']);
     Route::post('create-contract', [ApiController::class, 'create_contract']);
     Route::post('stripe-payment', [StripeWebhookController::class, 'stripePayment']);
+    Route::post('transaction-response', [StripeWebhookController::class, 'transactionResponse']);
     Route::post('checkin', [ApiController::class, 'checkin']);
     Route::post('checkout', [ApiController::class, 'checkout']);
     Route::get('getPaymentStatus', [ApiController::class, 'getPaymentStatus']);
