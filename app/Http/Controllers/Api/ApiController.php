@@ -485,7 +485,7 @@ class ApiController extends Controller
             'week_count' => 'required|integer|min:0',
             'month_count' => 'required|integer|min:0',
             'first_name' => 'required|string|max:255',
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required|email|exists:otps,email',
         ], [
             'first_name.required' => 'First name is required.',
             'email.required' => 'Email address is required.',
