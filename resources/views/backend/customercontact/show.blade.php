@@ -32,14 +32,14 @@
                     <p><strong>{{ __('messages.drop_off_location') }}:</strong> {{ $booking->dropOffLocation }}</p>
                     <p><strong>{{ __('messages.reservation') }} {{ __('messages.status') }}:</strong>
                         @if ($booking->is_contract == 1)
-                        {{ __('messages.submit_check_in') }}
+                            {{ __('messages.submit_check_in') }}
                         @elseif ($booking->is_contract == 2)
-                        {{ __('messages.check_in_submitted') }}
+                            {{ __('messages.check_in_submitted') }}
                         @else
-                        {{ __('messages.accepted_bookings') }}
+                            {{ __('messages.accepted_bookings') }}
                         @endif
-                        </p>
-<p><strong>Total Price:</strong> CHF {{ $booking->total_price }}</p>
+                    </p>
+                    <p><strong>Total Price:</strong> CHF {{ $booking->total_price }}</p>
 
                     <p><strong>{{ __('messages.payment_methods') }}:</strong>
                         @if (isset($tran->payment_method))
@@ -90,7 +90,8 @@
                                 {{ \Carbon\Carbon::parse($booking->collectionTime)->format('h:i A') }}
                             </p>
 
-                            <p><strong>{{ __('messages.additional_driver') }}:</strong> CHF {{ $booking->additional_driver }}
+                            <p><strong>{{ __('messages.additional_driver') }}:</strong> CHF
+                                {{ $booking->additional_driver }}
                             </p>
                             <p><strong>{{ __('messages.booster_seat') }}:</strong> CHF {{ $booking->booster_seat }}</p>
                             <p><strong>{{ __('messages.child_seat') }}:</strong> CHF {{ $booking->child_seat }}</p>
@@ -116,9 +117,11 @@
                         <p><strong>{{ __('messages.license_photo') }}:</strong></p>
                         <img src="{{ $booking->ContractIn->license_photo }}" alt="License Photo"
                             style="max-width: 100%; height: auto;" />
-                        <p><strong>{{ __('messages.record_kilometers') }}:</strong> {{ $booking->ContractIn->record_kilometers }}</p>
+                        <p><strong>{{ __('messages.record_kilometers') }}:</strong>
+                            {{ $booking->ContractIn->record_kilometers }}</p>
                         <p><strong>{{ __('messages.fuel_level') }}:</strong> {{ $booking->ContractIn->fuel_level }}</p>
-                        <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong> {{ $booking->ContractIn->vehicle_damage_comments }}
+                        <p><strong>{{ __('messages.vehicle_damage_comments') }}:</strong>
+                            {{ $booking->ContractIn->vehicle_damage_comments }}
                         </p>
                         <p><strong>{{ __('messages.customer_signature') }}:</strong></p>
                         <img src="{{ $booking->ContractIn->customer_signature }}" alt="Customer Signature"
