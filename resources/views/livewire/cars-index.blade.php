@@ -153,7 +153,7 @@
                                         </div>
                                         <div class="d-price">
                                             Prix <span>
-                                                {{ $vehicle->Dprice }}/1{!! __('messages.price') !!}
+                                                {{ $vehicle->Dprice }} /{!! __('messages.per_day') !!}
                                             </span>
                                             <form action="{{ route('carsdetails-post') }}" method="post">
                                                 @csrf
