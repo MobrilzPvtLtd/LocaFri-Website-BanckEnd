@@ -82,12 +82,12 @@
                     </div>
                     <td>
                         <div class="d-flex flex-column flex-md-row justify-content-between">
-                            <button type="button" class="btn btn-success btn-sm bookingAccept"
+                            <button type="button" class="btn btn-success btn-sm bookingAccept me-2 mb-2 mb-md-0"
                                 data-booking-id="{{ $booking->id }}">{{ __('messages.accept') }}</button>
-                            <a class="btn btn-info btn-sm view" data-booking-id="{{ $booking->id }}"
+                            <a class="btn btn-info btn-sm view me-2 mb-2 mb-md-0" data-booking-id="{{ $booking->id }}"
                                 href="{{ route('reservation.show', $booking->id) }}">{{ __('messages.view') }}</a>
 
-                            <button type="button" class="btn btn-danger btn-sm reject"
+                            <button type="button" class="btn btn-danger btn-sm reject me-2 mb-2 mb-md-0"
                                 data-booking-id="{{ $booking->id }}">{{ __('messages.reject') }}</button>
                         </div>
                     </td>
