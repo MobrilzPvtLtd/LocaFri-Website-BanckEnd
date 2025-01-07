@@ -127,7 +127,6 @@
                     <p>{{ __('messages.no_contract_details_available') }}</p>
                 @endif
                {{-- ContractOut Details --}}
-                    <h5 class="mt-4">{{ __('messages.contract_out') }} {{ __('messages.details') }}</h5>
                     @php
                     $checkin = $booking->ContractIn;
                     $checkout = App\Models\ContractOut::where('contract_id', $checkin->id)->first();
@@ -152,7 +151,7 @@
                     @else
                         <p><strong>{{ __('messages.no_contract_out_details') }}</strong></p>
                     @endif
-    
+
                 </div>
             </div>
         </div>
