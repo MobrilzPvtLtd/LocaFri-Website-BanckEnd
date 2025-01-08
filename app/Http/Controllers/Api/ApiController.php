@@ -469,7 +469,6 @@ class ApiController extends Controller
     public function create_contract(Request $request) {
       try {
         $user = Auth::user();
-        // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'vehicle_name' => 'required|string|max:255',
             'Dprice' => 'required|numeric|min:0',
@@ -486,6 +485,9 @@ class ApiController extends Controller
             'month_count' => 'required|integer|min:0',
             'first_name' => 'required|string|max:255',
             'email' => 'required|email|exists:otps,email',
+            'address_first' => 'required|string|max:255',
+            'zipcode' => 'required |digits:6',
+            'city' => 'required|string|max:100',
         ], [
             'first_name.required' => 'First name is required.',
             'email.required' => 'Email address is required.',
@@ -544,6 +546,8 @@ class ApiController extends Controller
         $checkout->phone = $request->phone;
         $checkout->address_first = $request->address_first;
         $checkout->address_last = $request->address_last;
+        $checkout->zipcode = $request->zipcode;
+        $checkout->city = $request->city;
         $checkout->save();
 
         $message = "Your request has been processed and will be answered soon.";
@@ -591,8 +595,6 @@ class ApiController extends Controller
         foreach ($transactions as $transaction) {
             $booking = $transaction->booking->checkout ?? null;
             $bookings = $transaction->booking ?? null;
-
-            // Correctly retrieve the latest contract using booking_id from Transaction's booking
             $contract = ContractIn::where('booking_id', $transaction->booking->id ?? null)->latest()->first();
             $contract_id = $contract ? $contract->id : null;
 
@@ -611,7 +613,7 @@ class ApiController extends Controller
                     : null;
 
                 $transactionData[] = [
-                    'contract_id' => $contract_id, // Include the correct contract ID
+                    'contract_id' => $contract_id, 
                     'booking_id' => $transaction->booking->id ?? null,
                     'total_amount' => $transaction->booking->total_price ?? null,
                     'amount_paid' => $transaction->amount ?? null,
