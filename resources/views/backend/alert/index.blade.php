@@ -27,7 +27,7 @@
                                             ($alert->vahicleName);
                                         @endphp
                                         <td>{{ $alert->id }}</td>
-                                        <td>{{ $alert->vahicleName->name ?? 'No vehicle' }}</td>
+                                        <td>{{ $alert->vehicle->name ?? 'No vehicle' }}</td>
                                         <td>{{ $alert->kilometer }}</td>
                                         <td>{{ $alert->servicing }}</td>
                                         <td>

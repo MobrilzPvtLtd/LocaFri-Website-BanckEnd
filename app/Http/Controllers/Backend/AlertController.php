@@ -11,7 +11,7 @@ class AlertController extends Controller
 {
     public function index()
     {
-        $alerts = Alert::with(['vahicleName'])
+        $alerts = Alert::with(['vehicle'])
             ->where('status', 'pending')
             ->select('alerts.*')
             ->get();
@@ -36,8 +36,6 @@ class AlertController extends Controller
             'servicing' => 'required|string',
             'status' => 'required|string',
         ]);
-
-        // Store the new alert
         Alert::create($request->all());
 
         return redirect()->route('alert.index')->with('success', 'Alert has been created successfully.');
