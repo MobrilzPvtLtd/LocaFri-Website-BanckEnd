@@ -24,7 +24,7 @@
                                 @foreach ($alerts as $alert)
                                     <tr>
                                         @php
-                                            ($alert->vahicleName);
+                                            ($alert->vehicle);
                                         @endphp
                                         <td>{{ $alert->id }}</td>
                                         <td>{{ $alert->vehicle->name ?? 'No vehicle' }}</td>

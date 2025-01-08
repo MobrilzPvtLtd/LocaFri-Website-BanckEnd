@@ -15,7 +15,7 @@ class Alert extends Model
         'status',
         'seen',
     ];
-   public function vahicleName() {
+   public function vehicle() {
         return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
 }

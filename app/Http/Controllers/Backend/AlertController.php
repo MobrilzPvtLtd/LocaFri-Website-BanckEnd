@@ -14,6 +14,7 @@ class AlertController extends Controller
         $alerts = Alert::with(['vehicle'])
             ->where('status', 'pending')
             ->select('alerts.*')
+            ->orderBy('id', 'desc')
             ->get();
         Alert::whereIn('id', $alerts->pluck('id'))->update(['seen' => 1]);
         return view('backend.alert.index', compact('alerts'));
