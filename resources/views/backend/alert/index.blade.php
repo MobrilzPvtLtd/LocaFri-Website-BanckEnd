@@ -22,18 +22,20 @@
                             </thead>
                             <tbody>
                                 @foreach ($alerts as $alert)
-                                @php
-                                ($alert->vehicle);
-                                @endphp
-                                @php
-                                $vehicle = App\Models\Vehicle::find($alert->vehicle_id); 
-                                @endphp
-                                <td>{{ $alert->id }}</td>
-                                <td>{{ $vehicle ? $vehicle->name : 'No vehicle' }}</td> 
-                                <td>{{ $alert->kilometer }}</td>
-                                <td>{{ $alert->servicing }}</td>
-                                <td>
-                                <span class="{{ $alert->status == 'pending' ? 'btn btn-warning btn-sm' : 'btn btn-success btn-sm' }}">
+                                    @php
+                                        $vehicle = App\Models\Vehicle::join('alerts','alerts.vehicle_id','vehicles.id')
+                                        ->select('vehicles.name')->first();
+                                    @endphp
+                                    <tr>
+                                        @php
+                                            ($alert->vehicle);
+                                        @endphp
+                                        <td>{{ $alert->id }}</td>
+                                        <td>{{ $vehicle->name ?? 'No vehicle' }}</td>
+                                        <td>{{ $alert->kilometer }}</td>
+                                        <td>{{ $alert->servicing }}</td>
+                                        <td>
+                                            <span class="{{ $alert->status == 'pending' ? 'btn btn-warning btn-sm' : 'btn btn-success btn-sm' }}">
                                                 {{ $alert->status }}
                                             </span>
                                         </td>
