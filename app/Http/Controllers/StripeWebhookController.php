@@ -99,8 +99,6 @@ class StripeWebhookController extends Controller
             }
             $remaining_amount = $booking_old->total_price;
         }
-
-
         if ($response->metadata->payment_type == "payment_partial") {
             $remaining_amount -= $booking_old->total_price * 0.10;
         } else {
@@ -133,35 +131,35 @@ class StripeWebhookController extends Controller
         // $discount = $bookingFirst->total_price * 0.10;
         // $remaining_amount -= $discount;
 
-        $data = [
-            'name' => $checkout->first_name . ' ' . $checkout->last_name,
-            'email' => $response->customer_email,
-            'address_first' => $checkout->address_first,
-            'address_last' => $checkout->address_last,
-            'vehicle_name' => $booking->name,
-            'day_price' => $booking->Dprice,
-            'week_price' => $booking->wprice,
-            'month_price' => $booking->mprice,
-            'additional_driver' => $booking->additional_driver,
-            'booster_seat' => $booking->booster_seat,
-            'child_seat' => $booking->child_seat,
-            'exit_permit' => $booking->exit_permit,
-            'pickUpLocation' => $booking->pickUpLocation,
-            'dropOffLocation' => $booking->dropOffLocation,
-            'pickUpDate' => $booking->pickUpDate,
-            'pickUpTime' => $booking->pickUpTime,
-            'collectionTime' => $booking->collectionTime,
-            'collectionDate' => $booking->collectionDate,
-            'targetDate' => $booking->targetDate,
-            'status' => $booking->status,
-            'strip_payment_status' => $response->status,
-            'payment_type' => $booking->payment_type,
-            'payment_method' => $transaction->payment_method,
-            'payment_status' => $transaction->payment_status,
-            'total_price' => $booking->total_price,
-            'amount_paid' => $transaction->amount,
-            'remaining_amount' => $transaction->remaining_amount,
-        ];
+        // $data = [
+        //     'name' => $checkout->first_name . ' ' . $checkout->last_name,
+        //     'email' => $response->customer_email,
+        //     'address_first' => $checkout->address_first,
+        //     'address_last' => $checkout->address_last,
+        //     'vehicle_name' => $booking->name,
+        //     'day_price' => $booking->Dprice,
+        //     'week_price' => $booking->wprice,
+        //     'month_price' => $booking->mprice,
+        //     'additional_driver' => $booking->additional_driver,
+        //     'booster_seat' => $booking->booster_seat,
+        //     'child_seat' => $booking->child_seat,
+        //     'exit_permit' => $booking->exit_permit,
+        //     'pickUpLocation' => $booking->pickUpLocation,
+        //     'dropOffLocation' => $booking->dropOffLocation,
+        //     'pickUpDate' => $booking->pickUpDate,
+        //     'pickUpTime' => $booking->pickUpTime,
+        //     'collectionTime' => $booking->collectionTime,
+        //     'collectionDate' => $booking->collectionDate,
+        //     'targetDate' => $booking->targetDate,
+        //     'status' => $booking->status,
+        //     'strip_payment_status' => $response->status,
+        //     'payment_type' => $booking->payment_type,
+        //     'payment_method' => $transaction->payment_method,
+        //     'payment_status' => $transaction->payment_status,
+        //     'total_price' => $booking->total_price,
+        //     'amount_paid' => $transaction->amount,
+        //     'remaining_amount' => $transaction->remaining_amount,
+        // ];
 
         if ($response->customer_email) {
             Mail::to($response->customer_email)->send(new BookingMail($data));
@@ -180,11 +178,12 @@ class StripeWebhookController extends Controller
             Mail::to($response->customer_email)->send(new PaymentReminderMail($reminderData));
         }
 
-        if ($response->metadata->apiUrl) {
-            return response()->json(['status' => true, 'data' => $data]);
-        } else {
+        // if ($response->metadata->apiUrl) {
+        //     return response()->json(['status' => true, 'data' => $data]);
+        // }
+        //  else {
             return redirect()->route('thank-you');
-        }
+        // }
     }
 
     public function transactionResponse(Request $request){
@@ -206,9 +205,8 @@ class StripeWebhookController extends Controller
             'amount_paid' => $transaction->amount,
             'remaining_amount' => $transaction->remaining_amount,
         ];
-        // dd($transaction);
-
-        return response()->json(['status' => true, 'data' => $data]);
+        
+       return response()->json(['status' => true, 'data' => $data]);
     }
 
     public function stripeCheckoutCancel(Request $request){
