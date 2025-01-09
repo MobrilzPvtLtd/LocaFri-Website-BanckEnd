@@ -96,21 +96,23 @@
                     <h4>Car Seats</h4>
                     <div class="de_form">
                         @foreach ($availableSeats as $seat)
-                            @if($seat != 0)
+                            @if ($seat != 0)
                                 <div class="de_checkbox">
-                                    <input id="seat_{{ $seat }}" wire:model.live="selectedSeats" type="checkbox" value="{{ $seat }}">
-                                    <label for="seat_{{ $seat }}">{{ $seat }} {!! __('messages.seat') !!}</label>
+                                    <input id="seat_{{ $seat }}" wire:model.live="selectedSeats"
+                                        type="checkbox" value="{{ $seat }}">
+                                    <label for="seat_{{ $seat }}">{{ $seat }}
+                                        {!! __('messages.seat') !!}</label>
                                 </div>
                             @endif
                         @endforeach
                     </div>
                 </div>
 
-        </div>
+            </div>
             <div class="col-lg-9">
                 <div class="row">
                     @foreach ($vehicles as $vehicle)
-                        <div class="col-xl-4 col-lg-6">
+                        <div class="col-md-4  col-lg-6 ">
                             <div class="de-item mb30">
                                 <div class="d-img">
                                     {{-- @php
@@ -140,7 +142,7 @@
                                         {{-- <div class="d-item_like">
                                             <i class="fa fa-heart"></i><span>25</span>
                                         </div> --}}
-                                        <div class="d-atr-group">
+                                        <div class="d-atr-group d-flex justify-content-between">
                                             <span class="d-atr"><img src="images/icons/1.svg"
                                                     alt="">{{ $vehicle->seat }}</span>
                                             <span class="d-atr"><img src="images/icons/2.svg"
@@ -152,13 +154,16 @@
                                                     alt="">{{ $vehicle->trans }}</span>
                                         </div>
                                         <div class="d-price">
-                                            Prix <span>
-                                                {{ $vehicle->Dprice }} /{!! __('messages.per_day') !!}
-                                            </span>
+                                            Prix
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <span>
+                                                        {{ $vehicle->Dprice }} /{!! __('messages.per_day') !!}
+                                                    </span>
+                                                </div>
                                             <form action="{{ route('carsdetails-post') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="slug"
-                                                    value="{{ $vehicle->slug }}">
+                                                <input type="hidden" name="slug" value="{{ $vehicle->slug }}">
                                                 <input type="hidden" name="pickUpLocation"
                                                     value="{{ session()->get('pickUpLocation') }}">
                                                 <input type="hidden" name="dropOffLocation"
@@ -171,9 +176,10 @@
                                                     value="{{ session()->get('collectionDate') }}">
                                                 <input type="hidden" name="collectionTime"
                                                     value="{{ session()->get('collectionTime') }}">
-                                                <button type="submit" class="btn-main"
+                                                <button type="submit" class="btn-main "
                                                     href="{{ route('carsdetails-post') }}">{!! __('messages.rent_now') !!}</button>
                                             </form>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

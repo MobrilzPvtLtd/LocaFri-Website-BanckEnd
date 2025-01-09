@@ -11675,6 +11675,7 @@ i.bg-color-secondary {
 .de-spec .d-row{
     border-bottom: solid 1px #ddd;
     padding: 2px 0;
+    display:flex;
 }
 .de-spec span{
     width:50%;
@@ -11830,7 +11831,7 @@ input[type="range"]::-moz-range-thumb {
     padding-bottom: 15px;
 }
 .de-item .d-atr{
-    font-size: 11px;
+    font-size: 14px;
     display: inline-block;
     font-weight: bold;
     color:#000000;
@@ -11907,7 +11908,7 @@ input[type="range"]::-moz-range-thumb {
 .de-item .d-price .btn-main{
     position: absolute;
     right:0;
-    bottom: 5px;
+    /* bottom: 5px; */
     padding: 2px 15px;
 }
 
