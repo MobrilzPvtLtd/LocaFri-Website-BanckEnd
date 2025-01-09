@@ -1,7 +1,7 @@
 @extends('frontend.layouts.loca')
 
 @section('title')
-    {{ config('app.name') }} - Privacy Policy
+    {{ config('app.name') }} - Privacy Policy 
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -36,7 +36,7 @@
                         At {{ config('app.name') }}, accessible at <a href="{{ config('app.url') }}">{{ config('app.url') }}</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by {{ config('app.name') }} and how we use it.
                     </p>
                     <p>
-                        If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at {{ $app_email }}.
+                        If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at info@locafri.ch.
                     </p>
                     <p>
                         This privacy policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collected in {{ config('app.name') }}. This policy is not applicable to any information collected offline or via channels other than this website.

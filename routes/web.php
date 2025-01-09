@@ -135,6 +135,9 @@ Route::post('contact', [ContactController::class, 'submit'])->name('contact.subm
 // home route
 Route::get('home', [FrontendController::class, 'index'])->name('home');
 Route::get('thank-you', [FrontendController::class, 'thank_you'])->name('thank-you');
+Route::get('terms-and-conditions', [FrontendController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+Route::get('privacy', [FrontendController::class, 'privacy'])->name('privacy');
+
 
 // cars
 Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
@@ -151,8 +154,8 @@ Route::get('language/{language}', [LanguageController::class, 'switch'])->name('
 
 // pages
 Route::get('terms', Terms::class)->name('terms');
-Route::get('privacy', Privacy::class)->name('privacy');
-Route::get('/terms-and-conditions', TermsAndConditions::class)->name('terms-and-conditions');
+// Route::get('privacy', Privacy::class)->name('privacy');
+// Route::get('/terms-and-conditions', TermsAndConditions::class)->name('terms-and-conditions');
 
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
     Route::get('/', 'FrontendController@index')->name('index');

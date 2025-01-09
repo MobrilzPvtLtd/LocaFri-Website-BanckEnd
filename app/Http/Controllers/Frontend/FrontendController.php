@@ -29,6 +29,15 @@ class FrontendController extends Controller
     {
         return view('frontend.thank-you');
     }
+    public function terms_and_conditions()
+    {
+        return view('frontend.terms-and-conditions');
+    }
+    public function privacy()
+    {
+        return view('frontend.privacy');
+    }
+
 
     public function cars()
     {
@@ -78,11 +87,7 @@ class FrontendController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function privacy()
-    {
-        return view('frontend.privacy');
-    }
-
+    
     /**
      * Terms & Conditions Page.
      *
