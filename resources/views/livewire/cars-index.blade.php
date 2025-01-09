@@ -112,7 +112,7 @@
             <div class="col-lg-9">
                 <div class="row">
                     @foreach ($vehicles as $vehicle)
-                        <div class="col-md-4  col-lg-6 ">
+                        <div class="col-md-4  col-lg-6 col-xl-6 col-xxl-4 ">
                             <div class="de-item mb30">
                                 <div class="d-img">
                                     {{-- @php
