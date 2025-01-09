@@ -22,16 +22,18 @@
                             </thead>
                             <tbody>
                                 @foreach ($alerts as $alert)
-                                    <tr>
-                                        @php
-                                            ($alert->vehicle);
-                                        @endphp
-                                        <td>{{ $alert->id }}</td>
-                                        <td>{{ $alert->vehicle->name ?? 'No vehicle' }}</td>
-                                        <td>{{ $alert->kilometer }}</td>
-                                        <td>{{ $alert->servicing }}</td>
-                                        <td>
-                                            <span class="{{ $alert->status == 'pending' ? 'btn btn-warning btn-sm' : 'btn btn-success btn-sm' }}">
+                                @php
+                                ($alert->vehicle);
+                                @endphp
+                                @php
+                                $vehicle = App\Models\Vehicle::find($alert->vehicle_id); 
+                                @endphp
+                                <td>{{ $alert->id }}</td>
+                                <td>{{ $vehicle ? $vehicle->name : 'No vehicle' }}</td> 
+                                <td>{{ $alert->kilometer }}</td>
+                                <td>{{ $alert->servicing }}</td>
+                                <td>
+                                <span class="{{ $alert->status == 'pending' ? 'btn btn-warning btn-sm' : 'btn btn-success btn-sm' }}">
                                                 {{ $alert->status }}
                                             </span>
                                         </td>
