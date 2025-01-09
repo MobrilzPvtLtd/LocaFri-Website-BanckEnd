@@ -11853,7 +11853,8 @@ input[type="range"]::-moz-range-thumb {
 
 .de-item .d-img img{
     box-shadow: 3px 3px 9px rgba(164,164,186,.5);
-    aspect-ratio: 2;
+    aspect-ratio: 4/4;
+    object-fit:contain;
 }
 
 .de-item .d-img:hover img{
