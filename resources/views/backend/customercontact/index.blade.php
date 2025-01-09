@@ -59,25 +59,26 @@
                                                 </span>
                                             @endif
                                         </td>
+                                        
                                         <td>
                                             @if ($booking->is_contract == 1)
-                                                <button type="button" class="btn btn-primary make-contract-btn"
+                                                <button type="button" class="btn btn-primary make-contract-btn btn-sm"
                                                     data-booking-id="{{ $booking->id }}" disabled>
                                                     {{ __('messages.contract_created') }}
                                                 </button>
                                             @elseif ($booking->is_contract == 2)
                                                 <button type="button"
-                                                    class="btn btn-success text-white confirm-contract-btn"
+                                                    class="btn btn-success text-white confirm-contract-btn btn-sm"
                                                     data-booking-id="{{ $booking->id }}">
                                                     {{ __('messages.confirm') }}
                                                 </button>
                                             @else
-                                                <button type="button" class="btn btn-primary make-contract-btn"
+                                                <button type="button" class="btn btn-primary make-contract-btn btn-sm"
                                                     data-booking-id="{{ $booking->id }}">
                                                     {{ __('messages.make_contract') }}
                                                 </button>
                                             @endif
-                                            <a class="btn btn-info btn-md"
+                                            <a class="btn btn-info btn-md btn-sm"
                                                 href="{{ route('customercontact.show', $booking->id) }}">{{ __('messages.view_details') }}</a>
                                         </td>
                                     </tr>
