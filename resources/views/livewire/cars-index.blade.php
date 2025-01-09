@@ -137,9 +137,9 @@
                                 <div class="d-info">
                                     <div class="d-text">
                                         <h4>{{ $vehicle->name }}</h4>
-                                        <div class="d-item_like">
+                                        {{-- <div class="d-item_like">
                                             <i class="fa fa-heart"></i><span>25</span>
-                                        </div>
+                                        </div> --}}
                                         <div class="d-atr-group">
                                             <span class="d-atr"><img src="images/icons/1.svg"
                                                     alt="">{{ $vehicle->seat }}</span>

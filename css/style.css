@@ -11830,11 +11830,11 @@ input[type="range"]::-moz-range-thumb {
     padding-bottom: 15px;
 }
 .de-item .d-atr{
-    font-size: 14px;
+    font-size: 11px;
     display: inline-block;
     font-weight: bold;
     color:#000000;
-    margin-right: 10px;
+    /* margin-right: 1px; */
 }
 
 .de-item .d-atr img{
@@ -11853,6 +11853,7 @@ input[type="range"]::-moz-range-thumb {
 
 .de-item .d-img img{
     box-shadow: 3px 3px 9px rgba(164,164,186,.5);
+    aspect-ratio: 2;
 }
 
 .de-item .d-img:hover img{
@@ -11860,7 +11861,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .de-item .d-price{
-    position: relative;
+    /* position: relative; */
     margin-top: 10px;
     font-size: 14px;
 }
