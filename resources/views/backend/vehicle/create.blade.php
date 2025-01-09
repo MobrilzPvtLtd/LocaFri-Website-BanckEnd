@@ -164,13 +164,22 @@
 
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.fuel') }}</label>
-                                    <input type="text" class="form-control" name="fuel" placeholder=""
-                                        value="{{ old('fuel') }}">
-                                    @error('fuel')
+                                    <label for="fuel">Fuel</label>
+                                    <select class="form-control" name="fuel" id="fuel" required>
+                                        <option value="" disabled {{ old('') === null ? 'selected' : '' }}>
+                                            Select Fuel Type</option>
+                                        <option value="Petrol" {{ old('Petrol') === 'Petrol' ? 'selected' : '' }}>Petrol
+                                        </option>
+                                        <option value="Diesel" {{ old('Diesel') === 'Diesel' ? 'selected' : '' }}>
+                                        Diesel</option>
+                                        <option value="Gas" {{ old('Gas') === 'Gas' ? 'selected' : '' }}>
+                                        Gas</option>
+                                        <option value="" {{ old('Electricity') === 'Electricity' ? 'selected' : '' }}>
+                                        Electricity</option>
+                                    </select>
+                                    @error('trans')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-
                                 </div>
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">{{ __('messages.authorized')}}</label>

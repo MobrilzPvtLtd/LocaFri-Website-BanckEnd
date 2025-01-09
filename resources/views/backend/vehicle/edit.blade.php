@@ -232,10 +232,27 @@
                                         value="{{ $vehicle->luggage }}" placeholder="">
                                 </div>
                                 <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.fuel') }}</label>
-                                    <input type="text" class="form-control" name="fuel" value="{{ $vehicle->fuel }}"
-                                        placeholder="">
+                                    <label for="fuel">Fuel</label>
+                                    <select class="form-control" name="fuel" id="fuel" required>
+                                        <option value="" disabled {{ old('fuel', $vehicle->fuel) === null ? 'selected' : '' }}>
+                                            Select Type
+                                        </option>
+                                        <option value="Petrol" {{ old('fuel', $vehicle->fuel) === 'Petrol' ? 'selected' : '' }}>
+                                            Petrol
+                                        </option>
+                                        <option value="Diesel" {{ old('fuel', $vehicle->fuel) === 'Diesel' ? 'selected' : '' }}>
+                                            Diesel
+                                        </option>
+                                        <option value="Gas" {{ old('fuel', $vehicle->fuel) === 'Gas' ? 'selected' : '' }}>
+                                            Gas
+                                        </option>
+                                        <option value="Electricity" {{ old('fuel', $vehicle->fuel) === 'Electricity' ? 'selected' : '' }}>
+                                            Electricity
+                                        </option>
+                                    </select>
                                 </div>
+                                
+
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="city">{{ __('messages.authorized') }}</label>
                                     <input type="text" class="form-control" name="auth" value="{{ $vehicle->auth }}"
