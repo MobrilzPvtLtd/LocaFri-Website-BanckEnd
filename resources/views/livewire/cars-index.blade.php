@@ -142,6 +142,57 @@
                                         {{-- <div class="d-item_like">
                                             <i class="fa fa-heart"></i><span>25</span>
                                         </div> --}}
+                                        <div class="interaction d-flex justify-content-between">
+
+                                            <div class="d-flex justify-content-between">
+                                                <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 1)->count() }}</span>
+
+                                                <form
+                                                    action="{{ route('vehicle.like', ['vehicleId' => $vehicle->id]) }}"
+                                                    method="POST" style="display:inline;" class="my-2">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link mx-1"
+                                                        style="padding: 0; border: none; background: none;">
+                                                        <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 1? 'fa-thumbs-up text-success': 'fa-thumbs-o-up' }}"
+                                                            style="font-size: 1rem"></i>
+                                                    </button>
+                                                </form>
+
+                                                <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 0)->count() }}</span>
+
+                                                <form
+                                                    action="{{ route('vehicle.dislike', ['vehicleId' => $vehicle->id]) }}"
+                                                    method="POST" style="display:inline;" class="my-2">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link mx-1"
+                                                        style="padding: 0; border: none; background: none;">
+                                                        <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 0? 'fa-thumbs-down text-danger': 'fa-thumbs-o-down' }}"
+                                                            style="font-size: 1rem"></i>
+                                                    </button>
+                                                </form>
+                                                @php
+                                                    $totalLikes = \App\Models\Like::where('vehicle_id', $vehicle->id)
+                                                        ->where('like', 1)
+                                                        ->count();
+                                                    $totalDislikes = \App\Models\Like::where('vehicle_id', $vehicle->id)
+                                                        ->where('like', 0)
+                                                        ->count();
+                                                    $totalVotes = $totalLikes + $totalDislikes;
+                                                    $rating = 0;
+
+                                                    if ($totalVotes > 0) {
+                                                        $rating = ($totalLikes / $totalVotes) * 5;
+                                                    }
+                                                @endphp
+                                            </div>
+
+                                            <div class="star-rating">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa {{ $i <= round($rating) ? 'fa-star' : 'fa-star-o' }}"
+                                                        style="color: gold;"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
                                         <div class="d-atr-group d-flex justify-content-between">
                                             <span class="d-atr"><img src="images/icons/1.svg"
                                                     alt="">{{ $vehicle->seat }}</span>
@@ -153,59 +204,7 @@
                                             <span class="d-atr"><img src="images/icons/4.svg"
                                                     alt="">{{ $vehicle->trans }}</span>
                                         </div>
-                                        <div class="interaction">
-                                            <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 1)->count() }}</span>
 
-                                            <form
-                                                action="{{ route('vehicle.like', ['vehicleId' => $vehicle->id]) }}"
-                                                method="POST" style="display:inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-link"
-                                                    style="padding: 0; border: none; background: none;">
-                                                    <i
-                                                        class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 1? 'fa-thumbs-up text-success': 'fa-thumbs-o-up' }}"></i>
-                                                </button>
-                                            </form>
-
-                                            <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 0)->count() }}</span>
-
-                                            <form
-                                                action="{{ route('vehicle.dislike', ['vehicleId' => $vehicle->id]) }}"
-                                                method="POST" style="display:inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-link"
-                                                    style="padding: 0; border: none; background: none;">
-                                                    <i
-                                                        class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 0? 'fa-thumbs-down text-danger': 'fa-thumbs-o-down' }}"></i>
-                                                </button>
-                                            </form>
-                                            @php
-                                                $totalLikes = \App\Models\Like::where(
-                                                    'vehicle_id',
-                                                    $vehicle->id,
-                                                )
-                                                    ->where('like', 1)
-                                                    ->count();
-                                                $totalDislikes = \App\Models\Like::where(
-                                                    'vehicle_id',
-                                                    $vehicle->id,
-                                                )
-                                                    ->where('like', 0)
-                                                    ->count();
-                                                $totalVotes = $totalLikes + $totalDislikes;
-                                                $rating = 0;
-
-                                                if ($totalVotes > 0) {
-                                                    $rating = ($totalLikes / $totalVotes) * 5;
-                                                }
-                                            @endphp
-                                            <div class="star-rating">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i class="fa {{ $i <= round($rating) ? 'fa-star' : 'fa-star-o' }}"
-                                                        style="color: gold;"></i>
-                                                @endfor
-                                            </div>
-                                        </div>
                                         <div class="d-price">
                                             Prix
                                             <div class="d-flex justify-content-between">
@@ -214,101 +213,109 @@
                                                         {{ $vehicle->Dprice }} /{!! __('messages.per_day') !!}
                                                     </span>
                                                 </div>
-                                            <form action="{{ route('carsdetails-post') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="slug" value="{{ $vehicle->slug }}">
-                                                <input type="hidden" name="pickUpLocation"
-                                                    value="{{ session()->get('pickUpLocation') }}">
-                                                <input type="hidden" name="dropOffLocation"
-                                                    value="{{ session()->get('dropOffLocation') }}">
-                                                <input type="hidden" name="pickUpDate"
-                                                    value="{{ session()->get('pickUpDate') }}">
-                                                <input type="hidden" name="pickUpTime"
-                                                    value="{{ session()->get('pickUpTime') }}">
-                                                <input type="hidden" name="collectionDate"
-                                                    value="{{ session()->get('collectionDate') }}">
-                                                <input type="hidden" name="collectionTime"
-                                                    value="{{ session()->get('collectionTime') }}">
-                                                <button type="submit" class="btn-main "
-                                                    href="{{ route('carsdetails-post') }}">{!! __('messages.rent_now') !!}</button>
-                                            </form>
-                                        </div>
+                                                <form action="{{ route('carsdetails-post') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="slug"
+                                                        value="{{ $vehicle->slug }}">
+                                                    <input type="hidden" name="pickUpLocation"
+                                                        value="{{ session()->get('pickUpLocation') }}">
+                                                    <input type="hidden" name="dropOffLocation"
+                                                        value="{{ session()->get('dropOffLocation') }}">
+                                                    <input type="hidden" name="pickUpDate"
+                                                        value="{{ session()->get('pickUpDate') }}">
+                                                    <input type="hidden" name="pickUpTime"
+                                                        value="{{ session()->get('pickUpTime') }}">
+                                                    <input type="hidden" name="collectionDate"
+                                                        value="{{ session()->get('collectionDate') }}">
+                                                    <input type="hidden" name="collectionTime"
+                                                        value="{{ session()->get('collectionTime') }}">
+                                                    <button type="submit" class="btn-main "
+                                                        href="{{ route('carsdetails-post') }}">{!! __('messages.rent_now') !!}</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        {{-- <div class="item_filter_group">
-                <h4>{!! __('messages.car_body_type') !!}</h4>
-
-                <div class="de_form">
+                    @endforeach
 
 
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_1" wire:model.live="convertible" type="checkbox"
-                            value="car_body_type_1">
-                        <label for="car_body_type_1">{!! __('messages.convertible') !!}</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_2" wire:model.live="coupe" type="checkbox"
-                            value="car_body_type_2">
-                        <label for="car_body_type_2">{!! __('messages.coupe') !!}</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_3" wire:model.live="exoticcars" type="checkbox"
-                            value="car_body_type_3">
-                        <label for="car_body_type_3">{!! __('messages.exotic_cars') !!}Exotic Cars</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_4" wire:model.live="hatchback" type="checkbox"
-                            value="car_body_type_4">
-                        <label for="car_body_type_4">{!! __('messages.hatchback') !!}</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_5" wire:model.live="minivan" type="checkbox"
-                            value="car_body_type_5">
-                        <label for="car_body_type_5">Minivan</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_6" wire:model.live="pickuptruck" type="checkbox"
-                            value="car_body_type_6">
-                        <label for="car_body_type_6">{!! __('messages.pickup_truck') !!}</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_7" wire:model.live="sedan" type="checkbox"
-                            value="car_body_type_7">
-                        <label for="car_body_type_7">Sedan</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_8" wire:model.live="sportscar" type="checkbox"
-                            value="car_body_type_8">
-                        <label for="car_body_type_8">{!! __('messages.sports_car') !!}</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_9"wire:model.live="stationwagon" type="checkbox"
-                            value="car_body_type_9">
-                        <label for="car_body_type_9">{!! __('messages.station_wagon') !!}</label>
-                    </div>
-
-                    <div class="de_checkbox">
-                        <input id="car_body_type_10" wire:model.live="suv" type="checkbox"
-                            value="car_body_type_10">
-                        <label for="car_body_type_10">SUV</label>
-                    </div>
                 </div>
-            </div> --}}
+            </div>
+        </div>
+</section>
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="item_filter_group">
+                            <h4>{!! __('messages.car_body_type') !!}</h4>
+
+                            <div class="de_form">
+
+
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_1" wire:model.live="convertible" type="checkbox"
+                                        value="car_body_type_1">
+                                    <label for="car_body_type_1">{!! __('messages.convertible') !!}</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_2" wire:model.live="coupe" type="checkbox"
+                                        value="car_body_type_2">
+                                    <label for="car_body_type_2">{!! __('messages.coupe') !!}</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_3" wire:model.live="exoticcars" type="checkbox"
+                                        value="car_body_type_3">
+                                    <label for="car_body_type_3">{!! __('messages.exotic_cars') !!}Exotic Cars</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_4" wire:model.live="hatchback" type="checkbox"
+                                        value="car_body_type_4">
+                                    <label for="car_body_type_4">{!! __('messages.hatchback') !!}</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_5" wire:model.live="minivan" type="checkbox"
+                                        value="car_body_type_5">
+                                    <label for="car_body_type_5">Minivan</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_6" wire:model.live="pickuptruck" type="checkbox"
+                                        value="car_body_type_6">
+                                    <label for="car_body_type_6">{!! __('messages.pickup_truck') !!}</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_7" wire:model.live="sedan" type="checkbox"
+                                        value="car_body_type_7">
+                                    <label for="car_body_type_7">Sedan</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_8" wire:model.live="sportscar" type="checkbox"
+                                        value="car_body_type_8">
+                                    <label for="car_body_type_8">{!! __('messages.sports_car') !!}</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_9"wire:model.live="stationwagon" type="checkbox"
+                                        value="car_body_type_9">
+                                    <label for="car_body_type_9">{!! __('messages.station_wagon') !!}</label>
+                                </div>
+
+                                <div class="de_checkbox">
+                                    <input id="car_body_type_10" wire:model.live="suv" type="checkbox"
+                                        value="car_body_type_10">
+                                    <label for="car_body_type_10">SUV</label>
+                                </div>
+                            </div>
+                        </div> --}}
+
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/2-removebg-preview.png" class="img-fluid" alt="">
@@ -334,7 +341,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/3-removebg-preview.png" class="img-fluid" alt="">
@@ -360,7 +367,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/4-removebg-preview.png" class="img-fluid" alt="">
@@ -386,7 +393,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/5-removebg-preview.png" class="img-fluid" alt="">
@@ -412,7 +419,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/6-removebg-preview.png" class="img-fluid" alt="">
@@ -438,7 +445,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/7-removebg-preview.png" class="img-fluid" alt="">
@@ -464,7 +471,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/12-removebg-preview.png" class="img-fluid" alt="">
@@ -490,7 +497,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/8-removebg-preview.png" class="img-fluid" alt="">
@@ -516,7 +523,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/9-removebg-preview.png" class="img-fluid" alt="">
@@ -542,7 +549,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/10-removebg-preview.png" class="img-fluid" alt="">
@@ -568,7 +575,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/11-removebg-preview.png" class="img-fluid" alt="">
@@ -594,7 +601,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/car_14-removebg-preview.png" class="img-fluid" alt="">
@@ -620,7 +627,7 @@
                                     </div>
                                 </div> --}}
 
-                        {{-- <div class="col-xl-4 col-lg-6">
+{{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/car_8-removebg-preview.png" class="img-fluid" alt="">
@@ -645,9 +652,3 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-</section>
