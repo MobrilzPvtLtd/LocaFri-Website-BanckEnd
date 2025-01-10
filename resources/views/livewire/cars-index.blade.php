@@ -151,7 +151,7 @@
                                                     action="{{ route('vehicle.like', ['vehicleId' => $vehicle->id]) }}"
                                                     method="POST" style="display:inline;" class="my-2">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-link mx-1"
+                                                    <button type="submit" class="btn btn-link mx-2"
                                                         style="padding: 0; border: none; background: none;">
                                                         <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 1? 'fa-thumbs-up text-success': 'fa-thumbs-o-up' }}"
                                                             style="font-size: 1rem"></i>
@@ -164,7 +164,7 @@
                                                     action="{{ route('vehicle.dislike', ['vehicleId' => $vehicle->id]) }}"
                                                     method="POST" style="display:inline;" class="my-2">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-link mx-1"
+                                                    <button type="submit" class="btn btn-link mx-2"
                                                         style="padding: 0; border: none; background: none;">
                                                         <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 0? 'fa-thumbs-down text-danger': 'fa-thumbs-o-down' }}"
                                                             style="font-size: 1rem"></i>
