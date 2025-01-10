@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use App\Models\Like;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,8 +14,31 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::all();
-        return view('backend.vehicle.index', compact('vehicles'));
+        $countlike = Like::where('like', 1);
+        $countdislike = Like::where('like', 0);
+        return view('backend.vehicle.index', compact('vehicles','countlike', 'countdislike'));
     }
+
+    public function likeVehicle(Request $request, $vehicleId)
+    {
+        $like = Like::updateOrCreate(
+            ['vehicle_id' => $vehicleId, 'user_id' => auth()->id()],
+            ['like' => 1]
+        );
+
+        return redirect()->back();
+    }
+
+    public function dislikeVehicle(Request $request, $vehicleId)
+    {
+        $like = Like::updateOrCreate(
+            ['vehicle_id' => $vehicleId, 'user_id' => auth()->id()],
+            ['like' => 0]
+        );
+
+        return redirect()->back();
+    }
+
     public function create()
     {
         return view('backend.vehicle.create');
@@ -152,7 +176,7 @@ public function show($id) {
         $vehicle->delete();
         return redirect()->route('vehicle.index');
     }
- 
+
 
     public function deleteImage(Request $request)
 {
@@ -175,6 +199,14 @@ public function show($id) {
 
     return response()->json(['success' => false], 404);
 }
+
+public function incrementLikes($id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->incrementLikes();
+
+        return response()->json(['likes' => $vehicle->likes]);
+    }
 
 
 

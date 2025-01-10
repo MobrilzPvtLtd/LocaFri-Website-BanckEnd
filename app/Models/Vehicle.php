@@ -27,5 +27,10 @@ class Vehicle extends Model
         return $this->hasOne(Vehiclestatus::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
 }
 

@@ -4,8 +4,9 @@
     {{ app_name() }} - {{ __('messages.rent_a_car') }}
 @endsection
 <!-- WhatsApp Chat Button -->
- <a href="https://wa.me/41793876020" target="_blank" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+<a href="https://wa.me/41793876020" target="_blank" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat with us on WhatsApp"
+        style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
 </a>
 @section('content')
     <div class="no-bottom no-top" id="content">
@@ -18,14 +19,15 @@
                         <div class="spacer-double "></div>
                         <div class="spacer-double"></div>
                         <h1 class="mb-2">
-                            {{ __('messages.looking_for_a') }} <span class="id-color">{{ __('messages.vehicles') }}</span>?{{ __('messages.you_re_at_the_right_place') }}
+                            {{ __('messages.looking_for_a') }} <span
+                                class="id-color">{{ __('messages.vehicles') }}</span>?{{ __('messages.you_re_at_the_right_place') }}
                         </h1>
                         <div class="spacer-single"></div>
                     </div>
-                     <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <div class="spacer-single sm-hide"></div>
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
-                           <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form'  method="post">
+                            <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form' method="post">
                                 @csrf
                                 <div class="spacer-20"></div>
                                 <div class="row">
@@ -33,14 +35,15 @@
                                         <h5>{{ __('messages.pick_up_location') }}</h5>
                                         <div class="date-time-field">
                                             <select name="pickUpLocation" id="pick_up">
-                                                <option selected disabled value="Select pick_up">{{ __('messages.select_pick_up') }}
+                                                <option selected disabled value="Select pick_up">
+                                                    {{ __('messages.select_pick_up') }}
                                                 </option>
-                                                {{-- @foreach (App\Models\Vehicle::where('location', '!=',null)->get() as $location)
+                                                {{-- @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
                                                     <option value="{{ $location->location }}">{{ $location->location }}</option>
                                                 @endforeach --}}
                                                 @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
-                                                <option value="{{ $location }}">{{ $location }}</option>
-                                            @endforeach
+                                                    <option value="{{ $location }}">{{ $location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -53,10 +56,11 @@
                                         <h5>{{ __('messages.select_drop_off') }}</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off">
-                                                <option selected disabled value="Select drop_off">{{ __('messages.drop_off_location') }}</option>
+                                                <option selected disabled value="Select drop_off">
+                                                    {{ __('messages.drop_off_location') }}</option>
                                                 @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
-                                                <option value="{{ $location }}">{{ $location }}</option>
-                                            @endforeach
+                                                    <option value="{{ $location }}">{{ $location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="jls-address-preview jls-address-preview--hidden">
@@ -68,7 +72,8 @@
                                         <h5>{{ __('messages.pick_up_date_time') }}</h5>
                                         <div class="date-time-field">
                                             {{-- <input type="text" id="date-picker" name="pickUpDate" value="" style="width: 100%;"> --}}
-                                            <input type="text" name="pickUpDate" value="" class="form-control" style="width: 100%;"/>
+                                            <input type="text" name="pickUpDate" value="" class="form-control"
+                                                style="width: 100%;" />
 
                                             {{-- <select name="pickUpTime" id="pickup-time">
                                                 <option selected disabled value="Select time">Time</option>
@@ -184,7 +189,8 @@
                                     <div class="col-lg-6 mt30">
                                         {{-- <h5>Pick Up Date & Time</h5> --}}
                                         <div class="date-time-field">
-                                            <input type='submit' id='send_message' value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right">
+                                            <input type='submit' id='send_message'
+                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right">
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +198,7 @@
                             </form>
                         </div>
                     </div>
-                  <div class="spacer-double"></div>
+                    <div class="spacer-double"></div>
                 </div>
             </div>
         </section>
@@ -259,27 +265,27 @@
                     <div class="col-lg-6 offset-lg-3 text-center">
                         <h2>{{ __('messages.our_features') }}</h2>
                         <!-- <p>
-                                  Dolor esse sint officia est voluptate et qui deserunt et est
-                                  eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
-                                </p> -->
+                                                  Dolor esse sint officia est voluptate et qui deserunt et est
+                                                  eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
+                                                </p> -->
                         <div class="spacer-20"></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-3">
                         <div class="box-icon s2 p-small mb20 wow fadeInRight" data-wow-delay=".5s">
                             <!-- <i class="fa bg-color fa-trophy"></i>
-                                  <div class="d-inner">
-                                    <h4>First class services</h4>
-                                    Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                    duis consequat nostrud id
-                                  </div> -->
+                                                  <div class="d-inner">
+                                                    <h4>First class services</h4>
+                                                    Est dolore ut laboris eu enim eu veniam nostrud esse laborum
+                                                    duis consequat nostrud id
+                                                  </div> -->
                         </div>
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
                                 <h4>{{ __('messages.assistance') }}</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                    duis consequat nostrud id -->
+                                                    duis consequat nostrud id -->
                             </div>
                         </div>
                     </div>
@@ -291,18 +297,18 @@
                     <div class="col-lg-3">
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
                             <!-- <i class="fa bg-color fa-tag"></i>
-                                  <div class="d-inner">
-                                    <h4>Quality at Minimum Expense</h4>
-                                    Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                    duis consequat nostrud id
-                                  </div> -->
+                                                  <div class="d-inner">
+                                                    <h4>Quality at Minimum Expense</h4>
+                                                    Est dolore ut laboris eu enim eu veniam nostrud esse laborum
+                                                    duis consequat nostrud id
+                                                  </div> -->
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
                                 <h4>{{ __('messages.free_pick_drop') }}</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                    duis consequat nostrud id -->
+                                                    duis consequat nostrud id -->
                             </div>
                         </div>
                     </div>
@@ -321,25 +327,25 @@
                         <i class="fa fa-trophy de-icon mb20"></i>
                         <h4>{{ __('messages.first_class_services') }}</h4>
                         <!-- <p>
-                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                  eiusmod est duis culpa ex ut minim ut ea.
-                                </p> -->
+                                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                                  eiusmod est duis culpa ex ut minim ut ea.
+                                                </p> -->
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-road de-icon mb20"></i>
                         <h4>24/7 road assistance</h4>
                         <!-- <p>
-                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                  eiusmod est duis culpa ex ut minim ut ea.
-                                </p> -->
+                                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                                  eiusmod est duis culpa ex ut minim ut ea.
+                                                </p> -->
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-map-pin de-icon mb20"></i>
                         <h4>{{ __('messages.free_pick_drop') }}</h4>
                         <!-- <p>
-                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                  eiusmod est duis culpa ex ut minim ut ea.
-                                </p> -->
+                                                  Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                                  eiusmod est duis culpa ex ut minim ut ea.
+                                                </p> -->
                     </div>
                 </div>
             </div>
@@ -370,36 +376,92 @@
                                             <p>No images available</p>
                                         @endif --}}
 
-                                        @if($vehicle->image)
+                                        @if ($vehicle->image)
                                             @php
                                                 $images = json_decode($vehicle->image);
                                             @endphp
 
-                                            @if($images && count($images) > 0)
-                                                <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
+                                            @if ($images && count($images) > 0)
+                                                <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle"
+                                                    class="img-fluid w-100">
                                             @endif
                                         @endif
                                     </div>
                                     <div class="d-info">
                                         <div class="d-text">
                                             <h4>{{ $vehicle->name }}</h4>
-                                            <div class="d-item_like">
-                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span>5</span>
-                                            </div>
-                                            <div class="d-atr-group">
-                                                <span class="d-atr"><img src="images/icons/1.svg"
-                                                        alt="" />{{ $vehicle->seat }}</span>
-                                                <span class="d-atr"><img src="images/icons/2.svg"
-                                                        alt="" />{{ $vehicle->fuel }}</span>
-                                                <span class="d-atr"><img src="images/icons/3.svg"
-                                                        alt="" />{{ $vehicle->door }}</span>
-                                                <span class="d-atr"><img src="images/icons/4.svg"
-                                                        alt="" />{{ $vehicle->trans }}</span>
-                                            </div>
-                                            <div class="d-price">
-                                                Prix <span> {{ $vehicle->Dprice }} CHF {!! __('messages.per_day') !!}</span>
-                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">{{ __('messages.rent_now') }}                                                   Now</a>
-                                            </div>
+                                            @foreach ($vehicles as $vehicle)
+                                                <div class="interaction">
+                                                    <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 1)->count() }}</span>
+
+                                                    <form
+                                                        action="{{ route('vehicle.like', ['vehicleId' => $vehicle->id]) }}"
+                                                        method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-link"
+                                                            style="padding: 0; border: none; background: none;">
+                                                            <i
+                                                                class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 1? 'fa-thumbs-up text-success': 'fa-thumbs-o-up' }}"></i>
+                                                        </button>
+                                                    </form>
+
+                                                    <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 0)->count() }}</span>
+
+                                                    <form
+                                                        action="{{ route('vehicle.dislike', ['vehicleId' => $vehicle->id]) }}"
+                                                        method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-link"
+                                                            style="padding: 0; border: none; background: none;">
+                                                            <i
+                                                                class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 0? 'fa-thumbs-down text-danger': 'fa-thumbs-o-down' }}"></i>
+                                                        </button>
+                                                    </form>
+                                                    @php
+                                                        $totalLikes = \App\Models\Like::where(
+                                                            'vehicle_id',
+                                                            $vehicle->id,
+                                                        )
+                                                            ->where('like', 1)
+                                                            ->count();
+                                                        $totalDislikes = \App\Models\Like::where(
+                                                            'vehicle_id',
+                                                            $vehicle->id,
+                                                        )
+                                                            ->where('like', 0)
+                                                            ->count();
+                                                        $totalVotes = $totalLikes + $totalDislikes;
+                                                        $rating = 0;
+
+                                                        if ($totalVotes > 0) {
+                                                            $rating = ($totalLikes / $totalVotes) * 5;
+                                                        }
+                                                    @endphp
+                                                    <div class="star-rating">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <i class="fa {{ $i <= round($rating) ? 'fa-star' : 'fa-star-o' }}"
+                                                                style="color: gold;"></i>
+                                                        @endfor
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-atr-group">
+                                                    <span class="d-atr"><img src="images/icons/1.svg"
+                                                            alt="" />{{ $vehicle->seat }}</span>
+                                                    <span class="d-atr"><img src="images/icons/2.svg"
+                                                            alt="" />{{ $vehicle->fuel }}</span>
+                                                    <span class="d-atr"><img src="images/icons/3.svg"
+                                                            alt="" />{{ $vehicle->door }}</span>
+                                                    <span class="d-atr"><img src="images/icons/4.svg"
+                                                            alt="" />{{ $vehicle->trans }}</span>
+                                                </div>
+                                                <div class="d-price">
+                                                    Prix <span> {{ $vehicle->Dprice }} CHF /{!! __('messages.per_day') !!}</span>
+                                                    <a class="btn-main"
+                                                        href="{{ route('carsdetails', $vehicle->slug) }}">{{ __('messages.rent_now') }}
+                                                        Now</a>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

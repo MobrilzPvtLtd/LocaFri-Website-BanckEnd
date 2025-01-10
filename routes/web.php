@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/vehicle', VehicleController::class);
     Route::delete('/vehicle/{vehicle}/remove-image', [VehicleController::class, 'removeImage'])->name('vehicle.removeImage');
     Route::post('/vehicle/delete-image', [VehicleController::class, 'deleteImage'])->name('vehicle.deleteImage');
+    Route::post('vehicle/{vehicleId}/like', [FrontendController::class, 'likeVehicle'])->name('vehicle.like');
+Route::post('vehicle/{vehicleId}/dislike', [FrontendController::class, 'dislikeVehicle'])->name('vehicle.dislike');
+
     Route::resource('admin/vehiclestatus', VehiclestatusController::class);
 
     // alert

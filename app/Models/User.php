@@ -106,4 +106,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return array_map('intval', $this->roles->pluck('id')->toArray());
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

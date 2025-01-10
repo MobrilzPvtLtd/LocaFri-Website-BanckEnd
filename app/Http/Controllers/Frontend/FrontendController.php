@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -21,10 +22,11 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::where('featured', true)->get();
-
-        return view('frontend.index', compact('vehicles'));
+    $vehicles = Vehicle::where('featured', true)->get();
+    return view('frontend.index', compact('vehicles'));
     }
+
+
     public function thank_you()
     {
         return view('frontend.thank-you');
@@ -87,7 +89,7 @@ class FrontendController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    
+
     /**
      * Terms & Conditions Page.
      *
@@ -170,4 +172,45 @@ public function contact()
             'endTime' => $endTime,
         ];
     }
+
+    public function likeVehicle($vehicleId)
+{
+    $vehicle = Vehicle::find($vehicleId);
+    if ($vehicle) {
+        $like = Like::where(['user_id' => Auth::id(), 'vehicle_id' => $vehicleId])->first();
+        if ($like) {
+            if ($like->like == 1) {
+                $like->delete();
+            } else {
+                $like->like = 1;
+                $like->save();
+            }
+        } else {
+            Like::create(['user_id' => Auth::id(), 'vehicle_id' => $vehicleId, 'like' => 1]);
+        }
+    }
+
+    return redirect()->back();
+}
+
+public function dislikeVehicle($vehicleId)
+{
+    $vehicle = Vehicle::find($vehicleId);
+    if ($vehicle) {
+        $like = Like::where(['user_id' => Auth::id(), 'vehicle_id' => $vehicleId])->first();
+       if ($like) {
+            if ($like->like == 0) {
+                $like->delete();
+            } else {
+                $like->like = 0;
+                $like->save();
+            }
+        } else {
+            Like::create(['user_id' => Auth::id(), 'vehicle_id' => $vehicleId, 'like' => 0]);
+        }
+    }
+
+    return redirect()->back();
+}
+
 }
