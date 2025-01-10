@@ -117,7 +117,7 @@
                                 </li>
                         </div> --}}
                         <div class="topbar-right">
-                            <div class="social-icons">
+                            <div class="social-icons d-flex">
                                 <a href="https://www.facebook.com/p/LocaFri-LocaFri-100086161718048/"><i
                                         class="fa fa-facebook fa-lg"></i></a>
                                 <!-- <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
