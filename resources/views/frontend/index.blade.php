@@ -265,27 +265,27 @@
                     <div class="col-lg-6 offset-lg-3 text-center">
                         <h2>{{ __('messages.our_features') }}</h2>
                         <!-- <p>
-                                                          Dolor esse sint officia est voluptate et qui deserunt et est
-                                                          eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
-                                                        </p> -->
+                                                              Dolor esse sint officia est voluptate et qui deserunt et est
+                                                              eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
+                                                            </p> -->
                         <div class="spacer-20"></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-3">
                         <div class="box-icon s2 p-small mb20 wow fadeInRight" data-wow-delay=".5s">
                             <!-- <i class="fa bg-color fa-trophy"></i>
-                                                          <div class="d-inner">
-                                                            <h4>First class services</h4>
-                                                            Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                            duis consequat nostrud id
-                                                          </div> -->
+                                                              <div class="d-inner">
+                                                                <h4>First class services</h4>
+                                                                Est dolore ut laboris eu enim eu veniam nostrud esse laborum
+                                                                duis consequat nostrud id
+                                                              </div> -->
                         </div>
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
                                 <h4>{{ __('messages.assistance') }}</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                            duis consequat nostrud id -->
+                                                                duis consequat nostrud id -->
                             </div>
                         </div>
                     </div>
@@ -297,18 +297,18 @@
                     <div class="col-lg-3">
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
                             <!-- <i class="fa bg-color fa-tag"></i>
-                                                          <div class="d-inner">
-                                                            <h4>Quality at Minimum Expense</h4>
-                                                            Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                            duis consequat nostrud id
-                                                          </div> -->
+                                                              <div class="d-inner">
+                                                                <h4>Quality at Minimum Expense</h4>
+                                                                Est dolore ut laboris eu enim eu veniam nostrud esse laborum
+                                                                duis consequat nostrud id
+                                                              </div> -->
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
                                 <h4>{{ __('messages.free_pick_drop') }}</h4>
                                 <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                            duis consequat nostrud id -->
+                                                                duis consequat nostrud id -->
                             </div>
                         </div>
                     </div>
@@ -327,25 +327,25 @@
                         <i class="fa fa-trophy de-icon mb20"></i>
                         <h4>{{ __('messages.first_class_services') }}</h4>
                         <!-- <p>
-                                                          Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                                          eiusmod est duis culpa ex ut minim ut ea.
-                                                        </p> -->
+                                                              Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                                              eiusmod est duis culpa ex ut minim ut ea.
+                                                            </p> -->
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-road de-icon mb20"></i>
                         <h4>24/7 road assistance</h4>
                         <!-- <p>
-                                                          Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                                          eiusmod est duis culpa ex ut minim ut ea.
-                                                        </p> -->
+                                                              Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                                              eiusmod est duis culpa ex ut minim ut ea.
+                                                            </p> -->
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-map-pin de-icon mb20"></i>
                         <h4>{{ __('messages.free_pick_drop') }}</h4>
                         <!-- <p>
-                                                          Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                                          eiusmod est duis culpa ex ut minim ut ea.
-                                                        </p> -->
+                                                              Aliquip consequat excepteur non dolor irure ad irure labore ex
+                                                              eiusmod est duis culpa ex ut minim ut ea.
+                                                            </p> -->
                     </div>
                 </div>
             </div>
@@ -448,12 +448,16 @@
                                                 </div>
 
                                                 <div class="d-atr-group d-flex justify-content-between">
-                                                    <span class="d-atr"><img src="images/icons/1.svg"
-                                                            alt="" />{{ $vehicle->seat }}</span>
+                                                    @if ($vehicle->seat !== 0 && $vehicle->seat !== null)
+                                                        <span class="d-atr"><img src="images/icons/1.svg"
+                                                                alt="">{{ $vehicle->seat }}</span>
+                                                    @endif
                                                     <span class="d-atr"><img src="images/icons/2.svg"
                                                             alt="" />{{ $vehicle->fuel }}</span>
-                                                    <span class="d-atr"><img src="images/icons/3.svg"
-                                                            alt="" />{{ $vehicle->door }}</span>
+                                                    @if ($vehicle->door !== 0 && $vehicle->door !== null)
+                                                        <span class="d-atr"><img src="images/icons/3.svg"
+                                                                alt="">{{ $vehicle->door }}</span>
+                                                    @endif
                                                     <span class="d-atr"><img src="images/icons/4.svg"
                                                             alt="" />{{ $vehicle->trans }}</span>
                                                 </div>

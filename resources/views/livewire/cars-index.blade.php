@@ -194,16 +194,32 @@
                                             </div>
                                         </div>
                                         <div class="d-atr-group d-flex justify-content-between">
-                                            <span class="d-atr"><img src="images/icons/1.svg"
-                                                    alt="">{{ $vehicle->seat }}</span>
-                                            <span class="d-atr"><img src="images/icons/2.svg"
-                                                    alt="">{{ $vehicle->fuel }}
-                                            </span>
-                                            <span class="d-atr"><img src="images/icons/3.svg"
-                                                    alt="">{{ $vehicle->door }}</span>
-                                            <span class="d-atr"><img src="images/icons/4.svg"
-                                                    alt="">{{ $vehicle->trans }}</span>
+                                            @if ($vehicle->seat !== 0 && $vehicle->seat !== null)
+                                                <span class="d-atr"><img src="images/icons/1.svg" alt="">{{ $vehicle->seat }}</span>
+                                            @endif
+
+                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">{{ $vehicle->fuel }}</span>
+
+                                            @if ($vehicle->door !== 0 && $vehicle->door !== null)
+                                                <span class="d-atr"><img src="images/icons/3.svg" alt="">{{ $vehicle->door }}</span>
+                                            @endif
+
+                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">{{ $vehicle->trans }}</span>
                                         </div>
+
+                                        {{-- @if ($vehicles->seat !== 0 && $vehicles->seat !== null)
+                                            <div class="d-row">
+                                                <span class="d-title">{!! __('messages.seat') !!}</span>
+                                                <span class="d-value">{{ $vehicles->seat }}</span>
+                                            </div>
+                                        @endif
+
+                                        @if ($vehicles->door !== 0 && $vehicles->door !== null)
+                                            <div class="d-row">
+                                                <span class="d-title">{!! __('messages.door') !!}</span>
+                                                <spam class="d-value">{{ $vehicles->door }}</spam>
+                                            </div>
+                                        @endif cars details --}}
 
                                         <div class="d-price">
                                             Prix
