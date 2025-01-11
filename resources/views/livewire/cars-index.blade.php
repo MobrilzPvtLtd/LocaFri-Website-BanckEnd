@@ -226,7 +226,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <div>
                                                     <span>
-                                                        {{ $vehicle->Dprice }} /{!! __('messages.per_day') !!}
+                                                        {{ $vehicle->Dprice }} {!! __('messages.per_day') !!}
                                                     </span>
                                                 </div>
                                                 <form action="{{ route('carsdetails-post') }}" method="post">

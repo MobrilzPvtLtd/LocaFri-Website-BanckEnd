@@ -144,9 +144,9 @@
                             <div class="de-price text-center">
                                 Prix
                                 <h4>
-                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }} CHF / {!! __('messages.per_day') !!}<br>
-                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }} CHF/ {!! __('messages.per_week') !!}<br>
-                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }} CHF / {!! __('messages.per_month') !!}
+                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }} CHF  {!! __('messages.per_day') !!}<br>
+                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }} CHF {!! __('messages.per_week') !!}<br>
+                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }} CHF  {!! __('messages.per_month') !!}
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>
@@ -385,7 +385,7 @@
                                                 onchange="toggleAdditionalDriverFields()"
                                             >
                                             <label class="form-check-label" for="additionalDriverCheckbox">
-                                                {!! __('messages.additional_driver') !!}<br> 20 CHF/ {!! __('messages.per_month') !!}
+                                                {!! __('messages.additional_driver') !!}<br>(20 CHF {!! __('messages.per_month') !!})
                                             </label>
                                         </div>
 
@@ -428,17 +428,17 @@
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
-                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.booster_seat') !!}<br>(20 CHF/ {!! __('messages.per_month') !!})</label>
+                                            <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.booster_seat') !!}<br>(20 CHF {!! __('messages.per_month') !!})</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="childSeatCheckbox" name="child_seat" value="30">
-                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30 CHF/{!! __('messages.per_month') !!})</label>
+                                            <label class="form-check-label" for="childSeatCheckbox">{!! __('messages.child_seat') !!}<br>(30 CHF {!! __('messages.per_month') !!})</label>
                                         </div>
 
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="exitPermitCheckbox" name="exit_permit" value="149">
-                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}<br>(149 CHF/{!! __('messages.per_month') !!})</label>
+                                            <label class="form-check-label" for="exitPermitCheckbox">{!! __('messages.exit_permit') !!}<br>(149 CHF {!! __('messages.per_month') !!})</label>
                                         </div>
 
                                         <div class="form-floating">
