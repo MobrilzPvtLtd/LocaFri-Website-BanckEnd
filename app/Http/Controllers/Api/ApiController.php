@@ -204,17 +204,19 @@ class ApiController extends Controller
         }
 
         $features = json_decode($vehicle->features, true);
+        $totalLikes = $vehicle->likes()->where('like', 1)->count();
+        $totalDislikes = $vehicle->likes()->where('like', 0)->count();
 
         $data = [
             'id' => $vehicle->id,
             'name' => $vehicle->name,
-            'model' => $vehicle->modal,
+            'model' => $vehicle->model,
             'type' => $vehicle->type,
             'desc' => $vehicle->desc,
             'location' => $vehicle->location,
             'mitter' => $vehicle->mitter,
             'profile' => $profile,
-            'images' => $imageUrls, // Add all image URLs
+            'images' => $imageUrls,
             'body' => $vehicle->body,
             'seat' => $vehicle->seat,
             'door' => $vehicle->door,
@@ -233,9 +235,11 @@ class ApiController extends Controller
             'permitted_kilometers_day' => $vehicle->permitted_kilometers_day,
             'permitted_kilometers_week' => $vehicle->permitted_kilometers_week,
             'permitted_kilometers_month' => $vehicle->permitted_kilometers_month,
-           'available_time' => $vehicle->available_time,
+            'available_time' => $vehicle->available_time,
             'status' => $vehicle->status,
-            'ratings' => $vehicle->ratings,//added for ratings
+            // 'ratings' => $vehicle->ratings,//added for ratings
+           'likes' => $totalLikes,
+           'dislikes' => $totalDislikes,
             'created_at' => $vehicle->created_at,
             'updated_at' => $vehicle->updated_at,
         ];
@@ -451,12 +455,21 @@ class ApiController extends Controller
         if ($otp->verified) {
             return response()->json(['status' => false, 'message' => 'The OTP has already been verified.'], 422);
         }
+       $otp->where('verified', 0)->update(['verified' => 1]);
+     $user = User::where('email', $request->email)->first();
+       if (!$user) {
+            $user = User::create([
+                    'email' => $request->email,
+                    'password' => Hash::make(Str::random(12345678)),
+                    'name' => 'User',
+                ]);
+            }
+            $randomPassword = Str::random(12345678);
+            $user->password = Hash::make($randomPassword);
+            $user->save();
+          $token = $otp->createToken('auth_token', ['myToken'])->plainTextToken;
 
-        $otp->where('verified', 0)->update(['verified' => 1]);
-
-        $token = $otp->createToken('auth_token', ['myToken'])->plainTextToken;
-
-        $expiresAt = Carbon::now()->addDay(1);
+          $expiresAt = Carbon::now()->addDay(1);
 
         return response()->json([
             'status' => true,
@@ -613,7 +626,7 @@ class ApiController extends Controller
                     : null;
 
                 $transactionData[] = [
-                    'contract_id' => $contract_id, 
+                    'contract_id' => $contract_id,
                     'booking_id' => $transaction->booking->id ?? null,
                     'total_amount' => $transaction->booking->total_price ?? null,
                     'amount_paid' => $transaction->amount ?? null,
@@ -650,28 +663,22 @@ class ApiController extends Controller
             'email' => 'email|unique:users,email,' . $user->id . '|nullable',
             'mobile' => 'string|max:15|nullable|unique:users,mobile,' . $user->id,
             'password' => 'string|min:8|nullable',
+
         ], [
             'email.unique' => 'The email address is already taken.',
             'password.min' => 'The password must be at least 8 characters.',
             'mobile.unique' => 'The mobile number is already taken.',
         ]);
-
-        // Prepare data to update
-        $data = $request->only('first_name', 'last_name', 'email', 'mobile');
-
-        // If password is provided, hash it before updating
+        $data = $request->only('first_name', 'last_name', 'email', 'mobile','password');
         if ($request->filled('password')) {
             $data['password'] = bcrypt($request->password);
         }
-
-        // Update user profile
         $user->update($data);
-
-        // Return response
         return response()->json([
             'status' => true,
             'message' => 'Profile updated successfully.',
             'user' => $user,
+
         ], 200);
     }
 
