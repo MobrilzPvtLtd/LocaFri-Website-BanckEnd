@@ -128,7 +128,7 @@
                             @if (!empty($featuresArray))
                                 <ul>
                                     @foreach ($featuresArray as $feature)
-                                        <li>{{ $feature }}</li>
+                                    <li>{{ ucfirst($feature) }}</li>
                                     @endforeach
                                 </ul>
                             @else
