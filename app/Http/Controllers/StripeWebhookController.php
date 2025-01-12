@@ -75,40 +75,42 @@ class StripeWebhookController extends Controller
         ]);
         return redirect($response['url']);
     }
-    
+
     public function stripeCheckout(Request $request)
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    
+
         $response = $stripe->checkout->sessions->retrieve($request->session_id);
-    
+
         if ($response->metadata->apiUrl && Transaction::where('transaction_id', $response->id)->exists()) {
             return response()->json(['status' => false, 'error' => "The selected session_id already used."]);
         }
-    
+
         $booking_old = Booking::where('id', $response->metadata->booking_id)->first();
-    
+
         if ($booking_old) {
+            // this full_payment_paid update for history show in app //
             $tr = Transaction::where('order_id', $booking_old->id)
-                ->where('payment_status', '!=', 'complete')
+                ->where('payment_status', '!=', 'payment_full')
                 ->latest()
                 ->first();
-    
+
             if ($tr) {
                 $tr->full_payment_paid = 1;
                 $tr->save();
             }
+
             $remaining_amount = $booking_old->total_price;
         }
-    
+
         if ($response->metadata->payment_type == "payment_partial") {
             $remaining_amount -= $booking_old->total_price * 0.10;
         } else {
             $remaining_amount = 0;
         }
-    
+
         $amount_total = number_format($response->amount_total / 100, 2, '.', '');
-    
+
         $transaction = new Transaction();
         $transaction->order_id = $response->metadata->booking_id;
         $transaction->transaction_id = $response->id;
@@ -117,18 +119,19 @@ class StripeWebhookController extends Controller
         $transaction->currency = $response->currency;
         $transaction->payment_method = "stripe";
         $transaction->date_time = \Carbon\Carbon::now();
-        $transaction->payment_status = $response->metadata->payment_type == "payment_full" ? $response->status : "payment_partial";
+        $transaction->payment_status = $response->metadata->payment_type == "payment_full" ? "payment_full" : "payment_partial";
         $transaction->payment_paid = $response->status;
+        // $transaction->full_payment_paid = $response->metadata->payment_type == "payment_full" ? 1 : 0;
         $transaction->save();
-    
+
         $booking = Booking::find($response->metadata->booking_id);
         if ($booking) {
             $booking->payment_type = $response->metadata->payment_type == "payment_full" ? "payment_full" : "payment_partial";
             $booking->save();
         }
-    
+
         $checkout = Checkout::where('booking_id', $transaction->order_id)->first();
-    
+
         $data = [
             'name' => $checkout->first_name . ' ' . $checkout->last_name,
             'email' => $response->customer_email,
@@ -158,11 +161,11 @@ class StripeWebhookController extends Controller
             'amount_paid' => $transaction->amount,
             'remaining_amount' => $transaction->remaining_amount,
         ];
-    
+
         if ($response->customer_email) {
             Mail::to($response->customer_email)->send(new BookingMail($data));
         }
-    
+
         if ($transaction->remaining_amount > 0) {
             $paymentUrl = route('stripe', [
                 'price' => $transaction->remaining_amount,
@@ -171,7 +174,7 @@ class StripeWebhookController extends Controller
                 'booking_id' => $response->metadata->booking_id,
                 'payment_type' => 'payment_full',
             ]);
-    
+
             $reminderData = $data + ['payment_url' => $paymentUrl];
             Mail::to($response->customer_email)->send(new PaymentReminderMail($reminderData));
         }
@@ -179,14 +182,14 @@ class StripeWebhookController extends Controller
         if ($response->status == 'complete') {
             return redirect()->route('thank-you');
         }
-    
+
         if ($response->metadata->apiUrl) {
             return response()->json(['status' => true, 'data' => $data]);
         } else {
             return redirect()->route('thank-you');
         }
     }
-    
+
 
 
 
