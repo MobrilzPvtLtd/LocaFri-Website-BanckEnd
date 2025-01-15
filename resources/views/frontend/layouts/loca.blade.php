@@ -6,10 +6,10 @@
     <link href="{{ asset('img/favicon.png') }}" rel="apple-touch-icon" sizes="76x76">
     <link type="image/png" href="{{ asset('img/favicon.png') }}" rel="icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>@yield('title') | {{ config('app.name') }}</title>
+    <title>@yield('title') | Locafri</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{{ setting('meta_description') }}">
-    <meta name="keyword" content="{{ setting('meta_keyword') }}">
+    <meta name="description" content="Locafri">
+    <meta name="keyword" content="Locafri">
     @include('frontend.includes.meta')
 
     <!-- Shortcut Icon -->
