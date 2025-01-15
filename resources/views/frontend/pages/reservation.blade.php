@@ -137,65 +137,62 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">{{ __('messages.first_name') }} <span
-                                    class="text-danger">*</span></label>
+                            <label for="firstName">{{ __('messages.first_name') }} <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="first_name" id="firstName" placeholder=""
-                                required>
+                                value="{{ old('first_name') }}" required>
                             @error('first_name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lastName">{{ __('messages.last_name') }}<span
-                                class="text-danger">*</span></label>
+                            <label for="lastName">{{ __('messages.last_name') }}<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="last_name" id="lastName" placeholder=""
-                                required>
+                                value="{{ old('last_name') }}" required>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="email">{{ __('messages.email') }} <span class="text-danger">*</span></label>
-                        <input type="email" name="email" class="form-control" id="email"
-                            placeholder="you@example.com" required>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com"
+                            value="{{ old('email') }}" required>
                         @error('email')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-3">
-                        <label for="address">{{ __('messages.adresse_1') }}<span
-                                class="text-danger">*</span></label>
-                        <input type="text" name="address_first" class="form-control" id="address"
-                            placeholder="1234 Main St">
+                        <label for="address">{{ __('messages.adresse_1') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="address_first" class="form-control" id="address" placeholder="1234 Main St"
+                            value="{{ old('address_first') }}">
                         @error('address_first')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-3">
-                        <label for="address2">{{ __('messages.adresse_1')}}<span
-                                class="text-muted"></span></label>
-                        <input type="text" name="address_last" class="form-control" id="address2"
-                            placeholder="Apartment or suite">
+                        <label for="address2">{{ __('messages.adresse_1') }}<span class="text-muted"></span></label>
+                        <input type="text" name="address_last" class="form-control" id="address2" placeholder="Apartment or suite"
+                            value="{{ old('address_last') }}">
                     </div>
+
                     <div class="mb-3">
-                        <label for="zipcode">{{ __('messages.zip_code') }}<span
-                                class="text-danger">*</span></label>
-                        <input type="text" name="zipcode" class="form-control" id="zipcode"
-                            required placeholder="Zip Code">
+                        <label for="zipcode">{{ __('messages.zip_code') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="zipcode" class="form-control" id="zipcode" required placeholder="Zip Code"
+                            value="{{ old('zipcode') }}">
                         @error('zipcode')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="mb-3">
-                        <label for="city">{{ __('messages.city') }}<span
-                                class="text-danger">*</span></label>
-                        <input type="text" name="city" class="form-control" id="city"
-                           required placeholder="{{ __('messages.city') }}">
+                        <label for="city">{{ __('messages.city') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="city" class="form-control" id="city" required placeholder="{{ __('messages.city') }}"
+                            value="{{ old('city') }}">
                         @error('city')
-                           <div class="text-danger">{{ $message }}</div>
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
 
                     {{-- <div class="row">
                         <div class="col-md-5 mb-3">
