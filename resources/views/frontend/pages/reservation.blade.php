@@ -292,11 +292,14 @@
                                 value="stripe" checked required>
                             <label class="custom-control-label" for="credit">{{ __('messages.visa')}}</label>
                         </div>
-                        {{-- <div class="custom-control custom-radio">
-                            <input id="debit" name="payment_method" type="radio" class="custom-control-input"
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="payment_method" type="radio" class="custom-control-input"
+                            value="stripe" checked required>
+                        <label class="custom-control-label" for="credit">{{ __('messages.twint')}}</label>
+                            {{-- <input id="debit" name="payment_method" type="radio" class="custom-control-input"
                                 value="twint" required>
-                            <label class="custom-control-label" for="debit">{{ __('messages.twint')}}</label>
-                        </div> --}}
+                            <label class="custom-control-label" for="debit">{{ __('messages.twint')}}</label> --}}
+                        </div>
                     </div>
                     {{-- <div class="row">
                         <div class="col-md-6 mb-3">
