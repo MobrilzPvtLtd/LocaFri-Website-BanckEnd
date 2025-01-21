@@ -334,71 +334,39 @@
                                             {{ in_array('Bluetooth', old('features', [])) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="feature_bluetooth">Bluetooth</label>
                                     </div>
-
-                                    <div class="form-group mb-2 col-4">
-                                        {{-- <label for="body">{{ __('messages.body')}}</label>
-                                        <select class="form-control" name="body" required>
-                                            <option value="" disabled {{ old('body') ? '' : 'selected' }}>Select Body
-                                                Type</option>
-                                            <option value="Convertible" {{ old('body') == 'Convertible' ? 'selected' : '' }}>
-                                                {{ __('messages.convertible')}}</option>
-                                            <option value="Coupe" {{ old('body') == 'Coupe' ? 'selected' : '' }}>{{ __('messages.coupe')}}
-                                            </option>
-                                            <option value="Exotic Cars" {{ old('body') == 'Exotic Cars' ? 'selected' : '' }}>
-                                                {{ __('messages.exotic_cars')}}</option>
-                                            <option value="Hatchback" {{ old('body') == 'Hatchback' ? 'selected' : '' }}>
-                                                {{ __('messages.hatchback')}}</option>
-                                            <option value="Minivan" {{ old('body') == 'Minivan' ? 'selected' : '' }}>Minivan
-                                            </option>
-                                            <option value="Pickup Truck" {{ old('body') == 'Pickup Truck' ? 'selected' : '' }}>
-                                                {{ __('messages.pickup_truck')}}</option>
-                                            <option value="Sedan" {{ old('body') == 'Sedan' ? 'selected' : '' }}>Sedan
-                                            </option>
-                                            <option value="Sports car" {{ old('body') == 'Sports car' ? 'selected' : '' }}>
-                                                {{ __('messages.sports_car')}}</option>
-                                            <option value="Station wagon"
-                                                {{ old('body') == 'Station wagon' ? 'selected' : '' }}>{{ __('messages.station_wagon')}}</option>
-                                            <option value="SUV" {{ old('body') == 'SUV' ? 'selected' : '' }}>SUV</option>
-                                        </select>
-                                        @error('body')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror --}}
-                                    </div>
-
-
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
                                             value="Multimedia Player" id="feature_multimedia"
                                             {{ in_array('Multimedia Player', old('features', [])) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="feature_multimedia">Multimedia Player</label>
+                                        <label class="form-check-label" for="feature_multimedia">{{ __('messages.multimedia_player') }}</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
                                             value="Central Lock" id="feature_central_lock"
                                             {{ in_array('Central Lock', old('features', [])) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="feature_central_lock">Central Lock</label>
+                                        <label class="form-check-label" for="feature_central_lock">{{ __('messages.central_lock') }}</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
                                             value="Sunroof" id="feature_sunroof"
                                             {{ in_array('Sunroof', old('features', [])) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="feature_sunroof">Sunroof</label>
+                                        <label class="form-check-label" for="feature_sunroof">{{ __('messages.sunroof') }}</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
-                                            value="trailer_hitch" id="trailer_hitch"
-                                            {{ in_array('trailer_hitch', old('features', [])) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="trailer_hitch">Trailer Hitch</label>
+                                            value="Trailer Hitch" id="trailer_hitch"
+                                            {{ in_array('Trailer Hitch', old('features', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="trailer_hitch"> {{ __('messages.trailer_hitch')}}</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
-                                            value="reversing_camera" id="reversing_camera"
-                                            {{ in_array('reversing_camera', old('features', [])) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="reversing_camera">Reversing Camera</label>
+                                            value="Reversing Camera" id="reversing_camera"
+                                            {{ in_array('Reversing Camera', old('features', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="reversing_camera">{{ __('messages.reversing_camera') }}</label>
                                     </div>
 
                                     @error('features[]')

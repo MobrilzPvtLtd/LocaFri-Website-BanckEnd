@@ -339,33 +339,49 @@
                                 </div>
                                 <div class="form-group mb-2 col-4">
                                     <label for="interior">{{ __('messages.features') }}</label><br>
+                                
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
-                                            value="bluetooth" id="interior_bluetooth"
-                                            @if (is_array($featuresArray) && in_array('Bluetooth', $featuresArray)) checked @endif>
+                                            value="Bluetooth" id="interior_bluetooth"
+                                            @if (in_array('Bluetooth', old('features', $featuresArray))) checked @endif>
                                         <label class="form-check-label" for="interior_bluetooth">Bluetooth</label>
                                     </div>
+                                
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
-                                            value="multimedia Player" id="interior_multimedia"
-                                            @if (is_array($featuresArray) && in_array('Multimedia Player', $featuresArray)) checked @endif>
-                                        <label class="form-check-label" for="interior_multimedia">Multimedia
-                                            Player</label>
+                                            value="Multimedia Player" id="interior_multimedia"
+                                            @if (in_array('Multimedia Player', old('features', $featuresArray))) checked @endif>
+                                        <label class="form-check-label" for="interior_multimedia">{{ __('messages.multimedia_player') }}</label>
+                                    </div>
+                                
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="Central Lock" id="interior_central_lock"
+                                            @if (in_array('Central Lock', old('features', $featuresArray))) checked @endif>
+                                        <label class="form-check-label" for="interior_central_lock">{{ __('messages.central_lock') }}</label>
+                                    </div>
+                                
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                            value="Sunroof" id="interior_sunroof"
+                                            @if (in_array('Sunroof', old('features', $featuresArray))) checked @endif>
+                                        <label class="form-check-label" for="interior_sunroof">{{ __('messages.sunroof') }}</label>
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
-                                            value="central Lock" id="interior_central_lock"
-                                            @if (is_array($featuresArray) && in_array('Central Lock', $featuresArray)) checked @endif>
-                                        <label class="form-check-label" for="interior_central_lock">Central Lock</label>
+                                            value="Reversing Camera" id="interior_sunroof"
+                                            @if (in_array('Reversing Camera', old('features', $featuresArray))) checked @endif>
+                                        <label class="form-check-label" for="interior_reversing_camera">{{ __('messages.trailer_hitch')}}</label>
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="features[]"
-                                            value="sunroof" id="interior_sunroof"
-                                            @if (is_array($featuresArray) && in_array('Sunroof', $featuresArray)) checked @endif>
-                                        <label class="form-check-label" for="interior_sunroof">Sunroof</label>
+                                            value="Trailer Hitch" id="interior_sunroof"
+                                            @if (in_array('Trailer Hitch', old('features', $featuresArray))) checked @endif>
+                                        <label class="form-check-label" for="interior_reversing_camera">{{ __('messages.reversing_camera') }}</label>
                                     </div>
-
+                                
                                 </div>
+                                
                             </div>
                             <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>
                         </form>

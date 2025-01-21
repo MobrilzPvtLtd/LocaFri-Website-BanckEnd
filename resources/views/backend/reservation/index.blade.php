@@ -74,7 +74,8 @@
                                                 <span
                                                     style="background-color: #b1d994;padding: 5px;">{{ ucwords($tran->payment_method) }}</span>
                                             @else
-                                                <span style="background-color: #e8857d;padding: 5px;">{{ __('messages.unpaid') }}</span>
+                                                <span
+                                                    style="background-color: #e8857d;padding: 5px;">{{ __('messages.unpaid') }}</span>
                                             @endif
                                         </td>
                                         {{-- <td>{{ $booking->status }}</td> --}}
@@ -87,8 +88,18 @@
                             <a class="btn btn-info btn-sm view me-2 mb-2 mb-md-0" data-booking-id="{{ $booking->id }}"
                                 href="{{ route('reservation.show', $booking->id) }}">{{ __('messages.view') }}</a>
 
-                            <button type="button" class="btn btn-danger btn-sm reject me-2 mb-2 mb-md-0"
+                            <button type="button" class="btn btn-warning btn-sm reject me-2 mb-2 mb-md-0"
                                 data-booking-id="{{ $booking->id }}">{{ __('messages.reject') }}</button>
+
+                                <form action="{{ route('reservation.destroy', $booking->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm  me-2 mb-2 mb-md-0">
+                                        {{ __('messages.delete') }}
+                                    </button>
+                                </form>
+
+
                         </div>
                     </td>
                     </tr>

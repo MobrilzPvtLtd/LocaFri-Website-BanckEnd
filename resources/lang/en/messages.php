@@ -312,6 +312,13 @@ return [
     'update_account_info' => "Update Account Information",
     'view_profile' => "View Profile",
 
+   'bluetooth'=>"Bluetooth",
+   'multimedia_player'=> "Multimedia Player",
+   'central_lock'=> "Central Lock",
+   'sunroof'=> "Sunroof",
+   'trailer_hitch'=> "Trailer Hitch",
+   'reversing_camera'=>"Reversing Camera",
+
 
 
 

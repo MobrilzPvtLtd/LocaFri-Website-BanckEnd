@@ -316,6 +316,13 @@ return [
     'city' => "Ville",
     'view_profile' => "Voir le profil",
 
+   'bluetooth'=>"Bluetooth",
+   'multimedia_player'=> "Lecteur Multimédia",
+   'central_lock'=> "Verrouillage Centralisé",
+   'sunroof'=> "Toit Ouvrant",
+   'trailer_hitch'=> "Attelage de rem",
+   'reversing_camera'=>"Caméra de recul",
+
 
 
 
