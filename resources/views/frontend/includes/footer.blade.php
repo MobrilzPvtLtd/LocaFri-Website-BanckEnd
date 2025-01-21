@@ -13,7 +13,7 @@
                                 <li><a href="/">{{ __('messages.home') }}</a></li>
                                 <li><a href="/cars">{{ __('messages.vehicles') }}</a></li>
                                 <li><a href="/keybox">{{ __('messages.key_box') }}</a></li>
-                                <li><a href="/contact">contact</a></li>
+                                <li><a href="/contact">Contact</a></li>
                             </ul>
                         </div>
                     </div>
