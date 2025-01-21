@@ -66,7 +66,7 @@ return [
     'drop_off_location' => 'Lieu de dépose',
     'pick_up_date_time' => 'Date et heure de prise en charge',
     'select_pick_up' => 'Lieu de prise ',
-    'select_drop_off' => ' lieu de dépose',
+    'select_drop_off' => ' Lieu de dépose',
     'looking_for_a' => 'Vous cherchez un',
     'you_re_at_the_right_place' => 'Vous êtes au bon endroit.',
     'cars' => 'Voitures',
