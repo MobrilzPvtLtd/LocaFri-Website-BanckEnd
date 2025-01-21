@@ -12,14 +12,11 @@
     $pickUpLocation = session()->get('pickUpLocation');
     $dropOffLocation = session()->get('dropOffLocation');
     $pickUpDate = session()->get('pickUpDate');
-    // dd($pickUpDate);
 @endphp
 
 @section('content')
     <div class="no-bottom no-top zebra" id="content">
         <div id="top"></div>
-
-        <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
             <img src="{{ asset('images/background/2.jpg') }}" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
@@ -33,9 +30,7 @@
                 </div>
             </div>
         </section>
-        <!-- section close -->
-
-        <section id="section-car-details">
+     <section id="section-car-details">
             <div class="container">
                 <div class="row g-5">
 
@@ -150,7 +145,6 @@
 
                     <div class="col-lg-3">
                         <form id='contact_form' method="GET" action="{{ route('reservation') }}">
-                            {{-- @csrf --}}
                             <input type="hidden" name="name" value="{{ $vehicles->name }}">
                             <div class="de-price text-center">
                                 Prix
@@ -180,9 +174,8 @@
                                                 @else
                                                     <option selected disabled value="">Select pick up</option>
                                                 @endif --}}
-
-                                                @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
-                                                    <option value="{{ $location->location }}" {{ $location->location == $pickUpLocation ? 'selected' : '' }}>{{ $location->location }}</option>
+                                                @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
+                                                    <option value="{{ $location }}">{{ $location }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -205,9 +198,9 @@
                                                     <option selected disabled value="">Select drop off</option>
                                                 @endif --}}
 
-                                                @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
-                                                    <option value="{{ $location->location }}" {{ $location->location == $dropOffLocation ? 'selected' : '' }}>{{ $location->location }}</option>
-                                                @endforeach
+                                                @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
+                                                <option value="{{ $location }}">{{ $location }}</option>
+                                            @endforeach
                                             </select>
                                         </div>
 

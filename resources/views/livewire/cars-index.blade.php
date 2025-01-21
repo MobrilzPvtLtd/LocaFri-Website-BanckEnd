@@ -139,60 +139,6 @@
                                 <div class="d-info">
                                     <div class="d-text">
                                         <h4>{{ $vehicle->name }}</h4>
-                                        {{-- <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>25</span>
-                                        </div> --}}
-                                        <div class="interaction d-flex justify-content-between">
-
-                                            <div class="d-flex justify-content-between">
-                                                <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 1)->count() }}</span>
-
-                                                <form
-                                                    action="{{ route('vehicle.like', ['vehicleId' => $vehicle->id]) }}"
-                                                    method="POST" style="display:inline;" class="my-2">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-link mx-2"
-                                                        style="padding: 0; border: none; background: none;">
-                                                        <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 1? 'fa-thumbs-up text-success': 'fa-thumbs-o-up' }}"
-                                                            style="font-size: 1rem"></i>
-                                                    </button>
-                                                </form>
-
-                                                <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 0)->count() }}</span>
-
-                                                <form
-                                                    action="{{ route('vehicle.dislike', ['vehicleId' => $vehicle->id]) }}"
-                                                    method="POST" style="display:inline;" class="my-2">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-link mx-2"
-                                                        style="padding: 0; border: none; background: none;">
-                                                        <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 0? 'fa-thumbs-down text-danger': 'fa-thumbs-o-down' }}"
-                                                            style="font-size: 1rem"></i>
-                                                    </button>
-                                                </form>
-                                                @php
-                                                    $totalLikes = \App\Models\Like::where('vehicle_id', $vehicle->id)
-                                                        ->where('like', 1)
-                                                        ->count();
-                                                    $totalDislikes = \App\Models\Like::where('vehicle_id', $vehicle->id)
-                                                        ->where('like', 0)
-                                                        ->count();
-                                                    $totalVotes = $totalLikes + $totalDislikes;
-                                                    $rating = 0;
-
-                                                    if ($totalVotes > 0) {
-                                                        $rating = ($totalLikes / $totalVotes) * 5;
-                                                    }
-                                                @endphp
-                                            </div>
-
-                                            <div class="star-rating">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i class="fa {{ $i <= round($rating) ? 'fa-star' : 'fa-star-o' }}"
-                                                        style="color: gold;"></i>
-                                                @endfor
-                                            </div>
-                                        </div>
                                         <div class="d-atr-group d-flex justify-content-between">
                                             @if ($vehicle->seat !== 0 && $vehicle->seat !== null)
                                                 <span class="d-atr"><img src="images/icons/1.svg" alt="">{{ $vehicle->seat }}</span>

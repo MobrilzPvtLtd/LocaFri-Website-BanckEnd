@@ -11,6 +11,7 @@ return [
     'adresse_2' => 'Adress 2',
     'zip_code' => 'Zip Code',
     'available_time'=>'Available Time',
+    'road_assistance' => '24/7 Road Assistance',
 
 
     'shipping_address_is_same_as_billing_address' => 'Shipping address is the same as my billing address.',
@@ -128,7 +129,15 @@ return [
     'response_message' => 'We will get back to you very soon.',
     'go_home' => 'Go Home',
     'our_features'=>'Our Features',
+    'quality_at_min_price'=>'Quality at Minimum Expense',
+    'multiple_payment_options'=>'Multiple Payment Options Available',
+    'multiple_payment_options_info'=>'We offer multiple secure payment options like Stripe and Twint, ensuring a smooth and flexible payment process.',
+    'quality_at_min_exp_info'=>'Nous offrons une qualité de premier ordre à des prix compétitifs, garantissant une valeur exceptionnelle sans compromis.',
     'assistance'=>'24/7 road assistance',
+    'assistance_info'=>'Our 24/7 roadside assistance ensures you'.'re never stranded, providing support anytime, anywhere for peace of mind',
+    'feature1'=>'Enjoy a seamless booking process with our user-friendly platform, allowing you to reserve your preferred vehicle quickly and easily.',
+    'first_class_service'=>'First Class Service',
+    'first_class_service_info' =>'Experience unparalleled luxury with our first-class services, ensuring comfort, convenience, and top-notch customer care for every journey.',
     'free_pick_drop'=>'Free Pick-Up & Drop-Off',
     'vechicle_fleet'=>'Our Vehicle Fleet',
     'rent_now'=>'Rent Now',

@@ -224,14 +224,6 @@
                         </div>
                     </div> --}}
                     <hr class="mb-4">
-
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="same-address" name="billing_address">
-                        <label class="custom-control-label" for="same-address">{{ __('messages.shipping_address_is_same_as_billing_address')}}</label>
-                        @error('billing_address')
-                           <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="save-info" name="next_time">
                         <label class="custom-control-label" for="save-info">{{ __('messages.save_this_information_for_next_time')}}</label>

@@ -202,7 +202,6 @@
                 </div>
             </div>
         </section>
-
         <section aria-label="section" class="pt40 pb40 text-light" data-bgcolor="#111111">
             <div class="wow fadeInRight d-flex">
                 <div class="de-marquee-list">
@@ -264,28 +263,24 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 offset-lg-3 text-center">
                         <h2>{{ __('messages.our_features') }}</h2>
-                        <!-- <p>
-                                                              Dolor esse sint officia est voluptate et qui deserunt et est
-                                                              eiusmod cillum mollit sunt nulla cillum sit ut culpa ullamco.
-                                                            </p> -->
+                         <p>
+                            {{ __('messages.feature1') }}                                    
                         <div class="spacer-20"></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-3">
                         <div class="box-icon s2 p-small mb20 wow fadeInRight" data-wow-delay=".5s">
-                            <!-- <i class="fa bg-color fa-trophy"></i>
-                                                              <div class="d-inner">
-                                                                <h4>First class services</h4>
-                                                                Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                                duis consequat nostrud id
-                                                              </div> -->
+                        <i class="fa bg-color fa-trophy"></i>
+                        <div class="d-inner">
+                        <h4>{{ __('messages.first_class_service') }}</h4>
+                        {{ __('messages.first_class_service_info') }}
+                        </div>
                         </div>
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
                                 <h4>{{ __('messages.assistance') }}</h4>
-                                <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                                duis consequat nostrud id -->
+                                {{ __('messages.assistance_info') }}
                             </div>
                         </div>
                     </div>
@@ -296,19 +291,16 @@
 
                     <div class="col-lg-3">
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
-                            <!-- <i class="fa bg-color fa-tag"></i>
-                                                              <div class="d-inner">
-                                                                <h4>Quality at Minimum Expense</h4>
-                                                                Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                                duis consequat nostrud id
-                                                              </div> -->
+                        <i class="fa bg-color fa-tag"></i>
+                        <div class="d-inner">
+                        <h4> {{ __('messages.quality_at_min_exp') }}</h4>
+                        {{ __('messages.quality_at_min_exp_info') }}</div> 
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
-                                <h4>{{ __('messages.free_pick_drop') }}</h4>
-                                <!-- Est dolore ut laboris eu enim eu veniam nostrud esse laborum
-                                                                duis consequat nostrud id -->
+                                <h4>{{ __('messages.multiple_payment_options') }}</h4>
+                                {{ __('messages.multiple_payment_options_info') }}
                             </div>
                         </div>
                     </div>
@@ -326,26 +318,20 @@
                     <div class="col-md-3">
                         <i class="fa fa-trophy de-icon mb20"></i>
                         <h4>{{ __('messages.first_class_services') }}</h4>
-                        <!-- <p>
-                                                              Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                                              eiusmod est duis culpa ex ut minim ut ea.
-                                                            </p> -->
+                        <p>
+                            {{ __('messages.first_class_service_info') }} </p> 
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-road de-icon mb20"></i>
-                        <h4>24/7 road assistance</h4>
-                        <!-- <p>
-                                                              Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                                              eiusmod est duis culpa ex ut minim ut ea.
-                                                            </p> -->
+                        <h4>{{ __('messages.road_assistance') }}</h4>
+                         <p>
+                            {{ __('messages.assistance_info') }} </p> 
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-map-pin de-icon mb20"></i>
-                        <h4>{{ __('messages.free_pick_drop') }}</h4>
-                        <!-- <p>
-                                                              Aliquip consequat excepteur non dolor irure ad irure labore ex
-                                                              eiusmod est duis culpa ex ut minim ut ea.
-                                                            </p> -->
+                        <h4>{{ __('messages.multiple_payment_options') }}</h4>
+                     <p>
+                        {{ __('messages.multiple_payment_options_info') }} </p>
                     </div>
                 </div>
             </div>
@@ -362,123 +348,45 @@
                     </div>
                     <div class="row">
                         @foreach ($vehicles as $vehicle)
-                            <div class="col-md-4  col-lg-6 col-xl-6 col-xxl-4">
-                                <div class="de-item mb30">
-                                    <div class="d-img">
-                                        {{-- @php
-                                        $images = unserialize($vehicle->image);
-                                    @endphp
-                                    @if (!empty($images) && is_array($images) && count($images) > 0)
-                                        <img src="{{ asset('public/' . $images[0]) }}" alt="Image"
-                                            class="img-fluid w-100">
-                                    @else
-                                        <p>No images available</p>
-                                    @endif --}}
-
-                                        @if ($vehicle->image)
-                                            @php
-                                                $images = json_decode($vehicle->image);
-                                            @endphp
-
-                                            @if ($images && count($images) > 0)
-                                                <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle"
-                                                    class="img-fluid w-100">
-                                            @endif
+                        <div class="col-md-4 col-lg-6 col-xl-6 col-xxl-4">
+                            <div class="de-item mb30">
+                                <div class="d-img">
+                                    @if ($vehicle->image)
+                                        @php
+                                            $images = json_decode($vehicle->image);
+                                        @endphp
+                    
+                                        @if ($images && count($images) > 0)
+                                            <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
                                         @endif
-                                    </div>
-                                    <div class="d-info">
-                                        <div class="d-text">
-                                            <h4>{{ $vehicle->name }}</h4>
-                                            @foreach ($vehicles as $vehicle)
-                                                <div class="interaction d-flex justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 1)->count() }}</span>
-
-                                                        <form
-                                                            action="{{ route('vehicle.like', ['vehicleId' => $vehicle->id]) }}"
-                                                            method="POST" style="display:inline;" class="my-2">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-link mx-2"
-                                                                style="padding: 0; border: none; background: none;">
-                                                                <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 1? 'fa-thumbs-up text-success': 'fa-thumbs-o-up' }}"
-                                                                    style="font-size: 1rem"></i>
-                                                            </button>
-                                                        </form>
-
-                                                        <span>{{ \App\Models\Like::where('vehicle_id', $vehicle->id)->where('like', 0)->count() }}</span>
-
-                                                        <form
-                                                            action="{{ route('vehicle.dislike', ['vehicleId' => $vehicle->id]) }}"
-                                                            method="POST" style="display:inline;" class="my-2">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-link mx-2"
-                                                                style="padding: 0; border: none; background: none;">
-                                                                <i class="fa {{ Auth::check() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first() &&Auth::user()->likes()->where('vehicle_id', $vehicle->id)->first()->like == 0? 'fa-thumbs-down text-danger': 'fa-thumbs-o-down' }}"
-                                                                    style="font-size: 1rem"></i>
-                                                            </button>
-                                                        </form>
-                                                        @php
-                                                            $totalLikes = \App\Models\Like::where(
-                                                                'vehicle_id',
-                                                                $vehicle->id,
-                                                            )
-                                                                ->where('like', 1)
-                                                                ->count();
-                                                            $totalDislikes = \App\Models\Like::where(
-                                                                'vehicle_id',
-                                                                $vehicle->id,
-                                                            )
-                                                                ->where('like', 0)
-                                                                ->count();
-                                                            $totalVotes = $totalLikes + $totalDislikes;
-                                                            $rating = 0;
-
-                                                            if ($totalVotes > 0) {
-                                                                $rating = ($totalLikes / $totalVotes) * 5;
-                                                            }
-                                                        @endphp
-                                                    </div>
-                                                    <div class="star-rating">
-                                                        @for ($i = 1; $i <= 5; $i++)
-                                                            <i class="fa {{ $i <= round($rating) ? 'fa-star' : 'fa-star-o' }}"
-                                                                style="color: gold;"></i>
-                                                        @endfor
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="d-atr-group d-flex justify-content-between">
-                                                    @if ($vehicle->seat !== 0 && $vehicle->seat !== null)
-                                                        <span class="d-atr"><img src="images/icons/1.svg"
-                                                                alt="">{{ $vehicle->seat }}</span>
-                                                    @endif
-                                                    <span class="d-atr"><img src="images/icons/2.svg"
-                                                            alt="" />{{ $vehicle->fuel }}</span>
-                                                    @if ($vehicle->door !== 0 && $vehicle->door !== null)
-                                                        <span class="d-atr"><img src="images/icons/3.svg"
-                                                                alt="">{{ $vehicle->door }}</span>
-                                                    @endif
-                                                    <span class="d-atr"><img src="images/icons/4.svg"
-                                                            alt="" />{{ $vehicle->trans }}</span>
-                                                </div>
-                                                <div class="d-price">
-                                                    Prix
-                                                    <div class="d-flex">
-                                                        <span> {{ $vehicle->Dprice }} CHF /{!! __('messages.per_day') !!}</span>
-
-                                                        <a class="btn-main"
-                                                            href="{{ route('carsdetails', $vehicle->slug) }}">{{ __('messages.rent_now') }}
-                                                            Now</a>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                    @endif
+                                </div>
+                                <div class="d-info">
+                                    <div class="d-text">
+                                        <h4>{{ $vehicle->name }}</h4>
+                                        <div class="d-atr-group d-flex justify-content-between">
+                                            @if ($vehicle->seat !== 0 && $vehicle->seat !== null)
+                                                <span class="d-atr"><img src="images/icons/1.svg" alt="">{{ $vehicle->seat }}</span>
+                                            @endif
+                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">{{ $vehicle->fuel }}</span>
+                                            @if ($vehicle->door !== 0 && $vehicle->door !== null)
+                                                <span class="d-atr"><img src="images/icons/3.svg" alt="">{{ $vehicle->door }}</span>
+                                            @endif
+                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">{{ $vehicle->trans }}</span>
+                                        </div>
+                                        <div class="d-price">
+                                            Prix
+                                            <div class="d-flex">
+                                                <span>{{ $vehicle->Dprice }} CHF /{!! __('messages.per_day') !!}</span>
+                                                <a class="btn-main" href="{{ route('carsdetails', $vehicle->slug) }}">{{ __('messages.rent_now') }} Now</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                        @endforeach
-
+                        </div>
+                    @endforeach
+                    
                     </div>
 
                     {{-- <div id="items-carousel" class="owl-carousel wow fadeIn">
