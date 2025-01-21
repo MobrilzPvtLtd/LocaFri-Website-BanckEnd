@@ -82,7 +82,7 @@
                             </div>
                             @endif
 
-                            @if($vehicles->door !== 0 && $vehicles->seat !== null)
+                            @if($vehicles->door !== 0 && $vehicles->door !== null)
                             <div class="d-row">
                                 <span class="d-title">{!! __('messages.door') !!}</span>
                                 <spam class="d-value">{{ $vehicles->door }}</spam>
@@ -97,11 +97,11 @@
                                 <spam class="d-value">{{ $vehicles->fuel }}</spam>
                             </div>
                             <div class="d-row de-flex">
-                                <span class="d-title">{!! __('messages.authorized_kilometers') !!}</span>
-                                <span class="d-value">{{ $vehicles->mitter }} <br>
-                                    {{-- 1000kms / 1 week<br>
-                                    3000kms / 1 month --}}
-                                </span>
+                                <span class="d-title">{!! __('messages.authorized_kilometers') !!} </span>
+                                <span class="d-value">{{ $vehicles->permitted_kilometers_day}} Km {!! __('messages.per_day') !!}<br>
+                                {{ $vehicles->permitted_kilometers_month}} Km {!! __('messages.per_month') !!} <br>
+                                {{ $vehicles->permitted_kilometers_week}} Km {!! __('messages.per_week') !!}<br>
+                             </span>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">{!! __('messages.transmission') !!}</span>
@@ -121,19 +121,30 @@
 
                         <h4>{!! __('messages.features') !!}</h4>
                         <ul class="ul-style-2">
-
                             @php
-                                $featuresArray = json_decode($vehicles->features);
-                            @endphp
-                            @if (!empty($featuresArray))
-                                <ul>
-                                    @foreach ($featuresArray as $feature)
-                                    <li>{{ ucfirst($feature) }}</li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <p>{!! __('messages.no_features') !!}</p>
+                            $featuresArray = json_decode($vehicles->features, true);
+                        @endphp
+                        @if (!empty($featuresArray))
+                        @foreach ($featuresArray as $feature)
+                        <div style="margin-bottom: 10px;"> 
+                            @if ($feature == 'Bluetooth')
+                                <i class="fa fa-check" title="Bluetooth" style="color: green;"></i> Bluetooth
+                            @elseif ($feature == 'Multimedia Player')
+                                <i class="fa fa-check" title="Multimedia Player" style="color: green;"></i> {!! __('messages.multimedia_player') !!}
+                            @elseif ($feature == 'Central Lock')
+                                <i class="fa fa-check" title="Central Lock" style="color: green;"></i> {!! __('messages.central_lock') !!}
+                            @elseif ($feature == 'Sunroof')
+                                <i class="fa fa-check" title="Sunroof" style="color: green;"></i> {!! __('messages.sunroof') !!}
+                            @elseif ($feature == 'Trailer Hitch')
+                                <i class="fa fa-check" title="Trailer Hitch" style="color: green;"></i> {!! __('messages.trailer_hitch') !!}
+                            @elseif ($feature == 'Reversing Camera')
+                                <i class="fa fa-check" title="Reversing Camera" style="color: green;"></i> {!! __('messages.reversing_camera') !!}
                             @endif
+                        </div>
+                        
+                        @endforeach
+                    @endif
+                    
                         </ul>
                     </div>
 
