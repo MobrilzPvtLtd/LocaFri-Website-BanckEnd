@@ -172,7 +172,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <div>
                                                     <span>
-                                                        {{round($vehicle->Dprice ) }} {!! __('messages.per_day') !!}
+                                                        {{round($vehicle->Dprice ) }} CHF {!! __('messages.per_day') !!}
                                                     </span>
                                                 </div>
                                                 <form action="{{ route('carsdetails-post') }}" method="post">
