@@ -12,11 +12,14 @@
     $pickUpLocation = session()->get('pickUpLocation');
     $dropOffLocation = session()->get('dropOffLocation');
     $pickUpDate = session()->get('pickUpDate');
+    // dd($pickUpDate);
 @endphp
 
 @section('content')
     <div class="no-bottom no-top zebra" id="content">
         <div id="top"></div>
+
+        <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
             <img src="{{ asset('images/background/2.jpg') }}" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
@@ -30,7 +33,9 @@
                 </div>
             </div>
         </section>
-     <section id="section-car-details">
+        <!-- section close -->
+
+        <section id="section-car-details">
             <div class="container">
                 <div class="row g-5">
 
@@ -145,13 +150,14 @@
 
                     <div class="col-lg-3">
                         <form id='contact_form' method="GET" action="{{ route('reservation') }}">
+                            {{-- @csrf --}}
                             <input type="hidden" name="name" value="{{ $vehicles->name }}">
                             <div class="de-price text-center">
                                 Prix
                                 <h4>
-                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ round($vehicle->Dprice )}}">{{ $vehicles->Dprice }} CHF  {!! __('messages.per_day') !!}<br>
-                                    <input type="hidden" name="wprice" id="wprice" value="{{ round($vehicle->wprice )}}">{{ $vehicles->wprice }} CHF {!! __('messages.per_week') !!}<br>
-                                    <input type="hidden" name="mprice" id="mprice" value="{{ round($vehicle->mprice ) }}">{{ $vehicles->mprice }} CHF  {!! __('messages.per_month') !!}
+                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ round($vehicles->Dprice) }}">{{ $vehicles->Dprice }} CHF  {!! __('messages.per_day') !!}<br>
+                                    <input type="hidden" name="wprice" id="wprice" value="{{ round($vehicles->wprice) }}">{{ $vehicles->wprice }} CHF {!! __('messages.per_week') !!}<br>
+                                    <input type="hidden" name="mprice" id="mprice" value="{{ round($vehicles->mprice) }}">{{ $vehicles->mprice }} CHF  {!! __('messages.per_month') !!}
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>
@@ -190,17 +196,11 @@
                                         <h5>{!! __('messages.drop_off_location') !!}</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off" required>
-                                                {{-- @if(session()->has('dropOffLocation'))
-                                                    <option selected value="{{ session()->get('dropOffLocation') }}">
-                                                        {{ session()->get('dropOffLocation') }}
-                                                    </option>
-                                                @else
-                                                    <option selected disabled value="">Select drop off</option>
-                                                @endif --}}
 
-                                                @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
-                                                <option value="{{ $location }}">{{ $location }}</option>
-                                            @endforeach
+
+                                                @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
+                                                    <option value="{{ $location->location }}" {{ $location->location == $dropOffLocation ? 'selected' : '' }}>{{ $location->location }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 

@@ -149,7 +149,7 @@ return [
    'assistance_info'=> 'Notre assistance routière 24/7 garantit que vous ne serez jamais bloqué, offrant un soutien à tout moment, partout.',
     'free_pick_drop'=>'Prise en charge et retour',
     'vechicle_fleet'=>'Notre flotte de véhicules',
-    'rent_now'=>'louer maintenant',
+    'rent_now'=>' Réserver ',
     'call_us_for_info' => 'Appelez-nous pour plus d\'informations. Le service client est là pour vous aider à tout moment.',
     'call_us_now' => 'Appelez-nous maintenant',
     'contact_us' => 'Contactez-nous',
