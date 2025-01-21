@@ -199,11 +199,11 @@
                                     <label for="trans">Transmission</label>
                                     <select class="form-control" name="trans" id="trans" required>
                                         <option value="" disabled {{ old('trans') === null ? 'selected' : '' }}>
-                                            Select Transmission</option>
-                                        <option value="Manual" {{ old('trans') === 'Manual' ? 'selected' : '' }}>Manual
+                                            Select {{ __('messages.transmission') }}</option>
+                                        <option value="Manual" {{ old('trans') === 'Manual' ? 'selected' : '' }}>{{ __('messages.manual') }}
                                         </option>
                                         <option value="Automatic" {{ old('trans') === 'Automatic' ? 'selected' : '' }}>
-                                            Automatic</option>
+                                            {{ __('messages.automatic') }}</option>
                                     </select>
                                     @error('trans')
                                         <span class="text-danger">{{ $message }}</span>

@@ -129,7 +129,7 @@
                                     <label for="image">{{ __('messages.brand_image') }}</label>
                                     <input type="file" class="form-control" name="image[]" id="imageUpload" multiple>
                                     <div id="imagePreview" class="mt-2"></div>
-                                @php
+                                    @php
                                         $uploadedImages = json_decode($vehicle->image);
                                     @endphp
                                     @if (isset($uploadedImages) && count($uploadedImages) > 0)
@@ -184,7 +184,7 @@
                                         }
                                     });
                                 </script>
-                                
+
 
                                 {{-- <div class="form-group mb-2 col-4">
                                     <label for="body">{{ __('messages.body')}}</label>
@@ -251,29 +251,13 @@
                                         </option>
                                     </select>
                                 </div>
-                                
-
-                                {{-- <div class="form-group mb-2 col-4">
-                                    <label for="city">{{ __('messages.authorized') }}</label>
-                                    <input type="text" class="form-control" name="auth" value="{{ $vehicle->auth }}"
-                                        placeholder="">
-                                </div> --}}
-                                {{-- <div class="form-group mb-2 col-4">
-                                    <label for="city">Transmission</label>
-                                    <input type="text" class="form-control" name="trans"
-                                        value="{{ $vehicle->trans }}" placeholder="">
-                                </div> --}}
                                 <div class="form-group mb-2 col-4">
                                     <label for="trans">Transmission</label>
                                     <select class="form-control" name="trans" id="trans">
                                         <option value="Manual" {{ $vehicle->trans == 'Manual' ? 'selected' : '' }}>Manual
                                         </option>
-                                        {{-- <option value="Automatic" {{ $vehicle->trans == 'Automatic' ? 'selected' : '' }}>Automatic</option> --}}
-                                        {{-- <option value="AMT" {{ $vehicle->trans == 'AMT' ? 'selected' : '' }}>AMT</option>
-                                        <option value="CVT" {{ $vehicle->trans == 'CVT' ? 'selected' : '' }}>CVT</option>
-                                        <option value="DCT" {{ $vehicle->trans == 'DCT' ? 'selected' : '' }}>DCT</option>
-                                        <option value="Tiptronic" {{ $vehicle->trans == 'Tiptronic' ? 'selected' : '' }}>Tiptronic</option>
-                                        <option value="EV Single-Speed" {{ $vehicle->trans == 'EV Single-Speed' ? 'selected' : '' }}>EV Single-Speed</option> --}}
+                                        <option value="Automatic" {{ $vehicle->trans == 'Automatic' ? 'selected' : '' }}>Automatic
+                                        </option>
                                     </select>
                                 </div>
 

@@ -30,7 +30,7 @@
                     <li class="list-group-item"><strong>{{ __('messages.description')}}:</strong> {{ $vehicle->desc }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.location')}}:</strong> {{ $vehicle->location }}</li>
                     <li class="list-group-item"><strong>Mileage:</strong> {{ number_format($vehicle->mitter, 2) }} km</li>
-                    {{-- <li class="list-group-item"><strong>{{ __('messages.body')}}:</strong> {{ $vehicle->body }}</li> --}}
+                    <li class="list-group-item"><strong>{{ __('messages.transmission')}}:</strong> {{ $vehicle->trans }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.seats')}}:</strong> {{ $vehicle->seat }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.doors')}}:</strong> {{ $vehicle->door }}</li>
                     <li class="list-group-item"><strong>{{ __('messages.luggage')}}:</strong> {{ $vehicle->luggage }}</li>

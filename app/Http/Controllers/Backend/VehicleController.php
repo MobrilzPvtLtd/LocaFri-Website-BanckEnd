@@ -136,26 +136,6 @@ public function show($id) {
                 $imagePaths[] = $imagePath;
             }
         }
-
-        // $oldImagePath = $vehicle->image;
-        // $imagePaths = [];
-
-        // if ($request->hasFile('image')) {
-        //     foreach ($request->file('image') as $file) {
-        //         $imagePath = $file->store('upload', 'public');
-        //         $imagePaths[] = $imagePath;
-        //     }
-        //     if ($oldImagePath) {
-        //         $oldImages = json_decode($oldImagePath, true);
-        //         foreach ($oldImages as $image) {
-        //             Storage::disk('public')->delete($image); // Delete old images
-        //         }
-        //     }
-        // }
-        // $currentDate = Carbon::now()->toDateString();
-        // $availableDatetime = Carbon::createFromFormat('Y-m-d H:i', $currentDate . ' ' . $request->input(''))->toDateTimeString();
-
-        // Prepare vehicle data for updating
         $vehicleData = $request->except('image', 'featured', 'features');
 
         if (!empty($imagePaths)) {
