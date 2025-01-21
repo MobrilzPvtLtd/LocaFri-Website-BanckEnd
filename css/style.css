@@ -11885,11 +11885,11 @@ input[type="range"]::-moz-range-thumb {
     .de-item .d-price .btn-main{
         position: absolute;
         right:0;
-        bottom: 5px;
+        /* bottom: 5px; */
         padding: 2px 15px;
         /* width: 50%; */
         font-size: 10px;
-        margin-right: -25px;
+        /* margin-right: -25px; */
     }
 }
 @media screen and (max-width:425px) {

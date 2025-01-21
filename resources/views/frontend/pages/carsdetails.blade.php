@@ -149,9 +149,9 @@
                             <div class="de-price text-center">
                                 Prix
                                 <h4>
-                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ $vehicles->Dprice }}">{{ $vehicles->Dprice }} CHF  {!! __('messages.per_day') !!}<br>
-                                    <input type="hidden" name="wprice" id="wprice" value="{{ $vehicles->wprice }}">{{ $vehicles->wprice }} CHF {!! __('messages.per_week') !!}<br>
-                                    <input type="hidden" name="mprice" id="mprice" value="{{ $vehicles->mprice }}">{{ $vehicles->mprice }} CHF  {!! __('messages.per_month') !!}
+                                    <input type="hidden" name="Dprice" id="Dprice" value="{{ round($vehicle->Dprice )}}">{{ $vehicles->Dprice }} CHF  {!! __('messages.per_day') !!}<br>
+                                    <input type="hidden" name="wprice" id="wprice" value="{{ round($vehicle->wprice )}}">{{ $vehicles->wprice }} CHF {!! __('messages.per_week') !!}<br>
+                                    <input type="hidden" name="mprice" id="mprice" value="{{ round($vehicle->mprice ) }}">{{ $vehicles->mprice }} CHF  {!! __('messages.per_month') !!}
                                 </h4>
                             </div>
                             <div class="spacer-30"></div>
