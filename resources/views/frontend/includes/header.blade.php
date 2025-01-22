@@ -31,7 +31,7 @@
             <div class="clearfix"></div>
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="de-flex sm-pt10">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="de-flex-col">
                         @guest
-                            <div class="menu_side_area">
+                            <div class="menu_side_area mx-2">
                                 <a href="{{ route('login') }}" class="btn-main">{{ __('messages.sign_in') }}
                                 </a>
                                 <span id="menu-btn"></span>

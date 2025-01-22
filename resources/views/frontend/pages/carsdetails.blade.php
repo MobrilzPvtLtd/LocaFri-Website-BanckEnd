@@ -59,6 +59,20 @@
                                         <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
                                     @endif
                                 @endif
+
+                                <div>
+                                    @if($vehicles->image)
+                                    @php
+                                        $images = json_decode($vehicles->image);
+                                    @endphp
+
+                                    @if($images && count($images) > 0)
+                                        @foreach($images as $image)
+                                            <img src="{{ asset('public/storage/' . $image) }}" alt="vehicle" class="img-fluid w-100 mb-2">
+                                        @endforeach
+                                    @endif
+                                @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,7 +140,7 @@
                         @endphp
                         @if (!empty($featuresArray))
                         @foreach ($featuresArray as $feature)
-                        <div style="margin-bottom: 10px;"> 
+                        <div style="margin-bottom: 10px;">
                             @if ($feature == 'Bluetooth')
                                 <i class="fa fa-check" title="Bluetooth" style="color: green;"></i> Bluetooth
                             @elseif ($feature == 'Multimedia Player')
@@ -141,10 +155,10 @@
                                 <i class="fa fa-check" title="Reversing Camera" style="color: green;"></i> {!! __('messages.reversing_camera') !!}
                             @endif
                         </div>
-                        
+
                         @endforeach
                     @endif
-                    
+
                         </ul>
                     </div>
 
@@ -466,7 +480,7 @@
                         </form>
                     </div>
 
-                    <div class="de-box">
+                    {{-- <div class="de-box">
                         <h4>{!! __('messages.share') !!}</h4>
                         <div class="de-color-icons">
                             <span><i class="fa fa-twitter fa-lg"></i></span>
@@ -478,7 +492,7 @@
                             <span><i class="fa fa-delicious fa-lg"></i></span>
                             <span><i class="fa fa-envelope fa-lg"></i></span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>
