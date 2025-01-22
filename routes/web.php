@@ -95,11 +95,11 @@ Route::post('vehicle/{vehicleId}/dislike', [FrontendController::class, 'dislikeV
     Route::post('is_viewbooking', [ReservationController::class, 'is_viewbooking'])->name('is_viewbooking');
     Route::post('is_rejected', [ReservationController::class, 'is_rejected'])->name('is_rejected');
     Route::post('is_contract', [ReservationController::class, 'is_contract'])->name('is_contract');
+    Route::delete('reservations/{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+
 
     // Rejet
     Route::resource('admin/reject', RejectController::class);
-    // Route::post('reject/addBack/{id}', [RejectController::class, 'addBack'])->name('reject.addBack');
-
     Route::post('admin/customercontact/{id}/addBack', [RejectController::class, 'addBack'])->name('reject.addBack');
     Route::post('/confirm-contract', [CompleteContractController::class, 'confirmContract'])->name('confirm.contract');
 

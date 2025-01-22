@@ -133,10 +133,11 @@ class ReservationController extends Controller
         return redirect()->route('reservation.index')->with('success', 'reservations has been updated successfully.');
     }
 
-    // public function destroy(Booking $booking)
-    // {
-    //     dd($booking);
-    //     $booking->delete();
-    //     return redirect()->route('enquiry');
-    // }
+    public function destroy($id)
+{
+    $booking = Booking::findOrFail($id);
+    $booking->delete();
+    return redirect()->route('reservation.index')->with('success', 'Booking has been deleted successfully.');
+}
+
 }

@@ -98,14 +98,14 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-primary btn-sm">  {{ __('messages.addBack') }}</button>
                                             </form>
-                                            <form action="{{ route('customercontact.destroy', $booking->id) }}"
-                                                method="POST">
-                                                <a class="btn btn-info btn-sm "
-                                                    href="{{ route('reject.show', $booking->id) }}">{{ __('messages.view') }} </a>
+                                            <form action="{{ route('reject.destroy', $booking->id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">{{ __('messages.delete') }}</button>
+                                                <button type="submit" class="btn btn-danger btn-sm me-2 mb-2 mb-md-0">
+                                                    {{ __('messages.delete') }}
+                                                </button>
                                             </form>
+                                            
                                         </div>
                                     </td>
                                 </tr>
