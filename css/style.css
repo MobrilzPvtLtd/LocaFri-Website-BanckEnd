@@ -11417,7 +11417,7 @@ footer .widget_recent_post li a {
 }
 
 footer .widget h5 {
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 footer .widget_list li {
@@ -16920,7 +16920,9 @@ a,
 img {
     outline: 0;
 }
-
+img.cards001 {
+    height: 10%;
+}
 .z1 {
     z-index: 1;
 }

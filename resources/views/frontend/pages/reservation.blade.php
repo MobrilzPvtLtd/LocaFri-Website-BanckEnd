@@ -285,6 +285,7 @@
                             <input id="credit" name="payment_method" type="radio" class="custom-control-input"
                             value="stripe" checked required>
                         <label class="custom-control-label" for="credit">{{ __('messages.twint')}}</label>
+                        <img src="{{ asset('images/Twint.png') }}" alt="twint" class="w-25">
                             {{-- <input id="debit" name="payment_method" type="radio" class="custom-control-input"
                                 value="twint" required>
                             <label class="custom-control-label" for="debit">{{ __('messages.twint')}}</label> --}}
