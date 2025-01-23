@@ -70,7 +70,8 @@
                 <div class="widget">
                     <h5>{{ __('messages.accepted_cards') }}</h5>
                     <div class="social-icons">
-                        <img class="cards001" src="images/01.png" alt="">
+                        <img class="cards001" src="images/01.png" alt="w">
+                        <img src="images/twint25.png" alt="twint" style="width: 10%;">
                     </div>
                     <h5 class="foot001">{{ __('messages.social_network') }}</h5>
                     <div class="social-icons">
@@ -101,7 +102,7 @@
                     </div> --}}
                     <ul class="header-nav">
                         <li class="nav-item dropdown">
-                            {{-- <button class="btn btn-link nav-link d-flex align-items-center px-2 py-2" data-coreui-toggle="dropdown"
+                            <button class="btn btn-link nav-link d-flex align-items-center px-2 py-2" data-coreui-toggle="dropdown"
                                 type="button" aria-expanded="false">
                                 <svg class="icon icon-lg icon-tabler icons-tabler-outline icon-tabler-language"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -115,7 +116,7 @@
                                     <path d="M19.1 18h-6.2" />
                                 </svg>
                                 &nbsp; {{ strtoupper(App::getLocale()) }}
-                            </button> --}}
+                            </button>
                             {{-- <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
                                 @foreach (config('app.available_locales') as $locale_code => $locale_name)
                                     <li>
