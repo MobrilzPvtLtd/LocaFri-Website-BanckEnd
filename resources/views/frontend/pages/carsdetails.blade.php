@@ -60,7 +60,7 @@
                                     @endif
                                 @endif
 
-                                <div>
+                                <div class="d-flex">
                                     @if($vehicles->image)
                                     @php
                                         $images = json_decode($vehicles->image);
@@ -68,13 +68,16 @@
 
                                     @if($images && count($images) > 0)
                                         @foreach($images as $image)
-                                            <img src="{{ asset('public/storage/' . $image) }}" alt="vehicle" class="img-fluid w-100 mb-2">
+                                        <div class="card shadow object-fit  w-25 mx-2">
+                                            <img src="{{ asset('public/storage/' . $image) }}" alt="vehicle" class="img-fluid w-100 "> </div>
                                         @endforeach
                                     @endif
                                 @endif
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
 
                     <div class="col-lg-3">
