@@ -68,7 +68,7 @@
 
                                     @if($images && count($images) > 0)
                                         @foreach($images as $image)
-                                        <div class="card shadow object-fit  w-25 mx-2">
+                                        <div class="card rounded shadow object-fit  w-25 mx-2">
                                             <img src="{{ asset('public/storage/' . $image) }}" alt="vehicle" class="img-fluid w-100 "> </div>
                                         @endforeach
                                     @endif

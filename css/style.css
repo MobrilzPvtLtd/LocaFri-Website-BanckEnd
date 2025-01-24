@@ -12825,11 +12825,11 @@ i.big {
     padding:3px;
 }
 
-#slider-carousel .owl-thumbs{
+/* #slider-carousel .owl-thumbs{
     padding:3px;
     margin-bottom:30px;
     width: auto;
-}
+} */
 
 #slider-carousel .owl-thumbs  button{
     opacity:1;

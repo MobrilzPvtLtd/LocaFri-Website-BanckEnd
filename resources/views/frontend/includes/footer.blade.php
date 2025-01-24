@@ -132,10 +132,11 @@
                             <div class="language-dropdown-menu" id="language-dropdown-menu">
                                 <select class="language-switcher" name="language-switcher" onchange="ChangeLang(this.value);">
                                     @foreach (config('app.available_locales') as $locale_code => $locale_name)
-                                        <option value="{{ $locale_code }}"
-                                            @if (strtolower(app()->currentLocale()) == $locale_code) selected @endif>
-                                            {{ $locale_name }}
-                                        </option>
+                                    <option @if (strtolower(app()->currentLocale()) == $locale_code) selected @endif>
+                                        <img src="{{ asset('img/globalicon.png') }}" alt="Global Icon" />
+                                        {{ $locale_name }}
+                                    </option>
+
                                     @endforeach
                                 </select>
                             </div>
