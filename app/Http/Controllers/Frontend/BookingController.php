@@ -26,7 +26,6 @@ class BookingController extends Controller
             'address_first.required' => 'Please enter your shipping address.',
             'zipcode.required' => 'Zipcode is required.',
             'city.required' => 'City is required.',
-            'billing_address.required' => 'Mark this Checkbox',
             'next_time.required' => 'Mark this Checkbox',
         ]);
         // dd($request);
