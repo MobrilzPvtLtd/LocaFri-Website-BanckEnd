@@ -52,7 +52,7 @@ class StripeWebhookController extends Controller
             'success_url' => $redirectUrl,
             'cancel_url' => $cancelUrl,
             'customer_email' => $request->customer_email,
-            'payment_method_types' => ['link', 'card'],
+            'payment_method_types' => ['link', 'card', 'twint'],
             'line_items' => [
                 [
                     'price_data' => [
