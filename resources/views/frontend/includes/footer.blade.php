@@ -133,18 +133,19 @@
                             </ul> --}}
                         </li>
                         <li>
-                            <div class="language-dropdown-menu" id="language-dropdown-menu"><i class="fa-solid fa-globe"></i>
-                                <select class="language-switcher" name="language-switcher"
-                                    onchange="ChangeLang(this.value);">
+                            <div class="language-dropdown-menu" id="language-dropdown-menu">
+                                <i class="fa-solid fa-globe me-2"></i>
+                                <select class="language-switcher" name="language-switcher" onchange="ChangeLang(this.value);">
                                     @foreach (config('app.available_locales') as $locale_code => $locale_name)
                                         <option value="{{ $locale_code }}"
                                             @if (strtolower(app()->currentLocale()) == $locale_code) selected @endif>
-                                            {{ $locale_name }}
+                                            <i class="fa-solid fa-globe"></i> {{ $locale_name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                         </li>
+
                     </ul>
                     <script>
                         function ChangeLang(lang) {
