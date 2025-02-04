@@ -124,7 +124,7 @@
                                                 <img src="{{ asset('public/img/globalicon.png') }}" alt="{{ $locale_name }}" style="width: 20px; margin-right: 10px;"/> {{ $locale_name }}
                                                 @break
                                             @else
-                                            <img src="{{ asset('public/img/globalicon.png') }}"> Select
+                                            <img src="{{ asset('public/img/globalicon.png') }}" style="width: 20px; margin-right: 10px;"> Select
                                             @endif
                                         @endforeach
                                     </button>
