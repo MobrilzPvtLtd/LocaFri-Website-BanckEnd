@@ -111,9 +111,8 @@
 
                                 <select class="language-switcher" name="language-switcher" onchange="ChangeLang(this.value);">
                                     @foreach (config('app.available_locales') as $locale_code => $locale_name)
-                                        <option value="{{ $locale_code }}"
-                                            @if (strtolower(app()->currentLocale()) == $locale_code) selected @endif>
-                                            <i class="fa fa-solid fa-globe"></i> <h1>Lang</h1> {{ $locale_name }}
+                                        <option >
+                                             <i>test</i>{{ $locale_name }}
                                         </option>
                                     @endforeach
                                 </select>
