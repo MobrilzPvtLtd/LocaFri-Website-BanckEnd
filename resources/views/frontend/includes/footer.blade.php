@@ -133,7 +133,7 @@
                             </ul> --}}
                         </li>
                         <li>
-                            <div class="language-dropdown-menu" id="language-dropdown-menu">
+                            <div class="language-dropdown-menu" id="language-dropdown-menu"><i class="fa-solid fa-globe"></i>
                                 <select class="language-switcher" name="language-switcher"
                                     onchange="ChangeLang(this.value);">
                                     @foreach (config('app.available_locales') as $locale_code => $locale_name)
