@@ -32,6 +32,56 @@
 
     <x-google-analytics />
 
+    <style>
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-button {
+            background-color: var(--primary-color);
+            color: black;
+            padding: 4px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            z-index: 1;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .dropdown-item {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-item img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #ddd;
+        }
+
+        .custom-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+    </style>
+
     @yield('style')
 </head>
 

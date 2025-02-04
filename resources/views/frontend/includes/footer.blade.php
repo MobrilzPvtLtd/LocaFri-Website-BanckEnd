@@ -109,23 +109,36 @@
                         <li>
                             <div class="language-dropdown-menu" id="language-dropdown-menu">
 
-                                <select class="language-switcher" name="language-switcher" onchange="ChangeLang(this.value);">
+                                {{-- <select class="language-switcher" name="language-switcher" onchange="ChangeLang(this.value);">
                                     @foreach (config('app.available_locales') as $locale_code => $locale_name)
                                         <option value="{{ $locale_code }}"
                                             @if (strtolower(app()->currentLocale()) == $locale_code) selected @endif >
                                              {{ $locale_name }}
                                         </option>
                                     @endforeach
-                                </select>
+                                </select> --}}
+                                <div class="custom-dropdown">
+                                    <button class="dropdown-button">
+                                        @foreach (config('app.available_locales') as $locale_code => $locale_name)
+                                            @if (strtolower(app()->currentLocale()) == $locale_code)
+                                                <img src="{{ asset('public/img/globalicon.png') }}" alt="{{ $locale_name }}" style="width: 20px; margin-right: 10px;"/> {{ $locale_name }}
+                                                @break
+                                            @endif
+                                        @endforeach
+                                    </button>
+                                    <div class="dropdown-content">
+                                        @foreach (config('app.available_locales') as $locale_code => $locale_name)
+                                            <a href="#" class="dropdown-item" data-value="{{ $locale_code }}" onclick="ChangeLang('{{ $locale_code }}')">
+                                                <img src="{{ asset('public/img/globalicon.png') }}" alt="{{ $locale_name }}" /> {{ $locale_name }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+
                             </div>
                         </li>
 
                     </ul>
-                    <script>
-                        function ChangeLang(lang) {
-                            window.location.replace('{{ route('language.switch', '') }}' + '/' + lang);
-                        }
-                    </script>
                 </div>
             </div>
         </div>
@@ -152,3 +165,23 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.querySelector(".dropdown-button").addEventListener("click", function() {
+        document.querySelector(".dropdown-content").classList.toggle("show");
+    });
+
+    document.querySelectorAll(".dropdown-item").forEach(item => {
+        item.addEventListener("click", function() {
+            var selectedText = item.textContent.trim();
+            document.querySelector(".dropdown-button").textContent = selectedText;
+            document.querySelector(".dropdown-content").style.display = "none"; // Close dropdown after selection
+        });
+    });
+
+    function ChangeLang(lang) {
+        window.location.replace('{{ route('language.switch', '') }}' + '/' + lang);
+    }
+
+</script>
+
