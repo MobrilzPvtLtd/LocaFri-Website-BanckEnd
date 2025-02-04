@@ -123,6 +123,8 @@
                                             @if (strtolower(app()->currentLocale()) == $locale_code)
                                                 <img src="{{ asset('public/img/globalicon.png') }}" alt="{{ $locale_name }}" style="width: 20px; margin-right: 10px;"/> {{ $locale_name }}
                                                 @break
+                                            @else
+                                            <img src="{{ asset('public/img/globalicon.png') }}"> Select
                                             @endif
                                         @endforeach
                                     </button>
