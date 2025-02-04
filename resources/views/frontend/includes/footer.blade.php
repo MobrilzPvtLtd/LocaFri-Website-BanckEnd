@@ -139,7 +139,7 @@
                                     @foreach (config('app.available_locales') as $locale_code => $locale_name)
                                         <option value="{{ $locale_code }}"
                                             @if (strtolower(app()->currentLocale()) == $locale_code) selected @endif>
-                                            <i class="fa-solid fa-globe"></i> {{ $locale_name }}
+                                            <i class="fa-solid fa-globe"></i> <h1>Lang</h1> {{ $locale_name }}
                                         </option>
                                     @endforeach
                                 </select>
