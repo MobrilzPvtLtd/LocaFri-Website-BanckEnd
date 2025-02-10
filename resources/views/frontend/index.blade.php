@@ -24,7 +24,7 @@
                         </h1>
                         <div class="spacer-single"></div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="spacer-single sm-hide"></div>
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
                             <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form' method="post">
@@ -68,129 +68,38 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb20">
+
+                                    <div class="col-lg-4 mb20">
+                                        <h5>Start Date</h5>
+                                        <input type="text" id="startDate" placeholder="Start Date" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                    </div>
+                                    <div class="col-lg-2 mb20">
+                                        <h5>Start Time</h5>
+                                        <input type="text" id="startTime" placeholder="Start Time" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                    </div>
+
+                                    <div class="col-lg-4 mb20">
+                                        <h5>End Date</h5>
+                                        <input type="text" id="endDate" placeholder="End Date" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                    </div>
+                                    <div class="col-lg-2 mb20">
+                                        <h5>End Time</h5>
+                                        <input type="text" id="endTime" placeholder="End Time" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                    </div>
+
+                                    <div id="dateTimeRange"></div>
+
+                                    {{-- <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.pick_up_date_time') }}</h5>
                                         <div class="date-time-field">
-                                            {{-- <input type="text" id="date-picker" name="pickUpDate" value="" style="width: 100%;"> --}}
-                                            <input type="text" name="pickUpDate" value="" class="form-control"
-                                                style="width: 100%;" />
-
-                                            {{-- <select name="pickUpTime" id="pickup-time">
-                                                <option selected disabled value="Select time">Time</option>
-                                                <option value="00:00">00:00</option>
-                                                <option value="00:30">00:30</option>
-                                                <option value="01:00">01:00</option>
-                                                <option value="01:30">01:30</option>
-                                                <option value="02:00">02:00</option>
-                                                <option value="02:30">02:30</option>
-                                                <option value="03:00">03:00</option>
-                                                <option value="03:30">03:30</option>
-                                                <option value="04:00">04:00</option>
-                                                <option value="04:30">04:30</option>
-                                                <option value="05:00">05:00</option>
-                                                <option value="05:30">05:30</option>
-                                                <option value="06:00">06:00</option>
-                                                <option value="06:30">06:30</option>
-                                                <option value="07:00">07:00</option>
-                                                <option value="07:30">07:30</option>
-                                                <option value="08:00">08:00</option>
-                                                <option value="08:30">08:30</option>
-                                                <option value="09:00">09:00</option>
-                                                <option value="09:30">09:30</option>
-                                                <option value="10:00">10:00</option>
-                                                <option value="10:30">10:30</option>
-                                                <option value="11:00">11:00</option>
-                                                <option value="11:30">11:30</option>
-                                                <option value="12:00">12:00</option>
-                                                <option value="12:30">12:30</option>
-                                                <option value="13:00">13:00</option>
-                                                <option value="13:30">13:30</option>
-                                                <option value="14:00">14:00</option>
-                                                <option value="14:30">14:30</option>
-                                                <option value="15:00">15:00</option>
-                                                <option value="15:30">15:30</option>
-                                                <option value="16:00">16:00</option>
-                                                <option value="16:30">16:30</option>
-                                                <option value="17:00">17:00</option>
-                                                <option value="17:30">17:30</option>
-                                                <option value="18:00">18:00</option>
-                                                <option value="18:30">18:30</option>
-                                                <option value="19:00">19:00</option>
-                                                <option value="19:30">19:30</option>
-                                                <option value="20:00">20:00</option>
-                                                <option value="20:30">20:30</option>
-                                                <option value="21:00">21:00</option>
-                                                <option value="21:30">21:30</option>
-                                                <option value="22:00">22:00</option>
-                                                <option value="22:30">22:30</option>
-                                                <option value="23:00">23:00</option>
-                                                <option value="23:30">23:30</option>
-                                            </select> --}}
-                                        </div>
-                                    </div>
-                                    {{-- <div class="col-lg-6 mb20">
-                                        <h5>Return Date & Time</h5>
-                                        <div class="date-time-field">
-                                            <input type="text" id="date-picker-2" name="collectionDate" value="">
-                                            <select name="collectionTime" id="collection-time">
-                                                <option selected disabled value="Select time">Time</option>
-                                                <option value="00:00">00:00</option>
-                                                <option value="00:30">00:30</option>
-                                                <option value="01:00">01:00</option>
-                                                <option value="01:30">01:30</option>
-                                                <option value="02:00">02:00</option>
-                                                <option value="02:30">02:30</option>
-                                                <option value="03:00">03:00</option>
-                                                <option value="03:30">03:30</option>
-                                                <option value="04:00">04:00</option>
-                                                <option value="04:30">04:30</option>
-                                                <option value="05:00">05:00</option>
-                                                <option value="05:30">05:30</option>
-                                                <option value="06:00">06:00</option>
-                                                <option value="06:30">06:30</option>
-                                                <option value="07:00">07:00</option>
-                                                <option value="07:30">07:30</option>
-                                                <option value="08:00">08:00</option>
-                                                <option value="08:30">08:30</option>
-                                                <option value="09:00">09:00</option>
-                                                <option value="09:30">09:30</option>
-                                                <option value="10:00">10:00</option>
-                                                <option value="10:30">10:30</option>
-                                                <option value="11:00">11:00</option>
-                                                <option value="11:30">11:30</option>
-                                                <option value="12:00">12:00</option>
-                                                <option value="12:30">12:30</option>
-                                                <option value="13:00">13:00</option>
-                                                <option value="13:30">13:30</option>
-                                                <option value="14:00">14:00</option>
-                                                <option value="14:30">14:30</option>
-                                                <option value="15:00">15:00</option>
-                                                <option value="15:30">15:30</option>
-                                                <option value="16:00">16:00</option>
-                                                <option value="16:30">16:30</option>
-                                                <option value="17:00">17:00</option>
-                                                <option value="17:30">17:30</option>
-                                                <option value="18:00">18:00</option>
-                                                <option value="18:30">18:30</option>
-                                                <option value="19:00">19:00</option>
-                                                <option value="19:30">19:30</option>
-                                                <option value="20:00">20:00</option>
-                                                <option value="20:30">20:30</option>
-                                                <option value="21:00">21:00</option>
-                                                <option value="21:30">21:30</option>
-                                                <option value="22:00">22:00</option>
-                                                <option value="22:30">22:30</option>
-                                                <option value="23:00">23:00</option>
-                                                <option value="23:30">23:30</option>
-                                            </select>
+                                            <input type="text" name="pickUpDate" value="" class="form-control" style="width: 100%;" />
                                         </div>
                                     </div> --}}
 
-                                    <div class="col-lg-6 mt30">
-                                        {{-- <h5>Pick Up Date & Time</h5> --}}
+                                    <div class="col-lg-12 mt30">
                                         <div class="date-time-field">
                                             <input type='submit' id='send_message'
-                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right">
+                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 3.125rem;">
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +173,7 @@
                     <div class="col-lg-6 offset-lg-3 text-center">
                         <h2>{{ __('messages.our_features') }}</h2>
                          <p>
-                            {{ __('messages.feature1') }}                                    
+                            {{ __('messages.feature1') }}
                         <div class="spacer-20"></div>
                     </div>
                     <div class="clearfix"></div>
@@ -294,7 +203,7 @@
                         <i class="fa bg-color fa-tag"></i>
                         <div class="d-inner">
                         <h4> {{ __('messages.quality_at_min_exp') }}</h4>
-                        {{ __('messages.quality_at_min_exp_info') }}</div> 
+                        {{ __('messages.quality_at_min_exp_info') }}</div>
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
@@ -319,13 +228,13 @@
                         <i class="fa fa-trophy de-icon mb20"></i>
                         <h4>{{ __('messages.first_class_services') }}</h4>
                         <p>
-                            {{ __('messages.first_class_service_info') }} </p> 
+                            {{ __('messages.first_class_service_info') }} </p>
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-road de-icon mb20"></i>
                         <h4>{{ __('messages.road_assistance') }}</h4>
                          <p>
-                            {{ __('messages.assistance_info') }} </p> 
+                            {{ __('messages.assistance_info') }} </p>
                     </div>
                     <div class="col-md-3">
                         <i class="fa fa-map-pin de-icon mb20"></i>
@@ -355,7 +264,7 @@
                                         @php
                                             $images = json_decode($vehicle->image);
                                         @endphp
-                    
+
                                         @if ($images && count($images) > 0)
                                             <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
                                         @endif
@@ -386,7 +295,7 @@
                             </div>
                         </div>
                     @endforeach
-                    
+
                     </div>
 
                     {{-- <div id="items-carousel" class="owl-carousel wow fadeIn">

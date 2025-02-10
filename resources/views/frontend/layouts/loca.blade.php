@@ -28,7 +28,10 @@
     <!-- color scheme -->
     <link id="colors" href="{{ asset('css/colors/scheme-01.css') }}" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
     <x-google-analytics />
 
@@ -107,10 +110,118 @@
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/designesia.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> --}}
+
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
     <script>
+        $(function() {
+          $("#startDate").datepicker({
+            dateFormat: "yy-mm-dd",
+            minDate: 0, // Disable past dates for start date
+            onSelect: function(selectedDate) {
+              $("#endDate").datepicker("option", "minDate", selectedDate);
+              if ($("#endDate").val() && new Date(selectedDate) > new Date($("#endDate").val())) {
+                $("#endDate").val("");
+                $("#endTime").val("");
+              }
+              getCombinedDateTime();
+              setTimeout(function() {
+                $("#endDate").datepicker("show");
+              }, 0);
+            }
+          });
+
+          $("#endDate").datepicker({
+            dateFormat: "yy-mm-dd",
+            onSelect: function(selectedDate) {
+              $("#startDate").datepicker("option", "maxDate", selectedDate);
+              if ($("#startDate").val() && new Date(selectedDate) < new Date($("#startDate").val())) {
+                $("#startDate").val("");
+                $("#startTime").val("");
+              }
+              getCombinedDateTime();
+            }
+          });
+
+          $("#startTime").timepicker({
+            timeFormat: 'h:mm a',
+            interval: 15,
+            minTime: '00:00',
+            maxTime: '23:59',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true,
+            change: getCombinedDateTime
+          });
+
+          $("#endTime").timepicker({
+            timeFormat: 'h:mm a',
+            interval: 15,
+            minTime: '00:00',
+            maxTime: '23:59',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true,
+            change: getCombinedDateTime
+          });
+
+          function initializeDateTimePickers() {
+            const now = new Date();
+            $("#startDate").datepicker("setDate", now);
+
+            const startTimeMinutes = now.getMinutes() + 15;
+            now.setMinutes(startTimeMinutes);
+            const formattedStartTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            $("#startTime").timepicker("setTime", formattedStartTime);
+
+            const endDate = new Date();
+            endDate.setDate(now.getDate() + 2);
+            $("#endDate").datepicker("setDate", endDate);
+
+            const endTime = new Date();
+            endTime.setDate(endDate.getDate());
+            if (endTime.getDate() === now.getDate()) {
+                endTime.setMinutes(startTimeMinutes);
+            } else {
+                endTime.setHours(now.getHours());
+                endTime.setMinutes(now.getMinutes() + 15);
+            }
+            const formattedEndTime = endTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            $("#endTime").timepicker("setTime", formattedEndTime);
+
+            getCombinedDateTime();
+          }
+
+          function getCombinedDateTime() {
+            const startDate = $("#startDate").val();
+            const startTime = $("#startTime").val();
+            const endDate = $("#endDate").val();
+            const endTime = $("#endTime").val();
+
+            let startDateTime = startDate && startTime? startDate + ' ' + startTime: "";
+            let endDateTime = endDate && endTime? endDate + ' ' + endTime: "";
+
+            console.log("Start Date Time:", startDateTime);
+            console.log("End Date Time:", endDateTime);
+
+            $("#dateTimeRange").html("Selected Range: " + (startDateTime || "Not set") + " - " + (endDateTime || "Not set"));
+
+            return {
+              start: startDateTime,
+              end: endDateTime
+            };
+          }
+
+          initializeDateTimePickers();
+
+        });
+    </script>
+
+    {{-- <script>
         $(function() {
             var totalVal = parseFloat($("#totalPrice").val()) || 0;
             var dayVal = parseFloat($("#Dprice").val()) || 0;
@@ -222,7 +333,7 @@
             }
         });
 
-    </script>
+    </script> --}}
 
     @yield('script')
 

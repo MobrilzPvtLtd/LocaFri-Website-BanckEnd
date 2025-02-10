@@ -18359,6 +18359,7 @@ h2.k_text001 {
 #pick_up ,#Drop_Off{
    width:100%;
    -webkit-border-radius: 5px 5px 5px 5px;
+   height: 3.125rem;
 }
 
 select.language-switcher {
