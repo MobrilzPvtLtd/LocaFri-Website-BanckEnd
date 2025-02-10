@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Vehicle;
+use App\Models\Booking;
 
 class CarsIndex extends Component
 {
@@ -33,8 +34,14 @@ class CarsIndex extends Component
             ->pluck('seat')
             ->sort();
 
-        // Initialize query
-        $query = Vehicle::query()->where('status', 1)->orderBy('id', 'desc');
+        $query = Vehicle::where('status', 1)->orderBy('id', 'desc');
+
+        $dataArray = $query->pluck('id')->toArray();
+        $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
+        ->where('is_rejected', '!=', 1)
+        ->where('is_complete', '=', 0)
+        ->pluck('vehicle_id')
+        ->toArray();
 
         // Filter by Price
         $query->when($this->price, function ($q) {
@@ -81,17 +88,12 @@ class CarsIndex extends Component
         });
 
         // Paginate Results
-        $vehicles = $query->paginate(6);
+        $vehicles = $query->whereNotIn('id', $bookedVehicleIds)->paginate(6);
 
         return view('livewire.cars-index', [
             'vehicles' => $vehicles,
             'availableSeats' => $availableSeats,
         ]);
-
-        // Paginate Results
-        $vehicles = $query->paginate(6);
-
-        return view('livewire.cars-index', ['vehicles' => $vehicles]);
 
     }
 }

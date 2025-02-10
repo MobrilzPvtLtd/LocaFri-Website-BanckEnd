@@ -64,6 +64,11 @@ class Booking extends Model
     {
         return $this->hasOne(Transaction::class, 'order_id');
     }
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
+    }
+
 }
 
 

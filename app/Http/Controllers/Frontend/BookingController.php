@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Checkout;
+use App\Models\Vehicle;
 
 class BookingController extends Controller
 {
@@ -59,6 +60,13 @@ class BookingController extends Controller
         $totalPrice += $request->child_seat ?? 0;
         $totalPrice += $request->exit_permit ?? 0;
 
+        $vehicle = Vehicle::where('name', $request->name)->first(); // Check the vehicle by name
+
+        if (!$vehicle) {
+            return redirect()->back()->with('error', 'Vehicle not found. Please check the name and try again.');
+        }
+
+
         $booking = new Booking();
         $booking->name = $request->name;
         $booking->Dprice = $request->Dprice ?? '0.00';
@@ -81,6 +89,7 @@ class BookingController extends Controller
         $booking->collectionTime = $request->endTime;
         // $booking->order_status = "unpaid";
         $booking->payment_type = $request->payment_type;
+        $booking->vehicle_id = $vehicle->id;
         $booking->save();
 
         $checkout = new Checkout();

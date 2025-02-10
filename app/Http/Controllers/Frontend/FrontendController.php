@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use App\Models\Booking;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Like;
@@ -25,9 +26,7 @@ class FrontendController extends Controller
     $vehicles = Vehicle::where('featured', true)->get();
     return view('frontend.index', compact('vehicles'));
     }
-
-
-    public function thank_you()
+     public function thank_you()
     {
         return view('frontend.thank-you');
     }
@@ -39,11 +38,8 @@ class FrontendController extends Controller
     {
         return view('frontend.privacy');
     }
-
-
     public function cars()
     {
-
         $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
         return view('frontend.cars', compact('vehicles'));
     }
