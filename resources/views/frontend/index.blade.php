@@ -24,12 +24,12 @@
                         </h1>
                         <div class="spacer-single"></div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-10">
                         <div class="spacer-single sm-hide"></div>
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
                             <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form' method="post">
                                 @csrf
-                                <div class="spacer-20"></div>
+                                <div class="spacer-10"></div>
                                 <div class="row">
                                     <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.pick_up_location') }}</h5>
@@ -69,25 +69,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4 mb20">
+                                    <div class="col-lg-3 mb10">
                                         <h5>Start Date</h5>
-                                        <input type="text" id="startDate" placeholder="Start Date" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                        <input type="text" id="startDate" placeholder="Start Date" name="pickUpDate" class="form-control" style="height: 2.125rem;">
                                     </div>
-                                    <div class="col-lg-2 mb20">
+                                    <div class="col-lg-2 mb10">
                                         <h5>Start Time</h5>
-                                        <input type="text" id="startTime" placeholder="Start Time" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                        <input type="text" id="startTime" placeholder="Start Time" name="pickUpDate" class="form-control" style="height: 2.125rem;">
                                     </div>
 
-                                    <div class="col-lg-4 mb20">
+                                    <div class="col-lg-3 mb10">
                                         <h5>End Date</h5>
-                                        <input type="text" id="endDate" placeholder="End Date" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                        <input type="text" id="endDate" placeholder="End Date" name="pickUpDate" class="form-control" style="height: 2.125rem;">
                                     </div>
-                                    <div class="col-lg-2 mb20">
+                                    <div class="col-lg-2 mb10">
                                         <h5>End Time</h5>
-                                        <input type="text" id="endTime" placeholder="End Time" name="pickUpDate" class="form-control" style="height: 3.125rem;">
+                                        <input type="text" id="endTime" placeholder="End Time" name="pickUpDate" class="form-control" style="height: 2.125rem;">
                                     </div>
 
-                                    <div id="dateTimeRange"></div>
+
+                                    {{-- <div id="dateTimeRange"></div> --}}
 
                                     {{-- <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.pick_up_date_time') }}</h5>
@@ -96,12 +97,16 @@
                                         </div>
                                     </div> --}}
 
-                                    <div class="col-lg-12 mt30">
+                                    {{-- <div class="col-lg-10 mt2">
                                         <div class="date-time-field">
                                             <input type='submit' id='send_message'
-                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 3.125rem;">
+                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                </div>
+                                <div class=" col-lg-2 mb10">
+                                    <input type='submit' id='send_message'
+                                        value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
                                 </div>
                                 <div class="clearfix"></div>
                             </form>
