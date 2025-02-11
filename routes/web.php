@@ -147,7 +147,7 @@ Route::get('/cars', [FrontendController::class, 'cars'])->name('cars');
 Route::post('/cars-post', [FrontendController::class, 'carsPost'])->name('cars-post');
 
 // cardetails
-Route::post('/carsdetails-post', [FrontendController::class, 'carsdetailsPost'])->name('carsdetails-post');
+// Route::post('/carsdetails-post', [FrontendController::class, 'carsdetailsPost'])->name('carsdetails-post');
 Route::get('carsdetails/{slug}', [FrontendController::class, 'cardetails'])->name('carsdetails');
 
 Route::view('/keybox', 'frontend.keybox');

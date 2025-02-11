@@ -69,29 +69,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3 mb10">
+                                    <div class="col-lg-3">
                                         <h5>Start Date</h5>
-                                        <input type="text" id="startDate" placeholder="Start Date"  class="form-control" style="height: 2.125rem;">
+                                        <input type="text" name="startDate" id="startDate" placeholder="Start Date"  class="form-control">
                                     </div>
-                                    <div class="col-lg-2 mb10">
+                                    <div class="col-lg-2">
                                         <h5>Start Time</h5>
-                                        <input type="text" id="startTime" placeholder="Start Time"class="form-control" style="height: 2.125rem;">
+                                        <input type="text" name="startTime" id="startTime" placeholder="Start Time"class="form-control">
                                     </div>
 
-                                    <div class="col-lg-3 mb10">
+                                    <div class="col-lg-3">
                                         <h5>End Date</h5>
-                                        <input type="text" id="endDate" placeholder="End Date"  class="form-control" style="height: 2.125rem;">
+                                        <input type="text" name="endDate" id="endDate" placeholder="End Date"  class="form-control">
                                     </div>
-                                    <div class="col-lg-2 mb10">
+                                    <div class="col-lg-2">
                                         <h5>End Time</h5>
-                                        <input type="text" id="endTime" placeholder="End Time"  class="form-control" style="height: 2.125rem;">
+                                        <input type="text" name="endTime" id="endTime" placeholder="End Time"  class="form-control">
                                     </div>
-                                    <div class=" col-lg-2 mb10">
-                                        <input type='submit' id='send_message'
-                                            value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
-                                    </div>
-                                    <div id="dateTimeRange"  name="pickUpDate"></div>
-
 
                                     {{-- <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.pick_up_date_time') }}</h5>
@@ -100,12 +94,12 @@
                                         </div>
                                     </div> --}}
 
-                                    {{-- <div class="col-lg-10 mt2">
+                                    <div class="col-lg-12 mt-3">
                                         <div class="date-time-field">
                                             <input type='submit' id='send_message'
-                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
+                                                value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right">
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
 
                                 <div class="clearfix"></div>

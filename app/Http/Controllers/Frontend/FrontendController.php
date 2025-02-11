@@ -48,31 +48,30 @@ class FrontendController extends Controller
     {
         session()->put('pickUpLocation', $req->pickUpLocation);
         session()->put('dropOffLocation', $req->dropOffLocation);
-        session()->put('pickUpDate', $req->pickUpDate);
-        // session()->put('pickUpTime', $req->pickUpTime);
-        // session()->put('collectionDate', $req->collectionDate);
-        // session()->put('collectionTime', $req->collectionTime);
+        // session()->put('pickUpDate', $req->pickUpDate);
+        session()->put('startDate', $req->startDate);
+        session()->put('startTime', $req->startTime);
+        session()->put('endDate', $req->endDate);
+        session()->put('endTime', $req->endTime);
 
         return redirect()->route('cars');
     }
 
-    public function carsdetailsPost(Request $req)
-    {
-        session()->put('pickUpLocation', $req->pickUpLocation);
-        session()->put('dropOffLocation', $req->dropOffLocation);
-        session()->put('pickUpDate', $req->pickUpDate);
-        // session()->put('pickUpTime', $req->pickUpTime);
-        // session()->put('collectionDate', $req->collectionDate);
-        // session()->put('collectionTime', $req->collectionTime);
-        $slug = $req->slug;
+    // public function carsdetailsPost(Request $req)
+    // {
+    //     session()->put('pickUpLocation', $req->pickUpLocation);
+    //     session()->put('dropOffLocation', $req->dropOffLocation);
+    //     // session()->put('pickUpDate', $req->pickUpDate);
+    //     session()->put('startDate', $req->startDate);
+    //     session()->put('startTime', $req->startTime);
+    //     session()->put('endDate', $req->endDate);
+    //     session()->put('endTime', $req->endTime);
+    //     $slug = $req->slug;
 
-        // $pickUpLocation = session()->get('pickUpLocation');
-        // $dropOffLocation = session()->get('dropOffLocation');
-        // $pickUpDate = session()->get('pickUpDate');
 
-        // dd($pickUpLocation,$dropOffLocation,$pickUpDate,$slug);
-        return redirect()->route('carsdetails', $slug);
-    }
+    //     return redirect()->route('carsdetails', $slug);
+    // }
+
     public function cardetails($slug, Request $req)
     {
         $vehicles = Vehicle::where('slug', $slug)->firstOrFail();
@@ -132,15 +131,15 @@ public function contact()
     public function reservation(Request $request)
     {
         $params = [
-            'name', 'Dprice', 'wprice', 'mprice','pickUpLocation', 'dropOffLocation','pickUpDate','pickUpTime', 'collectionDate', 'collectionTime','targetDate', 'day_count', 'week_count', 'month_count', 'additional_driver', 'booster_seat', 'child_seat', 'exit_permit', 'message', 'total_price'
+            'name', 'Dprice', 'wprice', 'mprice','pickUpLocation', 'dropOffLocation','startDate','endDate','startTime','endTime', 'collectionDate', 'collectionTime','targetDate', 'day_count', 'week_count', 'month_count', 'additional_driver', 'booster_seat', 'child_seat', 'exit_permit', 'message', 'total_price'
         ];
 
         $params = $request->only($params);
 
-        $parsedDates = $this->parseDateRange($params['pickUpDate']);
+        // $parsedDates = $this->parseDateRange($params['pickUpDate']);
         // dd($parsedDates);
 
-        $data = array_merge($params, $parsedDates);
+        $data = array_merge($params);
         // dd($data);
         // $data = array_map(fn($param) => $request->query($param), array_combine($params, $params));
 

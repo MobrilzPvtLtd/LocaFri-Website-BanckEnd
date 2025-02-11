@@ -175,7 +175,7 @@
                                                         {{round($vehicle->Dprice ) }} CHF {!! __('messages.per_day') !!}
                                                     </span>
                                                 </div>
-                                                <form action="{{ route('carsdetails-post') }}" method="post">
+                                                {{-- <form action="{{ route('carsdetails-post') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="slug"
                                                         value="{{ $vehicle->slug }}">
@@ -191,9 +191,8 @@
                                                         value="{{ session()->get('collectionDate') }}">
                                                     <input type="hidden" name="collectionTime"
                                                         value="{{ session()->get('collectionTime') }}">
-                                                    <button type="submit" class="btn-main "
-                                                        href="{{ route('carsdetails-post') }}">{!! __('messages.rent_now') !!}</button>
-                                                </form>
+                                                    </form> --}}
+                                                <a type="submit" class="btn-main" href="{{ route('carsdetails',$vehicle->slug) }}">{!! __('messages.rent_now') !!}</a>
                                             </div>
                                         </div>
                                     </div>
