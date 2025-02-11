@@ -90,7 +90,7 @@
                                         <input type='submit' id='send_message'
                                             value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
                                     </div>
-                                    <div id="dateTimeRange"  name="pickUpDate" style="display: none;"></div>
+                                    <div id="dateTimeRange"  name="pickUpDate"></div>
 
 
                                     {{-- <div class="col-lg-6 mb20">
