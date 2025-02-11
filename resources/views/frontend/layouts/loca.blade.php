@@ -221,7 +221,7 @@
         });
     </script>
 
-    {{-- <script>
+    <script>
         $(function() {
             var totalVal = parseFloat($("#totalPrice").val()) || 0;
             var dayVal = parseFloat($("#Dprice").val()) || 0;
@@ -333,7 +333,7 @@
             }
         });
 
-    </script> --}}
+    </script>
 
     @yield('script')
 

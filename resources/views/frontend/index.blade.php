@@ -24,7 +24,7 @@
                         </h1>
                         <div class="spacer-single"></div>
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-8">
                         <div class="spacer-single sm-hide"></div>
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
                             <form name="contactForm" action="{{ route('cars-post') }}" id='contact_form' method="post">
@@ -71,22 +71,26 @@
 
                                     <div class="col-lg-3 mb10">
                                         <h5>Start Date</h5>
-                                        <input type="text" id="startDate" placeholder="Start Date" name="pickUpDate" class="form-control" style="height: 2.125rem;">
+                                        <input type="text" id="startDate" placeholder="Start Date"  class="form-control" style="height: 2.125rem;">
                                     </div>
                                     <div class="col-lg-2 mb10">
                                         <h5>Start Time</h5>
-                                        <input type="text" id="startTime" placeholder="Start Time" name="pickUpDate" class="form-control" style="height: 2.125rem;">
+                                        <input type="text" id="startTime" placeholder="Start Time"class="form-control" style="height: 2.125rem;">
                                     </div>
 
                                     <div class="col-lg-3 mb10">
                                         <h5>End Date</h5>
-                                        <input type="text" id="endDate" placeholder="End Date" name="pickUpDate" class="form-control" style="height: 2.125rem;">
+                                        <input type="text" id="endDate" placeholder="End Date"  class="form-control" style="height: 2.125rem;">
                                     </div>
                                     <div class="col-lg-2 mb10">
                                         <h5>End Time</h5>
-                                        <input type="text" id="endTime" placeholder="End Time" name="pickUpDate" class="form-control" style="height: 2.125rem;">
+                                        <input type="text" id="endTime" placeholder="End Time"  class="form-control" style="height: 2.125rem;">
                                     </div>
-                                    <div id="dateTimeRange" style="display: none;"></div>
+                                    <div class=" col-lg-2 mb10">
+                                        <input type='submit' id='send_message'
+                                            value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
+                                    </div>
+                                    <div id="dateTimeRange"  name="pickUpDate" style="display: none;"></div>
 
 
                                     {{-- <div class="col-lg-6 mb20">
@@ -103,10 +107,7 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <div class=" col-lg-2 mb10">
-                                    <input type='submit' id='send_message'
-                                        value='{{ __('messages.find_vehicle') }}' class="btn-main pull-right" style="height: 2.125rem;">
-                                </div>
+
                                 <div class="clearfix"></div>
                             </form>
                         </div>
