@@ -86,9 +86,8 @@
                                         <h5>End Time</h5>
                                         <input type="text" id="endTime" placeholder="End Time" name="pickUpDate" class="form-control" style="height: 2.125rem;">
                                     </div>
+                                    <div id="dateTimeRange" style="display: none;"></div>
 
-
-                                    {{-- <div id="dateTimeRange"></div> --}}
 
                                     {{-- <div class="col-lg-6 mb20">
                                         <h5>{{ __('messages.pick_up_date_time') }}</h5>
