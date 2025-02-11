@@ -252,24 +252,28 @@ class ApiController extends Controller
 
     public function cars() {
         try {
-            $vehicles = Vehicle::where('status', 1)->get();
+           $query = Vehicle::where('status', 1)->orderBy('id', 'desc');
+           $dataArray = $query->pluck('id')->toArray();
+            $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
+            ->where('is_rejected', '!=', 1)
+            ->where('is_complete', '=', 0)
+            ->pluck('vehicle_id')
+            ->toArray();
+
+            $vehicles = $query->whereNotIn('id', $bookedVehicleIds)->get();
 
             $vehicleData = [];
 
             foreach ($vehicles as $vehicle) {
                 $profile = null;
-                $images = [];
                 $imageUrls = [];
 
                 if ($vehicle->image) {
                     $images = json_decode($vehicle->image, true);
-                }
-
-                if (!empty($images)) {
                     foreach ($images as $image) {
                         $imageUrls[] = asset('public/storage/' . $image);
                     }
-                    $profile = $imageUrls[0]; // Use the first image as the profile image
+                    $profile = $imageUrls[0] ?? null;
                 }
 
                 $features = json_decode($vehicle->features, true);
@@ -277,13 +281,13 @@ class ApiController extends Controller
                 $data = [
                     'id' => $vehicle->id,
                     'name' => $vehicle->name,
-                    'model' => $vehicle->modal,
+                    'model' => $vehicle->model,
                     'type' => $vehicle->type,
                     'desc' => $vehicle->desc,
                     'location' => $vehicle->location,
                     'mitter' => $vehicle->mitter,
                     'profile' => $profile,
-                    'images' => $imageUrls, // Add all image URLs
+                    'images' => $imageUrls,
                     'body' => $vehicle->body,
                     'seat' => $vehicle->seat,
                     'door' => $vehicle->door,
@@ -294,14 +298,14 @@ class ApiController extends Controller
                     'exterior' => $vehicle->exterior,
                     'interior' => $vehicle->interior,
                     'featured' => $vehicle->featured,
-                    'features' => $features, // Add features array instead of JSON string
+                    'features' => $features,
                     'slug' => $vehicle->slug,
                     'Dprice' => $vehicle->Dprice,
                     'wprice' => $vehicle->wprice,
                     'mprice' => $vehicle->mprice,
                     'available_time' => $vehicle->available_time,
                     'status' => $vehicle->status,
-                    'ratings' => $vehicle->ratings,//added
+                    'ratings' => $vehicle->ratings,
                     'created_at' => $vehicle->created_at,
                     'updated_at' => $vehicle->updated_at,
                 ];
@@ -314,9 +318,10 @@ class ApiController extends Controller
                 'data' => $vehicleData,
             ]);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
 
     public function acceptBooking(Request $request) {
         // Retrieve the booking ID from the request
@@ -334,7 +339,6 @@ class ApiController extends Controller
                 ->first();
 
             if ($checkout) {
-                // Fetch the first name, last name, and email from the matching Checkout entry
                 $firstName = $checkout->first_name;
                 $lastName = $checkout->last_name;
                 $email = $checkout->email;
@@ -344,7 +348,7 @@ class ApiController extends Controller
                     'message' => 'Booking accepted',
                     'first_name' => $firstName,
                     'last_name' => $lastName,
-                    'email' => $email, // This will use the email from the Checkout entry
+                    'email' => $email, 
                 ]);
             } else {
                 return response()->json(['status' => false, 'message' => 'No matching Checkout entry found'], 404);
@@ -506,8 +510,6 @@ class ApiController extends Controller
             'email.required' => 'Email address is required.',
             'email.exists' => 'The selected email does not exist in our records.',
         ]);
-
-        // Handle validation errors
           if ($validator->fails()) {
             return response()->json([
                 'status' => false,
@@ -516,8 +518,6 @@ class ApiController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-
-        // Calculate the total price
         $totalPrice = $request->Dprice * $request->day_count +
                     $request->wprice * $request->week_count +
                     $request->mprice * $request->month_count +
@@ -526,9 +526,15 @@ class ApiController extends Controller
                     ($request->child_seat ?? 0) +
                     ($request->exit_permit ?? 0);
 
-        // Create the booking
+                    $vehicle = Vehicle::where('name', $request->vehicle_name)->first();
+
+                    if (!$vehicle) {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Vehicle not found. Please check the name and try again.',
+                        ], 404);
+                    }
         $booking = new Booking();
-        // $booking->user_id = $user->id;  // Store the authenticated user's ID
         $booking->name = $request->vehicle_name;
         $booking->Dprice = $request->Dprice ?? '0.00';
         $booking->wprice = $request->wprice ?? '0.00';
@@ -548,6 +554,7 @@ class ApiController extends Controller
         $booking->collectionDate = \Carbon\Carbon::parse($request->collectionDate);
         $booking->collectionTime = $request->collectionTime;
         $booking->payment_type = $request->payment_type;
+        $booking->vehicle_id = $vehicle->id;
         $booking->save();
 
         // Create the checkout
