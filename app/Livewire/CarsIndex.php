@@ -36,17 +36,24 @@ class CarsIndex extends Component
         $query = Vehicle::where('status', 1)->orderBy('id', 'desc');
         $dataArray = $query->pluck('id')->toArray();
         $startDate = Carbon::parse(session('startDate'))->format('Y-m-d');
-         $endDate = Carbon::parse(session('endDate'))->format('Y-m-d');
-         $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
-             ->where(function ($q) use ($startDate, $endDate) {
-                 $q->whereDate('pickUpDate', '>=', $startDate)
-                   ->whereDate('collectionDate', '<=', $endDate);
-             })
-             ->pluck('vehicle_id')
-             ->toArray();
+        $endDate = Carbon::parse(session('endDate'))->format('Y-m-d');
+
+        $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
+       ->where(function ($q) use ($startDate, $endDate) {
+        $q->where(function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('pickUpDate', [$startDate, $endDate]) 
+                  ->orWhereBetween('collectionDate', [$startDate, $endDate]) 
+                  ->orWhere(function ($q2) use ($startDate, $endDate) { 
+                      $q2->where('pickUpDate', '<=', $startDate)
+                         ->where('collectionDate', '>=', $endDate); 
+                  });
+        });
+        })
+        ->pluck('vehicle_id')
+        ->toArray();
 
              // Filter by Price
-        $query->when($this->price, function ($q) {
+          $query->when($this->price, function ($q) {
             $q->where(function ($subQuery) {
                 $subQuery->where('Dprice', '<=', $this->price)
                     ->orWhere('wprice', '<=', $this->price)
