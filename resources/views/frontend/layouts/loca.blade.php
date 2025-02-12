@@ -270,7 +270,7 @@
             $("#startTime").timepicker("setTime", formattedStartTime);
 
             const endDate = new Date();
-            endDate.setDate(now.getDate() + 2);
+            endDate.setDate(now.getDate() + 365);
             $("#endDate").datepicker("setDate", endDate);
 
             const endTime = new Date();

@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Livewire;
-
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Vehicle;
 use App\Models\Booking;
+use Carbon\Carbon;
 
 class CarsIndex extends Component
 {
@@ -14,7 +14,7 @@ class CarsIndex extends Component
     public $car, $van, $minibus, $prestige;
     public $convertible, $coupe, $exoticcars, $hatchback, $minivan;
     public $pickuptruck, $sedan, $sportscar, $stationwagon, $suv;
-    public $selectedSeats = []; // Dynamic Seat Filter
+    public $selectedSeats = [];
     public $trans1, $trans2;
     public $price;
 
@@ -27,7 +27,6 @@ class CarsIndex extends Component
 
     public function render()
     {
-        // Fetch unique seat counts dynamically from the Vehicle table
         $availableSeats = Vehicle::where('status', 1)
             ->select('seat')
             ->distinct()
@@ -35,15 +34,18 @@ class CarsIndex extends Component
             ->sort();
 
         $query = Vehicle::where('status', 1)->orderBy('id', 'desc');
-
         $dataArray = $query->pluck('id')->toArray();
-        $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
-        ->where('is_rejected', '!=', 1)
-        ->where('is_complete', '=', 0)
-        ->pluck('vehicle_id')
-        ->toArray();
+        $startDate = Carbon::parse(session('startDate'))->format('Y-m-d');
+         $endDate = Carbon::parse(session('endDate'))->format('Y-m-d');
+         $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
+             ->where(function ($q) use ($startDate, $endDate) {
+                 $q->whereDate('pickUpDate', '>=', $startDate)
+                   ->whereDate('collectionDate', '<=', $endDate);
+             })
+             ->pluck('vehicle_id')
+             ->toArray();
 
-        // Filter by Price
+             // Filter by Price
         $query->when($this->price, function ($q) {
             $q->where(function ($subQuery) {
                 $subQuery->where('Dprice', '<=', $this->price)
@@ -86,10 +88,9 @@ class CarsIndex extends Component
         $query->when(!empty($transmissions), function ($q) use ($transmissions) {
             $q->whereIn('trans', $transmissions);
         });
-
-        // Paginate Results
-        $vehicles = $query->whereNotIn('id', $bookedVehicleIds)->paginate(6);
-
+        $vehicles = Vehicle::whereNotIn('id', $bookedVehicleIds)
+        ->where('status', '!=', 0)
+        ->paginate(6);
         return view('livewire.cars-index', [
             'vehicles' => $vehicles,
             'availableSeats' => $availableSeats,
