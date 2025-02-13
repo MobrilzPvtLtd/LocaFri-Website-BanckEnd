@@ -125,7 +125,7 @@
     $(function() {
 
         // Array of disabled dates in YYYY-MM-DD format
-        const disabledDates = ["2025-02-20", "2025-02-15", "2025-02-18", "2025-03-05"]; 
+        const disabledDates = ["2025-02-16", "2025-02-18", "2025-02-19", "2025-02-26"]; // Array of disabled dates (YYYY-MM-DD) 
 
         // Initialize Date and Time Pickers
 
