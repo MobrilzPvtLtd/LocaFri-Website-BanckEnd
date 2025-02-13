@@ -147,6 +147,7 @@
 
         $("#endDate").datepicker({
             dateFormat: "yy-mm-dd",
+            minDate: 0, // Disable past dates for start date
             beforeShowDay: function(date) {  // Disable specific dates
             const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
             return [disabledDates.indexOf(formattedDate) === -1];
