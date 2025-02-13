@@ -123,10 +123,18 @@
 
     <script>
     $(function() {
+
+        // Array of disabled dates in YYYY-MM-DD format
+        const disabledDates = ["2025-02-20", "2025-02-15", "2025-02-18", "2025-03-05"]; 
+
         // Initialize Date and Time Pickers
         $("#startDate").datepicker({
             dateFormat: "yy-mm-dd",
             minDate: 0, // Disable past dates for start date
+            beforeShowDay: function(date) {  // Disable specific dates
+            const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
+            return [disabledDates.indexOf(formattedDate) === -1];
+            },
             onSelect: function(selectedDate) {
                 $("#endDate").datepicker("option", "minDate", selectedDate);
                 if ($("#endDate").val() && new Date(selectedDate) > new Date($("#endDate").val())) {
@@ -139,6 +147,10 @@
 
         $("#endDate").datepicker({
             dateFormat: "yy-mm-dd",
+            beforeShowDay: function(date) {  // Disable specific dates
+            const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
+            return [disabledDates.indexOf(formattedDate) === -1];
+                },
             onSelect: function(selectedDate) {
                 $("#startDate").datepicker("option", "maxDate", selectedDate);
                 if ($("#startDate").val() && new Date(selectedDate) < new Date($("#startDate").val())) {
