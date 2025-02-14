@@ -22,8 +22,6 @@ use App\Models\Contact;
 use App\Mail\ContactMail;
 use App\Mail\BookingMail;
 use App\Mail\ProcessedBookingMail;
-
-
 use App\Models\Alert;
 use App\Models\Otp;
 use App\Models\Transaction;
@@ -116,7 +114,6 @@ class ApiController extends Controller
         }
 
         $activeCarsQuery = Vehicle::where('status', 1);
-
         if ($request->location) {
             $activeCarsQuery->where('location', $request->location);
         }
@@ -337,7 +334,7 @@ class ApiController extends Controller
 
         $vehicleId = $request->vehicle_id;
         $bookedVehicles = Booking::where('vehicle_id', $vehicleId)
-            ->select('vehicle_id', 'id as booking_id', 'is_complete', 'pickUpDate', 'collectionDate')
+            ->select('vehicle_id', 'id as booking_id', 'is_complete','is_rejected', 'pickUpDate', 'collectionDate')
             ->get();
         if ($bookedVehicles->isEmpty()) {
             return response()->json([
