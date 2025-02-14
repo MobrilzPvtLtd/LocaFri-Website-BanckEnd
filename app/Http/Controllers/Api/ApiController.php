@@ -251,15 +251,9 @@ class ApiController extends Controller
 
     public function cars() {
         try {
-           $query = Vehicle::where('status', 1)->orderBy('id', 'desc');
-           $dataArray = $query->pluck('id')->toArray();
-            $bookedVehicleIds = Booking::whereIn('vehicle_id', $dataArray)
-            ->where('is_rejected', '!=', 1)
-            ->where('is_complete', '=', 0)
-            ->pluck('vehicle_id')
-            ->toArray();
-
-            $vehicles = $query->whereNotIn('id', $bookedVehicleIds)->get();
+            $query = Vehicle::where('status', 1)->orderBy('id', 'desc');
+            $vehicles = $query->get();
+            $bookings = Booking::whereIn('vehicle_id', $vehicles->pluck('id'))->get();
 
             $vehicleData = [];
 
@@ -276,8 +270,18 @@ class ApiController extends Controller
                 }
 
                 $features = json_decode($vehicle->features, true);
+                $vehicleBookings = $bookings->where('vehicle_id', $vehicle->id)->map(function ($booking) {
+                    return [
+                        'booking_id' => $booking->id,
+                        'is_reject' => $booking->is_rejected,
+                        'is_complete' => $booking->is_complete,
+                        'pickUpDate' => $booking->pickUpDate,
+                        'dropOffDate' => $booking->collectionDate,
+                    ];
+                })->values();
+                $bookingsData = $vehicleBookings->isEmpty() ? [["message" => "This car is not booked yet"]] : $vehicleBookings;
 
-                $data = [
+                $vehicleData[] = [
                     'id' => $vehicle->id,
                     'name' => $vehicle->name,
                     'model' => $vehicle->model,
@@ -307,15 +311,15 @@ class ApiController extends Controller
                     'ratings' => $vehicle->ratings,
                     'created_at' => $vehicle->created_at,
                     'updated_at' => $vehicle->updated_at,
+                    'bookings' => $bookingsData,
                 ];
-
-                $vehicleData[] = $data;
             }
 
             return response()->json([
                 'status' => 'success',
                 'data' => $vehicleData,
             ]);
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
