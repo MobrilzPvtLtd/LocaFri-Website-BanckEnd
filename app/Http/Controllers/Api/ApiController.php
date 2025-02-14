@@ -237,7 +237,6 @@ class ApiController extends Controller
             'permitted_kilometers_month' => $vehicle->permitted_kilometers_month,
             'available_time' => $vehicle->available_time,
             'status' => $vehicle->status,
-            // 'ratings' => $vehicle->ratings,//added for ratings
            'likes' => $totalLikes,
            'dislikes' => $totalDislikes,
             'created_at' => $vehicle->created_at,
@@ -322,17 +321,33 @@ class ApiController extends Controller
         }
     }
 
-        public function getBookedVehicles()
+    public function getBookedVehicles(Request $request)
     {
-        $bookedVehicles = Booking::whereHas('vehicle')
-            ->select('vehicle_id', 'id as booking_id', 'pickUpDate', 'collectionDate')
+        $vehicleExists = Vehicle::where('id', $request->vehicle_id)->exists();
+        if (!$vehicleExists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This vehicle does not exist'
+            ], 404);
+        }
+
+        $vehicleId = $request->vehicle_id;
+        $bookedVehicles = Booking::where('vehicle_id', $vehicleId)
+            ->select('vehicle_id', 'id as booking_id', 'is_complete', 'pickUpDate', 'collectionDate')
             ->get();
+        if ($bookedVehicles->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This car is not booked yet'
+            ], 200);
+        }
 
         return response()->json([
             'success' => true,
             'data' => $bookedVehicles
         ]);
     }
+
 
 
 
