@@ -70,20 +70,20 @@
                                     </div>
 
                                     <div class="col-lg-3">
-                                        <h5>Start Date</h5>
+                                        <h5> {{ __('messages.startdate') }}</h5>
                                         <input type="text" name="startDate" id="startDate" placeholder="Start Date"  class="form-control">
                                     </div>
-                                    <div class="col-lg-2">
-                                        <h5>Start Time</h5>
+                                    <div class="col-lg-3">
+                                        <h5>{{ __('messages.starttime') }}</h5>
                                         <input type="text" name="startTime" id="startTime" placeholder="Start Time"class="form-control">
                                     </div>
 
                                     <div class="col-lg-3">
-                                        <h5>End Date</h5>
+                                        <h5>{{ __('messages.enddate') }}</h5>
                                         <input type="text" name="endDate" id="endDate" placeholder="End Date"  class="form-control">
                                     </div>
-                                    <div class="col-lg-2">
-                                        <h5>End Time</h5>
+                                    <div class="col-lg-3">
+                                        <h5>{{ __('messages.endtime') }}</h5>
                                         <input type="text" name="endTime" id="endTime" placeholder="End Time"  class="form-control">
                                     </div>
 

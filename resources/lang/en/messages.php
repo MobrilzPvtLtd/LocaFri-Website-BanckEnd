@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'startdate'=>'Start Date',
+    'starttime'=> 'Start Time',
+    'enddate'=>'End Date',
+    'endtime'=>'End Time',
     'checkout_form' => 'Checkout Form',
     'billing_address' => 'Billing Address',
     'your_cart' => 'Your Cart',

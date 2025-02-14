@@ -1,6 +1,11 @@
 <?php
 
 return [
+    
+    'startdate'=>'Date de début',
+    'starttime'=> 'Heure de début',
+    'enddate'=>'Date de fin',
+    'endtime'=>'Heure de fin',
     'checkout_form' => 'Formulaire de Paiement',
     'billing_address' => 'Adresse de Facturation',
     'first_name' => 'Prénom',
