@@ -322,6 +322,19 @@ class ApiController extends Controller
         }
     }
 
+        public function getBookedVehicles()
+    {
+        $bookedVehicles = Booking::whereHas('vehicle')
+            ->select('vehicle_id', 'id as booking_id', 'pickUpDate', 'collectionDate')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $bookedVehicles
+        ]);
+    }
+
+
 
     public function acceptBooking(Request $request) {
         // Retrieve the booking ID from the request
@@ -348,7 +361,7 @@ class ApiController extends Controller
                     'message' => 'Booking accepted',
                     'first_name' => $firstName,
                     'last_name' => $lastName,
-                    'email' => $email, 
+                    'email' => $email,
                 ]);
             } else {
                 return response()->json(['status' => false, 'message' => 'No matching Checkout entry found'], 404);

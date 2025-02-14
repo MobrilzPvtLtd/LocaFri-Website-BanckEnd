@@ -19,6 +19,7 @@ Route::post('contract', [ApiController::class, 'contract']);
 Route::get('cars', [ApiController::class, 'cars']);
 Route::get('cardetails/{id}', [ApiController::class, 'cardetails']);
 Route::post('avalibalcars', [ApiController::class, 'avalibalcars']);
+Route::get('getBookedVehicles', [ApiController::class, 'getBookedVehicles']);
 
 Route::post('singup', [ApiController::class, 'register']);
 Route::post('login', [ApiController::class, 'login']);
