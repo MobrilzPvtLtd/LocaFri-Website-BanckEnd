@@ -234,64 +234,32 @@
 
                                     <div class="row">
                                         <h5>{!! __('messages.pick_up_date_time') !!}</h5>
-
-                                        @if($vehicles->bookings->count() == 0)
-                                            <div id="date_time_inputs">
-                                                {{-- Start Date --}}
-                                                <input type="text" name="startDate" id="startDate" value="{{ session('startDate') }}" class="form-control mt-3" style="width: 100%;" />
-
-                                                {{-- Start Time --}}
-                                                <input type="text" name="startTime" id="startTime" value="{{ session('startTime') }}" class="form-control mt-3" style="width: 100%;" />
-
-                                                {{-- End Date --}}
-                                                <input type="text" name="endDate" id="endDate" value="{{ session('endDate') }}" class="form-control mt-3" style="width: 100%;" />
-
-                                                {{-- End Time --}}
-                                                <input type="text" name="endTime" id="endTime" value="{{ session('endTime') }}" class="form-control mt-3" style="width: 100%;" />
-                                            </div>
-                                        @else
-                                            @php
-                                                $booking = $vehicles->bookings->first();
-                                                $pickupDate = \Carbon\Carbon::parse($booking->start_date)->format('d M Y');
-                                                $collectionDate = \Carbon\Carbon::parse($booking->end_date)->format('d M Y');
-                                            @endphp
-
+                                    
+                                        @if($vehicles->bookings->count() > 0)
                                             <p id="booking_message" class="text-danger">
-                                                This car is already booked from <strong>{{ $pickupDate }}</strong> to <strong>{{ $collectionDate }}</strong>.
-                                                Please select another date.
+                                                This car is already booked on the following dates:
                                             </p>
-
-                                            {{-- Alternative Date Picker --}}
-                                            <div id="alternative_date_inputs">
-                                                <h6>Select Alternative Dates:</h6>
-
-                                                <input type="text" name="startDate" id="startDate" value="{{ session('startDate') }}" class="form-control mt-3" style="width: 100%;" />
-
-                                                {{-- Start Time --}}
-                                                <input type="text" name="startTime" id="startTime" value="{{ session('startTime') }}" class="form-control mt-3" style="width: 100%;" />
-
-                                                {{-- End Date --}}
-                                                <input type="text" name="endDate" id="endDate" value="{{ session('endDate') }}" class="form-control mt-3" style="width: 100%;" />
-
-                                                {{-- End Time --}}
-                                                <input type="text" name="endTime" id="endTime" value="{{ session('endTime') }}" class="form-control mt-3" style="width: 100%;" />
-                                            </div>
+                                            <ul class="text-danger">
+                                                @foreach($vehicles->bookings as $booking)
+                                                    @php
+                                                        $pickupDate = \Carbon\Carbon::parse($booking->pickUpDate)->format('d M Y');
+                                                        $collectionDate = \Carbon\Carbon::parse($booking->collectionDate)->format('d M Y');
+                                                    @endphp
+                                                    <li>
+                                                        <strong>{{ $pickupDate }}</strong> to <strong>{{ $collectionDate }}</strong>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p class="text-success">This car is available for booking.</p>
                                         @endif
-
-                                        <script>
-                                            $(document).ready(function () {
-                                                var isBooked = @json($vehicles->bookings->count() > 0);
-
-                                                if (isBooked) {
-                                                    $("#date_time_inputs").hide();
-                                                    $("#booking_message").show();
-                                                    $("#alternative_date_inputs").show();
-                                                }
-                                            });
-                                        </script>
-
-                                    </div>
-                                    <div class="col-lg-12 mt-3">
+                                        <div id="date_time_inputs">
+                                            <input type="text" name="startDate" id="startDate" value="{{ session('startDate') }}" class="form-control mt-3" style="width: 100%;" />
+                                            <input type="text" name="startTime" id="startTime" value="{{ session('startTime') }}" class="form-control mt-3" style="width: 100%;" />
+                                            <input type="text" name="endDate" id="endDate" value="{{ session('endDate') }}" class="form-control mt-3" style="width: 100%;" />
+                                            <input type="text" name="endTime" id="endTime" value="{{ session('endTime') }}" class="form-control mt-3" style="width: 100%;" />
+                                        </div>
+                                        <div class="col-lg-12 mt-3">
                                         {{-- <h5>Select Days</h5> --}}
                                         {{-- <div class="date-time-field">
                                             <select name="targetDate" id="pick_up" class="targetDate">
