@@ -141,16 +141,20 @@
                                         <h4>{{ $vehicle->name }}</h4>
                                         <div class="d-atr-group d-flex justify-content-between">
                                             @if ($vehicle->seat !== 0 && $vehicle->seat !== null)
-                                                <span class="d-atr"><img src="images/icons/1.svg" alt="">{{ $vehicle->seat }}</span>
+                                                <span class="d-atr"><img src="images/icons/1.svg"
+                                                        alt="">{{ $vehicle->seat }}</span>
                                             @endif
 
-                                            <span class="d-atr"><img src="images/icons/2.svg" alt="">{{ $vehicle->fuel }}</span>
+                                            <span class="d-atr"><img src="images/icons/2.svg"
+                                                    alt="">{{ $vehicle->fuel }}</span>
 
                                             @if ($vehicle->door !== 0 && $vehicle->door !== null)
-                                                <span class="d-atr"><img src="images/icons/3.svg" alt="">{{ $vehicle->door }}</span>
+                                                <span class="d-atr"><img src="images/icons/3.svg"
+                                                        alt="">{{ $vehicle->door }}</span>
                                             @endif
 
-                                            <span class="d-atr"><img src="images/icons/4.svg" alt="">{{ $vehicle->trans }}</span>
+                                            <span class="d-atr"><img src="images/icons/4.svg"
+                                                    alt="">{{ $vehicle->trans }}</span>
                                         </div>
 
                                         {{-- @if ($vehicles->seat !== 0 && $vehicles->seat !== null)
@@ -172,7 +176,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <div>
                                                     <span>
-                                                        {{round($vehicle->Dprice ) }} CHF {!! __('messages.per_day') !!}
+                                                        {{ round($vehicle->Dprice) }} CHF {!! __('messages.per_day') !!}
                                                     </span>
                                                 </div>
                                                 {{-- <form action="{{ route('carsdetails-post') }}" method="post">
@@ -192,7 +196,8 @@
                                                     <input type="hidden" name="collectionTime"
                                                         value="{{ session()->get('collectionTime') }}">
                                                     </form> --}}
-                                                <a type="submit" class="btn-main" href="{{ route('carsdetails',$vehicle->slug) }}">{!! __('messages.rent_now') !!}</a>
+                                                <a type="submit" class="btn-main"
+                                                    href="{{ route('carsdetails', $vehicle->slug) }}">{!! __('messages.rent_now') !!}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -200,8 +205,6 @@
                             </div>
                         </div>
                     @endforeach
-
-
                 </div>
             </div>
         </div>
@@ -302,7 +305,7 @@
                                     </div>
                                 </div> --}}
 
-{{-- <div class="col-xl-4 col-lg-6">
+                               {{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/3-removebg-preview.png" class="img-fluid" alt="">
@@ -328,7 +331,7 @@
                                     </div>
                                 </div> --}}
 
-{{-- <div class="col-xl-4 col-lg-6">
+                                {{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
                                             <img src="images/cars/4-removebg-preview.png" class="img-fluid" alt="">
@@ -431,7 +434,6 @@
                                         </div>
                                     </div>
                                 </div> --}}
-
 {{-- <div class="col-xl-4 col-lg-6">
                                     <div class="de-item mb30">
                                         <div class="d-img">
