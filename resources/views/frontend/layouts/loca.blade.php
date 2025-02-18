@@ -155,7 +155,22 @@
         $("#startDate").datepicker({
             dateFormat: "yy-mm-dd",
             minDate: 0,
-            ...(isHome ? {} : {
+            ...(isHome ?
+            {
+                onSelect: function(selectedDate) {
+                    $("#endDate").datepicker("option", "minDate", selectedDate);
+                    if ($("#endDate").val() && new Date(selectedDate) > new Date($("#endDate").val())) {
+                        $("#endDate").val("");
+                        $("#endTime").val("");
+                    }
+                getCombinedDateTime();
+                    setTimeout(function() {
+                        $("#endDate").datepicker("show");
+                    }, 0);
+                }
+            }
+            :
+            {
                 beforeShowDay: function(date) {
                     const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
                     return [disabledDates.indexOf(formattedDate) === -1];
@@ -205,7 +220,18 @@
         $("#endDate").datepicker({
             dateFormat: "yy-mm-dd",
             minDate: 0,
-            ...(isHome ? {} : {
+            ...(isHome ? {
+                onSelect: function(selectedDate) {
+                    $("#startDate").datepicker("option", "maxDate", selectedDate);
+                    if ($("#startDate").val() && new Date(selectedDate) < new Date($("#startDate").val())) {
+                        $("#startDate").val("");
+                        $("#startTime").val("");
+                    }
+                    getCombinedDateTime();
+                }
+            }
+            :
+            {
                 beforeShowDay: function(date) {
                     const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
                     const startDate = $("#startDate").datepicker("getDate");
@@ -273,10 +299,13 @@
             // Find the next enabled date for endDate
             let endDate = new Date();
             endDate.setDate(now.getDate() + 2);
-            let formattedEndDate = $.datepicker.formatDate("yy-mm-dd", endDate);
-            while (disabledDates.indexOf(formattedEndDate)!== -1) {
-                endDate.setDate(endDate.getDate() + 1);
-                formattedEndDate = $.datepicker.formatDate("yy-mm-dd", endDate);
+            if (!isHome) {
+                let formattedEndDate = $.datepicker.formatDate("yy-mm-dd", endDate);
+
+                while (disabledDates.indexOf(formattedEndDate) !== -1) {
+                    endDate.setDate(endDate.getDate() + 1);
+                    formattedEndDate = $.datepicker.formatDate("yy-mm-dd", endDate);
+                }
             }
 
             $("#endDate").datepicker("setDate", endDate);
