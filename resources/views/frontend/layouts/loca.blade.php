@@ -276,19 +276,30 @@
         });
 
         function initializeDateTimePickers() {
+            let sessionStartDate = "{{ session('startDate', '') }}";
+            let sessionStartTime = "{{ session('startTime', '') }}";
+            let sessionEndDate = "{{ session('endDate', '') }}";
+            let sessionEndTime = "{{ session('endTime', '') }}";
+
             const now = new Date();
-            $("#startDate").datepicker("setDate", now);
+            const formattedNow = now.toISOString().split("T")[0];
+            let formattedTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
 
-            const startTimeMinutes = now.getMinutes() + 15;
-            now.setMinutes(startTimeMinutes);
-            const formattedStartTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-            $("#startTime").timepicker("setTime", formattedStartTime);
+            // Set the start date to session start date or current date
+            const startDateToSet = sessionStartDate || formattedNow;
+            $("#startDate").datepicker("setDate", startDateToSet);
 
-            // Find the next enabled date for endDate
-            let endDate = new Date();
+            // Set the start time to session start time or current time
+            $("#startTime").val(sessionStartTime || formattedTime);
+
+            // Set the end date to session end date or 2 days after the start date
+            let endDate = new Date(now);
             endDate.setDate(now.getDate() + 2);
+            let formattedEndDate = endDate.toISOString().split("T")[0]; // Format end date
+
+            // Check if isHome is false and adjust end date if it is in the disabled dates list
             if (!isHome) {
-                let formattedEndDate = $.datepicker.formatDate("yy-mm-dd", endDate);
+                formattedEndDate = $.datepicker.formatDate("yy-mm-dd", endDate);
 
                 while (disabledDates.indexOf(formattedEndDate) !== -1) {
                     endDate.setDate(endDate.getDate() + 1);
@@ -296,9 +307,12 @@
                 }
             }
 
-            $("#endDate").datepicker("setDate", endDate);
+            // Set the end date from session or the calculated one
+            const endDateToSet = sessionEndDate || formattedEndDate;
+            $("#endDate").datepicker("setDate", endDateToSet);
 
-            const endTime = new Date();
+            // Set the end time to session end time or calculate it based on start time
+            let endTime = new Date();
             endTime.setDate(endDate.getDate());
             if (endTime.getDate() === now.getDate()) {
                 endTime.setMinutes(startTimeMinutes);
@@ -306,13 +320,16 @@
                 endTime.setHours(now.getHours());
                 endTime.setMinutes(now.getMinutes() + 15);
             }
-            const formattedEndTime = endTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-            $("#endTime").timepicker("setTime", formattedEndTime);
 
+            const formattedEndTime = endTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            $("#endTime").val(sessionEndTime || formattedEndTime);
+
+            // Call additional functions
             getCombinedDateTime();
             calculateDaysWeeksMonths();
             calculateTotalPrice();
         }
+
 
         function getCombinedDateTime() {
             const startDate = $("#startDate").val();

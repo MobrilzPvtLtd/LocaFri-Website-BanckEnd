@@ -217,7 +217,7 @@
                                     <div class="col-lg-12 mt-3">
                                         <h5>{!! __('messages.pick_up_date_time') !!}</h5>
 
-                                        <input type="text" name="startDate" id="startDate" value="{{ session('startDate') }}" class="form-control mt-3" style="width: 100%;" />
+                                        <input type="text" name="startDate" id="startDate" value="{{ session()->get('startDate') }}" class="form-control mt-3" style="width: 100%;" />
                                         <input type="text" name="startTime" id="startTime" value="{{ session('startTime') }}" class="form-control mt-3" style="width: 100%;" />
                                         <input type="text" name="endDate" id="endDate" value="{{ session('endDate') }}" class="form-control mt-3" style="width: 100%;" />
                                         <input type="text" name="endTime" id="endTime" value="{{ session('endTime') }}" class="form-control mt-3" style="width: 100%;" />
