@@ -265,26 +265,14 @@
             }),
         });
 
-        $("#startTime").timepicker({
-            timeFormat: 'h:mm a',
-            interval: 15,
-            minTime: '00:00',
-            maxTime: '23:59',
+        $("#startTime, #endTime").timepicker({
+            timeFormat: "HH:mm",
+            interval: 30, // 30-minute interval
+            minTime: "00:00",
+            maxTime: "23:30",
             dynamic: false,
             dropdown: true,
-            scrollbar: true,
-            change: getCombinedDateTime
-        });
-
-        $("#endTime").timepicker({
-            timeFormat: 'h:mm a',
-            interval: 15,
-            minTime: '00:00',
-            maxTime: '23:59',
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true,
-            change: getCombinedDateTime
+            scrollbar: true
         });
 
         function initializeDateTimePickers() {
@@ -352,7 +340,8 @@
             startDate = new Date(startDate);
             endDate = new Date(endDate);
 
-            let totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            // let totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            let totalDays = (startDate.getTime() === endDate.getTime()) ? 1 : Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
 
             let months = Math.floor(totalDays / 30);
             let weeks = Math.floor((totalDays % 30) / 7);
