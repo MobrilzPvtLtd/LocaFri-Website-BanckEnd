@@ -24,9 +24,9 @@ class FrontendController extends Controller
      */
     public function index()
     {
-    Session::forget(['startDate', 'startTime', 'endDate', 'endTime']);
-    $vehicles = Vehicle::where('featured', true)->get();
-    return view('frontend.index', compact('vehicles'));
+        Session::forget(['startDate', 'startTime', 'endDate', 'endTime']);
+        $vehicles = Vehicle::where('featured', true)->get();
+        return view('frontend.index', compact('vehicles'));
     }
      public function thank_you()
     {
@@ -39,12 +39,6 @@ class FrontendController extends Controller
     public function privacy()
     {
         return view('frontend.privacy');
-    }
-    public function cars()
-    {
-        $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
-
-        return view('frontend.cars', compact('vehicles'));
     }
 
     public function carsPost(Request $req)
@@ -59,27 +53,20 @@ class FrontendController extends Controller
 
         return redirect()->route('cars');
     }
-//     public function cardetails($slug, Request $req)
-//     {
-//         $vehicles = Vehicle::where('slug', $slug)->with('bookings')->firstOrFail();
-//         session()->put('vehicle_id', $vehicles->id);
-// //   dd($vehicles);
-//         return view('frontend.pages.carsdetails', compact('vehicles' ));
-//     }
-public function cardetails($slug, Request $req)
-{
-    // Vehicle ko uske slug ke basis par fetch karte hain aur saari bookings ke sath load karte hain.
-    $vehicles = Vehicle::where('slug', $slug)->with('bookings')->firstOrFail();
 
-    // Vehicle ID ko session mein store karte hain.
-    session()->put('vehicle_id', $vehicles->id);
+    public function cars()
+    {
+        $vehicles = Vehicle::orderBy('id', 'desc')->paginate(6);
+        return view('frontend.cars', compact('vehicles'));
+    }
 
-    // Agar bookings collection mein koi booking hai, toh first booking le lete hain.
-    $booking = $vehicles->bookings->first(); // Agar koi booking na ho toh $booking null ho jayega.
+    public function cardetails($slug, Request $req)
+    {
+        $vehicles = Vehicle::where('slug', $slug)->with('bookings')->firstOrFail();
+        session()->put('vehicle_id', $vehicles->id);
 
-    // View ko vehicle aur booking dono pass karte hain.
-    return view('frontend.pages.carsdetails', compact('vehicles', 'booking'));
-}
+        return view('frontend.pages.carsdetails', compact('vehicles'));
+    }
 
 
 

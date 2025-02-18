@@ -111,8 +111,8 @@
         $endTime = session()->get('endTime');
         $vehicle_id = session()->get('vehicle_id');
 
-        $vehi = App\Models\Booking::where('vehicle_id', $vehicle_id)->first();
-        // dd($vehi);
+        $bookings = App\Models\Booking::where('vehicle_id', $vehicle_id)->get();
+        // dd($bookings);
     @endphp
 
     <script src="{{ asset('js/plugins.js') }}"></script>
@@ -126,182 +126,195 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
     <script>
-  $(function () {
-    let dailyRate = parseFloat($("#dailyRate").val()) || 50; // Default 50
+        let isHome = "{{ $isHome }}";
+        $(function () {
+            let bookedDates = @json($bookings->map(function($booking) {
+                return [
+                    'start' => $booking->pickUpDate,
+                    'end' => $booking->collectionDate
+                ];
+            }));
 
-    $("#startDate").datepicker({
-        dateFormat: "yy-mm-dd",
-        minDate: 0,
-        beforeShowDay: function(date) {
-            return [date >= new Date(), ""];
-        },
-        onSelect: function (selectedDate) {
-            let minEndDate = new Date(selectedDate);
-            minEndDate.setDate(minEndDate.getDate() + 1);
+            function isBooked(date) {
+                let isBooked = false;
+                let targetDate = date.toISOString().split('T')[0];
 
-            $("#endDate").datepicker("option", "minDate", minEndDate);
+                bookedDates.forEach(function(booking) {
+                    let bookingStartDate = new Date(booking.start);
+                    let bookingEndDate = new Date(booking.end);
 
-            if (!$("#endDate").val() || new Date($("#endDate").val()) < minEndDate) {
-                $("#endDate").datepicker("setDate", minEndDate);
+                    bookingStartDate.setDate(bookingStartDate.getDate() - 1);
+                    bookingEndDate.setDate(bookingEndDate.getDate());
+
+                    if (targetDate >= bookingStartDate.toISOString().split('T')[0] && targetDate < bookingEndDate.toISOString().split('T')[0]) {
+                        isBooked = true;
+                    }
+                });
+
+                return isBooked;
             }
 
-            getCombinedDateTime();
-            calculateDaysWeeksMonths();
-            calculateTotalPrice();
-        }
-    });
+            // Start Date Picker Configuration
+            let datePickerOptions = {
+                dateFormat: "yy-mm-dd",
+                minDate: 0,
+                onSelect: function (selectedDate) {
+                    let minEndDate = new Date(selectedDate);
+                    minEndDate.setDate(minEndDate.getDate());
 
-    $("#startDate").change(function () {
-        let selectedDate = new Date($(this).val());
-        let today = new Date();
-        today.setHours(0, 0, 0, 0);
+                    $("#endDate").datepicker("option", "minDate", minEndDate);
 
-        if (selectedDate < today) {
-            alert("Past date selection is not allowed!");
-            $(this).datepicker("setDate", today);
-        }
-    });
+                    if (!$("#endDate").val() || new Date($("#endDate").val()) < minEndDate) {
+                        $("#endDate").datepicker("setDate", minEndDate);
+                    }
 
-    $("#endDate").datepicker({
-        dateFormat: "yy-mm-dd",
-        minDate: 1,
-        onSelect: function (selectedDate) {
-            let maxStartDate = new Date(selectedDate);
-            maxStartDate.setDate(maxStartDate.getDate() - 1);
+                    calculateDaysWeeksMonths();
+                    calculateTotalPrice();
+                }
+            };
 
-            $("#startDate").datepicker("option", "maxDate", maxStartDate);
+            // Conditionally add beforeShowDay if isHome is false
+            if (!isHome) {
+                datePickerOptions.beforeShowDay = function (date) {
+                    return [date >= new Date() && !isBooked(date), ""];
+                };
+            }
 
-            getCombinedDateTime();
-            calculateDaysWeeksMonths();
-            calculateTotalPrice();
-        }
-    });
+            // Initialize Start Date Picker
+            $("#startDate").datepicker(datePickerOptions);
 
-    function getCombinedDateTime() {
-        const startDate = $("#startDate").val();
-        const startTime = $("#startTime").val();
-        const endDate = $("#endDate").val();
-        const endTime = $("#endTime").val();
+            let endDateOptions = {
+                dateFormat: "yy-mm-dd",
+                minDate: 1,
+                onSelect: function (selectedDate) {
+                    // let maxStartDate = new Date(selectedDate);
+                    // maxStartDate.setDate(maxStartDate.getDate());
 
-        let startDateTime = startDate && startTime ? startDate + ' ' + startTime : "Not set";
-        let endDateTime = endDate && endTime ? endDate + ' ' + endTime : "Not set";
+                    // $("#startDate").datepicker("option", "maxDate", maxStartDate);
 
-        $("#dateTimeRange").html("Selected Range: " + startDateTime + " - " + endDateTime);
-    }
+                    calculateDaysWeeksMonths();
+                    calculateTotalPrice();
+                }
+            };
 
-    function calculateDaysWeeksMonths() {
-        let startDate = $("#startDate").val();
-        let endDate = $("#endDate").val();
+            if (!isHome) {
+                endDateOptions.beforeShowDay = function(date) {
+                    return [date > new Date() && !isBooked(date), ""];
+                };
+            }
 
-        if (!startDate || !endDate) return;
+            // Initialize End Datepicker with the configured options
+            $("#endDate").datepicker(endDateOptions);
 
-        startDate = new Date(startDate);
-        endDate = new Date(endDate);
+            function calculateDaysWeeksMonths() {
+                let startDate = $("#startDate").val();
+                let endDate = $("#endDate").val();
 
-        let totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                if (!startDate || !endDate) return;
 
-        let months = Math.floor(totalDays / 30);
-        let weeks = Math.floor((totalDays % 30) / 7);
-        let days = totalDays - (months * 30) - (weeks * 7);
+                startDate = new Date(startDate);
+                endDate = new Date(endDate);
 
-        $("#counter003").val(months);
-        $("#counter002").val(weeks);
-        $("#counter001").val(days);
-    }
+                let totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
 
-    function calculateTotalPrice() {
-        var dayVal = parseFloat($("#Dprice").val()) || 0;
-        var weekVal = parseFloat($("#wprice").val()) || 0;
-        var monthVal = parseFloat($("#mprice").val()) || 0;
+                let months = Math.floor(totalDays / 30);
+                let weeks = Math.floor((totalDays % 30) / 7);
+                let days = totalDays - (months * 30) - (weeks * 7);
 
-        var additionalDriverVal = parseFloat($("#additionalDriverCheckbox").val()) || 0;
-        var boosterSeatVal = parseFloat($("#boosterSeatCheckbox").val()) || 0;
-        var childSeatVal = parseFloat($("#childSeatCheckbox").val()) || 0;
-        var exitPermitVal = parseFloat($("#exitPermitCheckbox").val()) || 0;
+                $("#counter003").val(months);
+                $("#counter002").val(weeks);
+                $("#counter001").val(days);
+            }
 
-        var dayCount = parseFloat($("#counter001").val()) || 0;
-        var weekCount = parseFloat($("#counter002").val()) || 0;
-        var monthCount = parseFloat($("#counter003").val()) || 0;
+            function calculateTotalPrice() {
+                var dayVal = parseFloat($("#Dprice").val()) || 0;
+                var weekVal = parseFloat($("#wprice").val()) || 0;
+                var monthVal = parseFloat($("#mprice").val()) || 0;
 
-        var totalPriceDay = dayCount * dayVal;
-        var totalPriceWeek = weekCount * weekVal;
-        var totalPriceMonth = monthCount * monthVal;
+                var additionalDriverVal = parseFloat($("#additionalDriverCheckbox").val()) || 0;
+                var boosterSeatVal = parseFloat($("#boosterSeatCheckbox").val()) || 0;
+                var childSeatVal = parseFloat($("#childSeatCheckbox").val()) || 0;
+                var exitPermitVal = parseFloat($("#exitPermitCheckbox").val()) || 0;
 
-        var totalPrice = totalPriceDay + totalPriceWeek + totalPriceMonth;
+                var dayCount = parseFloat($("#counter001").val()) || 0;
+                var weekCount = parseFloat($("#counter002").val()) || 0;
+                var monthCount = parseFloat($("#counter003").val()) || 0;
 
-        if ($("#additionalDriverCheckbox").is(':checked')) {
-            totalPrice += additionalDriverVal;
-        }
+                var totalPriceDay = dayCount * dayVal;
+                var totalPriceWeek = weekCount * weekVal;
+                var totalPriceMonth = monthCount * monthVal;
 
-        if ($("#boosterSeatCheckbox").is(':checked')) {
-            totalPrice += boosterSeatVal;
-        }
+                var totalPrice = totalPriceDay + totalPriceWeek + totalPriceMonth;
 
-        if ($("#childSeatCheckbox").is(':checked')) {
-            totalPrice += childSeatVal;
-        }
+                if ($("#additionalDriverCheckbox").is(':checked')) {
+                    totalPrice += additionalDriverVal;
+                }
 
-        if ($("#exitPermitCheckbox").is(':checked')) {
-            totalPrice += exitPermitVal;
-        }
+                if ($("#boosterSeatCheckbox").is(':checked')) {
+                    totalPrice += boosterSeatVal;
+                }
 
-        totalPrice = totalPrice.toFixed(2);
+                if ($("#childSeatCheckbox").is(':checked')) {
+                    totalPrice += childSeatVal;
+                }
 
-        $("#totalPrice").val(totalPrice);
-        $("#totalPriceDisplay").text(totalPrice);
-    }
+                if ($("#exitPermitCheckbox").is(':checked')) {
+                    totalPrice += exitPermitVal;
+                }
 
-    $("#additionalDriverCheckbox, #boosterSeatCheckbox, #childSeatCheckbox, #exitPermitCheckbox").change(function () {
-        calculateTotalPrice();
-    });
+                totalPrice = totalPrice.toFixed(2);
 
-    function initializeDateTimePickers() {
-        let sessionStartDate = "{{ session('startDate', '') }}";
-        let sessionStartTime = "{{ session('startTime', '') }}";
-        let sessionEndDate = "{{ session('endDate', '') }}";
-        let sessionEndTime = "{{ session('endTime', '') }}";
+                $("#totalPrice").val(totalPrice);
+                $("#totalPriceDisplay").text(totalPrice);
+            }
 
-        const now = new Date();
-        const formattedNow = now.toISOString().split("T")[0];
-        let formattedTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+            $("#additionalDriverCheckbox, #boosterSeatCheckbox, #childSeatCheckbox, #exitPermitCheckbox").change(function () {
+                calculateTotalPrice();
+            });
 
-        const endDate = new Date(now);
-        endDate.setDate(now.getDate() + 2);
-        const formattedEndDate = endDate.toISOString().split("T")[0];
+            function initializeDateTimePickers() {
+                let sessionStartDate = "{{ session('startDate', '') }}";
+                let sessionStartTime = "{{ session('startTime', '') }}";
+                let sessionEndDate = "{{ session('endDate', '') }}";
+                let sessionEndTime = "{{ session('endTime', '') }}";
 
-        if (!sessionStartDate || new Date(sessionStartDate) < new Date(formattedNow)) {
-            sessionStartDate = formattedNow;
-        }
+                const now = new Date();
+                const formattedNow = now.toISOString().split("T")[0];
+                let formattedTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
 
-        $("#startDate").datepicker("setDate", sessionStartDate);
-        $("#startTime").val(sessionStartTime || formattedTime);
+                const endDate = new Date(now);
+                endDate.setDate(now.getDate() + 2);
+                const formattedEndDate = endDate.toISOString().split("T")[0];
 
-        $("#endDate").datepicker("setDate", sessionEndDate || formattedEndDate);
-        $("#endTime").val(sessionEndTime || formattedTime);
+                if (!sessionStartDate || new Date(sessionStartDate) < new Date(formattedNow)) {
+                    sessionStartDate = formattedNow;
+                }
 
-        getCombinedDateTime();
-        calculateDaysWeeksMonths();
-        calculateTotalPrice();
-    }
+                $("#startDate").datepicker("setDate", sessionStartDate);
+                $("#startTime").val(sessionStartTime || formattedTime);
 
-    initializeDateTimePickers();
+                $("#endDate").datepicker("setDate", sessionEndDate || formattedEndDate);
+                $("#endTime").val(sessionEndTime || formattedTime);
 
-    // **Fixed Time Picker Initialization**
-    $("#startTime, #endTime").timepicker({
-        timeFormat: "HH:mm",
-        interval: 30, // 30-minute interval
-        minTime: "00:00",
-        maxTime: "23:30",
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-    });
+                calculateDaysWeeksMonths();
+                calculateTotalPrice();
+            }
 
-});
+            initializeDateTimePickers();
 
+            // **Fixed Time Picker Initialization**
+            $("#startTime, #endTime").timepicker({
+                timeFormat: "HH:mm",
+                interval: 30, // 30-minute interval
+                minTime: "00:00",
+                maxTime: "23:30",
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
 
-</script>
-
+        });
+    </script>
 
     @yield('script')
 

@@ -43,7 +43,6 @@
         <section id="section-car-details">
             <div class="container">
                 <div class="row g-5">
-
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
@@ -81,8 +80,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
                     <div class="col-lg-3">
@@ -144,35 +141,32 @@
                         <h4>{!! __('messages.features') !!}</h4>
                         <ul class="ul-style-2">
                             @php
-                            $featuresArray = json_decode($vehicles->features, true);
-                        @endphp
-                        @if (!empty($featuresArray))
-                        @foreach ($featuresArray as $feature)
-                        <div style="margin-bottom: 10px;">
-                            @if ($feature == 'Bluetooth')
-                                <i class="fa fa-check" title="Bluetooth" style="color: green;"></i> Bluetooth
-                            @elseif ($feature == 'Multimedia Player')
-                                <i class="fa fa-check" title="Multimedia Player" style="color: green;"></i> {!! __('messages.multimedia_player') !!}
-                            @elseif ($feature == 'Central Lock')
-                                <i class="fa fa-check" title="Central Lock" style="color: green;"></i> {!! __('messages.central_lock') !!}
-                            @elseif ($feature == 'Sunroof')
-                                <i class="fa fa-check" title="Sunroof" style="color: green;"></i> {!! __('messages.sunroof') !!}
-                            @elseif ($feature == 'Trailer Hitch')
-                                <i class="fa fa-check" title="Trailer Hitch" style="color: green;"></i> {!! __('messages.trailer_hitch') !!}
-                            @elseif ($feature == 'Reversing Camera')
-                                <i class="fa fa-check" title="Reversing Camera" style="color: green;"></i> {!! __('messages.reversing_camera') !!}
+                                $featuresArray = json_decode($vehicles->features, true);
+                            @endphp
+                            @if (!empty($featuresArray))
+                                @foreach ($featuresArray as $feature)
+                                <div style="margin-bottom: 10px;">
+                                    @if ($feature == 'Bluetooth')
+                                        <i class="fa fa-check" title="Bluetooth" style="color: green;"></i> Bluetooth
+                                    @elseif ($feature == 'Multimedia Player')
+                                        <i class="fa fa-check" title="Multimedia Player" style="color: green;"></i> {!! __('messages.multimedia_player') !!}
+                                    @elseif ($feature == 'Central Lock')
+                                        <i class="fa fa-check" title="Central Lock" style="color: green;"></i> {!! __('messages.central_lock') !!}
+                                    @elseif ($feature == 'Sunroof')
+                                        <i class="fa fa-check" title="Sunroof" style="color: green;"></i> {!! __('messages.sunroof') !!}
+                                    @elseif ($feature == 'Trailer Hitch')
+                                        <i class="fa fa-check" title="Trailer Hitch" style="color: green;"></i> {!! __('messages.trailer_hitch') !!}
+                                    @elseif ($feature == 'Reversing Camera')
+                                        <i class="fa fa-check" title="Reversing Camera" style="color: green;"></i> {!! __('messages.reversing_camera') !!}
+                                    @endif
+                                </div>
+                                @endforeach
                             @endif
-                        </div>
-
-                        @endforeach
-                    @endif
-
                         </ul>
                     </div>
 
                     <div class="col-lg-3">
                         <form id='contact_form' method="GET" action="{{ route('reservation') }}">
-                            {{-- @csrf --}}
                             <input type="hidden" name="name" value="{{ $vehicles->name }}">
                             <div class="de-price text-center">
                                 Prix
@@ -184,24 +178,14 @@
                             </div>
                             <div class="spacer-30"></div>
                             <div class="de-box mb25">
-                                {{-- <form name="contactForm" id='contact_form' method="post"> --}}
                                 <h4>{!! __('messages.booking_car') !!}</h4>
-
                                 <div class="spacer-20"></div>
 
                                 <div class="row">
                                     <div class="col-lg-12 mb20">
                                         <h5>{!! __('messages.pick_up_location') !!}</h5>
                                         <div class="date-time-field">
-
                                             <select name="pickUpLocation" id="pick_up" required>
-                                                {{-- @if(session()->has('pickUpLocation'))
-                                                    <option selected value="{{ session()->get('pickUpLocation') }}">
-                                                        {{ session()->get('pickUpLocation') }}
-                                                    </option>
-                                                @else
-                                                    <option selected disabled value="">Select pick up</option>
-                                                @endif --}}
                                                 @foreach (App\Models\Vehicle::whereNotNull('location')->distinct('location')->pluck('location') as $location)
                                                     <option value="{{ $location }}">{{ $location }}</option>
                                                 @endforeach
@@ -218,8 +202,6 @@
                                         <h5>{!! __('messages.drop_off_location') !!}</h5>
                                         <div class="date-time-field">
                                             <select name="dropOffLocation" id="Drop_Off" required>
-
-
                                                 @foreach (App\Models\Vehicle::where('location', '!=', null)->get() as $location)
                                                     <option value="{{ $location->location }}" {{ $location->location == $dropOffLocation ? 'selected' : '' }}>{{ $location->location }}</option>
                                                 @endforeach
@@ -232,74 +214,31 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="col-lg-12 mt-3">
                                         <h5>{!! __('messages.pick_up_date_time') !!}</h5>
-                                    
-                                        @if($vehicles->bookings->count() > 0)
-                                            <p id="booking_message" class="text-danger">
-                                                This car is already booked on the following dates:
-                                            </p>
-                                            <ul class="text-danger">
-                                                @foreach($vehicles->bookings as $booking)
-                                                    @php
-                                                        $pickupDate = \Carbon\Carbon::parse($booking->pickUpDate)->format('d M Y');
-                                                        $collectionDate = \Carbon\Carbon::parse($booking->collectionDate)->format('d M Y');
-                                                    @endphp
-                                                    <li>
-                                                        <strong>{{ $pickupDate }}</strong> to <strong>{{ $collectionDate }}</strong>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @else
-                                            <p class="text-success">This car is available for booking.</p>
-                                        @endif
-                                        <div id="date_time_inputs">
-                                            <input type="text" name="startDate" id="startDate" value="{{ session('startDate') }}" class="form-control mt-3" style="width: 100%;" />
-                                            <input type="text" name="startTime" id="startTime" value="{{ session('startTime') }}" class="form-control mt-3" style="width: 100%;" />
-                                            <input type="text" name="endDate" id="endDate" value="{{ session('endDate') }}" class="form-control mt-3" style="width: 100%;" />
-                                            <input type="text" name="endTime" id="endTime" value="{{ session('endTime') }}" class="form-control mt-3" style="width: 100%;" />
+
+                                        <input type="text" name="startDate" id="startDate" value="{{ session('startDate') }}" class="form-control mt-3" style="width: 100%;" />
+                                        <input type="text" name="startTime" id="startTime" value="{{ session('startTime') }}" class="form-control mt-3" style="width: 100%;" />
+                                        <input type="text" name="endDate" id="endDate" value="{{ session('endDate') }}" class="form-control mt-3" style="width: 100%;" />
+                                        <input type="text" name="endTime" id="endTime" value="{{ session('endTime') }}" class="form-control mt-3" style="width: 100%;" />
+                                    </div>
+
+                                    <div class="col-lg-12 mt-3">
+                                        <label>{!! __('messages.month') !!}</label><br>
+                                        <div class="d-flex gap-4">
+                                            <input type="text" id="counter003" name="month_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
                                         </div>
-                                        <div class="col-lg-12 mt-3">
-                                        {{-- <h5>Select Days</h5> --}}
-                                        {{-- <div class="date-time-field">
-                                            <select name="targetDate" id="pick_up" class="targetDate">
-                                                <option selected disabled value="">Pick up Days</option>
-                                                <option value="day">Day</option>
-                                                <option value="week">Week</option>
-                                                <option value="month">Month</option>
-                                            </select>
-                                        </div> --}}
-                                        {{-- <div class="col-md-3 col-sm-3 search-col-padding month section"> --}}
-                                            <label>{!! __('messages.month') !!}</label><br>
-                                            <div class="d-flex gap-4">
-                                                {{-- <button id="minus2">-</button> --}}
-                                                <input type="text" id="counter003" name="month_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
-                                                {{-- <button id="plus2">+</button> --}}
-                                            </div>
-                                        {{-- </div> --}}
 
-                                        {{-- <div class="col-md-3 col-sm-3 search-col-padding week section"> --}}
-                                            <label>{!! __('messages.week') !!}</label><br>
-                                            <div class="d-flex gap-4">
-                                                {{-- <button id="minus1">-</button> --}}
-                                                <input type="text" id="counter002" name="week_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
-                                                {{-- <button id="plus1">+</button> --}}
-                                            </div>
-                                        {{-- </div> --}}
+                                        <label>{!! __('messages.week') !!}</label><br>
+                                        <div class="d-flex gap-4">
+                                            <input type="text" id="counter002" name="week_count" value="0" class="form-control quantity-padding" readonly style="width: 100%;">
+                                        </div>
 
-                                        {{-- <div class="col-md-3 col-sm-3 search-col-padding day section"> --}}
-                                            <label>{!! __('messages.day') !!}</label><br>
-                                            <div class="d-flex gap-4">
-                                                {{-- <button id="minus">-</button> --}}
-                                                <input type="text" name="day_count" id="counter001" value="0" class="form-control quantity-padding"  readonly style="width: 100%; ">
-                                                {{-- <button id="plus">+</button> --}}
-                                            </div>
-                                        {{-- </div> --}}
+                                        <label>{!! __('messages.day') !!}</label><br>
+                                        <div class="d-flex gap-4">
+                                            <input type="text" name="day_count" id="counter001" value="0" class="form-control quantity-padding"  readonly style="width: 100%; ">
+                                        </div>
 
-                                        {{-- <div class="form-check form-switch d-flex gap-4 mt-4">
-                                            <input class="form-check-input" type="checkbox" id="additionalDriverCheckbox" name="additional_driver" value="20">
-                                            <label class="form-check-label"  for="additionalDriverCheckbox">Additional driver<br>(20.-/per month)</label>
-                                        </div> --}}
                                         <div class="form-check form-switch d-flex gap-4 mt-4">
                                             <input
                                                 class="form-check-input"
@@ -350,7 +289,6 @@
                                             }
                                         </script>
 
-
                                         <div class="form-check form-switch d-flex gap-4">
                                             <input class="form-check-input" type="checkbox" id="boosterSeatCheckbox" name="booster_seat" value="20">
                                             <label class="form-check-label" for="boosterSeatCheckbox">{!! __('messages.booster_seat') !!}<br>(20 CHF {!! __('messages.per_month') !!})</label>
@@ -373,7 +311,7 @@
                                     </div>
                                 </div>
 
-                                <input type='submit' id='send_message' value='{!! __('messages.book_now') !!}' class="btn-main btn-fullwidth">
+                                <input type="submit" id='send_message' value='{!! __('messages.book_now') !!}' class="btn-main btn-fullwidth mt-2">
 
                                 <div class="clearfix"></div>
                                 <div class="de-price text-center mt-2">
@@ -384,47 +322,9 @@
                                         <br>
                                     </h4>
                                 </div>
+                            </div>
                         </form>
                     </div>
-
-
-                <script>
-                @if($booking)
-                    var bookedStart = new Date("{{ $booking->pickUpDate }}");
-                    var bookedEnd   = new Date("{{ $booking->collectionDate }}");
-                    console.log(bookedStart);
-                    console.log(bookedEnd);
-                @else
-                    var bookedStart = null;
-                    var bookedEnd = null;
-                @endif
-
-                function disableBookedDates(date) {
-                    if (bookedStart && bookedEnd) {
-                        // Create new date objects with time set to 0 for proper comparison
-                        var currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                        var startDate   = new Date(bookedStart.getFullYear(), bookedStart.getMonth(), bookedStart.getDate());
-                        var endDate     = new Date(bookedEnd.getFullYear(), bookedEnd.getMonth(), bookedEnd.getDate());
-
-                        if (currentDate >= startDate && currentDate <= endDate) {
-                            return [false, "booked", "Already Booked"];
-                        }
-                    }
-                    return [true, "", ""];
-                }
-
-                $("#startDate").datepicker({
-                    dateFormat: "yy-mm-dd",
-                    beforeShowDay: disableBookedDates
-                });
-
-                $("#endDate").datepicker({
-                    dateFormat: "yy-mm-dd",
-                    beforeShowDay: disableBookedDates
-                });
-            </script>
-
-
 
                     {{-- <div class="de-box">
                         <h4>{!! __('messages.share') !!}</h4>
