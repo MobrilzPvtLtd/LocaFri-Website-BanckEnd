@@ -358,7 +358,7 @@
             endDate = new Date(endDate);
 
             // let totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-            let totalDays = (startDate.getTime() === endDate.getTime()) ? 1 : Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            let totalDays = (startDate.getTime() === endDate.getTime()) ? 1 : Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
             let months = Math.floor(totalDays / 30);
             let weeks = Math.floor((totalDays % 30) / 7);
