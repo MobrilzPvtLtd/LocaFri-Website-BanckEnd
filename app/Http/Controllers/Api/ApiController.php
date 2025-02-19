@@ -771,7 +771,8 @@ class ApiController extends Controller
 
             // Create the contract-in record
             $contract = new ContractIn();
-            $contract->booking_id = $checkout->id; // Use checkout ID here
+            $contract->booking_id = $checkout->booking_id; // Corrected line
+            // Use checkout ID here
             $contract->name = $request->name;
             $contract->address = $request->address;
             $contract->postal_code = $request->postal_code;
