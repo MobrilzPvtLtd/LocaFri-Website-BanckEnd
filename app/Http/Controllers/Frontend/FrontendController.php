@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\Like;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 
 
 class FrontendController extends Controller
@@ -121,6 +121,32 @@ public function contact()
     }
     public function reservation(Request $request)
     {
+        $bookings = Booking::where('vehicle_id', session()->get('vehicle_id'))->get();
+
+        $disabledDates = $bookings->flatMap(function ($booking) {
+            $startDate = Carbon::parse($booking->pickUpDate);
+            $endDate = Carbon::parse($booking->collectionDate);
+
+            $dates = [];
+            while ($startDate <= $endDate) {
+                $dates[] = $startDate->toDateString();
+                $startDate->addDay();
+            }
+
+            return $dates;
+        })->unique()->toArray();
+
+        $selectedStartDate = Carbon::parse($request->startDate);
+        $selectedEndDate = Carbon::parse($request->endDate);
+
+        foreach ($disabledDates as $disabledDate) {
+            $disabledDate = Carbon::parse($disabledDate);
+            if ($disabledDate->between($selectedStartDate, $selectedEndDate)) {
+                session()->flash('error', 'This vehicle is already booked for the selected dates. Please choose another date or vehicle.');
+                return redirect()->back();
+            }
+        }
+
         $params = [
             'name', 'Dprice', 'wprice', 'mprice','pickUpLocation', 'dropOffLocation','startDate','endDate','startTime','endTime', 'collectionDate', 'collectionTime','targetDate', 'day_count', 'week_count', 'month_count', 'additional_driver', 'booster_seat', 'child_seat', 'exit_permit', 'message', 'total_price'
         ];
