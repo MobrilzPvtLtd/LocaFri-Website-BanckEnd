@@ -321,7 +321,7 @@
                 endTime.setMinutes(now.getMinutes() + 15);
             }
 
-            const formattedEndTime = endTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const formattedEndTime = endTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
             $("#endTime").val(sessionEndTime || formattedEndTime);
 
             // Call additional functions
