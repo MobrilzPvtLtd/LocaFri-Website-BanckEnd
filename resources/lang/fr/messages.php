@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     'startdate'=>'Date de début',
     'starttime'=> 'Heure de début',
     'enddate'=>'Date de fin',
@@ -11,7 +11,7 @@ return [
     'first_name' => 'Prénom',
     'last_name' => 'Nom de famille',
     'email' => 'Email',
-    'adresse_1' => 'Adresse 1',
+    'adresse_1' => 'Adresse',
     'adresse_2' => 'Adresse 2',
     'zip_code' => 'Code postal',
     'available_time' => 'Heure de disponibilité',
@@ -98,7 +98,7 @@ return [
     'fuel_type' => 'Type de carburant',
     'authorized_kilometers' => 'Kilomètres autorisés',
     'kms_month' => 'kms / 1 mois',
-    'transmission' => ' Emission',
+    'transmission' => 'Transmission',
     'automatic' => 'Automatique',
     'manual' => 'Manuel',
     'exterior_color' => 'Couleur extérieure',

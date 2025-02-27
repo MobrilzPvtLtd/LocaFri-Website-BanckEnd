@@ -11,7 +11,7 @@ return [
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
     'email' => 'Email',
-    'adresse_1' => 'Adress 1',
+    'adresse_1' => 'Adress',
     'adresse_2' => 'Adress 2',
     'zip_code' => 'Zip Code',
     'available_time'=>'Available Time',
