@@ -4,7 +4,8 @@
     {{ app_name() }} - Cars
 @endsection
 <a href="https://wa.me/41793876020" target="_blank" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat with us on WhatsApp" style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat with us on WhatsApp"
+        style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
 </a>
 
 @section('content')
@@ -31,7 +32,8 @@
                     @if ($data['day_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{ __('messages.day') }}</h6>
+                                <h6 class="my-0">{{ __('messages.day') }} (
+                                    {{ $data['day_count'] }})</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">CHF {{ $data['Dprice'] * $data['day_count'] }}</span>
@@ -41,7 +43,9 @@
                     @if ($data['week_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{ __('messages.week') }}</h6>
+                                <h6 class="my-0">{{ __('messages.week') }} ({{ $data['week_count'] }}
+                                    {{-- {{ __('messages.weeks') }} --}}
+                                    )</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">CHF {{ $data['wprice'] * $data['week_count'] }}</span>
@@ -51,12 +55,15 @@
                     @if ($data['month_count'] > 0)
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{ __('messages.month') }}</h6>
+                                <h6 class="my-0">{{ __('messages.month') }} ({{ $data['month_count'] }}
+                                    {{-- {{ __('messages.months') }} --}}
+                                    )</h6>
                                 {{-- <small class="text-muted">{{ $data['targetDate'] }}</small> --}}
                             </div>
                             <span class="text-muted">CHF {{ $data['mprice'] * $data['month_count'] }}</span>
                         </li>
                     @endif
+
                     @if (isset($data['additional_driver']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
@@ -69,7 +76,7 @@
                     @if (isset($data['booster_seat']))
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{ __('messages.booster_seat')}}</h6>
+                                <h6 class="my-0">{{ __('messages.booster_seat') }}</h6>
                                 <small class="text-muted">(20 CHF /{{ __('messages.month') }})</small>
                             </div>
                             <span class="text-muted">CHF{{ $data['booster_seat'] }}</span>
@@ -137,7 +144,8 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">{{ __('messages.first_name') }} <span class="text-danger">*</span></label>
+                            <label for="firstName">{{ __('messages.first_name') }} <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="first_name" id="firstName" placeholder=""
                                 value="{{ old('first_name') }}" required>
                             @error('first_name')
@@ -145,7 +153,8 @@
                             @enderror
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lastName">{{ __('messages.last_name') }}<span class="text-danger">*</span></label>
+                            <label for="lastName">{{ __('messages.last_name') }}<span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="last_name" id="lastName" placeholder=""
                                 value="{{ old('last_name') }}" required>
                         </div>
@@ -153,8 +162,8 @@
 
                     <div class="mb-3">
                         <label for="email">{{ __('messages.email') }} <span class="text-danger">*</span></label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com"
-                            value="{{ old('email') }}" required>
+                        <input type="email" name="email" class="form-control" id="email"
+                            placeholder="you@example.com" value="{{ old('email') }}" required>
                         @error('email')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -162,8 +171,8 @@
 
                     <div class="mb-3">
                         <label for="address">{{ __('messages.adresse_1') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="address_first" class="form-control" id="address" placeholder="1234 Main St"
-                            value="{{ old('address_first') }}">
+                        <input type="text" name="address_first" class="form-control" id="address"
+                            placeholder="1234 Main St" value="{{ old('address_first') }}">
                         @error('address_first')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -171,14 +180,14 @@
 
                     <div class="mb-3">
                         <label for="address2">{{ __('messages.adresse_1') }}<span class="text-muted"></span></label>
-                        <input type="text" name="address_last" class="form-control" id="address2" placeholder="Apartment or suite"
-                            value="{{ old('address_last') }}">
+                        <input type="text" name="address_last" class="form-control" id="address2"
+                            placeholder="Apartment or suite" value="{{ old('address_last') }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="zipcode">{{ __('messages.zip_code') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="zipcode" class="form-control" id="zipcode" required placeholder="Zip Code"
-                            value="{{ old('zipcode') }}">
+                        <input type="text" name="zipcode" class="form-control" id="zipcode" required
+                            placeholder="Zip Code" value="{{ old('zipcode') }}">
                         @error('zipcode')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -186,8 +195,8 @@
 
                     <div class="mb-3">
                         <label for="city">{{ __('messages.city') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="city" class="form-control" id="city" required placeholder="{{ __('messages.city') }}"
-                            value="{{ old('city') }}">
+                        <input type="text" name="city" class="form-control" id="city" required
+                            placeholder="{{ __('messages.city') }}" value="{{ old('city') }}">
                         @error('city')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -226,13 +235,15 @@
                     <hr class="mb-4">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="save-info" name="next_time">
-                        <label class="custom-control-label" for="save-info">{{ __('messages.save_this_information_for_next_time')}}</label>
+                        <label class="custom-control-label"
+                            for="save-info">{{ __('messages.save_this_information_for_next_time') }}</label>
                         @error('next_time')
-                           <div class="text-danger">{{ $message }}</div>
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <hr class="mb-4">
-                    <label class="custom-control-label mb-8" for="same-address">{{ __('messages.choose_payment_type')}}</label>
+                    <label class="custom-control-label mb-8"
+                        for="same-address">{{ __('messages.choose_payment_type') }}</label>
 
                     @php
                         $remaining_amount = $data['total_price'] * 0.1;
@@ -240,11 +251,12 @@
 
                     <select class="form-select" style="width: 50%;" name="payment_type" id="payment_type"
                         {{-- onchange="updatePayment()" --}}>
-                        <option value="payment_partial">{{ __('messages.pay_partially_10')}}(10% of the CHF {{ $remaining_amount }})
+                        <option value="payment_partial">{{ __('messages.pay_partially_10') }}(10% of the CHF
+                            {{ $remaining_amount }})
                             <span id="payment_10_percent"></span>
                         </option>
-                        <option value="payment_full">{{ __('messages.pay_full_amount')}}(CHF {{ $data['total_price'] }})<span
-                                id="payment_full"></span></option>
+                        <option value="payment_full">{{ __('messages.pay_full_amount') }}(CHF
+                            {{ $data['total_price'] }})<span id="payment_full"></span></option>
                     </select>
 
                     {{-- <script>
@@ -273,19 +285,19 @@
                         updatePayment();
                     </script> --}}
 
-                    <h4 class="mt-3">{{ __('messages.payment_methods')}}</h4>
+                    <h4 class="mt-3">{{ __('messages.payment_methods') }}</h4>
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
                             <input id="credit" name="payment_method" type="radio" class="custom-control-input"
                                 value="stripe" checked required>
-                            <label class="custom-control-label" for="credit">{{ __('messages.visa')}}</label>
+                            <label class="custom-control-label" for="credit">{{ __('messages.visa') }}</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input id="credit" name="payment_method" type="radio" class="custom-control-input"
-                            value="stripe" checked required>
-                        <label class="custom-control-label" for="credit">{{ __('messages.twint')}}</label>
-                       
+                                value="stripe" checked required>
+                            <label class="custom-control-label" for="credit">{{ __('messages.twint') }}</label>
+
                             {{-- <input id="debit" name="payment_method" type="radio" class="custom-control-input"
                                 value="twint" required>
                             <label class="custom-control-label" for="debit">{{ __('messages.twint')}}</label> --}}
@@ -331,7 +343,7 @@
                         <!-- Button trigger modal -->
                         <button type="button" class="btn-main" data-bs-toggle="modal"
                             data-bs-target="#scrollingLongContent">
-                            {{ __('messages.continue_to_checkout')}}
+                            {{ __('messages.continue_to_checkout') }}
                         </button>
 
                         <!-- Modal -->
@@ -346,23 +358,24 @@
                                     </div>
                                     <div class="modal-body">
                                         <h4>{{ __('messages.responsibilities_title') }}</h4>
-                                       <p>{{ __('messages.responsibilities_details') }}</p>
+                                        <p>{{ __('messages.responsibilities_details') }}</p>
 
-                                    <ul>
-                                      <li>{{ __('messages.insurance') }}</li>
-                                      <li>{{ __('messages.late_return') }}</li>
-                                      <li>{{ __('messages.fuel_policy') }}</li>
-                                      <li>{{ __('messages.contraventions') }}</li>
-                                      <li>{{ __('messages.contraventions_fees') }}</li>
-                                      <li>{{ __('messages.accidents_procedure') }}</li>
-                                      <li>{{ __('messages.usage_restrictions') }}</li>
-                                      <li>{{ __('messages.fuel_return') }}</li>
-                                      <li>{{ __('messages.fuel_penalty') }}</li>
-                                    </ul>
-                                </div>
+                                        <ul>
+                                            <li>{{ __('messages.insurance') }}</li>
+                                            <li>{{ __('messages.late_return') }}</li>
+                                            <li>{{ __('messages.fuel_policy') }}</li>
+                                            <li>{{ __('messages.contraventions') }}</li>
+                                            <li>{{ __('messages.contraventions_fees') }}</li>
+                                            <li>{{ __('messages.accidents_procedure') }}</li>
+                                            <li>{{ __('messages.usage_restrictions') }}</li>
+                                            <li>{{ __('messages.fuel_return') }}</li>
+                                            <li>{{ __('messages.fuel_penalty') }}</li>
+                                        </ul>
+                                    </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn-main" data-bs-dismiss="modal">{{ __('messages.close')}}</button>
-                                        <button type="submit" class="btn-main">{{ __('messages.understood')}}</button>
+                                        <button type="button" class="btn-main"
+                                            data-bs-dismiss="modal">{{ __('messages.close') }}</button>
+                                        <button type="submit" class="btn-main">{{ __('messages.understood') }}</button>
                                     </div>
                                 </div>
                             </div>

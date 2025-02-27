@@ -117,9 +117,10 @@
                             </div>
                             <div class="d-row de-flex">
                                 <span class="d-title">{!! __('messages.authorized_kilometers') !!} </span>
-                                <span class="d-value">{{ $vehicles->permitted_kilometers_day}} Km {!! __('messages.per_day') !!}<br>
-                                {{ $vehicles->permitted_kilometers_month}} Km {!! __('messages.per_month') !!} <br>
-                                {{ $vehicles->permitted_kilometers_week}} Km {!! __('messages.per_week') !!}<br>
+                                <span class="d-value">{{ $vehicles->permitted_kilometers_day}} Kms/{!! __('messages.day') !!}<br>
+                                {{ $vehicles->permitted_kilometers_week}} Kms/{!! __('messages.week') !!}<br>
+                                {{ $vehicles->permitted_kilometers_month}} Kms/{!! __('messages.month') !!} <br>
+
                              </span>
                             </div>
                             <div class="d-row">
