@@ -180,8 +180,8 @@
                         <div class="box-icon s2 p-small mb20 wow fadeInRight" data-wow-delay=".5s">
                         <i class="fa bg-color fa-trophy"></i>
                         <div class="d-inner">
-                        <h4>{{ __('messages.first_class_service') }}</h4>
-                        {{ __('messages.first_class_service_info') }}
+                        {{-- <h4>{{ __('messages.first_class_service') }}</h4> --}}
+                        {{-- {{ __('messages.first_class_service_info') }} --}}
                         </div>
                         </div>
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
@@ -201,8 +201,8 @@
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
                         <i class="fa bg-color fa-tag"></i>
                         <div class="d-inner">
-                        <h4> {{ __('messages.quality_at_min_exp') }}</h4>
-                        {{ __('messages.quality_at_min_exp_info') }}</div>
+                        {{-- <h4> {{ __('messages.quality_at_min_exp') }}</h4> --}}
+                        {{-- {{ __('messages.quality_at_min_exp_info') }}</div> --}}
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
@@ -219,23 +219,23 @@
             <img src="images/background/3.jpg" alt="" class="jarallax-img" />
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <h1>{{ __('messages.adventure_begin') }}</h1>
                         <div class="spacer-20"></div>
                     </div>
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         <i class="fa fa-trophy de-icon mb20"></i>
                         <h4>{{ __('messages.first_class_services') }}</h4>
                         <p>
                             {{ __('messages.first_class_service_info') }} </p>
-                    </div>
-                    <div class="col-md-3">
+                    </div> --}}
+                    <div class="col-md-4">
                         <i class="fa fa-road de-icon mb20"></i>
                         <h4>{{ __('messages.road_assistance') }}</h4>
                          <p>
                             {{ __('messages.assistance_info') }} </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <i class="fa fa-map-pin de-icon mb20"></i>
                         <h4>{{ __('messages.multiple_payment_options') }}</h4>
                      <p>
