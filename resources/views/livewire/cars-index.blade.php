@@ -8,10 +8,10 @@
                     $maxPrice = 0;
                     foreach ($vehicle as $key => $value) {
                         if ($value->Dprice < $dayPrice) {
-                            $dayPrice = $value->Dprice;
+                            $dayPrice = intval($value->Dprice);
                         }
                         if ($value->mprice > $maxPrice) {
-                            $maxPrice = $value->mprice;
+                           $maxPrice = intval($value->mprice);
                         }
                     }
                 @endphp
