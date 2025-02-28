@@ -20,7 +20,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Terms and Conditions</h1>
+                            <h1>{{ __('messages.terms_and_conditions') }}</h1>
                         </div>
                     </div>
                 </div>
@@ -30,75 +30,59 @@
         <!-- Main Content Section -->
         <section aria-label="section">
             <div class="container mt-5">
-                <h2>General Conditions</h2>
+                <h2>{{ __('messages.general_conditions') }}</h2>
                 <div class="regulations-section">
                     <!-- Terms Content -->
                     <p>
-                        <strong>1. Hirer's Responsibilities</strong><br>
-                        The hirer is responsible for the rented vehicle (including all accessories) from the start of the
-                        rental period. The vehicle must be returned in its original condition (washed, vacuumed, and in
-                        working order). If the insurance company refuses to cover any damages, these must be borne by the
-                        hirer. An insurance excess of CHF 1,000.00 is always payable unless excess insurance of CHF 300.00
-                        is taken. Any damage due to negligence will also be fully borne by the hirer. LocaFri Sàrl reserves
-                        the right to request activation of the customer's private liability insurance in cases of
-                        negligence. Additional kilometers are charged at CHF 0.50 per kilometer.
+                        <strong>1. {{ __('messages.hirer_responsibilities') }}</strong><br>
+                        {{ __('messages.hirer_text') }}
                     </p>
 
                     <p>
-                        <strong>2. Returning the Vehicle</strong><br>
-                        The vehicle and accessories must be returned in perfect condition at the time and place specified in
-                        the rental agreement. Late returns will incur additional charges, including costs for refueling or
-                        professional cleaning if necessary.
+                        <strong>2. {{ __('messages.returning_vehicle') }}</strong><br>
+                        {{ __('messages.return_vehicle') }}
                     </p>
 
                     <p>
-                        <strong>3. Other Commitments of the Hirer</strong><br>
-                        The hirer agrees to:<br>
-                        - Comply with all insurance conditions.<br>
-                        - Take proper care of the rented vehicle.<br>
-                        - Never abandon the vehicle in the event of a breakdown or accident until the lessor or a mechanic
-                        intervenes.<br>
-                        - Only allow registered drivers in the rental agreement to operate the vehicle.
+                        <strong>3.  {{ __('messages.other_commitments_hirer') }}</strong><br>
+                        {{ __('messages.hirer_agreements') }}
+
                     </p>
 
                     <p>
-                        <strong>4. Authorized Drivers</strong><br>
-                        The vehicle may only be driven by individuals listed in the rental contract as authorized drivers.
+                        <strong>4. {{ __('messages.authorized_drivers') }}</strong><br>
+                        {{ __('messages.authorized_drivers_text') }}
+                        {{-- The vehicle may only be driven by individuals listed in the rental contract as authorized drivers. --}}
                     </p>
 
                     <p>
-                        <strong>5. Compensation</strong><br>
-                        At the end of the rental period, if the vehicle is not returned in the same condition as at the
-                        start, the hirer must immediately compensate the lessor for any damages.
+                        <strong>5. {{ __('messages.compensation') }}</strong><br>
+                        {{ __('messages.compensation_text') }}
                     </p>
 
                     <p>
-                        <strong>6. Fines</strong><br>
-                        The hirer is responsible for paying any fines incurred during the rental period. An administrative
-                        fee of CHF 20.00 will be charged for processing.
+                        <strong>6. {{ __('messages.fines') }}</strong><br>
+                        {{ __('messages.fines_text') }}
                     </p>
 
                     <p>
-                        <strong>7. Procedure in the Event of an Accident or Theft</strong><br>
-                        In the event of an accident, theft, or damage, the hirer must notify the police immediately and
-                        inform the lessor as soon as possible. An accident report must be completed and submitted to the
-                        lessor and the insurance company.
+                        <strong>7. {{ __('messages.accident_procedure') }}</strong><br>
+                        {{ __('messages.accident_procedure_text') }}
                     </p>
 
                     <p>
-                        <strong>8. Prohibited Uses and Territorial Restrictions</strong><br>
-                        The vehicle may only be used within Swiss territory. Any unauthorized usage is strictly prohibited.
+                        <strong>8. {{ __('messages.prohibited_uses') }}</strong><br>
+                        {{ __('messages.prohibited_uses_text') }}
                     </p>
 
                     <p>
-                        <strong>9. Fuel Policy</strong><br>
-                        The vehicle must be returned with the same level of fuel as at the start of the rental. Otherwise, a
-                        surcharge of CHF 20.00 plus the cost of fuel will apply.
+                        <strong>9. {{ __('messages.fuel_policy') }}</strong><br>
+                        {{ __('messages.fuel_policy_text') }}
                     </p>
 
                     <!-- Shareable Link Section -->
                     {{-- <div class="mt-4">
-                        <strong>Share this link:</strong>
+                        <strong>{{ __('messages.share') }}</strong>
                         <input type="text" class="form-control text-center form-border" readonly
                             value="{{ $link ?? 'No link provided' }}">
                     </div> --}}

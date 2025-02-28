@@ -17,6 +17,32 @@ return [
     'available_time' => 'Heure de disponibilité',
     'road_assistance' => '24/7 Assistance routière',
 
+    'terms_and_conditions' => 'Conditions Générales',
+    'general_conditions' => 'Conditions Générales',
+    'hirer_responsibilities' => 'Responsabilités du Locataire',
+    'hirer_text' => 'Le locataire est responsable du véhicule loué (y compris tous les accessoires) dès le début de la période de location. Le véhicule doit être retourné dans son état d\'origine (lavé, aspiré et en bon état de fonctionnement). Si la compagnie d\'assurance refuse de couvrir certains dommages, ceux-ci doivent être pris en charge par le locataire. Une franchise d\'assurance de 1 000,00 CHF est toujours exigible, sauf si une assurance rachat de franchise de 300,00 CHF est souscrite. Tout dommage dû à une négligence sera également entièrement à la charge du locataire. LocaFri Sàrl se réserve le droit de demander l’activation de l’assurance responsabilité civile privée du client en cas de négligence. Les kilomètres supplémentaires sont facturés à raison de 0,50 CHF par kilomètre.',
+    'returning_vehicle' => 'Returning the Vehicle',
+    'return_vehicle' => 'Le véhicule et ses accessoires doivent être retournés en parfait état à l\'heure et à l\'endroit spécifiés dans le contrat de location. Les retours tardifs entraîneront des frais supplémentaires, y compris les coûts de ravitaillement en carburant ou de nettoyage professionnel si nécessaire.',
+    'other_commitments_hirer' => 'Autres engagements du locataire',
+    'hirer_agreements' => "Le locataire s'engage à :\n
+    • Respecter toutes les conditions d'assurance.\n
+    • Prendre soin du véhicule loué.\n
+    • Ne jamais abandonner le véhicule en cas de panne ou d'accident avant l'intervention du bailleur ou d'un mécanicien.\n
+    • Ne permettre qu'aux conducteurs enregistrés dans le contrat de location de conduire le véhicule.",
+    'authorized_drivers' => 'Conducteurs Autorisés',
+    'authorized_drivers_text'=>'Le véhicule ne peut être conduit que par les personnes mentionnées dans le contrat de location en tant que conducteurs autorisés.',
+    'compensation' => 'Indemnisation',
+   'compensation_text' => "À la fin de la période de location, si le véhicule n’est pas retourné dans le même état qu’au début, le locataire doit immédiatement indemniser le bailleur pour tout dommage.",
+   'fines' => 'Amendes',
+    'fines_text' => 'Le locataire est responsable du paiement de toutes les amendes encourues pendant la période de location. Des frais administratifs de 20,00 CHF seront facturés pour le traitement.',
+    'accident_procedure' => 'Procedure in the Event of an Accident or Theft',
+    'accident_procedure_text' => "En cas d'accident, de vol ou de dommage, le locataire doit immédiatement informer la police et avertir le bailleur dès que possible. Un rapport d'accident doit être rempli et soumis au bailleur ainsi qu'à la compagnie d'assurance.",
+    'prohibited_uses' => 'Utilisations Interdites et Restrictions Territoriales',
+    'prohibited_uses_text' => 'Le véhicule ne peut être utilisé que sur le territoire suisse. Toute utilisation non autorisée est strictement interdite.',
+    'fuel_policy' => 'Politique de Carburant',
+    'fuel_policy_text' => "Le véhicule doit être retourné avec le même niveau de carburant qu'au début de la location. Sinon, un supplément de 20,00 CHF plus le coût du carburant sera appliqué.",
+    'share' => 'Partager ce lien :',
+
 
     'your_cart' => 'Votre Panier',
     'shipping_address_is_same_as_billing_address' => 'L’adresse de livraison est identique à l’adresse de facturation.',
