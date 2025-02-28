@@ -74,8 +74,8 @@
                 <div class="widget">
                     <h5>{{ __('messages.accepted_cards') }}</h5>
                     <div class="social-icons">
-                        <img class="cards001" src="images/01.png" alt="w">
-                        <img src="images/twint25.png" alt="twint" style="width: 10%;">
+                        <img class="cards001" src="{{ asset('images/01.png') }}"  alt="w">
+                        <img src="{{ asset('images/twint25.png') }}" alt="twint" style="width:7%;">
                     </div>
                     <h5 class="foot001">{{ __('messages.social_network') }}</h5>
                     <div class="social-icons">
