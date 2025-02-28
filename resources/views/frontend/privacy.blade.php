@@ -1,7 +1,7 @@
 @extends('frontend.layouts.loca')
 
 @section('title')
-    {{ config('app.name') }} - Privacy Policy 
+    {{ config('app.name') }} - Privacy Policy
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -80,11 +80,11 @@
                     <!-- Add more sections here as necessary -->
 
                     <!-- Shareable Link Section -->
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <strong>Share this link:</strong>
                         <input type="text" class="form-control text-center form-border" readonly
                             value="{{ $link ?? 'No link provided' }}">
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>

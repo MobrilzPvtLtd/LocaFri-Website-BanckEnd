@@ -1479,12 +1479,17 @@ section#shadow-host-companion {
         padding: 50px 0em 0 0 !important;
     }
 
-img.logo-1, img.logo-2 {
+img.logo-1 {
     width: 20vw;
     /* background-color: red; */
     padding: 5px 0px !important;
 }
 
+img.logo-2{
+    width: 75%;
+    /* background-color: red; */
+    padding: 5px 0px !important;
+}
 
 header.side-header {
     border-bottom: none;
@@ -2684,8 +2689,9 @@ input[type="checkbox"] {
 }
 
 #contact_form h5{
-    margin-bottom: 15px;
+    margin:9px 0;
 }
+
 
     /* form style */
     /* ------------------------------ */

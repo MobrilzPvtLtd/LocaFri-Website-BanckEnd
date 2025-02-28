@@ -97,11 +97,11 @@
                     </p>
 
                     <!-- Shareable Link Section -->
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <strong>Share this link:</strong>
                         <input type="text" class="form-control text-center form-border" readonly
                             value="{{ $link ?? 'No link provided' }}">
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
