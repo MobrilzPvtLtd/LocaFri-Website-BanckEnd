@@ -187,7 +187,7 @@ Route::prefix('admin')->name('backend.')->group(function () {
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics'); // Change 'index' to 'analytics'
 });
 Route::post('/backend/analytics/export', [App\Http\Controllers\Backend\AnalyticsController::class, 'exportData'])->name('backend.analytics.export');
-
+Route::post('/admin/analytics/sendEmail', [\App\Http\Controllers\Backend\AnalyticsController::class, 'sendEmail'])->name('backend.analytics.sendEmail');
 /*
 *
 * Backend Routes

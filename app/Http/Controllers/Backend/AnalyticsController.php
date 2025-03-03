@@ -9,6 +9,8 @@ use App\Models\Booking;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AnalyticsReport;
 
 class AnalyticsController extends Controller
 {
@@ -28,8 +30,9 @@ class AnalyticsController extends Controller
             ? Carbon::parse($request->input('date'))
             : Carbon::now();
 
-        $defaultStartDate = $currentDate->copy()->subDays(5);  // Reduced to 5 days
-        $defaultEndDate = $currentDate->copy()->addDays(5);   // Reduced to 5 days
+        // **Key Change: Set Default Start and End Dates to Current Month**
+        $defaultStartDate = $currentDate->copy()->startOfMonth();
+        $defaultEndDate = $currentDate->copy()->endOfMonth();
 
         // Use filter dates, or default if filter is not applied
         $startDate = $defaultStartDate;
@@ -82,23 +85,27 @@ class AnalyticsController extends Controller
         foreach ($displayVehicles as $vehicle) {
             foreach ($dateLabels as $dateLabel) {
                 $isBooked = false; // Initialize to false
-                $bookingQuery = Booking::join('vehicles', 'bookings.vehicle_id', '=', 'vehicles.id')
-                    ->where('vehicles.id', $vehicle->id)
-                    ->whereDate('bookings.pickUpDate', '<=', $dateLabel)
-                    ->whereDate('bookings.collectionDate', '>=', $dateLabel);
+
+                //Start adding condition is_reject so all result will now reject if is_rejected =1 in booking database
+                 $bookingQuery = Booking::join('vehicles', 'bookings.vehicle_id', '=', 'vehicles.id')
+                       ->where('vehicles.id', $vehicle->id)
+                       ->where('bookings.is_rejected', 0) // AND condition for is_reject=0
+                        ->whereDate('bookings.pickUpDate', '<=', $dateLabel)
+                        ->whereDate('bookings.collectionDate', '>=', $dateLabel);
 
                if (!empty($vehicleFilter)  && empty($specialDateFilter)) {
                   $bookingQuery->whereIn('vehicles.id', $vehicleFilter);
                }
 
                 if ($specialDateFilter === 'start_date') {
-                    $isBooked = Booking::where('vehicle_id', $vehicle->id)
-                        ->whereDate('pickUpDate', $dateLabel)
-                        ->exists();
-
+                     $isBooked = Booking::where('vehicle_id', $vehicle->id)
+                        ->whereDate('bookings.pickUpDate', $dateLabel)
+                         ->where('is_rejected', 0)  // Also exclude rejected
+                         ->exists();
                 } elseif ($specialDateFilter === 'end_date') {
-                    $isBooked = Booking::where('vehicle_id', $vehicle->id)
-                        ->whereDate('collectionDate', $dateLabel)
+                  $isBooked = Booking::where('vehicle_id', $vehicle->id)
+                        ->whereDate('bookings.collectionDate', $dateLabel)
+                       ->where('is_rejected', 0)  // Also exclude rejected
                         ->exists();
                 } else {
                     $isBooked = $bookingQuery->exists();
@@ -151,4 +158,17 @@ class AnalyticsController extends Controller
 
         return new StreamedResponse($callback, 200, $headers);
     }
+
+  public function sendEmail(Request $request)
+   {
+       try {
+            $matrixData = json_decode($request->input('matrix_data'), true);
+            Mail::to(env('MAIL_FROM_ADDRESS'))->send(new AnalyticsReport($matrixData));
+              return response()->json(['message' => 'Email sent successfully!']);
+
+        } catch (\Exception $e) {
+            \Log::error("Error sending email: " . $e->getMessage());
+            return response()->json(['message' => 'Error sending email.'], 500);
+      }
+   }
 }
