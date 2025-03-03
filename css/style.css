@@ -18596,3 +18596,11 @@ input[type="file"]:focus {
 .submit-button:hover {
     background-color: #0056b3;
 }
+
+.main-image-container {
+ margin-bottom: 10px;
+}
+.thumbnail-container {
+ overflow-x: auto;
+}
+

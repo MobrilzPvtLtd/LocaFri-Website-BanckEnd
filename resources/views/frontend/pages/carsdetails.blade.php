@@ -46,39 +46,41 @@
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-                                {{-- @php
-                                    $images = unserialize($vehicles->image);
-                                @endphp
-                                @if (!empty($images) && is_array($images) && count($images) > 0)
-                                    <img src="{{ asset('public/' . $images[0]) }}" alt="Image" class="img-fluid w-100">
-                                @else
-                                    <p>No images available</p>
-                                @endif --}}
-                                @if($vehicles->image)
-                                    @php
-                                        $images = json_decode($vehicles->image);
-                                    @endphp
-
-                                    @if($images && count($images) > 0)
-                                        <img src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
-                                    @endif
-                                @endif
-
-                                <div class="d-flex">
+                                <div class="main-image-container">
                                     @if($vehicles->image)
-                                    @php
-                                        $images = json_decode($vehicles->image);
-                                    @endphp
-
-                                    @if($images && count($images) > 0)
-                                        @foreach($images as $image)
-                                        <div class="card rounded shadow object-fit  w-25 mx-2">
-                                            <img src="{{ asset('public/storage/' . $image) }}" alt="vehicle" class="img-fluid w-100 "> </div>
-                                        @endforeach
+                                        @php
+                                            $images = json_decode($vehicles->image);
+                                        @endphp
+                            
+                                        @if($images && count($images) > 0)
+                                            <img id="main-image" src="{{ asset('public/storage/' . $images[0]) }}" alt="vehicle" class="img-fluid w-100">
+                                        @else
+                                            <p>No images available</p>
+                                        @endif
+                                    @else
+                                        <p>No images available</p>
                                     @endif
-                                @endif
+                                </div>
+                            
+                                <div class="d-flex thumbnail-container">
+                                    @if($vehicles->image)
+                                        @php
+                                            $images = json_decode($vehicles->image);
+                                        @endphp
+                            
+                                        @if($images && count($images) > 0)
+                                            @foreach($images as $image)
+                                                <div class="card rounded shadow object-fit w-25 mx-2 thumbnail" data-image="{{ asset('public/storage/' . $image) }}" style="cursor: pointer;">
+                                                    <img src="{{ asset('public/storage/' . $image) }}" alt="vehicle" class="img-fluid w-100 ">
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
+                            
+                            
+                            
                         </div>
                     </div>
 
@@ -357,6 +359,25 @@
     <!-- content close -->
 
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('main-image');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {  
+                const newImageSrc = this.dataset.image;
+                mainImage.src = newImageSrc;
+            });
+
+             thumbnail.addEventListener('mouseover', function() { 
+                const newImageSrc = this.dataset.image;
+                mainImage.src = newImageSrc;
+            });
+        });
+    });
+</script>
 {{-- @section('script')
     <script>
         $(document).ready(function() {
