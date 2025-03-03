@@ -1,0 +1,271 @@
+@extends('backend.layouts.app')
+
+@section('content')
+    <div class="row">
+        {{-- Filter Sidebar --}}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Filter Analytics</h5>
+                    <form method="GET" action="{{ route('backend.analytics') }}">
+                        <div class="form-group">
+                            <label for="start_date">Start Date:</label>
+                            <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
+                                   value="{{ $startDateFilter ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="end_date">End Date:</label>
+                            <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
+                                   value="{{ $endDateFilter ?? '' }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Apply Filter</button>
+                        <a href="{{ route('backend.analytics') }}" class="btn btn-secondary btn-sm">Reset</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Main Content (Matrix Chart) --}}
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="mb-4">Vehicle Bookings</h2>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="{{ route('backend.analytics', ['date' => $currentDate->copy()->subDays(11)->format('Y-m-d'), 'start_date' => $startDateFilter ?? '', 'end_date' => $endDateFilter ?? '']) }}"
+                           class="btn btn-secondary btn-sm">
+                            « Previous 10 Days
+                        </a>
+                        <span class="text-center">{{ $currentDate->format('Y-m-d') }}</span>
+                        <a href="{{ route('backend.analytics', ['date' => $currentDate->copy()->addDays(11)->format('Y-m-d'), 'start_date' => $startDateFilter ?? '', 'end_date' => $endDateFilter ?? '']) }}"
+                           class="btn btn-secondary btn-sm">
+                            Next 10 Days »
+                        </a>
+                    </div>
+
+                    {{-- Chart Container --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="matrix-chart" class="overflow-auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('after-scripts')
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script>
+            $(function() {
+                const matrixData = @json($matrixData);
+                const dateLabels = @json($dateLabels);
+                const vehiclesData = @json($vehicles);
+                const vehicles = vehiclesData.map(vehicle => vehicle.name);
+
+                // Chart dimensions and margins
+                const margin = {top: 80, right: 250, bottom: 50, left: 200},
+                    width = 900 - margin.left - margin.right,
+                    height = 600 - margin.top - margin.bottom;
+
+                // Append the SVG object to the div
+                const svg = d3.select("#matrix-chart")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Build and map the X scale
+                const x = d3.scaleBand()
+                    .range([0, width])
+                    .domain(dateLabels)
+                    .padding(0.2); // Increased padding between dates
+                svg.append("g")
+                    .attr("transform", `translate(0,${height})`)
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", ".15em")
+                    .attr("transform", "rotate(-65)")
+                    .style("font-size", "11px")
+                    .style("fill", "#555");
+                // Build and map the Y scale
+                const y = d3.scaleBand()
+                    .range([height, 0])
+                    .domain(vehicles)
+                    .padding(0.2); // Increased Padding Here Also
+
+                svg.append("g")
+                    .call(d3.axisLeft(y))
+                    .selectAll("text")
+                    .style("font-size", "11px")
+                    .style("fill", "#555");
+                // Create a tooltip
+                const tooltip = d3.select("#matrix-chart")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "2px")
+                    .style("border-radius", "5px")
+                    .style("padding", "5px")
+                    .style("position", "absolute")
+                    .style("font-size", "12px");
+                // functions that change the tooltip when user hover / move / leave a cell
+                const mouseover = function(event, d) {
+                    tooltip
+                        .style("opacity", 1)
+                    d3.select(this)
+                        .style("stroke", "black")
+                        .style("opacity", 1)
+                }
+                const mousemove = function(event, d) {
+                    tooltip
+                        .html("Vehicle: " + d.vehicle + "<br>Date: " + d.date + "<br>Status: " + (d.booked ?
+                        "Booked" : "Available"))
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 10) + "px");
+                }
+                const mouseleave = function(event, d) {
+                    tooltip
+                        .style("opacity", 0)
+                    d3.select(this)
+                        .style("stroke", "none")
+                        .style("opacity", 0.8)
+                }
+
+                // Define the checkmark symbol
+                const checkmark = "✔"; // Unicode checkmark
+
+                // Create the cells (now with text instead of filled rectangles)
+                svg.selectAll()
+                    .data(matrixData, function(d) {
+                        return d.vehicle + ':' + d.date;
+                    })
+                    .enter()
+                    .append("g") // Group for background and checkmark
+                    .attr("transform", function(d) {
+                        return `translate(${x(d.date)}, ${y(d.vehicle)})`;
+                    })
+                    .each(function(d) {
+                        const bandWidth = x.bandwidth();
+                        const bandHeight = y.bandwidth();
+
+                        // Append background circle
+                        d3.select(this)
+                            .append("circle")
+                            .attr("cx", bandWidth / 2)
+                            .attr("cy", bandHeight / 2)
+                            .attr("r", Math.min(bandWidth, bandHeight) / 2.3)
+                            .attr("fill", d.booked ? "#dc3545" : "#28a745");
+                        // Append text (checkmark)
+                        d3.select(this)
+                            .append("text")
+                            .attr("x", bandWidth / 2)
+                            .attr("y", bandHeight / 2)
+                            .attr("text-anchor", "middle")
+                            .attr("dominant-baseline", "central")
+                            .style("font-size", Math.min(bandWidth, bandHeight) * 0.6 + "px")
+                            .style("fill", "#fff")
+                            .text(d.booked ? checkmark : "");
+                    });
+                     //Legend Position adjustments: position and font (Right Side)
+                const legendX = width + 50; // Position to the Right of the Chat
+                const legendY = height/2 - 50; // Vertical Centering
+
+                const legendGroup = svg.append("g")
+                  .attr("transform", `translate(${legendX}, ${legendY})`);
+
+                legendGroup.append("circle").attr("cx", 0).attr("cy", -20).attr("r", 6).style("fill",
+                  "#dc3545");
+                legendGroup.append("text").attr("x", 20).attr("y", -20).text("Booked").style("font-size",
+                  "12px").attr("alignment-baseline", "middle").style("fill", "#555");
+
+                legendGroup.append("circle").attr("cx", 0).attr("cy", 10).attr("r", 6).style("fill",
+                  "#28a745");
+                legendGroup.append("text").attr("x", 20).attr("y", 10).text("Available").style("font-size",
+                  "12px").attr("alignment-baseline", "middle").style("fill", "#555");
+            });
+        </script>
+    @endpush
+@endsection, <?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Vehicle;
+use App\Models\Booking;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
+class AnalyticsController extends Controller
+{
+    public function index(Request $request)
+    {
+        // 1. Get all vehicles
+        $vehicles = Vehicle::all();
+
+        // 2. Get filter dates from the request and assign empty values as required
+        $startDateFilter = $request->input('start_date') ?? '';
+        $endDateFilter = $request->input('end_date') ?? '';
+
+        // 3. Determine default and filter date ranges
+        $currentDate = $request->has('date')
+            ? Carbon::parse($request->input('date'))
+            : Carbon::now();
+
+        $defaultStartDate = $currentDate->copy()->subDays(10);
+        $defaultEndDate = $currentDate->copy()->addDays(10);
+
+        // Use filter dates, or default if filter is not applied
+        $startDate = $defaultStartDate;
+        $endDate = $defaultEndDate;
+
+        if ($startDateFilter && $endDateFilter) {
+            try {
+                $startDate = Carbon::parse($startDateFilter);
+                $endDate = Carbon::parse($endDateFilter);
+            } catch (\Exception $e) {
+                // Invalid date format, handle error here
+                $startDateFilter = null;
+                $endDateFilter = null;
+                $startDate = $defaultStartDate;
+                $endDate = $defaultEndDate;
+            }
+        }
+
+        // 4. Generate the date labels within the *selected* range
+        $dateLabels = [];
+        $current = $startDate->copy();
+        while ($current->lte($endDate)) {
+            $dateLabels[] = $current->format('Y-m-d');
+            $current->addDay();
+        }
+
+        // 5. Prepare the data for the matrix chart
+        $matrixData = [];
+        foreach ($vehicles as $vehicle) {
+            foreach ($dateLabels as $dateLabel) {
+                $isBooked = Booking::join('vehicles', 'bookings.vehicle_id', '=', 'vehicles.id')
+                    ->where('vehicles.id', $vehicle->id)
+                    ->whereDate('bookings.pickUpDate', '<=', $dateLabel)
+                    ->whereDate('bookings.collectionDate', '>=', $dateLabel)
+                    ->exists();
+
+                $matrixData[] = [
+                    'vehicle' => $vehicle->name,
+                    'date' => $dateLabel,
+                    'booked' => $isBooked,
+                ];
+            }
+        }
+
+        return view('backend.analytics.index', compact('vehicles', 'dateLabels', 'matrixData', 'currentDate', 'startDateFilter', 'endDateFilter'));
+    }
+}

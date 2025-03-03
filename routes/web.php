@@ -25,6 +25,7 @@ use App\Http\Controllers\Backend\CompleteContractController;
 // use App\Http\Controllers\Backend\CompletedController;
 use App\Http\Controllers\Backend\CompletedController;
 use App\Livewire\TermsAndConditions;
+use App\Http\Controllers\Backend\AnalyticsController;
 
 
 
@@ -182,6 +183,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     });
 });
 
+Route::prefix('admin')->name('backend.')->group(function () {
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics'); // Change 'index' to 'analytics'
+});
+Route::post('/backend/analytics/export', [App\Http\Controllers\Backend\AnalyticsController::class, 'exportData'])->name('backend.analytics.export');
+
 /*
 *
 * Backend Routes
@@ -208,6 +214,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         Route::get("{$module_name}", "{$controller_name}@index")->name("{$module_name}");
         Route::post("{$module_name}", "{$controller_name}@store")->name("{$module_name}.store");
     });
+
 
     /*
     *

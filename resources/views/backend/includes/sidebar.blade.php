@@ -261,6 +261,14 @@ $total_completed_Contracts = App\Models\Booking::where('is_complete', 1)->count(
         </li>
     @endcan
 
+    @can('view_users')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('admin/analytics') }}">
+            <i class="nav-icon fa-solid fa-chart-bar"></i>&nbsp;Booking Analytics
+        </a>
+    </li>
+@endcan
+
     {{-- @can('view_roles')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.roles.index') }}">
