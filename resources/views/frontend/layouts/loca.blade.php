@@ -156,72 +156,77 @@
             dateFormat: "yy-mm-dd",
             minDate: 0,
             ...(isHome ?
-            {
-                onSelect: function(selectedDate) {
-                    $("#endDate").datepicker("option", "minDate", selectedDate);
-                    if ($("#endDate").val() && new Date(selectedDate) > new Date($("#endDate").val())) {
-                        $("#endDate").val("");
-                        $("#endTime").val("");
-                    }
-                getCombinedDateTime();
-                    setTimeout(function() {
-                        $("#endDate").datepicker("show");
-                    }, 0);
-                }
-            }
-            :
-            {
-                beforeShowDay: function(date) {
-                    const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
-                    return [disabledDates.indexOf(formattedDate) === -1];
-                },
-                onSelect: function(selectedDate) {
-                    const startDate = new Date(selectedDate);
-
-                    // Sort disabled dates and find the next one after the selected start date
-                    const sortedDisabledDates = disabledDates
-                        .map(date => new Date(date))
-                        .sort((a, b) => a - b);
-
-                    let nextDisabledDate = null;
-                    for (let date of sortedDisabledDates) {
-                        if (date > startDate) {
-                            nextDisabledDate = date;
-                            break;
+                {
+                    onSelect: function (selectedDate) {
+                        $("#endDate").datepicker("option", "minDate", selectedDate);
+                        if ($("#endDate").val() && new Date(selectedDate) > new Date($("#endDate").val())) {
+                            $("#endDate").val("");
+                            $("#endTime").val("");
                         }
+                        getCombinedDateTime();
+                        setTimeout(function () {
+                            $("#endDate").datepicker("show");
+                        }, 0);
                     }
-
-                    // Set the maximum date to the day before next disabled date
-                    if (nextDisabledDate) {
-                        const maxDate = new Date(nextDisabledDate);
-                        maxDate.setDate(maxDate.getDate() - 1);
-                        $("#endDate").datepicker("option", "maxDate", maxDate);
-                    } else {
-                        $("#endDate").datepicker("option", "maxDate", null);
-                    }
-
-                    // Set minimum end date to start date
-                    $("#endDate").datepicker("option", "minDate", startDate);
-
-                    // Clear end date if it's now invalid
-                    const currentEndDate = $("#endDate").datepicker("getDate");
-                    if (currentEndDate && nextDisabledDate && currentEndDate >= nextDisabledDate) {
-                        $("#endDate").val("");
-                        $("#endTime").val("");
-                    }
-
-                    getCombinedDateTime();
-                    calculateDaysWeeksMonths();
-                    calculateTotalPrice();
                 }
-            }),
+                :
+                {
+                    beforeShowDay: function (date) {
+                        const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
+
+                        // Check if 'disabledDates' is an array and if it contains the formatted date
+                        if (Array.isArray(disabledDates)) {
+                            return [disabledDates.indexOf(formattedDate) === -1];
+                        }
+                        return [true]; // Default to not disabling any date if 'disabledDates' is not an array
+                    },
+                    onSelect: function (selectedDate) {
+                        const startDate = new Date(selectedDate);
+
+                        // Sort disabled dates and find the next one after the selected start date
+                        const sortedDisabledDates = (Array.isArray(disabledDates) ? disabledDates : [])
+                            .map(date => new Date(date))
+                            .sort((a, b) => a - b);
+
+                        let nextDisabledDate = null;
+                        for (let date of sortedDisabledDates) {
+                            if (date > startDate) {
+                                nextDisabledDate = date;
+                                break;
+                            }
+                        }
+
+                        // Set the maximum date to the day before next disabled date
+                        if (nextDisabledDate) {
+                            const maxDate = new Date(nextDisabledDate);
+                            maxDate.setDate(maxDate.getDate() - 1);
+                            $("#endDate").datepicker("option", "maxDate", maxDate);
+                        } else {
+                            $("#endDate").datepicker("option", "maxDate", null);
+                        }
+
+                        // Set minimum end date to start date
+                        $("#endDate").datepicker("option", "minDate", startDate);
+
+                        // Clear end date if it's now invalid
+                        const currentEndDate = $("#endDate").datepicker("getDate");
+                        if (currentEndDate && nextDisabledDate && currentEndDate >= nextDisabledDate) {
+                            $("#endDate").val("");
+                            $("#endTime").val("");
+                        }
+
+                        getCombinedDateTime();
+                        calculateDaysWeeksMonths();
+                        calculateTotalPrice();
+                    }
+                }),
         });
 
         $("#endDate").datepicker({
             dateFormat: "yy-mm-dd",
             minDate: 0,
             ...(isHome ? {
-                onSelect: function(selectedDate) {
+                onSelect: function (selectedDate) {
                     $("#startDate").datepicker("option", "maxDate", selectedDate);
                     if ($("#startDate").val() && new Date(selectedDate) < new Date($("#startDate").val())) {
                         $("#startDate").val("");
@@ -232,14 +237,17 @@
             }
             :
             {
-                beforeShowDay: function(date) {
+                beforeShowDay: function (date) {
                     const formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
                     const startDate = $("#startDate").datepicker("getDate");
 
                     if (!startDate) return [true];
 
-                    // Find next disabled date after start date
-                    const sortedDisabledDates = disabledDates
+                    // Ensure disabledDates is an array
+                    const disabledDatesArray = Array.isArray(disabledDates) ? disabledDates : [];
+
+                    // Sort disabled dates and find the next disabled date after the start date
+                    const sortedDisabledDates = disabledDatesArray
                         .map(date => new Date(date))
                         .sort((a, b) => a - b);
 
@@ -252,18 +260,19 @@
                     }
 
                     // Check if current date is disabled or beyond next disabled date
-                    const isDisabled = disabledDates.includes(formattedDate);
+                    const isDisabled = disabledDatesArray.includes(formattedDate);
                     const isAfterNextDisabled = nextDisabledDate && date >= nextDisabledDate;
 
                     return [!isDisabled && !isAfterNextDisabled];
                 },
-                onSelect: function(selectedDate) {
+                onSelect: function (selectedDate) {
                     getCombinedDateTime();
                     calculateDaysWeeksMonths();
                     calculateTotalPrice();
                 }
             }),
         });
+
 
         $("#startTime, #endTime").timepicker({
             timeFormat: "HH:mm",
