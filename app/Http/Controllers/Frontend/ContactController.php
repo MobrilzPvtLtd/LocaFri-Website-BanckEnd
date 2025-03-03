@@ -26,41 +26,40 @@ class ContactController extends Controller
         $contact->message = $request->message;
         $contact->save();
 
-        // $admin = User::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
+        $clientEmail = 'info@locafri.ch';
 
-        // // Send email
+        $data = [
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'message' => $contact->message,
+        ];
+
+        // Send email
+        if ($request->has('email')) {
+            Mail::to($contact->email)->send(new ContactMail($data));
+        }
+
+        if ($admin && $admin->email) {
+            Mail::to($admin->email)->send(new ContactMail($data));
+        }
+
+        if ($clientEmail) {
+            Mail::to($clientEmail)->send(new ContactMail($data));
+        }
+
         // Mail::to($contact->email)->send(new ContactMail($contact));
-        // Mail::to($admin->email)->send(new ContactMail($contact));
-
-
-        $adminEmail = User::where('id', 1)->value('email');
-        $infoEmail = 'info@locafri.ch';
-
-
-    Mail::to($contact->email)->send(new ContactMail($contact));
-    Mail::to([$adminEmail, $infoEmail])->send(new ContactMail($contact));
+        // Mail::to([$admin->email, $infoEmail])->send(new ContactMail($contact));
 
         return redirect()->back()->with('success', 'Message sent successfully!');
     }
 
     public function update(Request $request, $id)
-{
-    $contact = Contact::findOrFail($id);
-    $contact->status = $request->status; // Update status to 'open' or 'close'
-    $contact->save();
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->status = $request->status; // Update status to 'open' or 'close'
+        $contact->save();
 
-    return redirect()->back()->with('success', 'Contact status updated successfully.');
-}
-
-// public function trash($id)
-// {
-//     $contact = Contact::findOrFail($id);
-//     $contact->delete(); // Moves to soft delete (trash)
-//     return redirect()->route('contacts.trash')->with('success', 'Contact moved to trash.');
-// }
-
-
-
-
-
+        return redirect()->back()->with('success', 'Contact status updated successfully.');
+    }
 }

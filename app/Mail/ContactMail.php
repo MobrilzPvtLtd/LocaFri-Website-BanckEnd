@@ -11,13 +11,14 @@ use App\Models\Contact;
 class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $contact;
+
+    public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct(Contact $contact)
+    public function __construct($data)
     {
-        $this->contact = $contact;
+        $this->data = $data;
     }
 
     /**
@@ -26,8 +27,11 @@ class ContactMail extends Mailable
      * @return $this
      */
     public function build(){
+        $data = $this->data;
+        $subject = 'A new email for contact form';
 
-        return $this->view('mail.contact-email')->subject("A new email for contact form")->with(['contact' => $this->contact]);
+        return $this->view('mail.contact-email', ['data' => $data])
+                    ->subject($subject);
     }
 
 }
